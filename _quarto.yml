@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  site-url: https://example.com
+  title: "R-CameraTrap-Workshop"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+babelquarto:
+  languagelinks: navbar
+  languagecodes:
+  - name: es
+    text: "Version in es"
+  - name: en
+    text: "Version in en"
+  mainlanguage: 'en'
+  languages: ['es']
+title-es: title in es
+description-es: description in es
+author-es: author in es
+lang: en
+
