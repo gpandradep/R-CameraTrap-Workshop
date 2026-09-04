@@ -1,7 +1,52 @@
 ---
-title: "R-CameraTrap-Workshop"
+title: "Introducción a R"
+subtitle: "Una introducción práctica al manejo y visualización de datos"
+toc: false
 ---
 
-This is a Quarto website.
+Bienvenido a **Introducción a R**, un curso para principiantes diseñado para proporcionar las bases necesarias para trabajar con datos en R.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+No se requiere experiencia previa con R o programación. El curso se enfoca en habilidades prácticas e introduce los conceptos de manera progresiva, desde entender cómo funciona R hasta importar, manipular, visualizar y explorar datos reales.
+
+A lo largo del curso utilizaremos ejemplos ecológicos y datos de cámaras trampa para conectar los conceptos de R con datos reales. En el módulo final integraremos estas habilidades para organizar y procesar datos de cámaras trampa utilizando el paquete `camtrapR`.
+
+## ¿Qué aprenderás?
+
+Al finalizar el curso, deberías ser capaz de:
+
+- Entender la estructura básica de R y RStudio.
+- Crear y manipular objetos comunes en R.
+- Importar y exportar bases de datos.
+- Explorar y visualizar datos utilizando `ggplot2`.
+- Manipular bases de datos utilizando `dplyr` y otras herramientas de tidyverse.
+- Identificar errores comunes en R y desarrollar estrategias para resolver problemas.
+- Realizar un análisis exploratorio básico de una base de datos.
+- Organizar y procesar datos de cámaras trampa utilizando `camtrapR`.
+
+## Organización del curso
+
+El curso está dividido en módulos cortos que avanzan progresivamente sobre los conceptos aprendidos anteriormente.
+
+1. **Introducción a R y RStudio**
+2. **Objetos, operadores y funciones**
+3. **Estructuras de datos en R**
+4. **Importar y exportar datos**
+5. **Visualización de datos**
+6. **Errores, ayuda y solución de problemas**
+7. **Manipulación de datos con tidyverse**
+8. **Análisis exploratorio de datos**
+9. **Trabajando con datos de cámaras trampa usando `camtrapR`**
+
+::: {.callout-tip}
+## Aprender mediante practica
+
+La mejor manera de aprender R es usándolo. Cada módulo incluye ejemplos y ejercicios diseñados para ser realizados directamente en RStudio.
+
+Los ejercicios cortos para realizar en casa proporcionarán práctica adicional sin requerir una gran cantidad de tiempo.
+:::
+
+## Antes de comenzar
+
+Si todavía no tienes instalados R y RStudio, comienza con la página de [Primeros pasos](getting-started/setup.qmd).
+
+Si todo está listo, puedes comenzar con el [Módulo 1: Introducción a R y RStudio](modules/01-introduction.qmd).

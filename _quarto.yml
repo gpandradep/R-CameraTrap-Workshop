@@ -1,14 +1,9 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  site-url: https://example.com
-  title: "R-CameraTrap-Workshop"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+  title: "Introduction to R"
 
 format:
   html:
@@ -21,14 +16,14 @@ format:
 babelquarto:
   languagelinks: navbar
   languagecodes:
-  - name: es
-    text: "Version in es"
-  - name: en
-    text: "Version in en"
-  mainlanguage: 'en'
-  languages: ['es']
-title-es: title in es
-description-es: description in es
-author-es: author in es
-lang: en
+    - name: es
+      text: "Español"
+    - name: en
+      text: "English"
+  mainlanguage: en
+  languages: [es]
 
+title-es: "Introducción a R"
+description-es: "Una introducción práctica al manejo y visualización de datos"
+
+lang: en

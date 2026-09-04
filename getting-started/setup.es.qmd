@@ -1,0 +1,206 @@
+---
+
+title: "Primer paso" 
+toc: true
+
+---
+
+## Introducción
+
+Antes de comenzar a trabajar con R, necesitamos instalar dos programas: R y RStudio.
+
+Aunque utilizaremos RStudio la mayor parte del tiempo, R y RStudio no son lo mismo. R es el programa que realmente ejecuta nuestro código, mientras que RStudio proporciona una interfaz más cómoda para escribir código, organizar archivos, visualizar gráficos y trabajar con datos.
+
+Como RStudio necesita R para funcionar, instalaremos primero R y después RStudio.
+
+Si ya tienes ambos instalados, puedes ir directamente a la sección [Instalar paquetes](#iInstalar-paquetes).
+
+## Instalar R
+
+El primer paso es ir a la página web de [R Project](https://www.r-project.org/?utm_source=chatgpt.com) y seleccionar download R.
+
+Llegarán a una página con una lista de servidores CRAN (CRAN mirrors). Estos son simplemente diferentes servidores desde los cuales puedes descargar R. Puedes elegir uno que esté ubicado cerca de ti, aunque cualquiera debería funcionar.
+
+Luego, selecciona el instalador correspondiente a tu sistema operativo.
+
+::: {.callout-important}
+Si ya tienes R instalado, descargarlo e instalarlo nuevamente actualizará tu versión de R. Ten en cuenta que cuando actualizas R, normalmente tendrás que reinstalar tus paquetes (más adelante veremos qué son los paquetes de R).
+:::
+
+###Windows
+
+Si utilizas Windows:
+
+1. Selecciona Download R for Windows.
+2. Selecciona base.
+3. Descarga la versión más reciente de R.
+
+El número de versión cambiará con el tiempo, así que no te preocupes si la versión que aparece en la página web es diferente de la que se muestra en este tutorial. Simplemente descarga la versión estable más reciente.
+
+Guarden el instalador en donde ustedes consideren.
+
+Abre el instalador que acabas de descargar.
+
+Simplemente abrimos el archivo y seguimos todas las instrucciones tal cual. Normalmente no es necesario cambiar la carpeta de instalación ni ninguna otra configuración.
+
+Una vez terminada la instalación, deberías poder encontrar R entre las aplicaciones instaladas en tu computador.
+
+Verás un icono similar al logo de R.
+
+Si abres R directamente, verás una ventana relativamente sencilla que contiene la Consola de R.
+
+Puedes escribir y ejecutar código de R directamente aquí. La verdad es que R por sí solo no es muy amigable a primera vista. De hecho, yo nunca utilizo R base. Por esta razón, vamos a instalar una interfaz mucho más amigable llamada RStudio.
+
+### macOS
+
+Si utilizas una Mac, el proceso es muy similar.
+
+Desde la página de descarga de R:
+
+1. Selecciona Download R for macOS.
+2. Descarga la versión más reciente compatible con tu computador.
+3. Abre el archivo .pkg que descargaste.
+4. Sigue las instrucciones de instalación.
+
+Las Mac recientes utilizan procesadores Apple silicon (serie M, como M1, M2, M3, etc.), mientras que algunas Mac más antiguas utilizan procesadores Intel. Asegúrate de seleccionar el instalador apropiado para tu computador.
+
+Si no estás seguro de qué procesador tiene tu Mac, ve a:
+
+Menú Apple → Acerca de esta Mac
+
+y revisa la información que aparece en Chip o Procesador.
+
+Una vez terminada la instalación, R estará disponible en tu computador.
+
+Si abres R directamente, verás una ventana relativamente sencilla que contiene la Consola de R.
+
+Puedes escribir y ejecutar código de R directamente aquí. La verdad es que R por sí solo no es muy amigable a primera vista. De hecho, yo nunca utilizo R base. Por esta razón, vamos a instalar una interfaz mucho más amigable llamada RStudio.
+
+## Instalar RStudio
+
+Ahora que R está instalado, podemos instalar RStudio.
+
+Descargar RStudio
+
+Ve a la página web de [Posit](https://posit.co/downloads) y selecciona la opción para descargar RStudio Desktop. Llegaremos a una página donde nos dice que el primer paso es instalar R, ya que RStudio es solo una interfaz, este no funciona sin tener instalado R. Como ya instalamos R, vamos ir al paso dos que es instalar RStudio desktop.
+
+Posit es la compañía que desarrolla RStudio. Existen diferentes versiones de sus productos, pero para este curso solamente necesitamos la versión gratuita de RStudio Desktop.
+
+La página debería sugerir automáticamente el instalador apropiado para tu sistema operativo.
+
+### Windows
+
+Descarga el instalador para Windows (.exe), ábrelo y sigue las instrucciones de instalación.
+
+Nuevamente, las opciones predeterminadas son apropiadas para lo que necesitamos.
+
+### Mac
+
+Descarga el instalador para macOS (.dmg).
+
+Abre el archivo descargado y mueve RStudio a tu carpeta de Aplicaciones cuando se te indique.
+
+## Abrir RStudio
+
+Una vez que todo esté instalado, abre RStudio.
+
+Puede parecer que están sucediendo muchas cosas en la pantalla, ¡pero no te preocupes! En el primer módulo veremos con calma las diferentes partes de RStudio.
+
+Créeme, RStudio nos hace la vida mucho más fácil a quienes no somos programadores. Nos ayuda, por ejemplo, con el autocompletado de funciones y objetos, y además tiene muchas extensiones que amplían las capacidades de R. Por eso recomiendo que trabajes siempre desde RStudio. No te vas a arrepentir 😉.
+
+![Illustrating having funR: Artwork by '\@'allison_horst](https://bookdown.org/tiagoandremarques/ecomodbook/extfiles/r_first_then.png){fig-align="center" width="442"}
+
+Por ahora, solamente necesitamos asegurarnos de que R y RStudio estén comunicándose correctamente.
+
+Busca la Consola y escribe:
+
+`2 + 2`
+
+Luego presiona Enter.
+
+R debería devolver:
+
+`[1] 4`
+
+Si obtienes 4, felicitaciones 🎉 — ¡R y RStudio están funcionando!
+
+## Instalar paquetes
+
+R ya incluye muchas características y funciones, pero una de sus grandes ventajas es que podemos agregar aún más funciones utilizando paquetes.
+
+Los paquetes de R son colecciones adicionales de herramientas, la mayoría de ellas especializadas en una tarea particular. A lo largo de este curso utilizaremos varios paquetes para importar datos, manipular bases de datos, crear gráficos y, finalmente, trabajar con datos de cámaras trampa.
+
+Podemos instalar paquetes directamente desde la Consola de RStudio utilizando la función install.packages().
+
+Copia y ejecuta:
+
+```{r}
+#| eval: false
+
+install.packages(c(
+  "tidyverse",
+  "readxl",
+  "camtrapR"
+))
+
+```
+
+
+R puede tardar un poco en instalar todo. Probablemente verás bastante texto apareciendo en la Consola mientras se descargan e instalan los paquetes y sus dependencias. Esto es completamente normal.
+
+::: {.callout-important}
+
+Instalar vs. cargar un paquete
+
+Normalmente necesitamos instalar un paquete solamente una vez:
+
+```{r}
+#| eval: false
+
+install.packages("tidyverse")
+```
+
+Sin embargo, instalar un paquete no significa que esté disponible automáticamente cada vez que abrimos R.
+
+Cuando queremos utilizar un paquete que ya está instalado durante una sesión de R, debemos cargarlo utilizando library():
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+```
+
+
+Más adelante en el curso hablaremos con mayor detalle sobre paquetes y funciones.
+:::
+
+## ¿Está funcionando todo?
+
+Hagamos un último chqueo.
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+library(readxl)
+library(camtrapR)
+```
+
+
+No te sorprendas si aparece texto en la Consola después de ejecutar `library(tidyverse)`. Los paquetes suelen mostrar mensajes cuando se cargan, y un mensaje no necesariamente significa que haya un error.
+
+Si los tres paquetes cargan sin mostrar un error indicando que alguno de ellos no puede ser encontrado, estás listo para comenzar.
+
+::: {.callout-tip}
+
+## ¡Listo!
+
+En este punto deberías tener:
+
+R instalado.
+RStudio instalado.
+Los paquetes necesarios para el curso instalados.
+Tu primer comando de R ejecutado correctamente.
+
+Eso es todo lo que necesitamos antes de comenzar el Módulo 1: Introducción a R y RStudio.
+:::

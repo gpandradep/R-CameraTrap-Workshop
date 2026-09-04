@@ -1,0 +1,570 @@
+---
+title: "Módulo 1: Introducción a R y RStudio"
+toc: true
+bibliography: references.bib
+---
+
+## Introducción
+
+Ahora que tenemos instalados R y RStudio, podemos comenzar a trabajar con ellos.
+
+Antes de aprender a manipular datos o crear gráficos, es importante entender qué es R, cómo RStudio nos ayuda a trabajar con R y cómo podemos organizar nuestro trabajo para que sea fácil guardarlo, reproducirlo y retomarlo más adelante.
+
+No te preocupes por memorizar todo lo que veremos en este módulo. El objetivo es simplemente familiarizarnos con el ambiente que utilizaremos a lo largo del curso.
+
+## ¿Qué es R?
+
+**En pocas palabras, R es un lenguaje y un ambiente diseñado para realizar operaciones estadísticas y gráficas.**
+
+R fue desarrollado a principios de la década de 1990 por Ross Ihaka y Robert Gentleman, y se inspiró en un lenguaje de programación anterior llamado S. La idea detrás de S era hacer el análisis interactivo de datos más sencillo y accesible. En otras palabras, ayudó a acercar la computación estadística a personas cuyo principal interés era analizar datos y no necesariamente convertirse en programadores.
+
+El problema con S era que había que comprarlo, y todos sabemos que preferimos gastar nuestro dinero en cosas más importantes, como comida 🍔.
+
+Una de las características más importantes de R es que es **gratuito y de código abierto**. Esto significa que cualquier persona puede utilizarlo, modificarlo y desarrollar nuevas herramientas para él.
+
+Actualmente, R es ampliamente utilizado en ciencia, estadística, ciencia de datos, ecología, conservación y muchas otras áreas. Aunque R comenzó a desarrollarse a principios de la década de 1990, la versión 1.0.0 fue publicada oficialmente en el año 2000. Actualmente, R es mantenido por el **R Core Team**.
+
+
+::: callout-tip
+R es extremadamente flexible, pero no necesitas aprender todo lo que R puede hacer.
+
+La mayoría de los usuarios de R construyen gradualmente una colección de herramientas que son útiles para el tipo de trabajo que realizan.
+:::
+
+## ¿Qué es RStudio?
+
+R y RStudio están relacionados, pero no son lo mismo.
+
+**R** es el programa que ejecuta nuestro código.
+
+**RStudio** es un Entorno de Desarrollo Integrado, o **IDE** por sus siglas en inglés, que proporciona una interfaz más cómoda para trabajar con R.
+
+En otras palabras:
+
+> **R hace el trabajo. RStudio nos ayuda a trabajar con R.**
+
+RStudio facilita:
+
+- escribir y guardar código,
+- organizar archivos,
+- inspeccionar objetos,
+- visualizar gráficos,
+- acceder a la ayuda,
+- manejar paquetes,
+- y organizar proyectos completos.
+
+Aunque RStudio no es el único IDE disponible para trabajar con R, es uno de los más utilizados, especialmente en enseñanza, ciencia y análisis de datos. Al igual que R, es gratuito y está pensado para ser accesible a una comunidad amplia de usuarios. RStudio también es relativamente reciente: su primera versión fue publicada en 2010.
+
+Por esta razón, durante este curso trabajaremos casi exclusivamente desde RStudio.
+
+## La interfaz de RStudio
+
+Cuando abres RStudio, normalmente encontrarás cuatro paneles principales.
+
+La apariencia exacta puede variar ligeramente dependiendo de la versión de RStudio que utilices, pero los componentes principales son los mismos.
+
+![Guía de usuario de RStudio 2026.08.2](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+
+### Source
+
+El panel **Source** es donde escribimos y editamos nuestros scripts.
+
+Aquí es donde debería estar la mayor parte de nuestro código.
+
+Si todavía no has abierto ningún script, es posible que este panel no aparezca.
+
+### Console
+
+La **Console** o Consola es donde R ejecuta los comandos.
+
+Puedes escribir directamente en la Consola y presionar **Enter** para ejecutar un comando.
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+2 + 2
+```
+
+R devuelve:
+
+``` text
+[1] 4
+```
+
+La Consola es útil para probar algo rápidamente, pero **no es el mejor lugar para escribir un análisis completo**, ya que los comandos que escribimos allí no se guardan automáticamente.
+
+### Environment
+
+El panel **Environment** muestra los objetos que existen actualmente en nuestra sesión de R.
+
+En el siguiente módulo aprenderemos qué son los objetos.
+
+Por ahora, simplemente recuerda que este panel nos permite ver la información que R tiene almacenada en ese momento.
+
+### Files, Plots, Packages y Help
+
+El panel inferior derecho contiene varias pestañas útiles.
+
+**Files** nos permite navegar entre archivos y carpetas.
+
+**Plots** muestra los gráficos que creamos en R.
+
+**Packages** muestra los paquetes que tenemos instalados.
+
+**Help** muestra la documentación de funciones y paquetes de R.
+
+Utilizaremos todas estas pestañas a lo largo del curso.
+
+## ¿Consola o script?
+
+Uno de los hábitos más importantes al aprender R es **escribir nuestro trabajo en un script en lugar de trabajar únicamente desde la Consola**.
+
+La Consola es útil para probar cosas rápidamente:
+
+```{r}
+#| eval: false
+
+10 / 2
+```
+
+Pero si cierras RStudio, es posible que después no recuerdes exactamente qué escribiste.
+
+Un script nos permite guardar nuestro código y volver a ejecutarlo más adelante.
+
+Vamos a crear uno.
+
+En RStudio ve a:
+
+**File → New File → R Script**
+
+Debería aparecer un nuevo documento vacío en el panel Source.
+
+Escribe:
+
+```{r}
+#| eval: false
+
+2 + 2
+5 * 4
+100 / 10
+```
+
+No presiones Enter como lo harías en la Consola.
+
+En su lugar, coloca el cursor en la primera línea y ejecútala utilizando:
+
+**Windows:** `Ctrl + Enter`
+
+**Mac:** `Command + Enter`
+
+Deberías ver cómo el comando aparece en la Consola seguido del resultado.
+
+Prueba ejecutando también las otras líneas.
+
+::: callout-important
+## Escribe tu código en scripts
+
+A lo largo de este curso, trata de evitar escribir un análisis completo directamente en la Consola.
+
+Utiliza la Consola para probar cosas, pero conserva dentro de un script el código que quieras guardar.
+:::
+
+## Comentarios
+
+También podemos agregar notas dentro de nuestros scripts utilizando el símbolo `#`.
+
+Todo lo que escribamos después de `#` en una línea se considera un **comentario** y R no intentará ejecutarlo.
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+# Mi primer script de R
+
+2 + 2
+
+# Otro cálculo
+10 * 5
+```
+
+Los comentarios son extremadamente útiles para explicar qué hace nuestro código y para organizar scripts más largos.
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+# Importar datos
+
+# Limpiar datos
+
+# Crear gráficos
+
+# Realizar análisis
+```
+
+Aunque hoy tu código te parezca completamente obvio, los comentarios pueden hacer que sea mucho más fácil entenderlo cuando regreses a él varias semanas o meses después.
+
+::: callout-note
+## Inténtalo tú mismo
+
+Crea un nuevo script de R y escribe:
+
+1. Tres cálculos diferentes.
+2. Un comentario describiendo para qué sirve el script.
+3. Un comentario describiendo uno de tus cálculos.
+
+Ejecuta cada cálculo desde el script en lugar de escribirlo directamente en la Consola.
+:::
+
+## Guardar tu script
+
+Ahora vamos a guardar el script.
+
+Ve a:
+
+**File → Save**
+
+y asígnale un nombre que tenga sentido.
+
+Por ejemplo:
+
+``` text
+module-01.R
+```
+
+Evita nombres como:
+
+``` text
+script1.R
+new.R
+test.R
+```
+
+Utilizar nombres descriptivos hace que sea mucho más fácil navegar por un proyecto más adelante.
+
+También trataremos de evitar espacios en los nombres de los archivos. En lugar de:
+
+``` text
+mi primer script.R
+```
+
+puedes utilizar algo como:
+
+``` text
+mi-primer-script.R
+```
+
+o:
+
+``` text
+mi_primer_script.R
+```
+
+## Proyectos de RStudio
+
+Entre otras cosas, RStudio nos permite trabajar utilizando una estructura basada en **Projects** o proyectos.
+
+Cuando comenzamos a trabajar con archivos en R, R necesita saber dónde están ubicados esos archivos. Sin un proyecto, esto frecuentemente implica navegar hasta la carpeta que contiene nuestros datos y scripts o especificar su ubicación.
+
+Cuando creamos un proyecto en RStudio, RStudio utiliza automáticamente la carpeta del proyecto como nuestro **working directory** o directorio de trabajo.
+
+Existen otras ventajas de trabajar con proyectos, pero esta es la más importante para nosotros en este momento.
+
+![](/images/module-01/RPROJECT_2000dpi.webp)
+
+Esa carpeta puede contener todo lo relacionado con un proyecto particular:
+
+``` text
+mi-proyecto/
+│
+├── data/
+├── scripts/
+├── outputs/
+└── mi-proyecto.Rproj
+```
+
+Utilizar proyectos hace mucho más sencillo mantener nuestros datos, scripts, gráficos y otros archivos en un mismo lugar.
+
+También ayuda a R a entender dónde se encuentran nuestros archivos.
+
+Utilizaremos el mismo proyecto de RStudio durante todo este curso.
+
+## Crear el proyecto del curso
+
+Vamos a crear un proyecto nuevo que utilizaremos durante el resto del curso.
+
+En RStudio ve a:
+
+**File → New Project**
+
+Luego selecciona:
+
+**New Directory → New Project**
+
+Elige una ubicación en tu computador donde puedas encontrar fácilmente el proyecto.
+
+Llámalo, por ejemplo:
+
+``` text
+intro-r-course
+```
+
+y selecciona **Create Project**.
+
+RStudio abrirá una nueva ventana asociada con esa carpeta.
+
+Dentro del panel Files deberías ver un archivo similar a:
+
+``` text
+intro-r-course.Rproj
+```
+
+Este archivo identifica la carpeta como un proyecto de RStudio.
+
+::: callout-important
+Normalmente no necesitas abrir primero RStudio y después buscar tu proyecto.
+
+Puedes abrir directamente el archivo `.Rproj` y RStudio se abrirá automáticamente dentro del proyecto correcto.
+:::
+
+## Organizar el proyecto
+
+Vamos a agregar tres carpetas que utilizaremos durante todo el curso:
+
+``` text
+intro-r-course/
+│
+├── data/
+├── scripts/
+└── outputs/
+```
+
+En el panel **Files**, selecciona:
+
+**New Folder**
+
+y crea:
+
+``` text
+data
+```
+
+Repite el proceso para:
+
+``` text
+scripts
+```
+
+y:
+
+``` text
+outputs
+```
+
+Utilizaremos estas carpetas para diferentes propósitos:
+
+- `data/` contendrá nuestras bases de datos.
+- `scripts/` contendrá nuestros scripts de R.
+- `outputs/` contendrá gráficos y otros resultados.
+
+Ahora mueve o guarda el script que creaste anteriormente dentro de:
+
+``` text
+scripts/
+```
+
+Tu proyecto debería verse aproximadamente así:
+
+``` text
+intro-r-course/
+│
+├── data/
+│
+├── scripts/
+│   └── module-01.R
+│
+├── outputs/
+│
+└── intro-r-course.Rproj
+```
+
+Gradualmente iremos agregando archivos a este proyecto a medida que avancemos en el curso.
+
+## ¿Por qué aprender R?
+
+Quizás te estés preguntando por qué, después de años perfeccionando tus habilidades en Excel, ahora tienes que aprender R.
+
+Puedo darte una razón un poco “egoísta”: en este curso —y en muchos programas de posgrado— saber utilizar R ya es prácticamente un requisito.
+
+![](/images/module-01/bob.png){fig-align="center"}
+
+Pero no te preocupes. R no debería convertirse en una pesadilla y existen muchas buenas razones para aprenderlo:
+
+1. **Reproducibilidad:** Algo muy importante en ciencia, aunque no siempre lo tengamos en cuenta. Cuando desarrollas un script en R para analizar los datos de un artículo o una tesis, puedes compartirlo. No solamente para que otra persona pueda reproducir exactamente tu análisis y verificarlo, sino también para que otros puedan aprender de él. De hecho, actualmente muchos artículos científicos publican también el código utilizado en sus análisis.
+
+2. **Es como aprender un idioma:** Ejercita nuestro cerebro y puede ayudarnos a mejorar nuestro razonamiento cuantitativo. Y no lo digo solamente yo, también lo dice la ciencia [@auker2020].
+
+3. **Es el futuro:** Nos guste o no, las habilidades de programación son cada vez más demandadas y valoradas [@lai2019]. No solamente en la academia, sino también fuera de ella. Saber manejar, visualizar y analizar datos puede ser una gran ventaja [@feng2020]. No estoy diciendo que todos tengamos que convertirnos en expertos, pero sí que vale la pena tener al menos conocimientos básicos.
+
+4. **Posibilidades (casi) infinitas:** Actualmente R ya no sirve solamente para hacer estadísticas. Podemos hacer muchísimas cosas con él. Desde documentos e infografías hasta memes (sí, incluso existe un paquete para hacer memes). Personalmente, algunas de las cosas que más he aprendido de R han surgido cuando lo combino con mis propios intereses: creando gráficos, explorando series de tiempo, música, política y muchas otras cosas.
+
+## ¿Qué podemos hacer con R?
+
+### Manejo de datos
+
+Procesar, transformar y explorar nuestros datos.
+
+Esta es una habilidad que puede ahorrarnos muchísimo tiempo y muchos dolores de cabeza. Con R podemos transformar nuestros datos prácticamente de cualquier manera que necesitemos, siempre que sepamos cómo hacerlo.
+
+Esto es especialmente importante porque muchos análisis requieren que nuestros datos tengan una estructura específica.
+
+### Estadística
+
+Después de todo, esta es parte de la razón por la que R fue creado.
+
+R puede manejar una enorme variedad de modelos estadísticos. Sin embargo, es principalmente su comunidad la que se ha encargado de ampliar enormemente la cantidad de análisis disponibles.
+
+Actualmente podemos encontrar modelos desarrollados específicamente para áreas como ecología, bioinformática, filogenética, biología molecular, morfometría y muchas otras.
+
+Solamente tenemos que aprender a buscarlos.
+
+### Gráficos
+
+Las capacidades gráficas de R son increíbles.
+
+R puede generar gráficos con calidad de publicación, pero también podemos utilizarlo para crear figuras destinadas a públicos más generales.
+
+Podemos crear mapas, animaciones, arte y muchas otras cosas.
+
+Puedes visitar sitios como <https://r-graph-gallery.com/index.html> o <https://r-charts.com/> para encontrar muchos ejemplos e ideas.
+
+Aprender a crear gráficos también es una parte importante del proceso de explorar nuestros datos.
+
+### Documentos
+
+Con herramientas como **R Markdown** y **Quarto**, podemos generar documentos HTML, PDF y Word directamente desde R.
+
+Las versiones actuales de RStudio incluso incluyen un modo visual que facilita la escritura de documentos.
+
+También existen herramientas diseñadas para generar currículums, presentaciones, libros, artículos científicos e incluso tesis.
+
+### Apps
+
+También podemos crear aplicaciones e interfaces que permitan explorar datos o simplemente hacernos la vida más fácil.
+
+Por ejemplo, si alguna vez has tenido preguntas sobre las estadísticas de ciertos Pokémon, puedes explorar esta aplicación creada completamente en R:
+
+<https://dgranjon.shinyapps.io/shinyMons/_w_74175819/>
+
+## La comunidad
+
+![Allison Horst code hero](https://imgs.njtierney.com/code_hero_rstats.png){fig-align="center" width="518"}
+
+Quizás una de las mejores cosas de R y RStudio sea su comunidad.
+
+Existe una enorme cantidad de información, tutoriales, guías, páginas de ayuda, foros y comunidades dedicadas a ayudar y enseñar.
+
+Y lo mejor es que gran parte de este material es gratuito, siguiendo la misma filosofía de R.
+
+Un ejemplo importante de cómo se organiza la comunidad de R es [R-Ladies](https://rladies.org/), una organización mundial que promueve la diversidad de género dentro de la comunidad de R.
+
+## Aprender R
+
+R, como cualquier idioma, se aprende practicándolo. Es decir, escribiendo.
+
+No esperes aprender un idioma simplemente viendo una película con subtítulos. Claro, probablemente aprenderás una o dos palabras, pero eso no significa que estés listo para mantener una conversación.
+
+Con R ocurre exactamente lo mismo.
+
+En este curso te daremos las herramientas para comenzar, pero es completamente normal terminar una sesión sintiendo que todavía no sabes nada. A mí me pasó, y probablemente nos pasa a todos.
+
+No te frustres si después del curso tienes que volver a consultar tus propios scripts para recordar cómo crear un gráfico o incluso cómo cargar una base de datos.
+
+También vas a encontrarte con muchos errores, pero R no se trata de evitar cometer errores; se trata de cometer tantos que eventualmente aprendes a solucionarlos.
+
+![Lawlor J, Banville F, Forero-Muñoz N-R, Hébert K, Martínez-Lanfranco JA, Rogy P, et al. (2022) Ten simple rules for teaching yourself R. PLoS Comput Biol 18(9): e1010372. <https://doi.org/10.1371/journal.pcbi.1010372>](/images/module-01/time.PNG)
+
+Aprender R consiste menos en memorizar comandos y más en aprender a **encontrar soluciones y entender qué está haciendo nuestro código**.
+
+A lo largo de este curso practicaremos cómo:
+
+- leer mensajes de error,
+- buscar información en la documentación de R,
+- modificar ejemplos existentes,
+- hacer buenas preguntas,
+- y solucionar problemas paso a paso.
+
+Más adelante dedicaremos un módulo completo a los errores y a cómo solucionar problemas en R.
+
+## No aprenderás R solamente leyendo sobre R
+
+::: callout-tip
+La forma más sencilla de sentirte cómodo utilizando R es usarlo.
+
+No necesitas memorizar cada comando. Escribe código, comete errores, modifica ejemplos y guarda tus scripts anteriores.
+
+Te sorprenderá la cantidad de veces que puedes resolver un problema nuevo simplemente buscando algo parecido en un código que escribiste anteriormente.
+:::
+
+En resumen, cuánto aprendas de R dependerá principalmente del tiempo que dediques a practicarlo y no simplemente de haber tomado este tutorial [@lawlor2022].
+
+Así que mucha suerte y disfruta el camino.
+
+## Práctica en casa
+
+::: callout-tip
+Esta actividad debería tomar aproximadamente **10–15 minutos**.
+
+Antes de la próxima sesión:
+
+1. Abre el proyecto de RStudio `intro-r-course` que creamos durante esta sesión.
+2. Crea un nuevo script de R.
+3. Guárdalo dentro de la carpeta `scripts` con el nombre:
+
+``` text
+practice-01.R
+```
+
+4. Agrega un comentario al inicio describiendo para qué sirve el script.
+5. Escribe y ejecuta al menos tres cálculos sencillos.
+6. Agrega comentarios describiendo al menos dos de tus cálculos.
+7. Guarda el script y cierra RStudio.
+8. Abre nuevamente el proyecto utilizando el archivo `.Rproj` y confirma que puedes encontrar tu script.
+:::
+
+::: {.callout-tip collapse="true"}
+## Solución sugerida
+
+Tu script podría verse así:
+
+```{r}
+#| eval: false
+
+# Práctica del Módulo 1
+
+# Suma
+25 + 17
+
+# Multiplicación
+8 * 12
+
+# División
+100 / 4
+```
+
+Tus cálculos no tienen que ser los mismos.
+
+Lo importante es que puedas:
+
+- abrir tu proyecto de RStudio,
+- crear y guardar un script,
+- escribir comentarios,
+- ejecutar código desde el script,
+- y volver a encontrar tu trabajo más adelante.
+:::
+
+# Bibliografía

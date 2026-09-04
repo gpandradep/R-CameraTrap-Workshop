@@ -1,0 +1,63 @@
+---
+title: "Module X: Module title"
+toc: true
+---
+
+## Introduction
+
+Short introduction explaining what we will do in this module and why it is useful.
+
+## First topic or activity
+
+Brief explanation of the concept while introducing the code.
+
+```{r}
+# Example
+```
+
+Some explanation of what happened and why.
+
+## Next topic or activity
+
+Continue introducing concepts progressively through examples.
+
+```{r}
+# Example
+```
+
+::: {.callout-note}
+## Try it yourself
+
+A short exercise to complete during the session.
+
+1. Task 1
+2. Task 2
+3. Task 3
+:::
+
+## Another topic or activity
+
+Continue with the lesson as needed.
+
+```{r}
+# Example
+```
+
+## Practice at home
+
+::: {.callout-tip}
+This exercise should take approximately **15–30 minutes**.
+
+1. Task 1
+2. Task 2
+3. Task 3
+:::
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+```{r}
+# Suggested solution
+```
+
+:::

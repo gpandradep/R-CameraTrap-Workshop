@@ -1,0 +1,42 @@
+website:
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+
+      - href: getting-started/setup.qmd
+        text: Primeros pasos
+
+      - text: Módulos
+        menu:
+          - href: modules/01-introduction.qmd
+            text: "1. Introducción a R y RStudio"
+
+          - href: modules/02-objects-functions.qmd
+            text: "2. Objetos, operadores y funciones"
+
+          - href: modules/03-data-structures.qmd
+            text: "3. Estructuras de datos en R"
+
+          - href: modules/04-import-data.qmd
+            text: "4. Importar y exportar datos"
+
+          - href: modules/05-data-visualization.qmd
+            text: "5. Visualización de datos"
+
+          - href: modules/06-errors-help.qmd
+            text: "6. Errores, ayuda y solución de problemas"
+
+          - href: modules/07-data-manipulation.qmd
+            text: "7. Manipulación de datos con tidyverse"
+
+          - href: modules/08-exploratory-analysis.qmd
+            text: "8. Análisis exploratorio de datos"
+
+          - href: modules/09-camtrapR.qmd
+            text: "9. Trabajando con datos de cámaras trampa usando camtrapR"
+
+      - text: Recursos adicionales
+        menu:
+          - href: resources/quarto.qmd
+            text: "Documentos reproducibles con Quarto"

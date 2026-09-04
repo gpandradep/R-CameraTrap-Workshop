@@ -1,7 +1,52 @@
 ---
-title: "R-CameraTrap-Workshop"
+title: "Introduction to R"
+subtitle: "A practical introduction to data management and visualization"
+toc: false
 ---
 
-This is a Quarto website.
+Welcome to **Introduction to R**, a beginner-friendly course designed to provide the foundations needed to work confidently with data in R.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+No previous experience with R or programming is required. The course focuses on practical skills and introduces concepts progressively, from understanding how R works to importing, manipulating, visualizing, and exploring real datasets.
+
+Throughout the course, we will use ecological and camera-trap examples to connect R concepts with real-world data. In the final module, we will bring these skills together to organize and process camera-trap data using the `camtrapR` package.
+
+## What will you learn?
+
+By the end of the course, you should be able to:
+
+- Understand the basic structure of R and RStudio.
+- Create and manipulate common R objects.
+- Import and export datasets.
+- Explore and visualize data using `ggplot2`.
+- Manipulate datasets using `dplyr` and other tidyverse tools.
+- Identify common R errors and develop strategies to solve problems.
+- Perform a basic exploratory analysis of a dataset.
+- Organize and process camera-trap data using `camtrapR`.
+
+## Course organization
+
+The course is divided into short modules that build progressively on one another.
+
+1. **Introduction to R and RStudio**
+2. **Objects, operators, and functions**
+3. **Data structures in R**
+4. **Importing and exporting data**
+5. **Data visualization**
+6. **Errors, help, and problem solving**
+7. **Data manipulation with the tidyverse**
+8. **Exploratory data analysis**
+9. **Working with camera-trap data using `camtrapR`**
+
+::: {.callout-tip}
+## Learning by doing
+
+The best way to learn R is by using it. Each module includes examples and exercises designed to be completed directly in RStudio.
+
+Short take-home exercises will provide additional practice without requiring a large time commitment.
+:::
+
+## Before you start
+
+If you do not have R and RStudio installed yet, begin with the [Getting Started](getting-started/setup.qmd) page.
+
+If everything is ready, you can start with [Module 1: Introduction to R and RStudio](modules/01-introduction.qmd).
