@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<link rel="alternate" hreflang="en" href="https://gpandradep.github.io/R-CameraTrap-Workshop//modules/01-introduction.html" />
+<link rel="alternate" hreflang="es" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/01-introduction.es.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Módulo 1: Introducción a R y RStudio – Introducción a R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Introducción a R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item"><div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> English</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://gpandradep.github.io/R-CameraTrap-Workshop//modules/01-introduction.html" id="language-link-en">English</a></li></ul>
+</div></li>
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../getting-started/setup.html"> 
+<span class="menu-text">Primeros pasos</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-módulos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Módulos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-módulos">
+<li>
+    <a class="dropdown-item" href="../modules/01-introduction.html">
+ <span class="dropdown-text">1. Introducción a R y RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/02-objects-functions.html">
+ <span class="dropdown-text">2. Objetos, operadores y funciones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/03-data-structures.html">
+ <span class="dropdown-text">3. Estructuras de datos en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/04-import-data.html">
+ <span class="dropdown-text">4. Importar y exportar datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/05-data-visualization.html">
+ <span class="dropdown-text">5. Visualización de datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/06-errors-help.html">
+ <span class="dropdown-text">6. Errores, ayuda y solución de problemas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/07-data-manipulation.html">
+ <span class="dropdown-text">7. Manipulación de datos con tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/08-exploratory-analysis.html">
+ <span class="dropdown-text">8. Análisis exploratorio de datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/09-camtrapR.html">
+ <span class="dropdown-text">9. Trabajando con datos de cámaras trampa usando camtrapR</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos-adicionales" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos adicionales</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos-adicionales">
+<li>
+    <a class="dropdown-item" href="../resources/quarto.html">
+ <span class="dropdown-text">Documentos reproducibles con Quarto</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+<li><a href="#introducci%C3%B3n" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#qu%C3%A9-es-r" id="toc-qué-es-r" class="nav-link" data-scroll-target="#qué-es-r">¿Qué es R?</a></li>
+  <li><a href="#qu%C3%A9-es-rstudio" id="toc-qué-es-rstudio" class="nav-link" data-scroll-target="#qué-es-rstudio">¿Qué es RStudio?</a></li>
+  <li>
+<a href="#la-interfaz-de-rstudio" id="toc-la-interfaz-de-rstudio" class="nav-link" data-scroll-target="#la-interfaz-de-rstudio">La interfaz de RStudio</a>
+  <ul class="collapse">
+<li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
+  <li><a href="#console" id="toc-console" class="nav-link" data-scroll-target="#console">Console</a></li>
+  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a></li>
+  <li><a href="#files-plots-packages-y-help" id="toc-files-plots-packages-y-help" class="nav-link" data-scroll-target="#files-plots-packages-y-help">Files, Plots, Packages y Help</a></li>
+  </ul>
+</li>
+  <li><a href="#consola-o-script" id="toc-consola-o-script" class="nav-link" data-scroll-target="#consola-o-script">¿Consola o script?</a></li>
+  <li><a href="#comentarios" id="toc-comentarios" class="nav-link" data-scroll-target="#comentarios">Comentarios</a></li>
+  <li><a href="#guardar-tu-script" id="toc-guardar-tu-script" class="nav-link" data-scroll-target="#guardar-tu-script">Guardar tu script</a></li>
+  <li><a href="#proyectos-de-rstudio" id="toc-proyectos-de-rstudio" class="nav-link" data-scroll-target="#proyectos-de-rstudio">Proyectos de RStudio</a></li>
+  <li><a href="#crear-el-proyecto-del-curso" id="toc-crear-el-proyecto-del-curso" class="nav-link" data-scroll-target="#crear-el-proyecto-del-curso">Crear el proyecto del curso</a></li>
+  <li><a href="#organizar-el-proyecto" id="toc-organizar-el-proyecto" class="nav-link" data-scroll-target="#organizar-el-proyecto">Organizar el proyecto</a></li>
+  <li><a href="#por-qu%C3%A9-aprender-r" id="toc-por-qué-aprender-r" class="nav-link" data-scroll-target="#por-qué-aprender-r">¿Por qué aprender R?</a></li>
+  <li>
+<a href="#qu%C3%A9-podemos-hacer-con-r" id="toc-qué-podemos-hacer-con-r" class="nav-link" data-scroll-target="#qué-podemos-hacer-con-r">¿Qué podemos hacer con R?</a>
+  <ul class="collapse">
+<li><a href="#manejo-de-datos" id="toc-manejo-de-datos" class="nav-link" data-scroll-target="#manejo-de-datos">Manejo de datos</a></li>
+  <li><a href="#estad%C3%ADstica" id="toc-estadística" class="nav-link" data-scroll-target="#estadística">Estadística</a></li>
+  <li><a href="#gr%C3%A1ficos" id="toc-gráficos" class="nav-link" data-scroll-target="#gráficos">Gráficos</a></li>
+  <li><a href="#documentos" id="toc-documentos" class="nav-link" data-scroll-target="#documentos">Documentos</a></li>
+  <li><a href="#apps" id="toc-apps" class="nav-link" data-scroll-target="#apps">Apps</a></li>
+  </ul>
+</li>
+  <li><a href="#la-comunidad" id="toc-la-comunidad" class="nav-link" data-scroll-target="#la-comunidad">La comunidad</a></li>
+  <li><a href="#aprender-r" id="toc-aprender-r" class="nav-link" data-scroll-target="#aprender-r">Aprender R</a></li>
+  <li><a href="#no-aprender%C3%A1s-r-solamente-leyendo-sobre-r" id="toc-no-aprenderás-r-solamente-leyendo-sobre-r" class="nav-link" data-scroll-target="#no-aprenderás-r-solamente-leyendo-sobre-r">No aprenderás R solamente leyendo sobre R</a></li>
+  <li><a href="#pr%C3%A1ctica-en-casa" id="toc-práctica-en-casa" class="nav-link" data-scroll-target="#práctica-en-casa">Práctica en casa</a></li>
+  <li><a href="#bibliograf%C3%ADa" id="toc-bibliografía" class="nav-link" data-scroll-target="#bibliografía">Bibliografía</a></li>
+  </ul></nav>
+</div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Módulo 1: Introducción a R y RStudio</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="introducción" class="level2"><h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>Ahora que tenemos instalados R y RStudio, podemos comenzar a trabajar con ellos.</p>
+<p>Antes de aprender a manipular datos o crear gráficos, es importante entender qué es R, cómo RStudio nos ayuda a trabajar con R y cómo podemos organizar nuestro trabajo para que sea fácil guardarlo, reproducirlo y retomarlo más adelante.</p>
+<p>No te preocupes por memorizar todo lo que veremos en este módulo. El objetivo es simplemente familiarizarnos con el ambiente que utilizaremos a lo largo del curso.</p>
+</section><section id="qué-es-r" class="level2"><h2 class="anchored" data-anchor-id="qué-es-r">¿Qué es R?</h2>
+<p><strong>En pocas palabras, R es un lenguaje y un ambiente diseñado para realizar operaciones estadísticas y gráficas.</strong></p>
+<p>R fue desarrollado a principios de la década de 1990 por Ross Ihaka y Robert Gentleman, y se inspiró en un lenguaje de programación anterior llamado S. La idea detrás de S era hacer el análisis interactivo de datos más sencillo y accesible. En otras palabras, ayudó a acercar la computación estadística a personas cuyo principal interés era analizar datos y no necesariamente convertirse en programadores.</p>
+<p>El problema con S era que había que comprarlo, y todos sabemos que preferimos gastar nuestro dinero en cosas más importantes, como comida 🍔.</p>
+<p>Una de las características más importantes de R es que es <strong>gratuito y de código abierto</strong>. Esto significa que cualquier persona puede utilizarlo, modificarlo y desarrollar nuevas herramientas para él.</p>
+<p>Actualmente, R es ampliamente utilizado en ciencia, estadística, ciencia de datos, ecología, conservación y muchas otras áreas. Aunque R comenzó a desarrollarse a principios de la década de 1990, la versión 1.0.0 fue publicada oficialmente en el año 2000. Actualmente, R es mantenido por el <strong>R Core Team</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R es extremadamente flexible, pero no necesitas aprender todo lo que R puede hacer.</p>
+<p>La mayoría de los usuarios de R construyen gradualmente una colección de herramientas que son útiles para el tipo de trabajo que realizan.</p>
+</div>
+</div>
+</section><section id="qué-es-rstudio" class="level2"><h2 class="anchored" data-anchor-id="qué-es-rstudio">¿Qué es RStudio?</h2>
+<p>R y RStudio están relacionados, pero no son lo mismo.</p>
+<p><strong>R</strong> es el programa que ejecuta nuestro código.</p>
+<p><strong>RStudio</strong> es un Entorno de Desarrollo Integrado, o <strong>IDE</strong> por sus siglas en inglés, que proporciona una interfaz más cómoda para trabajar con R.</p>
+<p>En otras palabras:</p>
+<blockquote class="blockquote">
+<p><strong>R hace el trabajo. RStudio nos ayuda a trabajar con R.</strong></p>
+</blockquote>
+<p>RStudio facilita:</p>
+<ul>
+<li>escribir y guardar código,</li>
+<li>organizar archivos,</li>
+<li>inspeccionar objetos,</li>
+<li>visualizar gráficos,</li>
+<li>acceder a la ayuda,</li>
+<li>manejar paquetes,</li>
+<li>y organizar proyectos completos.</li>
+</ul>
+<p>Aunque RStudio no es el único IDE disponible para trabajar con R, es uno de los más utilizados, especialmente en enseñanza, ciencia y análisis de datos. Al igual que R, es gratuito y está pensado para ser accesible a una comunidad amplia de usuarios. RStudio también es relativamente reciente: su primera versión fue publicada en 2010.</p>
+<p>Por esta razón, durante este curso trabajaremos casi exclusivamente desde RStudio.</p>
+</section><section id="la-interfaz-de-rstudio" class="level2"><h2 class="anchored" data-anchor-id="la-interfaz-de-rstudio">La interfaz de RStudio</h2>
+<p>Cuando abres RStudio, normalmente encontrarás cuatro paneles principales.</p>
+<p>La apariencia exacta puede variar ligeramente dependiendo de la versión de RStudio que utilices, pero los componentes principales son los mismos.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Guía de usuario de RStudio 2026.08.2</figcaption></figure>
+</div>
+<section id="source" class="level3"><h3 class="anchored" data-anchor-id="source">Source</h3>
+<p>El panel <strong>Source</strong> es donde escribimos y editamos nuestros scripts.</p>
+<p>Aquí es donde debería estar la mayor parte de nuestro código.</p>
+<p>Si todavía no has abierto ningún script, es posible que este panel no aparezca.</p>
+</section><section id="console" class="level3"><h3 class="anchored" data-anchor-id="console">Console</h3>
+<p>La <strong>Console</strong> o Consola es donde R ejecuta los comandos.</p>
+<p>Puedes escribir directamente en la Consola y presionar <strong>Enter</strong> para ejecutar un comando.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R devuelve:</p>
+<pre class="text"><code>[1] 4</code></pre>
+<p>La Consola es útil para probar algo rápidamente, pero <strong>no es el mejor lugar para escribir un análisis completo</strong>, ya que los comandos que escribimos allí no se guardan automáticamente.</p>
+</section><section id="environment" class="level3"><h3 class="anchored" data-anchor-id="environment">Environment</h3>
+<p>El panel <strong>Environment</strong> muestra los objetos que existen actualmente en nuestra sesión de R.</p>
+<p>En el siguiente módulo aprenderemos qué son los objetos.</p>
+<p>Por ahora, simplemente recuerda que este panel nos permite ver la información que R tiene almacenada en ese momento.</p>
+</section><section id="files-plots-packages-y-help" class="level3"><h3 class="anchored" data-anchor-id="files-plots-packages-y-help">Files, Plots, Packages y Help</h3>
+<p>El panel inferior derecho contiene varias pestañas útiles.</p>
+<p><strong>Files</strong> nos permite navegar entre archivos y carpetas.</p>
+<p><strong>Plots</strong> muestra los gráficos que creamos en R.</p>
+<p><strong>Packages</strong> muestra los paquetes que tenemos instalados.</p>
+<p><strong>Help</strong> muestra la documentación de funciones y paquetes de R.</p>
+<p>Utilizaremos todas estas pestañas a lo largo del curso.</p>
+</section></section><section id="consola-o-script" class="level2"><h2 class="anchored" data-anchor-id="consola-o-script">¿Consola o script?</h2>
+<p>Uno de los hábitos más importantes al aprender R es <strong>escribir nuestro trabajo en un script en lugar de trabajar únicamente desde la Consola</strong>.</p>
+<p>La Consola es útil para probar cosas rápidamente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pero si cierras RStudio, es posible que después no recuerdes exactamente qué escribiste.</p>
+<p>Un script nos permite guardar nuestro código y volver a ejecutarlo más adelante.</p>
+<p>Vamos a crear uno.</p>
+<p>En RStudio ve a:</p>
+<p><strong>File → New File → R Script</strong></p>
+<p>Debería aparecer un nuevo documento vacío en el panel Source.</p>
+<p>Escribe:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">/</span> <span class="dv">10</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No presiones Enter como lo harías en la Consola.</p>
+<p>En su lugar, coloca el cursor en la primera línea y ejecútala utilizando:</p>
+<p><strong>Windows:</strong> <code>Ctrl + Enter</code></p>
+<p><strong>Mac:</strong> <code>Command + Enter</code></p>
+<p>Deberías ver cómo el comando aparece en la Consola seguido del resultado.</p>
+<p>Prueba ejecutando también las otras líneas.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Escribe tu código en scripts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A lo largo de este curso, trata de evitar escribir un análisis completo directamente en la Consola.</p>
+<p>Utiliza la Consola para probar cosas, pero conserva dentro de un script el código que quieras guardar.</p>
+</div>
+</div>
+</section><section id="comentarios" class="level2"><h2 class="anchored" data-anchor-id="comentarios">Comentarios</h2>
+<p>También podemos agregar notas dentro de nuestros scripts utilizando el símbolo <code>#</code>.</p>
+<p>Todo lo que escribamos después de <code>#</code> en una línea se considera un <strong>comentario</strong> y R no intentará ejecutarlo.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mi primer script de R</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Otro cálculo</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="dv">5</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Los comentarios son extremadamente útiles para explicar qué hace nuestro código y para organizar scripts más largos.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importar datos</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Limpiar datos</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear gráficos</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizar análisis</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aunque hoy tu código te parezca completamente obvio, los comentarios pueden hacer que sea mucho más fácil entenderlo cuando regreses a él varias semanas o meses después.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Inténtalo tú mismo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Crea un nuevo script de R y escribe:</p>
+<ol type="1">
+<li>Tres cálculos diferentes.</li>
+<li>Un comentario describiendo para qué sirve el script.</li>
+<li>Un comentario describiendo uno de tus cálculos.</li>
+</ol>
+<p>Ejecuta cada cálculo desde el script en lugar de escribirlo directamente en la Consola.</p>
+</div>
+</div>
+</section><section id="guardar-tu-script" class="level2"><h2 class="anchored" data-anchor-id="guardar-tu-script">Guardar tu script</h2>
+<p>Ahora vamos a guardar el script.</p>
+<p>Ve a:</p>
+<p><strong>File → Save</strong></p>
+<p>y asígnale un nombre que tenga sentido.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>module-01.R</code></pre>
+<p>Evita nombres como:</p>
+<pre class="text"><code>script1.R
+new.R
+test.R</code></pre>
+<p>Utilizar nombres descriptivos hace que sea mucho más fácil navegar por un proyecto más adelante.</p>
+<p>También trataremos de evitar espacios en los nombres de los archivos. En lugar de:</p>
+<pre class="text"><code>mi primer script.R</code></pre>
+<p>puedes utilizar algo como:</p>
+<pre class="text"><code>mi-primer-script.R</code></pre>
+<p>o:</p>
+<pre class="text"><code>mi_primer_script.R</code></pre>
+</section><section id="proyectos-de-rstudio" class="level2"><h2 class="anchored" data-anchor-id="proyectos-de-rstudio">Proyectos de RStudio</h2>
+<p>Entre otras cosas, RStudio nos permite trabajar utilizando una estructura basada en <strong>Projects</strong> o proyectos.</p>
+<p>Cuando comenzamos a trabajar con archivos en R, R necesita saber dónde están ubicados esos archivos. Sin un proyecto, esto frecuentemente implica navegar hasta la carpeta que contiene nuestros datos y scripts o especificar su ubicación.</p>
+<p>Cuando creamos un proyecto en RStudio, RStudio utiliza automáticamente la carpeta del proyecto como nuestro <strong>working directory</strong> o directorio de trabajo.</p>
+<p>Existen otras ventajas de trabajar con proyectos, pero esta es la más importante para nosotros en este momento.</p>
+<p><img src="..\images/module-01/RPROJECT_2000dpi.webp" class="img-fluid"></p>
+<p>Esa carpeta puede contener todo lo relacionado con un proyecto particular:</p>
+<pre class="text"><code>mi-proyecto/
+│
+├── data/
+├── scripts/
+├── outputs/
+└── mi-proyecto.Rproj</code></pre>
+<p>Utilizar proyectos hace mucho más sencillo mantener nuestros datos, scripts, gráficos y otros archivos en un mismo lugar.</p>
+<p>También ayuda a R a entender dónde se encuentran nuestros archivos.</p>
+<p>Utilizaremos el mismo proyecto de RStudio durante todo este curso.</p>
+</section><section id="crear-el-proyecto-del-curso" class="level2"><h2 class="anchored" data-anchor-id="crear-el-proyecto-del-curso">Crear el proyecto del curso</h2>
+<p>Vamos a crear un proyecto nuevo que utilizaremos durante el resto del curso.</p>
+<p>En RStudio ve a:</p>
+<p><strong>File → New Project</strong></p>
+<p>Luego selecciona:</p>
+<p><strong>New Directory → New Project</strong></p>
+<p>Elige una ubicación en tu computador donde puedas encontrar fácilmente el proyecto.</p>
+<p>Llámalo, por ejemplo:</p>
+<pre class="text"><code>intro-r-course</code></pre>
+<p>y selecciona <strong>Create Project</strong>.</p>
+<p>RStudio abrirá una nueva ventana asociada con esa carpeta.</p>
+<p>Dentro del panel Files deberías ver un archivo similar a:</p>
+<pre class="text"><code>intro-r-course.Rproj</code></pre>
+<p>Este archivo identifica la carpeta como un proyecto de RStudio.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Normalmente no necesitas abrir primero RStudio y después buscar tu proyecto.</p>
+<p>Puedes abrir directamente el archivo <code>.Rproj</code> y RStudio se abrirá automáticamente dentro del proyecto correcto.</p>
+</div>
+</div>
+</section><section id="organizar-el-proyecto" class="level2"><h2 class="anchored" data-anchor-id="organizar-el-proyecto">Organizar el proyecto</h2>
+<p>Vamos a agregar tres carpetas que utilizaremos durante todo el curso:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+├── scripts/
+└── outputs/</code></pre>
+<p>En el panel <strong>Files</strong>, selecciona:</p>
+<p><strong>New Folder</strong></p>
+<p>y crea:</p>
+<pre class="text"><code>data</code></pre>
+<p>Repite el proceso para:</p>
+<pre class="text"><code>scripts</code></pre>
+<p>y:</p>
+<pre class="text"><code>outputs</code></pre>
+<p>Utilizaremos estas carpetas para diferentes propósitos:</p>
+<ul>
+<li>
+<code>data/</code> contendrá nuestras bases de datos.</li>
+<li>
+<code>scripts/</code> contendrá nuestros scripts de R.</li>
+<li>
+<code>outputs/</code> contendrá gráficos y otros resultados.</li>
+</ul>
+<p>Ahora mueve o guarda el script que creaste anteriormente dentro de:</p>
+<pre class="text"><code>scripts/</code></pre>
+<p>Tu proyecto debería verse aproximadamente así:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+│
+├── scripts/
+│   └── module-01.R
+│
+├── outputs/
+│
+└── intro-r-course.Rproj</code></pre>
+<p>Gradualmente iremos agregando archivos a este proyecto a medida que avancemos en el curso.</p>
+</section><section id="por-qué-aprender-r" class="level2"><h2 class="anchored" data-anchor-id="por-qué-aprender-r">¿Por qué aprender R?</h2>
+<p>Quizás te estés preguntando por qué, después de años perfeccionando tus habilidades en Excel, ahora tienes que aprender R.</p>
+<p>Puedo darte una razón un poco “egoísta”: en este curso —y en muchos programas de posgrado— saber utilizar R ya es prácticamente un requisito.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/module-01/bob.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Pero no te preocupes. R no debería convertirse en una pesadilla y existen muchas buenas razones para aprenderlo:</p>
+<ol type="1">
+<li><p><strong>Reproducibilidad:</strong> Algo muy importante en ciencia, aunque no siempre lo tengamos en cuenta. Cuando desarrollas un script en R para analizar los datos de un artículo o una tesis, puedes compartirlo. No solamente para que otra persona pueda reproducir exactamente tu análisis y verificarlo, sino también para que otros puedan aprender de él. De hecho, actualmente muchos artículos científicos publican también el código utilizado en sus análisis.</p></li>
+<li><p><strong>Es como aprender un idioma:</strong> Ejercita nuestro cerebro y puede ayudarnos a mejorar nuestro razonamiento cuantitativo. Y no lo digo solamente yo, también lo dice la ciencia <span class="citation" data-cites="auker2020">(<a href="#ref-auker2020" role="doc-biblioref">Auker y Barthelmess 2020</a>)</span>.</p></li>
+<li><p><strong>Es el futuro:</strong> Nos guste o no, las habilidades de programación son cada vez más demandadas y valoradas <span class="citation" data-cites="lai2019">(<a href="#ref-lai2019" role="doc-biblioref">Lai et al. 2019</a>)</span>. No solamente en la academia, sino también fuera de ella. Saber manejar, visualizar y analizar datos puede ser una gran ventaja <span class="citation" data-cites="feng2020">(<a href="#ref-feng2020" role="doc-biblioref">Feng, Qiao, y Enquist 2020</a>)</span>. No estoy diciendo que todos tengamos que convertirnos en expertos, pero sí que vale la pena tener al menos conocimientos básicos.</p></li>
+<li><p><strong>Posibilidades (casi) infinitas:</strong> Actualmente R ya no sirve solamente para hacer estadísticas. Podemos hacer muchísimas cosas con él. Desde documentos e infografías hasta memes (sí, incluso existe un paquete para hacer memes). Personalmente, algunas de las cosas que más he aprendido de R han surgido cuando lo combino con mis propios intereses: creando gráficos, explorando series de tiempo, música, política y muchas otras cosas.</p></li>
+</ol></section><section id="qué-podemos-hacer-con-r" class="level2"><h2 class="anchored" data-anchor-id="qué-podemos-hacer-con-r">¿Qué podemos hacer con R?</h2>
+<section id="manejo-de-datos" class="level3"><h3 class="anchored" data-anchor-id="manejo-de-datos">Manejo de datos</h3>
+<p>Procesar, transformar y explorar nuestros datos.</p>
+<p>Esta es una habilidad que puede ahorrarnos muchísimo tiempo y muchos dolores de cabeza. Con R podemos transformar nuestros datos prácticamente de cualquier manera que necesitemos, siempre que sepamos cómo hacerlo.</p>
+<p>Esto es especialmente importante porque muchos análisis requieren que nuestros datos tengan una estructura específica.</p>
+</section><section id="estadística" class="level3"><h3 class="anchored" data-anchor-id="estadística">Estadística</h3>
+<p>Después de todo, esta es parte de la razón por la que R fue creado.</p>
+<p>R puede manejar una enorme variedad de modelos estadísticos. Sin embargo, es principalmente su comunidad la que se ha encargado de ampliar enormemente la cantidad de análisis disponibles.</p>
+<p>Actualmente podemos encontrar modelos desarrollados específicamente para áreas como ecología, bioinformática, filogenética, biología molecular, morfometría y muchas otras.</p>
+<p>Solamente tenemos que aprender a buscarlos.</p>
+</section><section id="gráficos" class="level3"><h3 class="anchored" data-anchor-id="gráficos">Gráficos</h3>
+<p>Las capacidades gráficas de R son increíbles.</p>
+<p>R puede generar gráficos con calidad de publicación, pero también podemos utilizarlo para crear figuras destinadas a públicos más generales.</p>
+<p>Podemos crear mapas, animaciones, arte y muchas otras cosas.</p>
+<p>Puedes visitar sitios como <a href="https://r-graph-gallery.com/index.html" class="uri">https://r-graph-gallery.com/index.html</a> o <a href="https://r-charts.com/" class="uri">https://r-charts.com/</a> para encontrar muchos ejemplos e ideas.</p>
+<p>Aprender a crear gráficos también es una parte importante del proceso de explorar nuestros datos.</p>
+</section><section id="documentos" class="level3"><h3 class="anchored" data-anchor-id="documentos">Documentos</h3>
+<p>Con herramientas como <strong>R Markdown</strong> y <strong>Quarto</strong>, podemos generar documentos HTML, PDF y Word directamente desde R.</p>
+<p>Las versiones actuales de RStudio incluso incluyen un modo visual que facilita la escritura de documentos.</p>
+<p>También existen herramientas diseñadas para generar currículums, presentaciones, libros, artículos científicos e incluso tesis.</p>
+</section><section id="apps" class="level3"><h3 class="anchored" data-anchor-id="apps">Apps</h3>
+<p>También podemos crear aplicaciones e interfaces que permitan explorar datos o simplemente hacernos la vida más fácil.</p>
+<p>Por ejemplo, si alguna vez has tenido preguntas sobre las estadísticas de ciertos Pokémon, puedes explorar esta aplicación creada completamente en R:</p>
+<p><a href="https://dgranjon.shinyapps.io/shinyMons/_w_74175819/" class="uri">https://dgranjon.shinyapps.io/shinyMons/_w_74175819/</a></p>
+</section></section><section id="la-comunidad" class="level2"><h2 class="anchored" data-anchor-id="la-comunidad">La comunidad</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="https://imgs.njtierney.com/code_hero_rstats.png" class="img-fluid figure-img" width="518"></p>
+<figcaption>Allison Horst code hero</figcaption></figure>
+</div>
+<p>Quizás una de las mejores cosas de R y RStudio sea su comunidad.</p>
+<p>Existe una enorme cantidad de información, tutoriales, guías, páginas de ayuda, foros y comunidades dedicadas a ayudar y enseñar.</p>
+<p>Y lo mejor es que gran parte de este material es gratuito, siguiendo la misma filosofía de R.</p>
+<p>Un ejemplo importante de cómo se organiza la comunidad de R es <a href="https://rladies.org/">R-Ladies</a>, una organización mundial que promueve la diversidad de género dentro de la comunidad de R.</p>
+</section><section id="aprender-r" class="level2"><h2 class="anchored" data-anchor-id="aprender-r">Aprender R</h2>
+<p>R, como cualquier idioma, se aprende practicándolo. Es decir, escribiendo.</p>
+<p>No esperes aprender un idioma simplemente viendo una película con subtítulos. Claro, probablemente aprenderás una o dos palabras, pero eso no significa que estés listo para mantener una conversación.</p>
+<p>Con R ocurre exactamente lo mismo.</p>
+<p>En este curso te daremos las herramientas para comenzar, pero es completamente normal terminar una sesión sintiendo que todavía no sabes nada. A mí me pasó, y probablemente nos pasa a todos.</p>
+<p>No te frustres si después del curso tienes que volver a consultar tus propios scripts para recordar cómo crear un gráfico o incluso cómo cargar una base de datos.</p>
+<p>También vas a encontrarte con muchos errores, pero R no se trata de evitar cometer errores; se trata de cometer tantos que eventualmente aprendes a solucionarlos.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/module-01/time.PNG" class="img-fluid figure-img"></p>
+<figcaption>Lawlor J, Banville F, Forero-Muñoz N-R, Hébert K, Martínez-Lanfranco JA, Rogy P, et al. (2022) Ten simple rules for teaching yourself R. PLoS Comput Biol 18(9): e1010372. <a href="https://doi.org/10.1371/journal.pcbi.1010372" class="uri">https://doi.org/10.1371/journal.pcbi.1010372</a></figcaption></figure>
+</div>
+<p>Aprender R consiste menos en memorizar comandos y más en aprender a <strong>encontrar soluciones y entender qué está haciendo nuestro código</strong>.</p>
+<p>A lo largo de este curso practicaremos cómo:</p>
+<ul>
+<li>leer mensajes de error,</li>
+<li>buscar información en la documentación de R,</li>
+<li>modificar ejemplos existentes,</li>
+<li>hacer buenas preguntas,</li>
+<li>y solucionar problemas paso a paso.</li>
+</ul>
+<p>Más adelante dedicaremos un módulo completo a los errores y a cómo solucionar problemas en R.</p>
+</section><section id="no-aprenderás-r-solamente-leyendo-sobre-r" class="level2"><h2 class="anchored" data-anchor-id="no-aprenderás-r-solamente-leyendo-sobre-r">No aprenderás R solamente leyendo sobre R</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La forma más sencilla de sentirte cómodo utilizando R es usarlo.</p>
+<p>No necesitas memorizar cada comando. Escribe código, comete errores, modifica ejemplos y guarda tus scripts anteriores.</p>
+<p>Te sorprenderá la cantidad de veces que puedes resolver un problema nuevo simplemente buscando algo parecido en un código que escribiste anteriormente.</p>
+</div>
+</div>
+<p>En resumen, cuánto aprendas de R dependerá principalmente del tiempo que dediques a practicarlo y no simplemente de haber tomado este tutorial <span class="citation" data-cites="lawlor2022">(<a href="#ref-lawlor2022" role="doc-biblioref">Lawlor et al. 2022</a>)</span>.</p>
+<p>Así que mucha suerte y disfruta el camino.</p>
+</section><section id="práctica-en-casa" class="level2"><h2 class="anchored" data-anchor-id="práctica-en-casa">Práctica en casa</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta actividad debería tomar aproximadamente <strong>10–15 minutos</strong>.</p>
+<p>Antes de la próxima sesión:</p>
+<ol type="1">
+<li>Abre el proyecto de RStudio <code>intro-r-course</code> que creamos durante esta sesión.</li>
+<li>Crea un nuevo script de R.</li>
+<li>Guárdalo dentro de la carpeta <code>scripts</code> con el nombre:</li>
+</ol>
+<pre class="text"><code>practice-01.R</code></pre>
+<ol start="4" type="1">
+<li>Agrega un comentario al inicio describiendo para qué sirve el script.</li>
+<li>Escribe y ejecuta al menos tres cálculos sencillos.</li>
+<li>Agrega comentarios describiendo al menos dos de tus cálculos.</li>
+<li>Guarda el script y cierra RStudio.</li>
+<li>Abre nuevamente el proyecto utilizando el archivo <code>.Rproj</code> y confirma que puedes encontrar tu script.</li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solución sugerida
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Tu script podría verse así:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Práctica del Módulo 1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Suma</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="sc">+</span> <span class="dv">17</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiplicación</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">*</span> <span class="dv">12</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># División</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">/</span> <span class="dv">4</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tus cálculos no tienen que ser los mismos.</p>
+<p>Lo importante es que puedas:</p>
+<ul>
+<li>abrir tu proyecto de RStudio,</li>
+<li>crear y guardar un script,</li>
+<li>escribir comentarios,</li>
+<li>ejecutar código desde el script,</li>
+<li>y volver a encontrar tu trabajo más adelante.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="bibliografía" class="level1"></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliografía</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-auker2020" class="csl-entry" role="listitem">
+Auker, Linda A., y Erika L. Barthelmess. 2020. <span>«Teaching R in the Undergraduate Ecology Classroom: Approaches, Lessons Learned, and Recommendations»</span>. <em>Ecosphere</em> 11 (4): e03060. <a href="https://doi.org/10.1002/ecs2.3060">https://doi.org/10.1002/ecs2.3060</a>.
+</div>
+<div id="ref-feng2020" class="csl-entry" role="listitem">
+Feng, Xiao, Huijie Qiao, y Brian J Enquist. 2020. <span>«Doubling Demands in Programming Skills Call for Ecoinformatics Education»</span>. <em>Frontiers in Ecology and the Environment</em> 18 (3): 123-24. <a href="https://doi.org/10.1002/fee.2179">https://doi.org/10.1002/fee.2179</a>.
+</div>
+<div id="ref-lai2019" class="csl-entry" role="listitem">
+Lai, Jiangshan, Christopher J. Lortie, Robert A. Muenchen, Jian Yang, y Keping Ma. 2019. <span>«Evaluating the Popularity of R in Ecology»</span>. <em>Ecosphere</em> 10 (1): e02567. <a href="https://doi.org/10.1002/ecs2.2567">https://doi.org/10.1002/ecs2.2567</a>.
+</div>
+<div id="ref-lawlor2022" class="csl-entry" role="listitem">
+Lawlor, Jake, Francis Banville, Norma-Rocio Forero-Muñoz, Katherine Hébert, Juan Andrés Martínez-Lanfranco, Pierre Rogy, y A. Andrew M. MacDonald. 2022. <span>«Ten Simple Rules for Teaching Yourself R»</span>. <em>PLOS Computational Biology</em> 18 (9): e1010372. <a href="https://doi.org/10.1371/journal.pcbi.1010372">https://doi.org/10.1371/journal.pcbi.1010372</a>.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/gpandradep\.github\.io\/R-CameraTrap-Workshop\/es");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body>
+</html>

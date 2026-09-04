@@ -1,0 +1,205 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to R",
+    "section": "",
+    "text": "Welcome to Introduction to R, a beginner-friendly course designed to provide the foundations needed to work confidently with data in R.\nNo previous experience with R or programming is required. The course focuses on practical skills and introduces concepts progressively, from understanding how R works to importing, manipulating, visualizing, and exploring real datasets.\nThroughout the course, we will use ecological and camera-trap examples to connect R concepts with real-world data. In the final module, we will bring these skills together to organize and process camera-trap data using the camtrapR package."
+  },
+  {
+    "objectID": "index.html#what-will-you-learn",
+    "href": "index.html#what-will-you-learn",
+    "title": "Introduction to R",
+    "section": "What will you learn?",
+    "text": "What will you learn?\nBy the end of the course, you should be able to:\n\nUnderstand the basic structure of R and RStudio.\nCreate and manipulate common R objects.\nImport and export datasets.\nExplore and visualize data using ggplot2.\nManipulate datasets using dplyr and other tidyverse tools.\nIdentify common R errors and develop strategies to solve problems.\nPerform a basic exploratory analysis of a dataset.\nOrganize and process camera-trap data using camtrapR."
+  },
+  {
+    "objectID": "index.html#course-organization",
+    "href": "index.html#course-organization",
+    "title": "Introduction to R",
+    "section": "Course organization",
+    "text": "Course organization\nThe course is divided into short modules that build progressively on one another.\n\nIntroduction to R and RStudio\nObjects, operators, and functions\nData structures in R\nImporting and exporting data\nData visualization\nErrors, help, and problem solving\nData manipulation with the tidyverse\nExploratory data analysis\nWorking with camera-trap data using camtrapR\n\n\n\n\n\n\n\nLearning by doing\n\n\n\nThe best way to learn R is by using it. Each module includes examples and exercises designed to be completed directly in RStudio.\nShort take-home exercises will provide additional practice without requiring a large time commitment."
+  },
+  {
+    "objectID": "index.html#before-you-start",
+    "href": "index.html#before-you-start",
+    "title": "Introduction to R",
+    "section": "Before you start",
+    "text": "Before you start\nIf you do not have R and RStudio installed yet, begin with the Getting Started page.\nIf everything is ready, you can start with Module 1: Introduction to R and RStudio."
+  },
+  {
+    "objectID": "getting-started/setup.html",
+    "href": "getting-started/setup.html",
+    "title": "Introduction to R",
+    "section": "",
+    "text": "title: “Getting Started” toc: true"
+  },
+  {
+    "objectID": "getting-started/setup.html#introduction",
+    "href": "getting-started/setup.html#introduction",
+    "title": "Introduction to R",
+    "section": "Introduction",
+    "text": "Introduction\nBefore we start working with R, we need to install two programs: R and RStudio.\nAlthough we will use RStudio most of the time, R and RStudio are not the same thing. R is the program that actually runs our code, while RStudio provides a more convenient interface for writing code, organizing files, viewing plots, and working with data.\nBecause RStudio needs R to work, we will install R first and RStudio second.\nIf you already have both installed, you can skip directly to the section on Installing the packages."
+  },
+  {
+    "objectID": "getting-started/setup.html#install-r",
+    "href": "getting-started/setup.html#install-r",
+    "title": "Introduction to R",
+    "section": "Install R",
+    "text": "Install R\nThe first step is to go to the R Project website and select download R.\nYou will be redirected to a list of CRAN mirrors. These are simply different servers from which you can download R. You can choose a mirror located close to you, although any of them should work.\nNext, choose the installer that corresponds to your operating system.\n\n\n\n\n\n\nImportant\n\n\n\nIf you already have R installed, downloading it again will update it. Keep in mind that when you update R, you’ll have to reinstall all the packages (we’ll see what R packages are later).\n\n\n\nWindows\nIf you are using Windows:\n\nSelect Download R for Windows.\nSelect base.\nDownload the most recent version of R.\n\nThe version number will change over time, so do not worry if the version displayed on the website is different from the one shown in this tutorial. Just download the most recent stable version.\nSave the installer somewhere you can easily find it, such as your Downloads folder.\nOpen the installer you just downloaded.\nFor our purposes, you can simply follow the installation steps using the default options. There is normally no need to change the installation folder or any other settings.\nOnce the installation is complete, you should be able to find R among your installed applications.\nYou may see an icon similar to the R logo\nIf you open R directly, you will see a relatively simple window containing the R Console.\nYou can write and execute R code directly here. The truth is that R itself isn’t very user-friendly at first glance. In fact, I never use the base R. For this reason, we’re going to install a more user-friendly interface called RStudio.\n\n\nmacOS\nIf you are using a Mac, the process is very similar.\nFrom the R download page:\n\nSelect Download R for macOS.\nDownload the most recent version compatible with your computer.\nOpen the downloaded .pkg file.\nFollow the installation instructions.\n\nRecent Macs use Apple silicon processors (M-series such as M1, M2, M3, etc.), while older Macs may have an Intel processor. Make sure you select the appropriate installer for your computer.\nIf you are not sure which processor you have, go to:\nApple menu → About This Mac\nand check the information listed under Chip or Processor.\nOnce the installation is complete, R will be available on your computer.\nIf you open R directly, you will see a relatively simple window containing the R Console.\nYou can write and execute R code directly here. The truth is that R itself isn’t very user-friendly at first glance. In fact, I never use the base R. For this reason, we’re going to install a more user-friendly interface called RStudio."
+  },
+  {
+    "objectID": "getting-started/setup.html#installing-rstudio",
+    "href": "getting-started/setup.html#installing-rstudio",
+    "title": "Introduction to R",
+    "section": "Installing RStudio",
+    "text": "Installing RStudio\nNow that R is installed, we can install RStudio."
+  },
+  {
+    "objectID": "getting-started/setup.html#download-rstudio",
+    "href": "getting-started/setup.html#download-rstudio",
+    "title": "Introduction to R",
+    "section": "Download Rstudio",
+    "text": "Download Rstudio\nGo to the Posit website and select the option to download RStudio Desktop.\nPosit is the company that develops RStudio. There are several versions of their products, but for this course we only need the free version of RStudio Desktop.\nThe download page should automatically suggest the appropriate installer for your operating system.\n\nWindows\nDownload the Windows installer (.exe), open it, and follow the installation instructions.\nAgain, the default options are appropriate for what we need.\n\n\nMac\nDownload the macOS installer (.dmg).\nOpen the downloaded file and move RStudio to your Applications folder when prompted."
+  },
+  {
+    "objectID": "getting-started/setup.html#open-rstudio",
+    "href": "getting-started/setup.html#open-rstudio",
+    "title": "Introduction to R",
+    "section": "Open Rstudio",
+    "text": "Open Rstudio\nOnce everything is installed, open RStudio.\nThere may seem to be a lot happening on the screen, but don’t worry! We will go through the different parts of RStudio in the first module.\nBelieve me, RStudio makes life so much easier for those of us who aren’t programmers. It helps with autocompletion for functions and objects, and it also has many extensions that expand R’s capabilities. That’s why I recommend that you always work in RStudio—you won’t regret it 😉.\n\n\n\nIllustrating having funR: Artwork by ’@’allison_horst\n\n\nFor now, we only need to make sure that R and RStudio are communicating correctly.\nFind the Console and type:\n2 + 2\nThen press Enter.\nR should return:\n[1] 4\nIf you get 4, congratulations 🎉 — R and RStudio are working!"
+  },
+  {
+    "objectID": "getting-started/setup.html#installing-packages",
+    "href": "getting-started/setup.html#installing-packages",
+    "title": "Introduction to R",
+    "section": "Installing packages",
+    "text": "Installing packages\nR already comes with many features and functions, but the big advantage is that we can add even more functions using packages.\nR packages are an additional collection of tools, most of which are specialized for a specific task. Throughout this course, we will use several packages for importing data, manipulating datasets, creating figures, and eventually working with camera-trap data.\nWe can install packages directly from the RStudio Console using the function install.packages().\nCopy and run:\n\ninstall.packages(c(\n  \"tidyverse\",\n  \"readxl\",\n  \"camtrapR\"\n))\n\nR may take a little while to install everything. You will probably see quite a lot of text appearing in the Console while packages and their dependencies are downloaded and installed. That is normal.\n\n\n\n\n\n\nImportant\n\n\n\nInstalling vs. loading a package\nWe normally need to install a package only once:\n\ninstall.packages(\"tidyverse\")\n\nHowever, installing a package does not automatically make it available every time you open R.\nWhen we want to use an installed package during an R session, we load it using library():\n\nlibrary(tidyverse)\n\nWe will talk more about packages and functions later in the course.\n\n\n\nIs everything working?\nLet’s do one final check.\n\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(camtrapR)\n\nDo not be surprised if some text appears in the Console after running library(tidyverse). Packages often display messages when they are loaded, and a message is not necessarily an error.\nIf all three packages load without an error saying that the package cannot be found, you are ready to start.\n\n\n\n\n\n\nReady!\n\n\n\nAt this point you should have:\nR installed RStudio installed the packages required for the course installed successfully run your first R command\nThat’s all we need before starting Module 1: Introduction to R and RStudio."
+  },
+  {
+    "objectID": "modules/01-introduction.html",
+    "href": "modules/01-introduction.html",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "",
+    "text": "Now that R and RStudio are installed, we can start working with them.\nBefore learning how to manipulate data or create figures, it is important to understand what R is, how RStudio helps us work with R, and how we can organize our work so that it is easy to save, reproduce, and return to later.\nDo not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course."
+  },
+  {
+    "objectID": "modules/01-introduction.html#introduction",
+    "href": "modules/01-introduction.html#introduction",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "",
+    "text": "Now that R and RStudio are installed, we can start working with them.\nBefore learning how to manipulate data or create figures, it is important to understand what R is, how RStudio helps us work with R, and how we can organize our work so that it is easy to save, reproduce, and return to later.\nDo not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course."
+  },
+  {
+    "objectID": "modules/01-introduction.html#what-is-r",
+    "href": "modules/01-introduction.html#what-is-r",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "What is R?",
+    "text": "What is R?\nIn short, R is a language and environment designed for performing statistical and graphical operations.\nIt was developed in the early 1990s by Ross Ihaka and Robert Gentleman and was inspired by an earlier programming language called S. The idea behind S was to make interactive data analysis easier and more accessible. In other words, it helped bring statistical computing closer to people who were primarily interested in analyzing data rather than becoming programmers. The problem with S is that you had to buy it, and we all know that we’d rather spend our money on more important things, like food 🍔.\nOne of the most important characteristics of R is that it is free and open source. This means that anyone can use it, modify it, and develop new tools for it.\nToday, R is widely used in science, statistics, data science, ecology, conservation, and many other fields. Although R began development in the early 1990s, version 1.0.0 was officially released in 2000. Today, R is maintained by the R Core Team.\n\n\n\n\n\n\nTip\n\n\n\nR is extremely flexible, but you do not need to learn everything R can do.\nMost R users gradually build a collection of tools that are useful for the type of work they do."
+  },
+  {
+    "objectID": "modules/01-introduction.html#what-is-rstudio",
+    "href": "modules/01-introduction.html#what-is-rstudio",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "What is RStudio?",
+    "text": "What is RStudio?\nR and RStudio are related, but they are not the same thing.\nR is the program that executes our code.\nRStudio is an Integrated Development Environment, or IDE, that provides a more convenient interface for working with R.\nIn other words:\n\nR does the work. RStudio helps us work with R.\n\nRStudio makes it easier to:\n\nwrite and save code,\norganize files,\ninspect objects,\nview figures,\naccess help,\nmanage packages,\nand organize complete projects.\n\nAlthough RStudio is not the only IDE available for working with R, it is one of the most widely used, especially in teaching, science, and data analysis. This is probably because its philosophy aligns very well with that of R. It is free software intended for use by everyone. RStudio is relatively new, having been released in 2010.\nThis is why we will work almost entirely from RStudio during this course."
+  },
+  {
+    "objectID": "modules/01-introduction.html#the-rstudio-interface",
+    "href": "modules/01-introduction.html#the-rstudio-interface",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "The RStudio interface",
+    "text": "The RStudio interface\nWhen you open RStudio, you will usually see four main panels.\nThe exact appearance may vary slightly depending on your version of RStudio, but the main components are the same.\n\n\n\nRstudio User Guide 2026.08.2\n\n\n\nSource\nThe Source panel is where we write and edit scripts.\nThis is where most of our code should live.\nIf you have not opened a script yet, this panel may not be visible.\n\n\nConsole\nThe Console is where R executes commands.\nYou can type directly into the Console and press Enter to run a command.\nFor example:\n\n2 + 2\n\nR returns:\n[1] 4\nThe Console is useful for quickly testing something, but it is not the best place to write an analysis because commands entered there are not automatically saved.\n\n\nEnvironment\nThe Environment panel displays objects that currently exist in your R session.\nWe will learn what objects are in the next module.\nFor now, just remember that this panel helps us see the information currently stored in R.\n\n\nFiles, Plots, Packages, and Help\nThe lower-right panel contains several useful tabs.\nFiles allows you to navigate through files and folders.\nPlots displays figures created in R.\nPackages shows installed packages.\nHelp displays documentation for R functions and packages.\nWe will use all of these throughout the course."
+  },
+  {
+    "objectID": "modules/01-introduction.html#console-or-script",
+    "href": "modules/01-introduction.html#console-or-script",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Console or script?",
+    "text": "Console or script?\nOne of the most important habits when learning R is to write your work in a script instead of working only in the Console.\nThe Console is useful for quick tests:\n\n10 / 2\n\nBut if you close RStudio, you may not remember exactly what you typed.\nA script allows us to save our code and run it again later.\nLet’s create one.\nIn RStudio, go to:\nFile → New File → R Script\nA new blank document should appear in the Source panel.\nType:\n\n2 + 2\n5 * 4\n100 / 10\n\nDo not press Enter as you would in the Console.\nInstead, place your cursor on the first line and run it using:\nWindows: Ctrl + Enter\nMac: Command + Enter\nYou should see the command appear in the Console followed by the result.\nTry running the other lines.\n\n\n\n\n\n\nWrite your code in scripts\n\n\n\nThroughout this course, try to avoid writing an entire analysis directly in the Console.\nUse the Console to test things, but keep the code you want to save inside a script."
+  },
+  {
+    "objectID": "modules/01-introduction.html#comments",
+    "href": "modules/01-introduction.html#comments",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Comments",
+    "text": "Comments\nWe can also add notes to our scripts using the # symbol.\nAnything written after # on a line is treated as a comment and is not executed by R.\nFor example:\n\n# My first R script\n\n2 + 2\n\n# Another calculation\n10 * 5\n\nComments are extremely useful for explaining what your code does and organizing longer scripts.\nFor example:\n\n# Import data\n\n# Clean data\n\n# Create figures\n\n# Run analysis\n\nEven if your code seems obvious today, comments can make it much easier to understand when you return to it several weeks or months later.\n\n\n\n\n\n\nTry it yourself\n\n\n\nCreate a new R script and write:\n\nThree different calculations.\nOne comment describing what the script is for.\nOne comment describing one of your calculations.\n\nRun each calculation from the script rather than typing it directly into the Console."
+  },
+  {
+    "objectID": "modules/01-introduction.html#saving-your-script",
+    "href": "modules/01-introduction.html#saving-your-script",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Saving your script",
+    "text": "Saving your script\nNow save the script.\nGo to:\nFile → Save\nand give it a meaningful name.\nFor example:\nmodule-01.R\nAvoid names like:\nscript1.R\nnew.R\ntest.R\nMeaningful file names make projects much easier to navigate later.\nWe will also try to avoid spaces in file names. Instead of:\nmy first script.R\nuse something like:\nmy-first-script.R\nor:\nmy_first_script.R"
+  },
+  {
+    "objectID": "modules/01-introduction.html#rstudio-projects",
+    "href": "modules/01-introduction.html#rstudio-projects",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "RStudio Projects",
+    "text": "RStudio Projects\nAmong other things, RStudio supports a project-based workflow. When you start working with R, you’ll notice that you need to specify the path (folder location) where the files you’ll be using will be stored. When you start working with files in R, R needs to know where those files are located. Without a project, this often means navigating to or specifying the folder containing your data and scripts. When you create an RStudio Project, RStudio automatically uses the project folder as the working directory. There are other advantages, but this is the one most relevant to us at this level.\n\nThat folder can contain everything associated with a particular project:\nmy-project/\n│\n├── data/\n├── scripts/\n├── outputs/\n└── my-project.Rproj\nUsing projects makes it much easier to keep your data, scripts, figures, and other files together.\nIt also helps R understand where your files are located.\nWe will use the same RStudio Project throughout this course."
+  },
+  {
+    "objectID": "modules/01-introduction.html#create-your-course-project",
+    "href": "modules/01-introduction.html#create-your-course-project",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Create your course project",
+    "text": "Create your course project\nLet’s create a new project that we can use for the rest of the course.\nIn RStudio, go to:\nFile → New Project\nThen select:\nNew Directory → New Project\nChoose a location on your computer where you can easily find the project.\nName it something like:\nintro-r-course\nand select Create Project.\nRStudio will open a new window associated with that folder.\nInside the Files panel, you should now see a file similar to:\nintro-r-course.Rproj\nThis file identifies the folder as an RStudio Project.\n\n\n\n\n\n\nImportant\n\n\n\nYou normally do not need to open RStudio first and then search for your project.\nYou can open the .Rproj file directly, and RStudio will automatically open in the correct project."
+  },
+  {
+    "objectID": "modules/01-introduction.html#organizing-the-project",
+    "href": "modules/01-introduction.html#organizing-the-project",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Organizing the project",
+    "text": "Organizing the project\nLet’s add three folders that we will use throughout the course:\nintro-r-course/\n│\n├── data/\n├── scripts/\n└── outputs/\nIn the Files panel, select:\nNew Folder\nand create:\ndata\nRepeat the process for:\nscripts\nand:\noutputs\nWe will use them for different purposes:\n\ndata/ will contain our datasets.\nscripts/ will contain our R scripts.\noutputs/ will contain figures and other results.\n\nNow move or save the script you created earlier inside:\nscripts/\nYour project should look approximately like this:\nintro-r-course/\n│\n├── data/\n│\n├── scripts/\n│   └── module-01.R\n│\n├── outputs/\n│\n└── intro-r-course.Rproj\nWe will gradually add files to this project as we move through the course."
+  },
+  {
+    "objectID": "modules/01-introduction.html#why-organize-our-work-this-way",
+    "href": "modules/01-introduction.html#why-organize-our-work-this-way",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Why organize our work this way?",
+    "text": "Why organize our work this way?\nImagine receiving an analysis containing files like:\nfinal.csv\nfinal2.csv\nfinal_revised.csv\nfinal_revised2.csv\nscript.R\nscript_new.R\nfigure1.png\nand finding them scattered across Downloads, Desktop, and Documents.\nIt quickly becomes difficult to know which files belong together or which version was actually used.\nA project gives our work a clear home.\nThis becomes particularly important when analyses grow larger or when we need to share our work with someone else.\nGood organization is part of writing reproducible code."
+  },
+  {
+    "objectID": "modules/01-introduction.html#why-learn-r",
+    "href": "modules/01-introduction.html#why-learn-r",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Why learn R?",
+    "text": "Why learn R?\nYou might be wondering why, after years of honing your Excel skills, you now have to learn R. I can give you one “selfish” reason: in this course—and in many graduate programs—knowing R is already a requirement.\n\n\n\n\n\nBut don’t worry—R shouldn’t be a nightmare, and there are plenty of great reasons to learn it:\n\nReproducibility: Something very important in science, but one we might not always take into account. When you develop a script in R to analyze your research paper or thesis, you can share it. Not just so someone else can replicate it exactly and see if it’s right or wrong, but also so others can learn from it. In fact, many papers now come with their respective code.\nIt’s like learning a language: It exercises your brain and helps improve your quantitative reasoning. I’m not the one saying this, science does (Auker and Barthelmess 2020).\nIt’s the future: Whether we like it or not, programming skills are increasingly in demand and highly valued (Lai et al. 2019). Not only in academia but also in industry, knowing how to handle, visualize, and analyze data can be a huge advantage (Feng, Qiao, and Enquist 2020). I’m not saying everyone has to be an expert, but everyone should at least have a basic understanding.\n(Almost) endless possibilities: These days, R isn’t just for statistics, you can do so many things with it. From documents and infographics to memes (yes, there’s even a package for making memes). Personally, I’ve learned the most about R when I combine it with my hobbies, creating graphs, exploring time-series data, music, and even politics, among other things."
+  },
+  {
+    "objectID": "modules/01-introduction.html#what-can-you-do-with-r",
+    "href": "modules/01-introduction.html#what-can-you-do-with-r",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "What can you do with R?",
+    "text": "What can you do with R?\n\nData management\nProcess, transform, and explore your data. A skill that will save us a lot of time and headaches. With R, you can transform your data however you want—as long as you know how. This is important because certain analyses require a specific data structure.\n\n\nStats\nThat’s partly why R was created. R is capable of handling a wide variety of models. But it’s the community that has taken it upon itself to add a fairly broad range of analyses to R. Today, you can find statistical models for topics such as ecology, bioinformatics, phylogenetics, molecular biology, morphometry, and more. You just have to know how to look for them.\n\n\nGraphics\nR’s graphics capabilities are amazing. It’s designed to generate publication-quality graphics, but you can also figure out how to create graphics for general audiences. You can make maps, animations, art, and more. Check out websites like https://r-graph-gallery.com/index.html or https://r-charts.com/ to see lots of examples and tips. Learning how to create graphics is an important part of the process of exploring your data.\n\n\nDocuments\nWith tools such as R Markdown and Quarto, you can generate HTML, PDF, and Word documents from R. Even the latest versions of RStudio include a visual mode to make writing documents easier. There are packages designed to generate resumes, presentations, books, scientific articles, and even theses.\n\n\nApps\nYou can also create apps and user interfaces to explore data or make life easier. For example, if you have questions about the stats of certain Pokémon, you can check out this app created in R: https://dgranjon.shinyapps.io/shinyMons/_w_74175819/"
+  },
+  {
+    "objectID": "modules/01-introduction.html#the-community",
+    "href": "modules/01-introduction.html#the-community",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "The community",
+    "text": "The community\n\n\n\nAllison Horst code hero\n\n\nPerhaps the best thing about R and RStudio is their community. There’s a wealth of information, tutorials, guides, help pages, forums, and communities focused on helping and teaching. Best of all, it’s almost always free, in keeping with R’s philosophy.\nAnother very important example of how the R community organizes itself is R-Ladies."
+  },
+  {
+    "objectID": "modules/01-introduction.html#learning-r",
+    "href": "modules/01-introduction.html#learning-r",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Learning R",
+    "text": "Learning R\nR, like any language, is learned through practice. That is, by writing.\nDon’t expect to learn any language just by watching a movie with subtitles. Sure, you’ll pick up a word or two, but you won’t be ready to have a conversation.\nThe same goes for R. In this course, we’ll give you the tools to get started, but it’s normal to feel like you don’t know anything by the end (it happened to me, and I think it’ll happen to all of us).\nDon’t get frustrated if you finish the course and feel like you don’t know anything, because this is just the beginning. You’ll probably go back to look up scripts on your own to remember how to create a plot or even how to load data.\nYou’ll also run into a lot of errors, but R isn’t about avoiding mistakes; it’s about making so many that you eventually know how to fix them.\n\n\n\nLawlor J, Banville F, Forero-Muñoz N-R, Hébert K, Martínez-Lanfranco JA, Rogy P, et al. (2022) Ten simple rules for teaching yourself R. PLoS Comput Biol 18(9): e1010372. https://doi.org/10.1371/journal.pcbi.1010372\n\n\nLearning R is less about memorizing commands and more about learning how to find solutions and understand what your code is doing.\nThroughout this course, we will practice:\n\nreading error messages,\nsearching R documentation,\nmodifying existing examples,\nasking useful questions,\nand solving problems step by step.\n\nWe will dedicate an entire module later in the course to errors and problem solving."
+  },
+  {
+    "objectID": "modules/01-introduction.html#you-will-not-learn-r-just-by-reading-about-r",
+    "href": "modules/01-introduction.html#you-will-not-learn-r-just-by-reading-about-r",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "You will not learn R just by reading about R",
+    "text": "You will not learn R just by reading about R\n\n\n\n\n\n\nTip\n\n\n\nThe easiest way to become comfortable with R is to use it.\nYou do not need to memorize every command. Write code, make mistakes, modify examples, and keep your old scripts.\nYou will be surprised how often you solve a new problem by looking at code you wrote before.\n\n\nIn summary, whether you learn R will depend on how much time you devote to it, not on whether or not you take this tutorial (Lawlor et al. 2022). So good luck and best of luck on your journey."
+  },
+  {
+    "objectID": "modules/01-introduction.html#practice-at-home",
+    "href": "modules/01-introduction.html#practice-at-home",
+    "title": "Module 1: Introduction to R and RStudio",
+    "section": "Practice at home",
+    "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis should take approximately 10–15 minutes.\nBefore the next session:\n\nOpen the intro-r-course RStudio Project we created today.\nCreate a new R script.\nSave it inside the scripts folder as:\n\npractice-01.R\n\nAdd a comment at the top describing what the script is for.\nWrite and run at least three simple calculations.\nAdd comments describing at least two of your calculations.\nSave the script and close RStudio.\nOpen the project again using the .Rproj file and confirm that you can find your script.\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\nYour script could look something like this:\n\n# Practice for Module 1\n\n# Addition\n25 + 17\n\n# Multiplication\n8 * 12\n\n# Division\n100 / 4\n\nYour calculations do not need to be the same.\nThe important thing is that you can:\n\nopen your RStudio Project,\ncreate and save a script,\nwrite comments,\nrun code from the script,\nand find your work again later."
+  }
+]
