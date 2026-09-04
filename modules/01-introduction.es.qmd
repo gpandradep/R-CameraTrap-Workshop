@@ -12,6 +12,14 @@ Antes de aprender a manipular datos o crear gráficos, es importante entender qu
 
 No te preocupes por memorizar todo lo que veremos en este módulo. El objetivo es simplemente familiarizarnos con el ambiente que utilizaremos a lo largo del curso.
 
+::: {.callout-note}
+## Presentación de la sesión
+
+Puedes consultar aquí la presentación utilizada durante esta sesión:
+
+[Abrir presentación de la Sesión 1](../slides/session-01-introduction.qmd){.btn .btn-primary target="_blank"}
+:::
+
 ## ¿Qué es R?
 
 **En pocas palabras, R es un lenguaje y un ambiente diseñado para realizar operaciones estadísticas y gráficas.**

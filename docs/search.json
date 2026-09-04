@@ -1,94 +1,164 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
+    "objectID": "slides/session-01-introduction.html#introduction-to-r",
+    "href": "slides/session-01-introduction.html#introduction-to-r",
     "title": "Introduction to R",
-    "section": "",
-    "text": "Welcome to Introduction to R, a beginner-friendly course designed to provide the foundations needed to work confidently with data in R.\nNo previous experience with R or programming is required. The course focuses on practical skills and introduces concepts progressively, from understanding how R works to importing, manipulating, visualizing, and exploring real datasets.\nThroughout the course, we will use ecological and camera-trap examples to connect R concepts with real-world data. In the final module, we will bring these skills together to organize and process camera-trap data using the camtrapR package."
+    "section": "Introduction to R",
+    "text": "Introduction to R\nSession 1\nToday we will start using R and RStudio.\nWe will also create the project folder that we will use throughout the course."
   },
   {
-    "objectID": "index.html#what-will-you-learn",
-    "href": "index.html#what-will-you-learn",
+    "objectID": "slides/session-01-introduction.html#what-is-r",
+    "href": "slides/session-01-introduction.html#what-is-r",
     "title": "Introduction to R",
-    "section": "What will you learn?",
-    "text": "What will you learn?\nBy the end of the course, you should be able to:\n\nUnderstand the basic structure of R and RStudio.\nCreate and manipulate common R objects.\nImport and export datasets.\nExplore and visualize data using ggplot2.\nManipulate datasets using dplyr and other tidyverse tools.\nIdentify common R errors and develop strategies to solve problems.\nPerform a basic exploratory analysis of a dataset.\nOrganize and process camera-trap data using camtrapR."
+    "section": "What is R?",
+    "text": "What is R?\n\n\n\n\n\n\nR is a language and environment designed for statistical and graphical operations.\nR allows us to work with data by writing code.\n\nThat may sound intimidating at first, but the goal is not to become a programmer overnight."
   },
   {
-    "objectID": "index.html#course-organization",
-    "href": "index.html#course-organization",
+    "objectID": "slides/session-01-introduction.html#a-very-short-history-of-r",
+    "href": "slides/session-01-introduction.html#a-very-short-history-of-r",
     "title": "Introduction to R",
-    "section": "Course organization",
-    "text": "Course organization\nThe course is divided into short modules that build progressively on one another.\n\nIntroduction to R and RStudio\nObjects, operators, and functions\nData structures in R\nImporting and exporting data\nData visualization\nErrors, help, and problem solving\nData manipulation with the tidyverse\nExploratory data analysis\nWorking with camera-trap data using camtrapR\n\n\n\n\n\n\n\nLearning by doing\n\n\n\nThe best way to learn R is by using it. Each module includes examples and exercises designed to be completed directly in RStudio.\nShort take-home exercises will provide additional practice without requiring a large time commitment."
+    "section": "A very short history of R",
+    "text": "A very short history of R\n\n\nR was developed in the early 1990s by Ross Ihaka and Robert Gentleman.\nIt was inspired by an earlier language called S.\nThe problem with S? You had to buy it. And we all know we would rather spend our money on more important things…\n\nLike food 🍔\n\n\n\n\n\nR logo"
   },
   {
-    "objectID": "index.html#before-you-start",
-    "href": "index.html#before-you-start",
+    "objectID": "slides/session-01-introduction.html#why-is-r-useful",
+    "href": "slides/session-01-introduction.html#why-is-r-useful",
     "title": "Introduction to R",
-    "section": "Before you start",
-    "text": "Before you start\nIf you do not have R and RStudio installed yet, begin with the Getting Started page.\nIf everything is ready, you can start with Module 1: Introduction to R and RStudio."
+    "section": "Why is R useful?",
+    "text": "Why is R useful?\nR is:\n\nFree\nOpen source\nWidely used in science and data analysis\nSupported by a large community\nExtremely flexible\n\n\nYou do not need to learn everything R can do.\n\n\nYou only need to start building the tools that are useful for your own work."
   },
   {
-    "objectID": "getting-started/setup.html",
-    "href": "getting-started/setup.html",
+    "objectID": "slides/session-01-introduction.html#what-is-rstudio",
+    "href": "slides/session-01-introduction.html#what-is-rstudio",
     "title": "Introduction to R",
-    "section": "",
-    "text": "title: “Getting Started” toc: true"
+    "section": "What is RStudio?",
+    "text": "What is RStudio?\n\n\nR does the work.\nRStudio helps us work with R.\nRStudio makes it easier to:\n\nwrite code\nsave scripts\norganize files\nview plots\ninstall packages\nmanage projects\n\n\n\n\n\nHaving fun with R: Artwork by Allison Horst"
   },
   {
-    "objectID": "getting-started/setup.html#introduction",
-    "href": "getting-started/setup.html#introduction",
+    "objectID": "slides/session-01-introduction.html#the-rstudio-interface",
+    "href": "slides/session-01-introduction.html#the-rstudio-interface",
     "title": "Introduction to R",
-    "section": "Introduction",
-    "text": "Introduction\nBefore we start working with R, we need to install two programs: R and RStudio.\nAlthough we will use RStudio most of the time, R and RStudio are not the same thing. R is the program that actually runs our code, while RStudio provides a more convenient interface for writing code, organizing files, viewing plots, and working with data.\nBecause RStudio needs R to work, we will install R first and RStudio second.\nIf you already have both installed, you can skip directly to the section on Installing the packages."
+    "section": "The RStudio interface",
+    "text": "The RStudio interface\n\nRStudio User Guide 2026.08.2"
   },
   {
-    "objectID": "getting-started/setup.html#install-r",
-    "href": "getting-started/setup.html#install-r",
+    "objectID": "slides/session-01-introduction.html#console-vs.-script",
+    "href": "slides/session-01-introduction.html#console-vs.-script",
     "title": "Introduction to R",
-    "section": "Install R",
-    "text": "Install R\nThe first step is to go to the R Project website and select download R.\nYou will be redirected to a list of CRAN mirrors. These are simply different servers from which you can download R. You can choose a mirror located close to you, although any of them should work.\nNext, choose the installer that corresponds to your operating system.\n\n\n\n\n\n\nImportant\n\n\n\nIf you already have R installed, downloading it again will update it. Keep in mind that when you update R, you’ll have to reinstall all the packages (we’ll see what R packages are later).\n\n\n\nWindows\nIf you are using Windows:\n\nSelect Download R for Windows.\nSelect base.\nDownload the most recent version of R.\n\nThe version number will change over time, so do not worry if the version displayed on the website is different from the one shown in this tutorial. Just download the most recent stable version.\nSave the installer somewhere you can easily find it, such as your Downloads folder.\nOpen the installer you just downloaded.\nFor our purposes, you can simply follow the installation steps using the default options. There is normally no need to change the installation folder or any other settings.\nOnce the installation is complete, you should be able to find R among your installed applications.\nYou may see an icon similar to the R logo\nIf you open R directly, you will see a relatively simple window containing the R Console.\nYou can write and execute R code directly here. The truth is that R itself isn’t very user-friendly at first glance. In fact, I never use the base R. For this reason, we’re going to install a more user-friendly interface called RStudio.\n\n\nmacOS\nIf you are using a Mac, the process is very similar.\nFrom the R download page:\n\nSelect Download R for macOS.\nDownload the most recent version compatible with your computer.\nOpen the downloaded .pkg file.\nFollow the installation instructions.\n\nRecent Macs use Apple silicon processors (M-series such as M1, M2, M3, etc.), while older Macs may have an Intel processor. Make sure you select the appropriate installer for your computer.\nIf you are not sure which processor you have, go to:\nApple menu → About This Mac\nand check the information listed under Chip or Processor.\nOnce the installation is complete, R will be available on your computer.\nIf you open R directly, you will see a relatively simple window containing the R Console.\nYou can write and execute R code directly here. The truth is that R itself isn’t very user-friendly at first glance. In fact, I never use the base R. For this reason, we’re going to install a more user-friendly interface called RStudio."
+    "section": "Console vs. Script",
+    "text": "Console vs. Script\n\n\nConsole\nGood for quick tests.\n2 + 2\n10 / 2\nBut Console commands are not automatically saved.\n\nScript\nBetter for real work.\n# My first R script\n\n2 + 2\n5 * 4\n100 / 10\nScripts allow us to save, edit, and reuse our code."
   },
   {
-    "objectID": "getting-started/setup.html#installing-rstudio",
-    "href": "getting-started/setup.html#installing-rstudio",
+    "objectID": "slides/session-01-introduction.html#first-code",
+    "href": "slides/session-01-introduction.html#first-code",
     "title": "Introduction to R",
-    "section": "Installing RStudio",
-    "text": "Installing RStudio\nNow that R is installed, we can install RStudio."
+    "section": "First code",
+    "text": "First code\nOpen a new R script:\nFile → New File → R Script\nThen write:\n2 + 2\n5 * 4\n100 / 10\nRun each line from the script:\nWindows: Ctrl + Enter\nMac: Command + Enter"
   },
   {
-    "objectID": "getting-started/setup.html#download-rstudio",
-    "href": "getting-started/setup.html#download-rstudio",
+    "objectID": "slides/session-01-introduction.html#comments",
+    "href": "slides/session-01-introduction.html#comments",
     "title": "Introduction to R",
-    "section": "Download Rstudio",
-    "text": "Download Rstudio\nGo to the Posit website and select the option to download RStudio Desktop.\nPosit is the company that develops RStudio. There are several versions of their products, but for this course we only need the free version of RStudio Desktop.\nThe download page should automatically suggest the appropriate installer for your operating system.\n\nWindows\nDownload the Windows installer (.exe), open it, and follow the installation instructions.\nAgain, the default options are appropriate for what we need.\n\n\nMac\nDownload the macOS installer (.dmg).\nOpen the downloaded file and move RStudio to your Applications folder when prompted."
+    "section": "Comments",
+    "text": "Comments\nWe can add notes to scripts using #.\n# My first R script\n\n2 + 2\n\n# Multiplication\n5 * 4\n\n# Division\n100 / 10\nAnything after # is ignored by R.\n\nComments help your future self understand what your code was doing."
   },
   {
-    "objectID": "getting-started/setup.html#open-rstudio",
-    "href": "getting-started/setup.html#open-rstudio",
+    "objectID": "slides/session-01-introduction.html#rstudio-projects",
+    "href": "slides/session-01-introduction.html#rstudio-projects",
     "title": "Introduction to R",
-    "section": "Open Rstudio",
-    "text": "Open Rstudio\nOnce everything is installed, open RStudio.\nThere may seem to be a lot happening on the screen, but don’t worry! We will go through the different parts of RStudio in the first module.\nBelieve me, RStudio makes life so much easier for those of us who aren’t programmers. It helps with autocompletion for functions and objects, and it also has many extensions that expand R’s capabilities. That’s why I recommend that you always work in RStudio—you won’t regret it 😉.\n\n\n\nIllustrating having funR: Artwork by ’@’allison_horst\n\n\nFor now, we only need to make sure that R and RStudio are communicating correctly.\nFind the Console and type:\n2 + 2\nThen press Enter.\nR should return:\n[1] 4\nIf you get 4, congratulations 🎉 — R and RStudio are working!"
+    "section": "RStudio Projects",
+    "text": "RStudio Projects\n\n\nAn RStudio Project connects RStudio with a specific folder on your computer.\nThat folder can contain everything related to your work:\nmy-project/\n│\n├── data/\n├── scripts/\n├── outputs/\n└── my-project.Rproj"
   },
   {
-    "objectID": "getting-started/setup.html#installing-packages",
-    "href": "getting-started/setup.html#installing-packages",
+    "objectID": "slides/session-01-introduction.html#create-our-course-project",
+    "href": "slides/session-01-introduction.html#create-our-course-project",
     "title": "Introduction to R",
-    "section": "Installing packages",
-    "text": "Installing packages\nR already comes with many features and functions, but the big advantage is that we can add even more functions using packages.\nR packages are an additional collection of tools, most of which are specialized for a specific task. Throughout this course, we will use several packages for importing data, manipulating datasets, creating figures, and eventually working with camera-trap data.\nWe can install packages directly from the RStudio Console using the function install.packages().\nCopy and run:\n\ninstall.packages(c(\n  \"tidyverse\",\n  \"readxl\",\n  \"camtrapR\"\n))\n\nR may take a little while to install everything. You will probably see quite a lot of text appearing in the Console while packages and their dependencies are downloaded and installed. That is normal.\n\n\n\n\n\n\nImportant\n\n\n\nInstalling vs. loading a package\nWe normally need to install a package only once:\n\ninstall.packages(\"tidyverse\")\n\nHowever, installing a package does not automatically make it available every time you open R.\nWhen we want to use an installed package during an R session, we load it using library():\n\nlibrary(tidyverse)\n\nWe will talk more about packages and functions later in the course.\n\n\n\nIs everything working?\nLet’s do one final check.\n\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(camtrapR)\n\nDo not be surprised if some text appears in the Console after running library(tidyverse). Packages often display messages when they are loaded, and a message is not necessarily an error.\nIf all three packages load without an error saying that the package cannot be found, you are ready to start.\n\n\n\n\n\n\nReady!\n\n\n\nAt this point you should have:\nR installed RStudio installed the packages required for the course installed successfully run your first R command\nThat’s all we need before starting Module 1: Introduction to R and RStudio."
+    "section": "Create our course project",
+    "text": "Create our course project\nToday we will create one project that we will use throughout the course.\nName it:\nintro-r-course\nThen create three folders:\nintro-r-course/\n│\n├── data/\n├── scripts/\n└── outputs/"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#why-use-projects",
+    "href": "slides/session-01-introduction.html#why-use-projects",
+    "title": "Introduction to R",
+    "section": "Why use projects?",
+    "text": "Why use projects?\nProjects help us avoid this:\nfinal.csv\nfinal2.csv\nfinal_revised.csv\nfinal_revised2.csv\nscript.R\nscript_new.R\nfigure1.png\nscattered across:\nDesktop/\nDownloads/\nDocuments/\n\nA project gives your work a home."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#why-learn-r",
+    "href": "slides/session-01-introduction.html#why-learn-r",
+    "title": "Introduction to R",
+    "section": "Why learn R?",
+    "text": "Why learn R?\n\n\nYou may be wondering:\n\nWhy do I need to learn R after spending years getting good at Excel?\n\nA selfish reason:\nIn many courses, labs, graduate programs, and research projects, knowing some R is already expected."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#good-reasons-to-learn-r",
+    "href": "slides/session-01-introduction.html#good-reasons-to-learn-r",
+    "title": "Introduction to R",
+    "section": "Good reasons to learn R",
+    "text": "Good reasons to learn R\n\nReproducibility\nYou can save and share exactly what you did.\n\nNot just so that someone can replicate it exactly and know whether it’s right or wrong, but also so that others can learn from it."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#what-can-you-do-with-r",
+    "href": "slides/session-01-introduction.html#what-can-you-do-with-r",
+    "title": "Introduction to R",
+    "section": "What can you do with R?",
+    "text": "What can you do with R?\n\n\nData\nClean, organize, and explore datasets.\nStatistics\nFit simple and complex models.\nGraphics\nCreate figures, maps, and animations.\n\nDocuments\nCreate reports, websites, presentations, and manuscripts.\nApps\nBuild interactive tools to explore data.\nAutomation\nAvoid doing repetitive tasks by hand."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#the-r-community",
+    "href": "slides/session-01-introduction.html#the-r-community",
+    "title": "Introduction to R",
+    "section": "The R community",
+    "text": "The R community\n\nAllison Horst code heroR has a large and generous community.\nThere are tutorials, books, forums, examples, packages, and people willing to help."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#you-will-not-learn-r-today",
+    "href": "slides/session-01-introduction.html#you-will-not-learn-r-today",
+    "title": "Introduction to R",
+    "section": "You will not learn R today",
+    "text": "You will not learn R today\n\n\nR is learned by practicing.\nYou will:\n\nmake mistakes,\nget errors,\nforget commands,\nreuse old scripts,\nsearch for help,\nand slowly become more comfortable."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#errors-are-part-of-learning-r",
+    "href": "slides/session-01-introduction.html#errors-are-part-of-learning-r",
+    "title": "Introduction to R",
+    "section": "Errors are part of learning R",
+    "text": "Errors are part of learning R\nYou are going to see errors.\n\n\n\n\nA lot of them.\n\nThat is normal.\n\n\nR is not about avoiding errors.\n\n\nIt is about making enough of them that you eventually learn how to fix them."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#learning-r-takes-time",
+    "href": "slides/session-01-introduction.html#learning-r-takes-time",
+    "title": "Introduction to R",
+    "section": "Learning R takes time",
+    "text": "Learning R takes time\nIn conclusion, whether or not you learn R will depend on how much time you spend on it, not on whether or not you take this tutorial. [@lawlor2022]\n\nAllison Horst rollercoaster"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#practice-at-home",
+    "href": "slides/session-01-introduction.html#practice-at-home",
+    "title": "Introduction to R",
+    "section": "Practice at home",
+    "text": "Practice at home\nBefore the next session:\n\nOpen your intro-r-course project.\nCreate a new R script.\nSave it in scripts/ as:\n\npractice-01.R\n\nWrite and run at least 20 simple calculations.\nAdd comments using # explaining each line of code you wrote, the title of the script, and your name.\nClose RStudio and reopen the project using the .Rproj file."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#keep-writing-code",
+    "href": "slides/session-01-introduction.html#keep-writing-code",
+    "title": "Introduction to R",
+    "section": "Keep writing code",
+    "text": "Keep writing code\nThe easiest way to learn R is to use it.\nYou do not need to memorize every command.\nWrite code, make mistakes, modify examples, and keep your old scripts."
   },
   {
     "objectID": "modules/01-introduction.html",
     "href": "modules/01-introduction.html",
     "title": "Module 1: Introduction to R and RStudio",
     "section": "",
-    "text": "Now that R and RStudio are installed, we can start working with them.\nBefore learning how to manipulate data or create figures, it is important to understand what R is, how RStudio helps us work with R, and how we can organize our work so that it is easy to save, reproduce, and return to later.\nDo not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course."
+    "text": "Now that R and RStudio are installed, we can start working with them.\nBefore learning how to manipulate data or create figures, it is important to understand what R is, how RStudio helps us work with R, and how we can organize our work so that it is easy to save, reproduce, and return to later.\nDo not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course.\n\n\n\n\n\n\nSession slides\n\n\n\nYou can follow the presentation used during this session here:\nOpen Session 1 slides"
   },
   {
     "objectID": "modules/01-introduction.html#introduction",
     "href": "modules/01-introduction.html#introduction",
     "title": "Module 1: Introduction to R and RStudio",
     "section": "",
-    "text": "Now that R and RStudio are installed, we can start working with them.\nBefore learning how to manipulate data or create figures, it is important to understand what R is, how RStudio helps us work with R, and how we can organize our work so that it is easy to save, reproduce, and return to later.\nDo not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course."
+    "text": "Now that R and RStudio are installed, we can start working with them.\nBefore learning how to manipulate data or create figures, it is important to understand what R is, how RStudio helps us work with R, and how we can organize our work so that it is easy to save, reproduce, and return to later.\nDo not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course.\n\n\n\n\n\n\nSession slides\n\n\n\nYou can follow the presentation used during this session here:\nOpen Session 1 slides"
   },
   {
     "objectID": "modules/01-introduction.html#what-is-r",
@@ -201,5 +271,82 @@
     "title": "Module 1: Introduction to R and RStudio",
     "section": "Practice at home",
     "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis should take approximately 10–15 minutes.\nBefore the next session:\n\nOpen the intro-r-course RStudio Project we created today.\nCreate a new R script.\nSave it inside the scripts folder as:\n\npractice-01.R\n\nAdd a comment at the top describing what the script is for.\nWrite and run at least three simple calculations.\nAdd comments describing at least two of your calculations.\nSave the script and close RStudio.\nOpen the project again using the .Rproj file and confirm that you can find your script.\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\nYour script could look something like this:\n\n# Practice for Module 1\n\n# Addition\n25 + 17\n\n# Multiplication\n8 * 12\n\n# Division\n100 / 4\n\nYour calculations do not need to be the same.\nThe important thing is that you can:\n\nopen your RStudio Project,\ncreate and save a script,\nwrite comments,\nrun code from the script,\nand find your work again later."
+  },
+  {
+    "objectID": "getting-started/setup.html",
+    "href": "getting-started/setup.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "Before we start working with R, we need to install two programs: R and RStudio.\nAlthough we will use RStudio most of the time, R and RStudio are not the same thing. R is the program that actually runs our code, while RStudio provides a more convenient interface for writing code, organizing files, viewing plots, and working with data.\nBecause RStudio needs R to work, we will install R first and RStudio second.\nIf you already have both installed, you can skip directly to the section on Installing the packages."
+  },
+  {
+    "objectID": "getting-started/setup.html#introduction",
+    "href": "getting-started/setup.html#introduction",
+    "title": "Getting Started",
+    "section": "",
+    "text": "Before we start working with R, we need to install two programs: R and RStudio.\nAlthough we will use RStudio most of the time, R and RStudio are not the same thing. R is the program that actually runs our code, while RStudio provides a more convenient interface for writing code, organizing files, viewing plots, and working with data.\nBecause RStudio needs R to work, we will install R first and RStudio second.\nIf you already have both installed, you can skip directly to the section on Installing the packages."
+  },
+  {
+    "objectID": "getting-started/setup.html#install-r",
+    "href": "getting-started/setup.html#install-r",
+    "title": "Getting Started",
+    "section": "Install R",
+    "text": "Install R\nThe first step is to go to the R Project website and select download R.\nYou will be redirected to a list of CRAN mirrors. These are simply different servers from which you can download R. You can choose a mirror located close to you, although any of them should work.\nNext, choose the installer that corresponds to your operating system.\n\n\n\n\n\n\nImportant\n\n\n\nIf you already have R installed, downloading it again will update it. Keep in mind that when you update R, you’ll have to reinstall all the packages (we’ll see what R packages are later).\n\n\n\nWindows\nIf you are using Windows:\n\nSelect Download R for Windows.\nSelect base.\nDownload the most recent version of R.\n\nThe version number will change over time, so do not worry if the version displayed on the website is different from the one shown in this tutorial. Just download the most recent stable version.\nSave the installer somewhere you can easily find it, such as your Downloads folder.\nOpen the installer you just downloaded.\nFor our purposes, you can simply follow the installation steps using the default options. There is normally no need to change the installation folder or any other settings.\nOnce the installation is complete, you should be able to find R among your installed applications.\nYou may see an icon similar to the R logo\nIf you open R directly, you will see a relatively simple window containing the R Console.\nYou can write and execute R code directly here. The truth is that R itself isn’t very user-friendly at first glance. In fact, I never use the base R. For this reason, we’re going to install a more user-friendly interface called RStudio.\n\n\nmacOS\nIf you are using a Mac, the process is very similar.\nFrom the R download page:\n\nSelect Download R for macOS.\nDownload the most recent version compatible with your computer.\nOpen the downloaded .pkg file.\nFollow the installation instructions.\n\nRecent Macs use Apple silicon processors (M-series such as M1, M2, M3, etc.), while older Macs may have an Intel processor. Make sure you select the appropriate installer for your computer.\nIf you are not sure which processor you have, go to:\nApple menu → About This Mac\nand check the information listed under Chip or Processor.\nOnce the installation is complete, R will be available on your computer.\nIf you open R directly, you will see a relatively simple window containing the R Console.\nYou can write and execute R code directly here. The truth is that R itself isn’t very user-friendly at first glance. In fact, I never use the base R. For this reason, we’re going to install a more user-friendly interface called RStudio."
+  },
+  {
+    "objectID": "getting-started/setup.html#installing-rstudio",
+    "href": "getting-started/setup.html#installing-rstudio",
+    "title": "Getting Started",
+    "section": "Installing RStudio",
+    "text": "Installing RStudio\nNow that R is installed, we can install RStudio."
+  },
+  {
+    "objectID": "getting-started/setup.html#download-rstudio",
+    "href": "getting-started/setup.html#download-rstudio",
+    "title": "Getting Started",
+    "section": "Download Rstudio",
+    "text": "Download Rstudio\nGo to the Posit website and select the option to download RStudio Desktop.\nPosit is the company that develops RStudio. There are several versions of their products, but for this course we only need the free version of RStudio Desktop.\nThe download page should automatically suggest the appropriate installer for your operating system.\n\nWindows\nDownload the Windows installer (.exe), open it, and follow the installation instructions.\nAgain, the default options are appropriate for what we need.\n\n\nMac\nDownload the macOS installer (.dmg).\nOpen the downloaded file and move RStudio to your Applications folder when prompted."
+  },
+  {
+    "objectID": "getting-started/setup.html#open-rstudio",
+    "href": "getting-started/setup.html#open-rstudio",
+    "title": "Getting Started",
+    "section": "Open Rstudio",
+    "text": "Open Rstudio\nOnce everything is installed, open RStudio.\nThere may seem to be a lot happening on the screen, but don’t worry! We will go through the different parts of RStudio in the first module.\nBelieve me, RStudio makes life so much easier for those of us who aren’t programmers. It helps with autocompletion for functions and objects, and it also has many extensions that expand R’s capabilities. That’s why I recommend that you always work in RStudio—you won’t regret it 😉.\n\n\n\nIllustrating having funR: Artwork by ’@’allison_horst\n\n\nFor now, we only need to make sure that R and RStudio are communicating correctly.\nFind the Console and type:\n2 + 2\nThen press Enter.\nR should return:\n[1] 4\nIf you get 4, congratulations 🎉 — R and RStudio are working!"
+  },
+  {
+    "objectID": "getting-started/setup.html#installing-packages",
+    "href": "getting-started/setup.html#installing-packages",
+    "title": "Getting Started",
+    "section": "Installing packages",
+    "text": "Installing packages\nR already comes with many features and functions, but the big advantage is that we can add even more functions using packages.\nR packages are an additional collection of tools, most of which are specialized for a specific task. Throughout this course, we will use several packages for importing data, manipulating datasets, creating figures, and eventually working with camera-trap data.\nWe can install packages directly from the RStudio Console using the function install.packages().\nCopy and run:\n\ninstall.packages(c(\n  \"tidyverse\",\n  \"readxl\",\n  \"camtrapR\"\n))\n\nR may take a little while to install everything. You will probably see quite a lot of text appearing in the Console while packages and their dependencies are downloaded and installed. That is normal.\n\n\n\n\n\n\nImportant\n\n\n\nInstalling vs. loading a package\nWe normally need to install a package only once:\n\ninstall.packages(\"tidyverse\")\n\nHowever, installing a package does not automatically make it available every time you open R.\nWhen we want to use an installed package during an R session, we load it using library():\n\nlibrary(tidyverse)\n\nWe will talk more about packages and functions later in the course.\n\n\n\nIs everything working?\nLet’s do one final check.\n\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(camtrapR)\n\nDo not be surprised if some text appears in the Console after running library(tidyverse). Packages often display messages when they are loaded, and a message is not necessarily an error.\nIf all three packages load without an error saying that the package cannot be found, you are ready to start.\n\n\n\n\n\n\nReady!\n\n\n\nAt this point you should have:\nR installed RStudio installed the packages required for the course installed successfully run your first R command\nThat’s all we need before starting Module 1: Introduction to R and RStudio."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to R",
+    "section": "",
+    "text": "Welcome to Introduction to R, a beginner-friendly course designed to provide the foundations needed to work confidently with data in R.\nNo previous experience with R or programming is required. The course focuses on practical skills and introduces concepts progressively, from understanding how R works to importing, manipulating, visualizing, and exploring real datasets.\nThroughout the course, we will use ecological and camera-trap examples to connect R concepts with real-world data. In the final module, we will bring these skills together to organize and process camera-trap data using the camtrapR package."
+  },
+  {
+    "objectID": "index.html#what-will-you-learn",
+    "href": "index.html#what-will-you-learn",
+    "title": "Introduction to R",
+    "section": "What will you learn?",
+    "text": "What will you learn?\nBy the end of the course, you should be able to:\n\nUnderstand the basic structure of R and RStudio.\nCreate and manipulate common R objects.\nImport and export datasets.\nExplore and visualize data using ggplot2.\nManipulate datasets using dplyr and other tidyverse tools.\nIdentify common R errors and develop strategies to solve problems.\nPerform a basic exploratory analysis of a dataset.\nOrganize and process camera-trap data using camtrapR."
+  },
+  {
+    "objectID": "index.html#course-organization",
+    "href": "index.html#course-organization",
+    "title": "Introduction to R",
+    "section": "Course organization",
+    "text": "Course organization\nThe course is divided into short modules that build progressively on one another.\n\nIntroduction to R and RStudio\nObjects, operators, and functions\nData structures in R\nImporting and exporting data\nData visualization\nErrors, help, and problem solving\nData manipulation with the tidyverse\nExploratory data analysis\nWorking with camera-trap data using camtrapR\n\n\n\n\n\n\n\nLearning by doing\n\n\n\nThe best way to learn R is by using it. Each module includes examples and exercises designed to be completed directly in RStudio.\nShort take-home exercises will provide additional practice without requiring a large time commitment."
+  },
+  {
+    "objectID": "index.html#before-you-start",
+    "href": "index.html#before-you-start",
+    "title": "Introduction to R",
+    "section": "Before you start",
+    "text": "Before you start\nIf you do not have R and RStudio installed yet, begin with the Getting Started page.\nIf everything is ready, you can start with Module 1: Introduction to R and RStudio."
   }
 ]

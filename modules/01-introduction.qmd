@@ -12,6 +12,14 @@ Before learning how to manipulate data or create figures, it is important to und
 
 Do not worry about memorizing everything in this module. The goal is simply to become familiar with the environment we will use throughout the course.
 
+::: {.callout-note}
+## Session slides
+
+You can follow the presentation used during this session here:
+
+[Open Session 1 slides](../slides/session-01-introduction.qmd){.btn .btn-primary target="_blank"}
+:::
+
 ## What is R?
 
 **In short, R is a language and environment designed for performing statistical and graphical operations.**
