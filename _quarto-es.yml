@@ -40,3 +40,4 @@ website:
         menu:
           - href: resources/quarto.qmd
             text: "Documentos reproducibles con Quarto"
+            
