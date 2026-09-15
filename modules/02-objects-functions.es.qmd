@@ -1,0 +1,822 @@
+---
+title: "Módulo 2: Objetos, operadores y funciones"
+toc: true
+---
+
+## Introducción
+
+Ahora que sabemos cómo trabajar con RStudio y con scripts, podemos comenzar a entender cómo funciona realmente R.
+
+R funciona esencialmente creando **objetos** y utilizando después **operadores** y **funciones** para hacer cosas con esos objetos.
+
+En este módulo comenzaremos con algunos de los componentes más básicos del lenguaje R.
+
+## Comencemos
+
+Lo primero que necesitamos hacer es abrir RStudio, abrir nuestro proyecto `intro-r-course` y crear un nuevo script de R.
+
+Guarda el script dentro de la carpeta `scripts` con el nombre:
+
+```text
+module-02.R
+```
+
+Utilizaremos este script durante todo el módulo.
+
+## Ejecutar comandos
+
+R funciona básicamente dándole instrucciones escritas mediante comandos o expresiones.
+
+Un comando muy sencillo en R puede ser:
+
+```{r}
+2 + 2
+```
+
+Si escribimos esto en nuestro script, no ocurrirá nada hasta que le indiquemos a R que **ejecute** o **evalúe** el comando.
+
+Para ejecutar una línea de código, coloca el cursor sobre esa línea y utiliza:
+
+**Windows:** `Ctrl + Enter`
+
+**Mac:** `Command + Enter`
+
+También puedes hacer clic en el botón **Run** de RStudio.
+
+Si quieres ejecutar varias líneas al mismo tiempo, selecciónalas y utiliza el mismo atajo.
+
+Comencemos con algo sencillo:
+
+```{r}
+2 + 2
+```
+
+R debería devolver:
+
+```text
+[1] 4
+```
+
+Cuando ejecutamos esta línea, el resultado aparece en la Consola.
+
+En este caso, R nos indica que al evaluar el comando se produjo un objeto que contiene el número `4`.
+
+Recuerda: **R trabaja con objetos**.
+
+También podemos utilizar paréntesis para agrupar operaciones:
+
+```{r}
+(50 + 9) / (2 * 3)
+```
+
+R devuelve:
+
+```text
+[1] 9.833333
+```
+
+Al igual que en las matemáticas tradicionales, las operaciones dentro de los paréntesis se evalúan primero.
+
+### Comentarios
+
+A veces queremos escribir notas dentro de nuestro script para recordar qué hace el código.
+
+Si simplemente escribimos texto normal dentro de un script e intentamos ejecutarlo, R probablemente devolverá un error porque intentará interpretar nuestras palabras como código.
+
+Para evitarlo, utilizamos el símbolo `#`.
+
+```{r}
+# R ignora esta línea porque comienza con #
+
+# number <- 23
+# R también ignora esta línea
+
+2 # R evalúa el 2, pero ignora todo lo que aparece después de #
+```
+
+R devuelve:
+
+```text
+[1] 2
+```
+
+Todo lo que aparece después de `#` en una línea se considera un **comentario**.
+
+::: {.callout-tip}
+Utiliza comentarios frecuentemente en tus scripts.
+
+Tu yo del futuro te lo agradecerá.
+:::
+
+## Crear objetos
+
+Hasta ahora, los resultados de nuestras operaciones aparecen en la Consola, pero a medida que seguimos ejecutando comandos esos resultados desaparecen de nuestra vista.
+
+La mayoría de las veces querremos **asignar un resultado a un objeto** para poder utilizarlo nuevamente más adelante.
+
+En R, normalmente asignamos algo a un objeto utilizando:
+
+```text
+<-
+```
+
+Por ejemplo:
+
+```{r}
+number <- 2
+
+big_number <- 56
+```
+
+Acabamos de crear dos objetos, cada uno de los cuales contiene un número.
+
+Observa que R no imprimió nada en la Consola.
+
+Los valores fueron almacenados dentro de los objetos.
+
+Para ver qué contiene un objeto, simplemente ejecutamos su nombre:
+
+```{r}
+big_number
+```
+
+R devuelve:
+
+```text
+[1] 56
+```
+
+El atajo para escribir `<-` en RStudio es:
+
+**Windows:** `Alt + -`
+
+**Mac:** `Option + -`
+
+¡Pruébalo!
+
+### Nombrar objetos
+
+Puedes elegir casi cualquier nombre para un objeto, pero existen algunas reglas importantes.
+
+R distingue entre **mayúsculas y minúsculas**.
+
+Por ejemplo:
+
+```{r}
+big_number
+```
+
+y:
+
+```{r}
+#| eval: false
+#| 
+Big_number
+```
+
+son dos nombres diferentes.
+
+Si solamente existe `big_number` e intentas ejecutar:
+
+```{r}
+#| eval: false
+#| 
+Big_number
+```
+
+R devolverá un error.
+
+También debemos evitar utilizar acentos o caracteres especiales en nombres de objetos, archivos, carpetas y columnas. Aunque pueden funcionar en muchos casos, las diferencias en la codificación de caracteres pueden generar problemas innecesarios.
+
+Los nombres de objetos:
+
+- no deberían comenzar con un número,
+- no deberían contener espacios,
+- deberían evitar operadores especiales como `+`, `-`, `*`, `/`, `#`, `%`, `[ ]`, `{ }`, `( )` o `~`,
+- y no deberían reutilizar nombres de funciones comunes de R, como `mean`.
+
+Lo más importante es que el nombre del objeto nos dé alguna información sobre lo que contiene.
+
+Compara:
+
+```{r}
+x <- 25
+```
+
+con:
+
+```{r}
+number_of_cameras <- 25
+```
+
+El segundo nombre es mucho más fácil de entender cuando regresamos al script más adelante.
+
+Algunas formas comunes de escribir nombres de objetos largos son:
+
+```{r}
+number_of_cameras
+```
+
+o:
+
+```{r}
+#| eval: false
+#| 
+number.of.cameras
+```
+
+A lo largo de este curso utilizaremos principalmente **snake_case**:
+
+```{r}
+number_of_cameras
+```
+
+::: {.callout-important}
+Ten cuidado al reutilizar el nombre de un objeto.
+
+Asignar algo nuevo a un objeto que ya existe reemplazará su valor anterior.
+:::
+
+Por ejemplo:
+
+```{r}
+big_number
+```
+
+devuelve:
+
+```text
+[1] 56
+```
+
+Pero ahora hagamos esto:
+
+```{r}
+big_number <- "fifty six"
+
+big_number
+```
+
+R ahora devuelve:
+
+```text
+[1] "fifty six"
+```
+
+El número original `56` fue reemplazado.
+
+## Tipos de objetos
+
+R puede almacenar diferentes tipos de información.
+
+Por ahora nos enfocaremos en cuatro tipos básicos:
+
+- numéricos (*numeric*),
+- texto o caracteres (*character*),
+- lógicos (*logical*),
+- valores faltantes.
+
+Más adelante combinaremos estos valores en estructuras de datos más complejas como vectores, matrices, listas y data frames.
+
+## Objetos numéricos
+
+Los objetos numéricos contienen números.
+
+Pueden contener números enteros o números con decimales.
+
+```{r}
+number_1 <- 25
+
+number_2 <- 27.5
+```
+
+Como estos objetos contienen números, podemos realizar operaciones matemáticas con ellos.
+
+Por ejemplo:
+
+```{r}
+sum_numbers <- number_1 + number_2
+
+sum_numbers
+```
+
+Podemos seguir utilizando el objeto que acabamos de crear:
+
+```{r}
+difference <- sum_numbers - number_2
+
+difference
+```
+
+Y podemos continuar combinando objetos y operaciones:
+
+```{r}
+product <- sum_numbers * difference
+
+product
+```
+
+O hacer algo un poco más complicado:
+
+```{r}
+result <- ((product / sum_numbers) + difference)^2
+
+result
+```
+
+### Operadores aritméticos
+
+| Operador | Operación |
+|----------|-----------|
+| `+` | Suma |
+| `-` | Resta |
+| `*` | Multiplicación |
+| `/` | División |
+| `^` | Potencia |
+
+::: {.callout-note}
+## Inténtalo tú mismo
+
+Crea dos objetos numéricos:
+
+```{r}
+camera_days <- 30
+
+number_of_cameras <- 12
+```
+
+Utilízalos para calcular el número total de días-cámara (*camera-days*) si todas las cámaras estuvieron activas durante los 30 días.
+
+Guarda el resultado en un objeto llamado:
+
+```{r}
+#| eval: false
+#| 
+total_camera_days
+```
+
+:::
+
+## Operadores relacionales
+
+También podemos comparar valores utilizando **operadores relacionales**.
+
+En lugar de devolver un número, estas comparaciones devuelven un **valor lógico**: `TRUE` o `FALSE`.
+
+Por ejemplo:
+
+```{r}
+7 < 3
+```
+
+Otro ejemplo:
+
+```{r}
+30 >= 50
+```
+
+Y:
+
+```{r}
+50 == 50
+```
+
+Observa que para comprobar si dos valores son iguales necesitamos utilizar **dos signos de igual**:
+
+```r
+==
+```
+
+### Operadores relacionales
+
+| Operador | Operación |
+|----------|-----------|
+| `<` | Menor que |
+| `<=` | Menor o igual que |
+| `>` | Mayor que |
+| `>=` | Mayor o igual que |
+| `==` | Igual a |
+| `!=` | Diferente de |
+
+Por ejemplo:
+
+```{r}
+number_of_cameras > 10
+```
+
+## Objetos de tipo character
+
+Los objetos de tipo `character` contienen texto.
+
+El texto en R normalmente debe colocarse entre comillas:
+
+```{r}
+species <- "Raccoon"
+```
+
+o:
+
+```{r}
+station <- "Camera_01"
+```
+
+Por ejemplo:
+
+```{r}
+character_1 <- "a"
+
+character_1
+```
+
+También podemos almacenar frases completas:
+
+```{r}
+character_2 <- "I like statistics"
+
+character_2
+```
+
+Ahora, ¿qué ocurre si hacemos esto?
+
+```{r}
+fake_number <- "69"
+```
+
+Aunque `69` parece un número, las comillas le indican a R que debe tratarlo como **texto**.
+
+Esto significa que no podemos utilizarlo directamente en operaciones aritméticas:
+
+```{r}
+#| eval: false
+fake_number + 2
+```
+
+R devolverá un error.
+
+Sin embargo, los operadores relacionales también pueden utilizarse con valores de tipo `character`.
+
+Por ejemplo:
+
+```{r}
+"a" < "b"
+```
+
+En este caso, R utiliza el orden alfabético.
+
+También podemos comparar texto directamente:
+
+```{r}
+"hello" == "Hello"
+```
+
+Recuerda que R distingue entre mayúsculas y minúsculas.
+
+Otro ejemplo:
+
+```{r}
+"23" != "twenty three"
+```
+
+## Objetos lógicos
+
+Los objetos lógicos contienen uno de dos valores:
+
+```text
+TRUE
+FALSE
+```
+
+Básicamente representan si una condición se cumple o no.
+
+Podemos crear directamente un objeto lógico:
+
+```{r}
+logical_object <- TRUE
+
+logical_object
+```
+
+Los valores lógicos son especialmente útiles cuando utilizamos operadores relacionales.
+
+Por ejemplo:
+
+```{r}
+number_1 < number_2
+```
+
+También podemos combinar condiciones lógicas.
+
+Por ejemplo, el operador `|` significa **OR** (o):
+
+```{r}
+TRUE | FALSE
+```
+
+porque al menos una de las dos condiciones es verdadera.
+
+Utilizaremos mucho más los valores lógicos cuando comencemos a filtrar y manipular bases de datos.
+
+## Valores faltantes
+
+A veces una observación o un valor no existe o no fue registrado.
+
+En R, los valores faltantes se representan mediante:
+
+```text
+NA
+```
+
+Es muy importante entender que `NA` **no es lo mismo que cero**.
+
+Imagina que estamos contando ranas en estanques.
+
+Un valor de:
+
+```text
+0
+```
+
+podría significar:
+
+> Visitamos el estanque y no observamos ninguna rana.
+
+En cambio:
+
+```text
+NA
+```
+
+podría significar:
+
+> Nunca visitamos ese estanque, por lo que no sabemos cuántas ranas había.
+
+Son situaciones muy diferentes.
+
+Podemos crear un objeto que contenga un valor faltante:
+
+```{r}
+missing_value <- NA
+
+missing_value
+```
+
+Los valores faltantes son extremadamente comunes en bases de datos reales y más adelante aprenderemos cómo identificarlos y trabajar con ellos.
+
+## Funciones
+
+Las funciones son operaciones predefinidas diseñadas para realizar una tarea específica.
+
+La mayoría de las funciones de R siguen una estructura general como esta:
+
+```text
+function_name(object)
+```
+
+Por ejemplo, la función:
+
+```{r}
+#| eval: false
+class()
+```
+
+nos indica con qué tipo de objeto estamos trabajando.
+
+Prueba:
+
+```{r}
+class(23)
+```
+
+Ahora prueba con el objeto que creamos anteriormente:
+
+```{r}
+class(fake_number)
+```
+
+También podemos revisar un valor lógico:
+
+```{r}
+class(TRUE)
+```
+
+Y:
+
+```{r}
+class(missing_value)
+```
+
+Un `NA` por sí solo se almacena de manera predeterminada como un valor lógico faltante. Más adelante, cuando trabajemos con bases de datos, veremos que también pueden existir valores faltantes dentro de variables numéricas, de texto y de otros tipos.
+
+### Argumentos de una función
+
+Las funciones reciben información mediante **argumentos**.
+
+Por ejemplo:
+
+```{r}
+round(3.14159, digits = 2)
+```
+
+Aquí:
+
+```text
+3.14159
+```
+
+es el valor que queremos que utilice la función, mientras que:
+
+```text
+digits = 2
+```
+
+le indica a `round()` cuántos decimales queremos conservar.
+
+Diferentes funciones aceptan diferentes argumentos.
+
+No necesitas memorizarlos todos.
+
+R proporciona documentación para sus funciones.
+
+Por ejemplo:
+
+```{r}
+help(round)
+```
+
+o:
+
+```{r}
+?round
+```
+
+abrirán la página de ayuda de `round()`.
+
+::: {.callout-tip}
+Aprender R no consiste en memorizar cada función y cada uno de sus argumentos.
+
+Aprender a encontrar la documentación que necesitas es mucho más útil.
+:::
+
+## Funciones fuera de R base
+
+Muchas funciones ya vienen incluidas cuando instalamos R. A estas funciones normalmente nos referimos como funciones de **R base** (*base R*).
+
+Sin embargo, una gran parte de las capacidades de R proviene de funciones creadas por la comunidad y distribuidas mediante **paquetes**.
+
+Para utilizar las funciones de un paquete, generalmente necesitamos:
+
+1. Instalar el paquete.
+2. Cargar el paquete.
+3. Utilizar sus funciones.
+
+### Instalar un paquete
+
+Vamos a instalar un pequeño paquete llamado `beepr`.
+
+`beepr` permite que R reproduzca sonidos.
+
+Ejecuta:
+
+```{r}
+#| eval: false
+install.packages("beepr")
+```
+
+Recuerda que necesitas una conexión a Internet para instalar un paquete.
+
+Normalmente solamente necesitas instalar un paquete **una vez** en tu computador.
+
+### Cargar un paquete
+
+Una vez instalado el paquete, necesitamos cargarlo en nuestra sesión actual de R.
+
+```{r}
+library(beepr)
+```
+
+A diferencia de `install.packages()`, normalmente ejecutamos `library()` cada vez que comenzamos una nueva sesión de R y queremos utilizar ese paquete.
+
+### Utilizar una función del paquete
+
+Ahora podemos utilizar una de las funciones incluidas en `beepr`:
+
+```{r}
+beep(sound = 8)
+```
+
+Si todo funcionó correctamente, tu computador debería reproducir un sonido.
+
+::: {.callout-important}
+Instalar y cargar un paquete son cosas diferentes.
+
+```{r}
+#| eval: false
+install.packages("beepr")
+```
+
+instala el paquete en tu computador.
+
+```{r}
+#| eval: false
+library(beepr)
+```
+
+hace que el paquete que ya está instalado esté disponible durante la sesión actual de R.
+:::
+
+Existen miles de paquetes de R.
+
+La mayoría están disponibles a través de un repositorio llamado **CRAN**, aunque los paquetes también pueden distribuirse de otras maneras.
+
+Una de las formas más sencillas de encontrar un paquete es simplemente buscar lo que quieres hacer.
+
+Por ejemplo:
+
+> paquete para calcular el índice de diversidad de Shannon en R
+
+Una búsqueda de este tipo probablemente te llevará a paquetes como `vegan`.
+
+El siguiente paso será aprender cómo funciona ese paquete leyendo su documentación, ejemplos o tutoriales.
+
+## Práctica en casa
+
+::: {.callout-tip}
+Esta actividad debería tomar aproximadamente **15–20 minutos**.
+
+Abre tu proyecto `intro-r-course` y crea un nuevo script llamado:
+
+```text
+practice-02.R
+```
+
+Guárdalo dentro de la carpeta `scripts`.
+
+Completa las siguientes actividades:
+
+1. Crea un objeto llamado `species` que contenga el nombre de una especie animal.
+2. Crea un objeto llamado `station` que contenga el nombre de una estación de cámara, por ejemplo `"CT01"`.
+3. Crea un objeto llamado `detections` que contenga un número.
+4. Utiliza un operador relacional para determinar si `detections` es mayor que `10`.
+5. Crea dos objetos numéricos y realiza al menos cuatro operaciones aritméticas diferentes con ellos.
+6. Utiliza `class()` para revisar el tipo de cada uno de los siguientes valores:
+
+```{r}
+25
+"25"
+TRUE
+NA
+```
+
+7. Utiliza el sistema de ayuda de R para abrir la documentación de la función `round()`.
+8. Agrega comentarios a lo largo de tu script explicando qué hace cada sección.
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Solución sugerida
+
+Tu script podría verse así:
+
+```{r}
+# Práctica del Módulo 2
+
+# Objetos character
+species <- "Raccoon"
+station <- "CT01"
+
+# Objeto numérico
+detections <- 15
+
+# ¿El número de detecciones es mayor que 10?
+detections > 10
+
+# Operaciones aritméticas
+number_1 <- 20
+number_2 <- 5
+
+number_1 + number_2
+number_1 - number_2
+number_1 * number_2
+number_1 / number_2
+
+# Revisar los tipos de objetos
+class(25)
+class("25")
+class(TRUE)
+class(NA)
+
+# Abrir la página de ayuda de round()
+?round
+```
+
+Los nombres y valores de tus objetos pueden ser diferentes.
+
+Lo importante es que practiques:
+
+- crear objetos,
+- utilizar `<-`,
+- trabajar con valores numéricos, de tipo `character` y lógicos,
+- utilizar operadores aritméticos y relacionales,
+- reconocer valores faltantes,
+- y utilizar funciones sencillas.
+:::

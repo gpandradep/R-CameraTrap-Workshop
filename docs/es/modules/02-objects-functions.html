@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>objects-functions – Introducción a R</title>
+<title>Módulo 2: Objetos, operadores y funciones – Introducción a R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
@@ -142,11 +177,838 @@ ul.task-list li input[type="checkbox"] {
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+<li><a href="#introducci%C3%B3n" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#comencemos" id="toc-comencemos" class="nav-link" data-scroll-target="#comencemos">Comencemos</a></li>
+  <li>
+<a href="#ejecutar-comandos" id="toc-ejecutar-comandos" class="nav-link" data-scroll-target="#ejecutar-comandos">Ejecutar comandos</a>
+  <ul class="collapse">
+<li><a href="#comentarios" id="toc-comentarios" class="nav-link" data-scroll-target="#comentarios">Comentarios</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#crear-objetos" id="toc-crear-objetos" class="nav-link" data-scroll-target="#crear-objetos">Crear objetos</a>
+  <ul class="collapse">
+<li><a href="#nombrar-objetos" id="toc-nombrar-objetos" class="nav-link" data-scroll-target="#nombrar-objetos">Nombrar objetos</a></li>
+  </ul>
+</li>
+  <li><a href="#tipos-de-objetos" id="toc-tipos-de-objetos" class="nav-link" data-scroll-target="#tipos-de-objetos">Tipos de objetos</a></li>
+  <li>
+<a href="#objetos-num%C3%A9ricos" id="toc-objetos-numéricos" class="nav-link" data-scroll-target="#objetos-numéricos">Objetos numéricos</a>
+  <ul class="collapse">
+<li><a href="#operadores-aritm%C3%A9ticos" id="toc-operadores-aritméticos" class="nav-link" data-scroll-target="#operadores-aritméticos">Operadores aritméticos</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#operadores-relacionales" id="toc-operadores-relacionales" class="nav-link" data-scroll-target="#operadores-relacionales">Operadores relacionales</a>
+  <ul class="collapse">
+<li><a href="#operadores-relacionales-1" id="toc-operadores-relacionales-1" class="nav-link" data-scroll-target="#operadores-relacionales-1">Operadores relacionales</a></li>
+  </ul>
+</li>
+  <li><a href="#objetos-de-tipo-character" id="toc-objetos-de-tipo-character" class="nav-link" data-scroll-target="#objetos-de-tipo-character">Objetos de tipo character</a></li>
+  <li><a href="#objetos-l%C3%B3gicos" id="toc-objetos-lógicos" class="nav-link" data-scroll-target="#objetos-lógicos">Objetos lógicos</a></li>
+  <li><a href="#valores-faltantes" id="toc-valores-faltantes" class="nav-link" data-scroll-target="#valores-faltantes">Valores faltantes</a></li>
+  <li>
+<a href="#funciones" id="toc-funciones" class="nav-link" data-scroll-target="#funciones">Funciones</a>
+  <ul class="collapse">
+<li><a href="#argumentos-de-una-funci%C3%B3n" id="toc-argumentos-de-una-función" class="nav-link" data-scroll-target="#argumentos-de-una-función">Argumentos de una función</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#funciones-fuera-de-r-base" id="toc-funciones-fuera-de-r-base" class="nav-link" data-scroll-target="#funciones-fuera-de-r-base">Funciones fuera de R base</a>
+  <ul class="collapse">
+<li><a href="#instalar-un-paquete" id="toc-instalar-un-paquete" class="nav-link" data-scroll-target="#instalar-un-paquete">Instalar un paquete</a></li>
+  <li><a href="#cargar-un-paquete" id="toc-cargar-un-paquete" class="nav-link" data-scroll-target="#cargar-un-paquete">Cargar un paquete</a></li>
+  <li><a href="#utilizar-una-funci%C3%B3n-del-paquete" id="toc-utilizar-una-función-del-paquete" class="nav-link" data-scroll-target="#utilizar-una-función-del-paquete">Utilizar una función del paquete</a></li>
+  </ul>
+</li>
+  <li><a href="#pr%C3%A1ctica-en-casa" id="toc-práctica-en-casa" class="nav-link" data-scroll-target="#práctica-en-casa">Práctica en casa</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Módulo 2: Objetos, operadores y funciones</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="introducción" class="level2"><h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>Ahora que sabemos cómo trabajar con RStudio y con scripts, podemos comenzar a entender cómo funciona realmente R.</p>
+<p>R funciona esencialmente creando <strong>objetos</strong> y utilizando después <strong>operadores</strong> y <strong>funciones</strong> para hacer cosas con esos objetos.</p>
+<p>En este módulo comenzaremos con algunos de los componentes más básicos del lenguaje R.</p>
+</section><section id="comencemos" class="level2"><h2 class="anchored" data-anchor-id="comencemos">Comencemos</h2>
+<p>Lo primero que necesitamos hacer es abrir RStudio, abrir nuestro proyecto <code>intro-r-course</code> y crear un nuevo script de R.</p>
+<p>Guarda el script dentro de la carpeta <code>scripts</code> con el nombre:</p>
+<pre class="text"><code>module-02.R</code></pre>
+<p>Utilizaremos este script durante todo el módulo.</p>
+</section><section id="ejecutar-comandos" class="level2"><h2 class="anchored" data-anchor-id="ejecutar-comandos">Ejecutar comandos</h2>
+<p>R funciona básicamente dándole instrucciones escritas mediante comandos o expresiones.</p>
+<p>Un comando muy sencillo en R puede ser:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>Si escribimos esto en nuestro script, no ocurrirá nada hasta que le indiquemos a R que <strong>ejecute</strong> o <strong>evalúe</strong> el comando.</p>
+<p>Para ejecutar una línea de código, coloca el cursor sobre esa línea y utiliza:</p>
+<p><strong>Windows:</strong> <code>Ctrl + Enter</code></p>
+<p><strong>Mac:</strong> <code>Command + Enter</code></p>
+<p>También puedes hacer clic en el botón <strong>Run</strong> de RStudio.</p>
+<p>Si quieres ejecutar varias líneas al mismo tiempo, selecciónalas y utiliza el mismo atajo.</p>
+<p>Comencemos con algo sencillo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>R debería devolver:</p>
+<pre class="text"><code>[1] 4</code></pre>
+<p>Cuando ejecutamos esta línea, el resultado aparece en la Consola.</p>
+<p>En este caso, R nos indica que al evaluar el comando se produjo un objeto que contiene el número <code>4</code>.</p>
+<p>Recuerda: <strong>R trabaja con objetos</strong>.</p>
+<p>También podemos utilizar paréntesis para agrupar operaciones:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">50</span> <span class="sc">+</span> <span class="dv">9</span>) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.833333</code></pre>
+</div>
+</div>
+<p>R devuelve:</p>
+<pre class="text"><code>[1] 9.833333</code></pre>
+<p>Al igual que en las matemáticas tradicionales, las operaciones dentro de los paréntesis se evalúan primero.</p>
+<section id="comentarios" class="level3"><h3 class="anchored" data-anchor-id="comentarios">Comentarios</h3>
+<p>A veces queremos escribir notas dentro de nuestro script para recordar qué hace el código.</p>
+<p>Si simplemente escribimos texto normal dentro de un script e intentamos ejecutarlo, R probablemente devolverá un error porque intentará interpretar nuestras palabras como código.</p>
+<p>Para evitarlo, utilizamos el símbolo <code>#</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R ignora esta línea porque comienza con #</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># number &lt;- 23</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># R también ignora esta línea</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># R evalúa el 2, pero ignora todo lo que aparece después de #</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>R devuelve:</p>
+<pre class="text"><code>[1] 2</code></pre>
+<p>Todo lo que aparece después de <code>#</code> en una línea se considera un <strong>comentario</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Utiliza comentarios frecuentemente en tus scripts.</p>
+<p>Tu yo del futuro te lo agradecerá.</p>
+</div>
+</div>
+</section></section><section id="crear-objetos" class="level2"><h2 class="anchored" data-anchor-id="crear-objetos">Crear objetos</h2>
+<p>Hasta ahora, los resultados de nuestras operaciones aparecen en la Consola, pero a medida que seguimos ejecutando comandos esos resultados desaparecen de nuestra vista.</p>
+<p>La mayoría de las veces querremos <strong>asignar un resultado a un objeto</strong> para poder utilizarlo nuevamente más adelante.</p>
+<p>En R, normalmente asignamos algo a un objeto utilizando:</p>
+<pre class="text"><code>&lt;-</code></pre>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>big_number <span class="ot">&lt;-</span> <span class="dv">56</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Acabamos de crear dos objetos, cada uno de los cuales contiene un número.</p>
+<p>Observa que R no imprimió nada en la Consola.</p>
+<p>Los valores fueron almacenados dentro de los objetos.</p>
+<p>Para ver qué contiene un objeto, simplemente ejecutamos su nombre:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>big_number</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 56</code></pre>
+</div>
+</div>
+<p>R devuelve:</p>
+<pre class="text"><code>[1] 56</code></pre>
+<p>El atajo para escribir <code>&lt;-</code> en RStudio es:</p>
+<p><strong>Windows:</strong> <code>Alt + -</code></p>
+<p><strong>Mac:</strong> <code>Option + -</code></p>
+<p>¡Pruébalo!</p>
+<section id="nombrar-objetos" class="level3"><h3 class="anchored" data-anchor-id="nombrar-objetos">Nombrar objetos</h3>
+<p>Puedes elegir casi cualquier nombre para un objeto, pero existen algunas reglas importantes.</p>
+<p>R distingue entre <strong>mayúsculas y minúsculas</strong>.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>big_number</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 56</code></pre>
+</div>
+</div>
+<p>y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Big_number</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>son dos nombres diferentes.</p>
+<p>Si solamente existe <code>big_number</code> e intentas ejecutar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Big_number</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R devolverá un error.</p>
+<p>También debemos evitar utilizar acentos o caracteres especiales en nombres de objetos, archivos, carpetas y columnas. Aunque pueden funcionar en muchos casos, las diferencias en la codificación de caracteres pueden generar problemas innecesarios.</p>
+<p>Los nombres de objetos:</p>
+<ul>
+<li>no deberían comenzar con un número,</li>
+<li>no deberían contener espacios,</li>
+<li>deberían evitar operadores especiales como <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>#</code>, <code>%</code>, <code>[ ]</code>, <code>{ }</code>, <code>( )</code> o <code>~</code>,</li>
+<li>y no deberían reutilizar nombres de funciones comunes de R, como <code>mean</code>.</li>
+</ul>
+<p>Lo más importante es que el nombre del objeto nos dé alguna información sobre lo que contiene.</p>
+<p>Compara:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">25</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>con:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>number_of_cameras <span class="ot">&lt;-</span> <span class="dv">25</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>El segundo nombre es mucho más fácil de entender cuando regresamos al script más adelante.</p>
+<p>Algunas formas comunes de escribir nombres de objetos largos son:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>number_of_cameras</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+<p>o:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>number.of.cameras</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A lo largo de este curso utilizaremos principalmente <strong>snake_case</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>number_of_cameras</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ten cuidado al reutilizar el nombre de un objeto.</p>
+<p>Asignar algo nuevo a un objeto que ya existe reemplazará su valor anterior.</p>
+</div>
+</div>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>big_number</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 56</code></pre>
+</div>
+</div>
+<p>devuelve:</p>
+<pre class="text"><code>[1] 56</code></pre>
+<p>Pero ahora hagamos esto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>big_number <span class="ot">&lt;-</span> <span class="st">"fifty six"</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>big_number</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "fifty six"</code></pre>
+</div>
+</div>
+<p>R ahora devuelve:</p>
+<pre class="text"><code>[1] "fifty six"</code></pre>
+<p>El número original <code>56</code> fue reemplazado.</p>
+</section></section><section id="tipos-de-objetos" class="level2"><h2 class="anchored" data-anchor-id="tipos-de-objetos">Tipos de objetos</h2>
+<p>R puede almacenar diferentes tipos de información.</p>
+<p>Por ahora nos enfocaremos en cuatro tipos básicos:</p>
+<ul>
+<li>numéricos (<em>numeric</em>),</li>
+<li>texto o caracteres (<em>character</em>),</li>
+<li>lógicos (<em>logical</em>),</li>
+<li>valores faltantes.</li>
+</ul>
+<p>Más adelante combinaremos estos valores en estructuras de datos más complejas como vectores, matrices, listas y data frames.</p>
+</section><section id="objetos-numéricos" class="level2"><h2 class="anchored" data-anchor-id="objetos-numéricos">Objetos numéricos</h2>
+<p>Los objetos numéricos contienen números.</p>
+<p>Pueden contener números enteros o números con decimales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>number_1 <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>number_2 <span class="ot">&lt;-</span> <span class="fl">27.5</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Como estos objetos contienen números, podemos realizar operaciones matemáticas con ellos.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sum_numbers <span class="ot">&lt;-</span> number_1 <span class="sc">+</span> number_2</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>sum_numbers</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 52.5</code></pre>
+</div>
+</div>
+<p>Podemos seguir utilizando el objeto que acabamos de crear:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> sum_numbers <span class="sc">-</span> number_2</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>difference</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+<p>Y podemos continuar combinando objetos y operaciones:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>product <span class="ot">&lt;-</span> sum_numbers <span class="sc">*</span> difference</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>product</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1312.5</code></pre>
+</div>
+</div>
+<p>O hacer algo un poco más complicado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> ((product <span class="sc">/</span> sum_numbers) <span class="sc">+</span> difference)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2500</code></pre>
+</div>
+</div>
+<section id="operadores-aritméticos" class="level3"><h3 class="anchored" data-anchor-id="operadores-aritméticos">Operadores aritméticos</h3>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Operador</th>
+<th>Operación</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code></td>
+<td>Suma</td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td>Resta</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Multiplicación</td>
+</tr>
+<tr class="even">
+<td><code>/</code></td>
+<td>División</td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>Potencia</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Inténtalo tú mismo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Crea dos objetos numéricos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>camera_days <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>number_of_cameras <span class="ot">&lt;-</span> <span class="dv">12</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Utilízalos para calcular el número total de días-cámara (<em>camera-days</em>) si todas las cámaras estuvieron activas durante los 30 días.</p>
+<p>Guarda el resultado en un objeto llamado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>total_camera_days</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section></section><section id="operadores-relacionales" class="level2"><h2 class="anchored" data-anchor-id="operadores-relacionales">Operadores relacionales</h2>
+<p>También podemos comparar valores utilizando <strong>operadores relacionales</strong>.</p>
+<p>En lugar de devolver un número, estas comparaciones devuelven un <strong>valor lógico</strong>: <code>TRUE</code> o <code>FALSE</code>.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">&lt;</span> <span class="dv">3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Otro ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="dv">30</span> <span class="sc">&gt;=</span> <span class="dv">50</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span> <span class="sc">==</span> <span class="dv">50</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Observa que para comprobar si dos valores son iguales necesitamos utilizar <strong>dos signos de igual</strong>:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="operadores-relacionales-1" class="level3"><h3 class="anchored" data-anchor-id="operadores-relacionales-1">Operadores relacionales</h3>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Operador</th>
+<th>Operación</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Menor que</td>
+</tr>
+<tr class="even">
+<td><code>&lt;=</code></td>
+<td>Menor o igual que</td>
+</tr>
+<tr class="odd">
+<td><code>&gt;</code></td>
+<td>Mayor que</td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code></td>
+<td>Mayor o igual que</td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Igual a</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>Diferente de</td>
+</tr>
+</tbody>
+</table>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>number_of_cameras <span class="sc">&gt;</span> <span class="dv">10</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section></section><section id="objetos-de-tipo-character" class="level2"><h2 class="anchored" data-anchor-id="objetos-de-tipo-character">Objetos de tipo character</h2>
+<p>Los objetos de tipo <code>character</code> contienen texto.</p>
+<p>El texto en R normalmente debe colocarse entre comillas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="st">"Raccoon"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>o:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>station <span class="ot">&lt;-</span> <span class="st">"Camera_01"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>character_1 <span class="ot">&lt;-</span> <span class="st">"a"</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>character_1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"</code></pre>
+</div>
+</div>
+<p>También podemos almacenar frases completas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>character_2 <span class="ot">&lt;-</span> <span class="st">"I like statistics"</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>character_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "I like statistics"</code></pre>
+</div>
+</div>
+<p>Ahora, ¿qué ocurre si hacemos esto?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fake_number <span class="ot">&lt;-</span> <span class="st">"69"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aunque <code>69</code> parece un número, las comillas le indican a R que debe tratarlo como <strong>texto</strong>.</p>
+<p>Esto significa que no podemos utilizarlo directamente en operaciones aritméticas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>fake_number <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R devolverá un error.</p>
+<p>Sin embargo, los operadores relacionales también pueden utilizarse con valores de tipo <code>character</code>.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="st">"a"</span> <span class="sc">&lt;</span> <span class="st">"b"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>En este caso, R utiliza el orden alfabético.</p>
+<p>También podemos comparar texto directamente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello"</span> <span class="sc">==</span> <span class="st">"Hello"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Recuerda que R distingue entre mayúsculas y minúsculas.</p>
+<p>Otro ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="st">"23"</span> <span class="sc">!=</span> <span class="st">"twenty three"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section><section id="objetos-lógicos" class="level2"><h2 class="anchored" data-anchor-id="objetos-lógicos">Objetos lógicos</h2>
+<p>Los objetos lógicos contienen uno de dos valores:</p>
+<pre class="text"><code>TRUE
+FALSE</code></pre>
+<p>Básicamente representan si una condición se cumple o no.</p>
+<p>Podemos crear directamente un objeto lógico:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>logical_object <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>logical_object</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Los valores lógicos son especialmente útiles cuando utilizamos operadores relacionales.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>number_1 <span class="sc">&lt;</span> number_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>También podemos combinar condiciones lógicas.</p>
+<p>Por ejemplo, el operador <code>|</code> significa <strong>OR</strong> (o):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">|</span> <span class="cn">FALSE</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>porque al menos una de las dos condiciones es verdadera.</p>
+<p>Utilizaremos mucho más los valores lógicos cuando comencemos a filtrar y manipular bases de datos.</p>
+</section><section id="valores-faltantes" class="level2"><h2 class="anchored" data-anchor-id="valores-faltantes">Valores faltantes</h2>
+<p>A veces una observación o un valor no existe o no fue registrado.</p>
+<p>En R, los valores faltantes se representan mediante:</p>
+<pre class="text"><code>NA</code></pre>
+<p>Es muy importante entender que <code>NA</code> <strong>no es lo mismo que cero</strong>.</p>
+<p>Imagina que estamos contando ranas en estanques.</p>
+<p>Un valor de:</p>
+<pre class="text"><code>0</code></pre>
+<p>podría significar:</p>
+<blockquote class="blockquote">
+<p>Visitamos el estanque y no observamos ninguna rana.</p>
+</blockquote>
+<p>En cambio:</p>
+<pre class="text"><code>NA</code></pre>
+<p>podría significar:</p>
+<blockquote class="blockquote">
+<p>Nunca visitamos ese estanque, por lo que no sabemos cuántas ranas había.</p>
+</blockquote>
+<p>Son situaciones muy diferentes.</p>
+<p>Podemos crear un objeto que contenga un valor faltante:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>missing_value <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>missing_value</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Los valores faltantes son extremadamente comunes en bases de datos reales y más adelante aprenderemos cómo identificarlos y trabajar con ellos.</p>
+</section><section id="funciones" class="level2"><h2 class="anchored" data-anchor-id="funciones">Funciones</h2>
+<p>Las funciones son operaciones predefinidas diseñadas para realizar una tarea específica.</p>
+<p>La mayoría de las funciones de R siguen una estructura general como esta:</p>
+<pre class="text"><code>function_name(object)</code></pre>
+<p>Por ejemplo, la función:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>nos indica con qué tipo de objeto estamos trabajando.</p>
+<p>Prueba:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">23</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Ahora prueba con el objeto que creamos anteriormente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(fake_number)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>También podemos revisar un valor lógico:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<p>Y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(missing_value)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<p>Un <code>NA</code> por sí solo se almacena de manera predeterminada como un valor lógico faltante. Más adelante, cuando trabajemos con bases de datos, veremos que también pueden existir valores faltantes dentro de variables numéricas, de texto y de otros tipos.</p>
+<section id="argumentos-de-una-función" class="level3"><h3 class="anchored" data-anchor-id="argumentos-de-una-función">Argumentos de una función</h3>
+<p>Las funciones reciben información mediante <strong>argumentos</strong>.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.14</code></pre>
+</div>
+</div>
+<p>Aquí:</p>
+<pre class="text"><code>3.14159</code></pre>
+<p>es el valor que queremos que utilice la función, mientras que:</p>
+<pre class="text"><code>digits = 2</code></pre>
+<p>le indica a <code>round()</code> cuántos decimales queremos conservar.</p>
+<p>Diferentes funciones aceptan diferentes argumentos.</p>
+<p>No necesitas memorizarlos todos.</p>
+<p>R proporciona documentación para sus funciones.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(round)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>starting httpd help server ... done</code></pre>
+</div>
+</div>
+<p>o:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>?round</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>abrirán la página de ayuda de <code>round()</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aprender R no consiste en memorizar cada función y cada uno de sus argumentos.</p>
+<p>Aprender a encontrar la documentación que necesitas es mucho más útil.</p>
+</div>
+</div>
+</section></section><section id="funciones-fuera-de-r-base" class="level2"><h2 class="anchored" data-anchor-id="funciones-fuera-de-r-base">Funciones fuera de R base</h2>
+<p>Muchas funciones ya vienen incluidas cuando instalamos R. A estas funciones normalmente nos referimos como funciones de <strong>R base</strong> (<em>base R</em>).</p>
+<p>Sin embargo, una gran parte de las capacidades de R proviene de funciones creadas por la comunidad y distribuidas mediante <strong>paquetes</strong>.</p>
+<p>Para utilizar las funciones de un paquete, generalmente necesitamos:</p>
+<ol type="1">
+<li>Instalar el paquete.</li>
+<li>Cargar el paquete.</li>
+<li>Utilizar sus funciones.</li>
+</ol>
+<section id="instalar-un-paquete" class="level3"><h3 class="anchored" data-anchor-id="instalar-un-paquete">Instalar un paquete</h3>
+<p>Vamos a instalar un pequeño paquete llamado <code>beepr</code>.</p>
+<p><code>beepr</code> permite que R reproduzca sonidos.</p>
+<p>Ejecuta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"beepr"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Recuerda que necesitas una conexión a Internet para instalar un paquete.</p>
+<p>Normalmente solamente necesitas instalar un paquete <strong>una vez</strong> en tu computador.</p>
+</section><section id="cargar-un-paquete" class="level3"><h3 class="anchored" data-anchor-id="cargar-un-paquete">Cargar un paquete</h3>
+<p>Una vez instalado el paquete, necesitamos cargarlo en nuestra sesión actual de R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(beepr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A diferencia de <code>install.packages()</code>, normalmente ejecutamos <code>library()</code> cada vez que comenzamos una nueva sesión de R y queremos utilizar ese paquete.</p>
+</section><section id="utilizar-una-función-del-paquete" class="level3"><h3 class="anchored" data-anchor-id="utilizar-una-función-del-paquete">Utilizar una función del paquete</h3>
+<p>Ahora podemos utilizar una de las funciones incluidas en <code>beepr</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">beep</span>(<span class="at">sound =</span> <span class="dv">8</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si todo funcionó correctamente, tu computador debería reproducir un sonido.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Instalar y cargar un paquete son cosas diferentes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"beepr"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>instala el paquete en tu computador.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(beepr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>hace que el paquete que ya está instalado esté disponible durante la sesión actual de R.</p>
+</div>
+</div>
+<p>Existen miles de paquetes de R.</p>
+<p>La mayoría están disponibles a través de un repositorio llamado <strong>CRAN</strong>, aunque los paquetes también pueden distribuirse de otras maneras.</p>
+<p>Una de las formas más sencillas de encontrar un paquete es simplemente buscar lo que quieres hacer.</p>
+<p>Por ejemplo:</p>
+<blockquote class="blockquote">
+<p>paquete para calcular el índice de diversidad de Shannon en R</p>
+</blockquote>
+<p>Una búsqueda de este tipo probablemente te llevará a paquetes como <code>vegan</code>.</p>
+<p>El siguiente paso será aprender cómo funciona ese paquete leyendo su documentación, ejemplos o tutoriales.</p>
+</section></section><section id="práctica-en-casa" class="level2"><h2 class="anchored" data-anchor-id="práctica-en-casa">Práctica en casa</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta actividad debería tomar aproximadamente <strong>15–20 minutos</strong>.</p>
+<p>Abre tu proyecto <code>intro-r-course</code> y crea un nuevo script llamado:</p>
+<pre class="text"><code>practice-02.R</code></pre>
+<p>Guárdalo dentro de la carpeta <code>scripts</code>.</p>
+<p>Completa las siguientes actividades:</p>
+<ol type="1">
+<li>Crea un objeto llamado <code>species</code> que contenga el nombre de una especie animal.</li>
+<li>Crea un objeto llamado <code>station</code> que contenga el nombre de una estación de cámara, por ejemplo <code>"CT01"</code>.</li>
+<li>Crea un objeto llamado <code>detections</code> que contenga un número.</li>
+<li>Utiliza un operador relacional para determinar si <code>detections</code> es mayor que <code>10</code>.</li>
+<li>Crea dos objetos numéricos y realiza al menos cuatro operaciones aritméticas diferentes con ellos.</li>
+<li>Utiliza <code>class()</code> para revisar el tipo de cada uno de los siguientes valores:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="st">"25"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "25"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Utiliza el sistema de ayuda de R para abrir la documentación de la función <code>round()</code>.</li>
+<li>Agrega comentarios a lo largo de tu script explicando qué hace cada sección.</li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solución sugerida
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Tu script podría verse así:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Práctica del Módulo 2</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objetos character</span></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="st">"Raccoon"</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>station <span class="ot">&lt;-</span> <span class="st">"CT01"</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Objeto numérico</span></span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a>detections <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿El número de detecciones es mayor que 10?</span></span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>detections <span class="sc">&gt;</span> <span class="dv">10</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Operaciones aritméticas</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>number_1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>number_2 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>number_1 <span class="sc">+</span> number_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>number_1 <span class="sc">-</span> number_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>number_1 <span class="sc">*</span> number_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>number_1 <span class="sc">/</span> number_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Revisar los tipos de objetos</span></span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">25</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"25"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">NA</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Abrir la página de ayuda de round()</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>?round</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Los nombres y valores de tus objetos pueden ser diferentes.</p>
+<p>Lo importante es que practiques:</p>
+<ul>
+<li>crear objetos,</li>
+<li>utilizar <code>&lt;-</code>,</li>
+<li>trabajar con valores numéricos, de tipo <code>character</code> y lógicos,</li>
+<li>utilizar operadores aritméticos y relacionales,</li>
+<li>reconocer valores faltantes,</li>
+<li>y utilizar funciones sencillas.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

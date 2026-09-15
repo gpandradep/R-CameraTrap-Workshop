@@ -1,0 +1,1035 @@
+---
+title: "Módulo 4: Importar y exportar datos"
+toc: true
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(here)
+```
+
+## Introducción
+
+Hasta ahora hemos creado todos nuestros objetos directamente dentro de R.
+
+Por ejemplo:
+
+```{r}
+stations <- c("CT01", "CT02", "CT03")
+
+detections <- c(12, 5, 8)
+```
+
+Pero normalmente no trabajamos de esta manera con bases de datos reales.
+
+La mayoría de las veces, nuestros datos ya existen en un archivo creado en Excel, Google Sheets, algún programa para registrar datos de campo u otro software.
+
+Por esta razón, una de las habilidades más importantes al aprender R es saber cómo **importar datos externos a R**.
+
+En este módulo aprenderemos cómo:
+
+- entender dónde busca R nuestros archivos,
+- organizar datos dentro de un proyecto de RStudio,
+- importar archivos `.csv`,
+- importar archivos de Excel,
+- inspeccionar los datos importados,
+- y exportar datos desde R.
+
+::: {.callout-note}
+## Descargar los datos de ejemplo
+
+Utilizaremos estos archivos durante este módulo.
+
+[Descargar CSV](../data/camera_data.csv){.btn .btn-primary download="camera_data.csv"}
+
+[Descargar Excel](../data/camera_data.xlsx){.btn .btn-secondary download="camera_data.xlsx"}
+:::
+
+## Comencemos
+
+Abre tu proyecto `intro-r-course` y crea un nuevo script de R.
+
+Guárdalo dentro de la carpeta `scripts` con el nombre:
+
+```text
+module-04.R
+```
+
+Recuerda que nuestro proyecto debería verse aproximadamente así:
+
+```text
+intro-r-course/
+│
+├── data/
+├── scripts/
+│   └── module-04.R
+├── outputs/
+└── intro-r-course.Rproj
+```
+
+Durante este módulo, los archivos que queremos importar estarán almacenados dentro de:
+
+```text
+data/
+```
+
+## ¿Dónde está buscando los archivos R?
+
+Antes de importar un archivo, R necesita saber **dónde se encuentra el archivo**.
+
+La carpeta que R considera actualmente como su ubicación inicial se conoce como **directorio de trabajo** (*working directory*).
+
+Podemos revisarlo utilizando:
+
+```{r}
+getwd()
+```
+
+Como estamos trabajando dentro de un proyecto de RStudio, el directorio de trabajo normalmente debería ser la carpeta principal de nuestro proyecto:
+
+```text
+intro-r-course/
+```
+
+Esta es una de las principales razones por las que creamos un proyecto de RStudio al comienzo del curso.
+
+::: {.callout-important}
+## Evita utilizar `setwd()` dentro de tus scripts
+
+Puedes encontrar tutoriales que utilizan:
+
+```r
+setwd("C:/Users/YourName/Documents/MyProject")
+```
+
+para especificar el directorio de trabajo.
+
+Esto puede funcionar perfectamente en tu computador, pero probablemente esa ruta no funcionará en el computador de otra persona.
+
+Utilizar un proyecto de RStudio nos permite evitar este problema y trabajar con **rutas relativas**.
+:::
+
+## Rutas de archivos
+
+Una **ruta de archivo** (*file path*) le indica a R dónde se encuentra un archivo.
+
+Existen dos tipos generales de rutas:
+
+- rutas absolutas,
+- rutas relativas.
+
+### Rutas absolutas
+
+Una ruta absoluta describe la ubicación completa de un archivo en tu computador.
+
+Por ejemplo:
+
+```text
+C:/Users/Gabriel/Documents/intro-r-course/data/camera_data.csv
+```
+
+Esto puede funcionar perfectamente en un computador.
+
+Pero si enviamos el proyecto a otra persona, probablemente su computador no tenga:
+
+```text
+C:/Users/Gabriel/
+```
+
+Por lo tanto, el código dejará de funcionar.
+
+### Rutas relativas
+
+Una ruta relativa describe la ubicación de un archivo **en relación con la carpeta de nuestro proyecto**.
+
+Si nuestro archivo está almacenado aquí:
+
+```text
+intro-r-course/
+│
+├── data/
+│   └── camera_data.csv
+│
+├── scripts/
+└── outputs/
+```
+
+podemos referirnos a él simplemente como:
+
+```text
+data/camera_data.csv
+```
+
+Esto hace que nuestro proyecto sea mucho más fácil de mover entre computadores.
+
+Si movemos todo el proyecto a otro computador, su estructura interna permanece igual.
+
+::: {.callout-tip}
+## Mantén organizado tu proyecto
+
+Una estructura sencilla como:
+
+```text
+project/
+├── data/
+├── scripts/
+└── outputs/
+```
+
+hace que las rutas de los archivos sean mucho más fáciles de entender y ayuda a mantener nuestros análisis reproducibles.
+:::
+
+## ¿Qué es un archivo CSV?
+
+Uno de los formatos más comunes para almacenar datos tabulares es **CSV**.
+
+CSV significa:
+
+> **Comma-Separated Values** o valores separados por comas.
+
+Un archivo CSV es esencialmente una tabla almacenada como texto simple.
+
+Por ejemplo, una hoja de cálculo que se ve así:
+
+| station | species | detections | camera_days |
+|---|---|---:|---:|
+| CT01 | Raccoon | 12 | 30 |
+| CT02 | Coyote | 5 | 28 |
+| CT03 | Bobcat | 8 | 30 |
+
+puede estar almacenada internamente así:
+
+```text
+station,species,detections,camera_days
+CT01,Raccoon,12,30
+CT02,Coyote,5,28
+CT03,Bobcat,8,30
+```
+
+Como los archivos CSV son archivos de texto simples, pueden abrirse con muchos programas diferentes, incluyendo:
+
+- Excel,
+- Google Sheets,
+- R,
+- Python,
+- editores de texto,
+- y muchos otros programas.
+
+Esto hace que CSV sea un formato muy útil para compartir y analizar datos.
+
+## De Excel a CSV
+
+Muchas bases de datos comienzan su vida en Excel.
+
+Eso está perfectamente bien.
+
+Sin embargo, cuando comenzamos a analizar nuestros datos en R, muchas veces resulta útil guardar una copia como archivo CSV.
+
+En Excel:
+
+**File → Save As**
+
+y selecciona:
+
+```text
+CSV (Comma delimited) (*.csv)
+```
+
+Guarda el archivo dentro de la carpeta `data` de tu proyecto de RStudio.
+
+Por ejemplo:
+
+```text
+data/camera_data.csv
+```
+
+::: {.callout-important}
+## Conserva tus datos originales
+
+No reemplaces ni modifiques la única copia de tu base de datos original.
+
+Una buena práctica es conservar el archivo original sin modificaciones y crear una copia separada en CSV para realizar el análisis.
+
+Por ejemplo:
+
+```text
+data/
+├── camera_data_original.xlsx
+└── camera_data.csv
+```
+:::
+
+## Importar un archivo CSV
+
+R base incluye la función:
+
+```text
+read.csv()
+```
+
+que lee un archivo CSV y lo convierte en un data frame.
+
+Si nuestro archivo se encuentra aquí:
+
+```text
+data/camera_data.csv
+```
+
+podemos importarlo utilizando:
+
+```{r}
+#| eval: false
+
+camera_data <- read.csv("data/camera_data.csv")
+```
+
+```{r}
+#| include: false
+camera_data <- read.csv(here("data", "camera_data.csv"))
+```
+
+Aquí están ocurriendo dos cosas importantes.
+
+Primero:
+
+```r
+read.csv("data/camera_data.csv")
+```
+
+lee el archivo.
+
+Segundo:
+
+```r
+camera_data <-
+```
+
+guarda la base de datos importada dentro de un objeto de R llamado `camera_data`.
+
+Si olvidamos hacer la asignación:
+
+```{r}
+#| eval: false
+
+read.csv("data/camera_data.csv")
+```
+
+```{r}
+#| echo: false
+
+read.csv(here("data", "camera_data.csv"))
+```
+
+R puede leer y mostrar el archivo, pero no lo hemos guardado como un objeto con el cual podamos continuar trabajando.
+
+## Revisar que los datos se hayan cargado correctamente
+
+Importar un archivo sin recibir un error no significa necesariamente que todo haya sido leído correctamente.
+
+Siempre debemos inspeccionar los datos después de importarlos.
+
+Por ejemplo:
+
+```{r}
+head(camera_data)
+```
+
+```{r}
+str(camera_data)
+```
+
+```{r}
+dim(camera_data)
+```
+
+```{r}
+names(camera_data)
+```
+
+Estas funciones ya deberían resultarte familiares del módulo anterior.
+
+También podemos abrir la base de datos utilizando el visor de datos de RStudio:
+
+```{r}
+#| eval: false
+
+View(camera_data)
+```
+
+::: {.callout-tip}
+## Siempre revisa los datos que importaste
+
+Después de importar una base de datos, pregúntate:
+
+- ¿Tiene el número esperado de filas?
+- ¿Tiene el número esperado de columnas?
+- ¿Los nombres de las columnas son correctos?
+- ¿Las columnas numéricas realmente son numéricas?
+- ¿Los valores faltantes se importaron correctamente?
+- ¿La base de datos se parece al archivo que esperaba cargar?
+
+Nunca asumas que un archivo fue importado correctamente solamente porque R no devolvió un error.
+:::
+
+## Problemas comunes con archivos CSV
+
+Los archivos no siempre se importan exactamente como esperamos.
+
+Algunos problemas comunes incluyen:
+
+### Nombre incorrecto del archivo
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+read.csv("data/camera-data.csv")
+```
+
+no funcionará si el archivo real se llama:
+
+```text
+camera_data.csv
+```
+
+Los nombres deben coincidir.
+
+### Carpeta incorrecta
+
+Esto:
+
+```{r}
+#| eval: false
+
+read.csv("camera_data.csv")
+```
+
+le indica a R que busque el archivo directamente dentro de la carpeta principal del proyecto.
+
+Pero si el archivo se encuentra dentro de:
+
+```text
+data/
+```
+
+necesitamos utilizar:
+
+```{r}
+#| eval: false
+
+read.csv("data/camera_data.csv")
+```
+
+### Mayúsculas y minúsculas
+
+Dependiendo del sistema operativo:
+
+```text
+Camera_Data.csv
+```
+
+y:
+
+```text
+camera_data.csv
+```
+
+pueden ser considerados nombres de archivos diferentes.
+
+Utilizar nombres consistentes ayuda a evitar estos problemas.
+
+## ¿Existe el archivo?
+
+Si R nos indica que no puede encontrar un archivo, podemos comprobar si R puede verlo.
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+file.exists("data/camera_data.csv")
+```
+
+```{r}
+#| echo: false
+
+file.exists(here("data", "camera_data.csv"))
+```
+
+Si R devuelve:
+
+```text
+TRUE
+```
+
+el archivo existe en esa ubicación.
+
+Si R devuelve:
+
+```text
+FALSE
+```
+
+hay algún problema con la ruta o con el nombre del archivo.
+
+También podemos ver los archivos que existen dentro de nuestra carpeta `data`:
+
+```{r}
+#| eval: false
+
+list.files("data")
+```
+
+```{r}
+#| echo: false
+
+list.files(here("data"))
+```
+
+Estas dos funciones pueden ser extremadamente útiles cuando intentamos resolver problemas relacionados con la importación de archivos.
+
+## Importar archivos CSV con `readr`
+
+Existen varias formas de importar el mismo tipo de archivo en R.
+
+El `tidyverse` incluye un paquete llamado `readr` que proporciona otra función para leer archivos CSV:
+
+```text
+read_csv()
+```
+
+Como instalamos `tidyverse` al comienzo del curso, podemos cargarlo utilizando:
+
+```{r}
+library(tidyverse)
+```
+
+Después:
+
+```{r}
+#| eval: false
+
+camera_data2 <- read_csv("data/camera_data.csv")
+```
+
+```{r}
+#| include: false
+
+camera_data2 <- read_csv(here("data", "camera_data.csv"))
+```
+
+Observa la diferencia:
+
+```text
+R base       read.csv()
+
+readr        read_csv()
+```
+
+Ambas funciones pueden leer archivos CSV.
+
+Durante este curso encontrarás ambas, pero más adelante utilizaremos frecuentemente `read_csv()` porque funciona naturalmente con otras herramientas del tidyverse.
+
+::: {.callout-note}
+No necesitas memorizar diferentes formas de importar el mismo archivo.
+
+Lo importante es entender:
+
+1. dónde está el archivo,
+2. qué tipo de archivo es,
+3. qué función puede leerlo,
+4. y qué objeto almacenará el resultado.
+:::
+
+## Importar archivos de Excel
+
+A veces queremos importar directamente un archivo de Excel en lugar de convertirlo a CSV.
+
+R base no incluye una función para leer archivos `.xlsx`, por lo que necesitamos un paquete adicional.
+
+Instalamos `readxl` durante la sección Primeros pasos.
+
+Lo cargamos utilizando:
+
+```{r}
+library(readxl)
+```
+
+Después podemos importar un archivo de Excel utilizando:
+
+```{r}
+#| eval: false
+
+camera_data3 <- read_excel("data/camera_data.xlsx")
+```
+
+```{r}
+#| include: false
+
+camera_data3 <- read_excel(here("data", "camera_data.xlsx"))
+```
+
+La función se llama:
+
+```text
+read_excel()
+```
+
+y pertenece al paquete `readxl`.
+
+### Archivos de Excel con varias hojas
+
+Un libro de Excel puede contener varias hojas.
+
+Podemos ver sus nombres utilizando:
+
+```{r}
+#| eval: false
+
+excel_sheets("data/camera_data.xlsx")
+```
+
+```{r}
+#| echo: false
+
+excel_sheets(here("data", "camera_data.xlsx"))
+```
+
+Si el archivo contiene una hoja llamada:
+
+```text
+camera_records
+```
+
+podemos importar específicamente esa hoja utilizando:
+
+```{r}
+#| eval: false
+
+camera_data3 <- read_excel(
+  "data/camera_data.xlsx",
+  sheet = "camera_records"
+)
+```
+
+```{r}
+#| echo: false
+
+camera_data3 <- read_excel(
+  here("data", "camera_data.xlsx"),
+  sheet = "camera_records"
+)
+```
+
+También podemos seleccionar una hoja por su posición:
+
+```{r}
+#| eval: false
+
+camera_data3 <- read_excel(
+  "data/camera_data.xlsx",
+  sheet = 1
+)
+```
+
+## ¿CSV o Excel?
+
+Ambos formatos pueden ser útiles.
+
+### CSV
+
+Ventajas:
+
+- formato sencillo,
+- formato abierto,
+- fácil de compartir,
+- puede ser leído por prácticamente cualquier software,
+- útil para análisis y reproducibilidad.
+
+Limitaciones:
+
+- solamente almacena una tabla,
+- no conserva formato visual,
+- no almacena fórmulas ni varias hojas.
+
+### Excel
+
+Ventajas:
+
+- familiar para muchos usuarios,
+- puede contener varias hojas,
+- útil para ingresar y revisar datos.
+
+Limitaciones:
+
+- formato de archivo más complejo,
+- el formato visual puede ocultar algunos problemas con los datos,
+- el software de hojas de cálculo puede modificar automáticamente fechas u otros valores.
+
+Un flujo de trabajo común es:
+
+> **Ingresar/revisar los datos en Excel → guardar un CSV limpio → analizar el CSV en R**
+
+Sin embargo, R puede trabajar directamente con cualquiera de los dos formatos.
+
+## Importar datos utilizando RStudio
+
+RStudio también proporciona una interfaz gráfica para importar bases de datos.
+
+En el panel **Environment**, selecciona:
+
+**Import Dataset**
+
+RStudio mostrará diferentes opciones para importar archivos de texto y Excel.
+
+Esto puede ser útil cuando estás aprendiendo porque RStudio muestra una vista previa de los datos y genera automáticamente el código correspondiente.
+
+Sin embargo, una vez que entiendas cómo funciona la función de importación, es mejor mantener el comando dentro de tu script.
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+camera_data <- read_csv(
+  "data/camera_data.csv"
+)
+```
+
+De esta manera, el análisis puede reproducirse posteriormente sin tener que hacer clic manualmente en diferentes menús.
+
+::: {.callout-tip}
+La herramienta gráfica para importar datos es útil para aprender.
+
+Pero intenta copiar el código generado dentro de tu script para que puedas reproducir la importación posteriormente.
+:::
+
+## Nombres de archivos y columnas
+
+Una buena organización de los datos comienza incluso antes de importarlos a R.
+
+Intenta utilizar nombres de archivos sencillos y consistentes.
+
+En lugar de:
+
+```text
+Camera Data FINAL version 2 updated!!!.xlsx
+```
+
+utiliza algo como:
+
+```text
+camera_data.xlsx
+```
+
+o:
+
+```text
+camera_data_2026.xlsx
+```
+
+El mismo principio se aplica a los nombres de las columnas.
+
+En lugar de:
+
+```text
+Camera Station
+Number of detections
+Habitat Type
+```
+
+considera:
+
+```text
+station
+detections
+habitat
+```
+
+o:
+
+```text
+camera_station
+number_of_detections
+habitat_type
+```
+
+Utilizar nombres consistentes hace que trabajar con datos en R sea mucho más sencillo.
+
+## Exportar datos
+
+A veces queremos guardar una base de datos después de modificarla o resumirla en R.
+
+Para archivos CSV, R base proporciona:
+
+```text
+write.csv()
+```
+
+Por ejemplo:
+
+```{r}
+#| eval: false
+
+write.csv(
+  camera_data,
+  "outputs/camera_data_clean.csv",
+  row.names = FALSE
+)
+```
+
+Esto crea:
+
+```text
+outputs/camera_data_clean.csv
+```
+
+Utilizamos:
+
+```text
+row.names = FALSE
+```
+
+porque de lo contrario R base agregará una columna adicional con los números de las filas.
+
+### Exportar con `readr`
+
+Si estamos utilizando tidyverse, también podemos utilizar:
+
+```{r}
+#| eval: false
+
+write_csv(
+  camera_data,
+  "outputs/camera_data_clean.csv"
+)
+```
+
+`write_csv()` no agrega nombres de filas de manera predeterminada.
+
+Nuevamente, no necesitas memorizar todas las alternativas.
+
+La idea importante es:
+
+```text
+read  → traer datos a R
+
+write → guardar datos desde R
+```
+
+## Mantener los datos originales separados de los resultados
+
+Recuerda la estructura de nuestro proyecto:
+
+```text
+intro-r-course/
+│
+├── data/
+├── scripts/
+└── outputs/
+```
+
+Una regla útil es que:
+
+```text
+data/
+```
+
+contiene los datos originales que recibimos o recolectamos.
+
+Mientras que:
+
+```text
+outputs/
+```
+
+contiene archivos creados durante nuestro análisis.
+
+Por ejemplo:
+
+```text
+intro-r-course/
+│
+├── data/
+│   └── camera_data.csv
+│
+├── scripts/
+│   └── module-04.R
+│
+└── outputs/
+    └── camera_data_clean.csv
+```
+
+::: {.callout-important}
+Intenta no sobrescribir tus datos originales desde R.
+
+Mantener los datos originales sin modificaciones significa que siempre puedes regresar a la información original y reproducir cada cambio utilizando tu script.
+:::
+
+## Práctica en casa
+
+::: {.callout-tip}
+Esta actividad debería tomar aproximadamente **15–20 minutos**.
+
+Abre tu proyecto `intro-r-course` y crea un nuevo script llamado:
+
+```text
+practice-04.R
+```
+
+Guárdalo dentro de la carpeta `scripts`.
+
+Utiliza cualquier base de datos pequeña de Excel que tengas disponible, o crea una con al menos:
+
+- 5 filas,
+- 3 columnas,
+- una columna que contenga texto,
+- una columna que contenga números.
+
+Por ejemplo:
+
+| station | habitat | detections |
+|---|---|---:|
+| CT01 | Forest | 8 |
+| CT02 | Pasture | 3 |
+| CT03 | Forest | 12 |
+| CT04 | Pasture | 0 |
+| CT05 | Forest | 5 |
+
+### Parte 1: Preparar los datos
+
+1. Guarda el archivo de Excel dentro de la carpeta `data` de tu proyecto.
+2. Guarda una segunda copia como archivo `.csv`.
+
+Tu carpeta debería contener algo similar a:
+
+```text
+data/
+├── practice_data.xlsx
+└── practice_data.csv
+```
+
+### Parte 2: Importar el CSV
+
+Importa el archivo CSV dentro de un objeto llamado:
+
+```text
+practice_data
+```
+
+Después utiliza:
+
+```r
+head()
+str()
+dim()
+names()
+```
+
+para inspeccionar la base de datos importada.
+
+### Parte 3: Importar el archivo de Excel
+
+Carga el paquete `readxl` e importa la versión de Excel de la misma base de datos.
+
+Guárdala como:
+
+```text
+practice_excel
+```
+
+Compara:
+
+```r
+class(practice_data)
+class(practice_excel)
+```
+
+e inspecciona ambos objetos.
+
+### Parte 4: Exportar los datos
+
+Exporta `practice_data` a la carpeta `outputs` con el nombre:
+
+```text
+practice_data_exported.csv
+```
+
+Finalmente, comprueba que el nuevo archivo aparezca dentro de la carpeta `outputs`.
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Solución sugerida
+
+```{r}
+#| eval: false
+
+# Práctica del Módulo 4
+
+# ---------------------------
+# Importar CSV
+# ---------------------------
+
+practice_data <- read.csv(
+  "data/practice_data.csv"
+)
+
+# Inspeccionar los datos
+head(practice_data)
+str(practice_data)
+dim(practice_data)
+names(practice_data)
+
+
+# ---------------------------
+# Importar Excel
+# ---------------------------
+
+library(readxl)
+
+practice_excel <- read_excel(
+  "data/practice_data.xlsx"
+)
+
+# Inspeccionar los datos de Excel
+head(practice_excel)
+str(practice_excel)
+
+# Comparar clases
+class(practice_data)
+class(practice_excel)
+
+
+# ---------------------------
+# Exportar datos
+# ---------------------------
+
+write.csv(
+  practice_data,
+  "outputs/practice_data_exported.csv",
+  row.names = FALSE
+)
+```
+
+Lo importante es que entiendas el flujo de trabajo completo:
+
+```text
+archivo externo
+      ↓
+ruta relativa
+      ↓
+leer el archivo
+      ↓
+guardarlo como un objeto de R
+      ↓
+inspeccionar el objeto
+      ↓
+trabajar con los datos
+      ↓
+guardar un archivo de salida
+```
+
+:::

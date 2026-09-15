@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>import-data – Introducción a R</title>
+<title>Módulo 4: Importar y exportar datos – Introducción a R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
@@ -142,11 +177,860 @@ ul.task-list li input[type="checkbox"] {
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+<li><a href="#introducci%C3%B3n" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#comencemos" id="toc-comencemos" class="nav-link" data-scroll-target="#comencemos">Comencemos</a></li>
+  <li><a href="#d%C3%B3nde-est%C3%A1-buscando-los-archivos-r" id="toc-dónde-está-buscando-los-archivos-r" class="nav-link" data-scroll-target="#dónde-está-buscando-los-archivos-r">¿Dónde está buscando los archivos R?</a></li>
+  <li>
+<a href="#rutas-de-archivos" id="toc-rutas-de-archivos" class="nav-link" data-scroll-target="#rutas-de-archivos">Rutas de archivos</a>
+  <ul class="collapse">
+<li><a href="#rutas-absolutas" id="toc-rutas-absolutas" class="nav-link" data-scroll-target="#rutas-absolutas">Rutas absolutas</a></li>
+  <li><a href="#rutas-relativas" id="toc-rutas-relativas" class="nav-link" data-scroll-target="#rutas-relativas">Rutas relativas</a></li>
+  </ul>
+</li>
+  <li><a href="#qu%C3%A9-es-un-archivo-csv" id="toc-qué-es-un-archivo-csv" class="nav-link" data-scroll-target="#qué-es-un-archivo-csv">¿Qué es un archivo CSV?</a></li>
+  <li><a href="#de-excel-a-csv" id="toc-de-excel-a-csv" class="nav-link" data-scroll-target="#de-excel-a-csv">De Excel a CSV</a></li>
+  <li><a href="#importar-un-archivo-csv" id="toc-importar-un-archivo-csv" class="nav-link" data-scroll-target="#importar-un-archivo-csv">Importar un archivo CSV</a></li>
+  <li><a href="#revisar-que-los-datos-se-hayan-cargado-correctamente" id="toc-revisar-que-los-datos-se-hayan-cargado-correctamente" class="nav-link" data-scroll-target="#revisar-que-los-datos-se-hayan-cargado-correctamente">Revisar que los datos se hayan cargado correctamente</a></li>
+  <li>
+<a href="#problemas-comunes-con-archivos-csv" id="toc-problemas-comunes-con-archivos-csv" class="nav-link" data-scroll-target="#problemas-comunes-con-archivos-csv">Problemas comunes con archivos CSV</a>
+  <ul class="collapse">
+<li><a href="#nombre-incorrecto-del-archivo" id="toc-nombre-incorrecto-del-archivo" class="nav-link" data-scroll-target="#nombre-incorrecto-del-archivo">Nombre incorrecto del archivo</a></li>
+  <li><a href="#carpeta-incorrecta" id="toc-carpeta-incorrecta" class="nav-link" data-scroll-target="#carpeta-incorrecta">Carpeta incorrecta</a></li>
+  <li><a href="#may%C3%BAsculas-y-min%C3%BAsculas" id="toc-mayúsculas-y-minúsculas" class="nav-link" data-scroll-target="#mayúsculas-y-minúsculas">Mayúsculas y minúsculas</a></li>
+  </ul>
+</li>
+  <li><a href="#existe-el-archivo" id="toc-existe-el-archivo" class="nav-link" data-scroll-target="#existe-el-archivo">¿Existe el archivo?</a></li>
+  <li><a href="#importar-archivos-csv-con-readr" id="toc-importar-archivos-csv-con-readr" class="nav-link" data-scroll-target="#importar-archivos-csv-con-readr">Importar archivos CSV con <code>readr</code></a></li>
+  <li>
+<a href="#importar-archivos-de-excel" id="toc-importar-archivos-de-excel" class="nav-link" data-scroll-target="#importar-archivos-de-excel">Importar archivos de Excel</a>
+  <ul class="collapse">
+<li><a href="#archivos-de-excel-con-varias-hojas" id="toc-archivos-de-excel-con-varias-hojas" class="nav-link" data-scroll-target="#archivos-de-excel-con-varias-hojas">Archivos de Excel con varias hojas</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#csv-o-excel" id="toc-csv-o-excel" class="nav-link" data-scroll-target="#csv-o-excel">¿CSV o Excel?</a>
+  <ul class="collapse">
+<li><a href="#csv" id="toc-csv" class="nav-link" data-scroll-target="#csv">CSV</a></li>
+  <li><a href="#excel" id="toc-excel" class="nav-link" data-scroll-target="#excel">Excel</a></li>
+  </ul>
+</li>
+  <li><a href="#importar-datos-utilizando-rstudio" id="toc-importar-datos-utilizando-rstudio" class="nav-link" data-scroll-target="#importar-datos-utilizando-rstudio">Importar datos utilizando RStudio</a></li>
+  <li><a href="#nombres-de-archivos-y-columnas" id="toc-nombres-de-archivos-y-columnas" class="nav-link" data-scroll-target="#nombres-de-archivos-y-columnas">Nombres de archivos y columnas</a></li>
+  <li>
+<a href="#exportar-datos" id="toc-exportar-datos" class="nav-link" data-scroll-target="#exportar-datos">Exportar datos</a>
+  <ul class="collapse">
+<li><a href="#exportar-con-readr" id="toc-exportar-con-readr" class="nav-link" data-scroll-target="#exportar-con-readr">Exportar con <code>readr</code></a></li>
+  </ul>
+</li>
+  <li><a href="#mantener-los-datos-originales-separados-de-los-resultados" id="toc-mantener-los-datos-originales-separados-de-los-resultados" class="nav-link" data-scroll-target="#mantener-los-datos-originales-separados-de-los-resultados">Mantener los datos originales separados de los resultados</a></li>
+  <li><a href="#pr%C3%A1ctica-en-casa" id="toc-práctica-en-casa" class="nav-link" data-scroll-target="#práctica-en-casa">Práctica en casa</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Módulo 4: Importar y exportar datos</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="introducción" class="level2"><h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>Hasta ahora hemos creado todos nuestros objetos directamente dentro de R.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CT01"</span>, <span class="st">"CT02"</span>, <span class="st">"CT03"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>detections <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">8</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pero normalmente no trabajamos de esta manera con bases de datos reales.</p>
+<p>La mayoría de las veces, nuestros datos ya existen en un archivo creado en Excel, Google Sheets, algún programa para registrar datos de campo u otro software.</p>
+<p>Por esta razón, una de las habilidades más importantes al aprender R es saber cómo <strong>importar datos externos a R</strong>.</p>
+<p>En este módulo aprenderemos cómo:</p>
+<ul>
+<li>entender dónde busca R nuestros archivos,</li>
+<li>organizar datos dentro de un proyecto de RStudio,</li>
+<li>importar archivos <code>.csv</code>,</li>
+<li>importar archivos de Excel,</li>
+<li>inspeccionar los datos importados,</li>
+<li>y exportar datos desde R.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descargar los datos de ejemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Utilizaremos estos archivos durante este módulo.</p>
+<p><a href="../data/camera_data.csv" class="btn btn-primary" download="camera_data.csv">Descargar CSV</a></p>
+<p><a href="../data/camera_data.xlsx" class="btn btn-secondary" download="camera_data.xlsx">Descargar Excel</a></p>
+</div>
+</div>
+</section><section id="comencemos" class="level2"><h2 class="anchored" data-anchor-id="comencemos">Comencemos</h2>
+<p>Abre tu proyecto <code>intro-r-course</code> y crea un nuevo script de R.</p>
+<p>Guárdalo dentro de la carpeta <code>scripts</code> con el nombre:</p>
+<pre class="text"><code>module-04.R</code></pre>
+<p>Recuerda que nuestro proyecto debería verse aproximadamente así:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+├── scripts/
+│   └── module-04.R
+├── outputs/
+└── intro-r-course.Rproj</code></pre>
+<p>Durante este módulo, los archivos que queremos importar estarán almacenados dentro de:</p>
+<pre class="text"><code>data/</code></pre>
+</section><section id="dónde-está-buscando-los-archivos-r" class="level2"><h2 class="anchored" data-anchor-id="dónde-está-buscando-los-archivos-r">¿Dónde está buscando los archivos R?</h2>
+<p>Antes de importar un archivo, R necesita saber <strong>dónde se encuentra el archivo</strong>.</p>
+<p>La carpeta que R considera actualmente como su ubicación inicial se conoce como <strong>directorio de trabajo</strong> (<em>working directory</em>).</p>
+<p>Podemos revisarlo utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/andradegp/AppData/Local/Temp/RtmpgnKrUP/file3db47d930c4/modules"</code></pre>
+</div>
+</div>
+<p>Como estamos trabajando dentro de un proyecto de RStudio, el directorio de trabajo normalmente debería ser la carpeta principal de nuestro proyecto:</p>
+<pre class="text"><code>intro-r-course/</code></pre>
+<p>Esta es una de las principales razones por las que creamos un proyecto de RStudio al comienzo del curso.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Evita utilizar <code>setwd()</code> dentro de tus scripts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Puedes encontrar tutoriales que utilizan:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/YourName/Documents/MyProject"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>para especificar el directorio de trabajo.</p>
+<p>Esto puede funcionar perfectamente en tu computador, pero probablemente esa ruta no funcionará en el computador de otra persona.</p>
+<p>Utilizar un proyecto de RStudio nos permite evitar este problema y trabajar con <strong>rutas relativas</strong>.</p>
+</div>
+</div>
+</section><section id="rutas-de-archivos" class="level2"><h2 class="anchored" data-anchor-id="rutas-de-archivos">Rutas de archivos</h2>
+<p>Una <strong>ruta de archivo</strong> (<em>file path</em>) le indica a R dónde se encuentra un archivo.</p>
+<p>Existen dos tipos generales de rutas:</p>
+<ul>
+<li>rutas absolutas,</li>
+<li>rutas relativas.</li>
+</ul>
+<section id="rutas-absolutas" class="level3"><h3 class="anchored" data-anchor-id="rutas-absolutas">Rutas absolutas</h3>
+<p>Una ruta absoluta describe la ubicación completa de un archivo en tu computador.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>C:/Users/Gabriel/Documents/intro-r-course/data/camera_data.csv</code></pre>
+<p>Esto puede funcionar perfectamente en un computador.</p>
+<p>Pero si enviamos el proyecto a otra persona, probablemente su computador no tenga:</p>
+<pre class="text"><code>C:/Users/Gabriel/</code></pre>
+<p>Por lo tanto, el código dejará de funcionar.</p>
+</section><section id="rutas-relativas" class="level3"><h3 class="anchored" data-anchor-id="rutas-relativas">Rutas relativas</h3>
+<p>Una ruta relativa describe la ubicación de un archivo <strong>en relación con la carpeta de nuestro proyecto</strong>.</p>
+<p>Si nuestro archivo está almacenado aquí:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+│   └── camera_data.csv
+│
+├── scripts/
+└── outputs/</code></pre>
+<p>podemos referirnos a él simplemente como:</p>
+<pre class="text"><code>data/camera_data.csv</code></pre>
+<p>Esto hace que nuestro proyecto sea mucho más fácil de mover entre computadores.</p>
+<p>Si movemos todo el proyecto a otro computador, su estructura interna permanece igual.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Mantén organizado tu proyecto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una estructura sencilla como:</p>
+<pre class="text"><code>project/
+├── data/
+├── scripts/
+└── outputs/</code></pre>
+<p>hace que las rutas de los archivos sean mucho más fáciles de entender y ayuda a mantener nuestros análisis reproducibles.</p>
+</div>
+</div>
+</section></section><section id="qué-es-un-archivo-csv" class="level2"><h2 class="anchored" data-anchor-id="qué-es-un-archivo-csv">¿Qué es un archivo CSV?</h2>
+<p>Uno de los formatos más comunes para almacenar datos tabulares es <strong>CSV</strong>.</p>
+<p>CSV significa:</p>
+<blockquote class="blockquote">
+<p><strong>Comma-Separated Values</strong> o valores separados por comas.</p>
+</blockquote>
+<p>Un archivo CSV es esencialmente una tabla almacenada como texto simple.</p>
+<p>Por ejemplo, una hoja de cálculo que se ve así:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>station</th>
+<th>species</th>
+<th style="text-align: right;">detections</th>
+<th style="text-align: right;">camera_days</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>CT01</td>
+<td>Raccoon</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td>CT02</td>
+<td>Coyote</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td>CT03</td>
+<td>Bobcat</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+</tr>
+</tbody>
+</table>
+<p>puede estar almacenada internamente así:</p>
+<pre class="text"><code>station,species,detections,camera_days
+CT01,Raccoon,12,30
+CT02,Coyote,5,28
+CT03,Bobcat,8,30</code></pre>
+<p>Como los archivos CSV son archivos de texto simples, pueden abrirse con muchos programas diferentes, incluyendo:</p>
+<ul>
+<li>Excel,</li>
+<li>Google Sheets,</li>
+<li>R,</li>
+<li>Python,</li>
+<li>editores de texto,</li>
+<li>y muchos otros programas.</li>
+</ul>
+<p>Esto hace que CSV sea un formato muy útil para compartir y analizar datos.</p>
+</section><section id="de-excel-a-csv" class="level2"><h2 class="anchored" data-anchor-id="de-excel-a-csv">De Excel a CSV</h2>
+<p>Muchas bases de datos comienzan su vida en Excel.</p>
+<p>Eso está perfectamente bien.</p>
+<p>Sin embargo, cuando comenzamos a analizar nuestros datos en R, muchas veces resulta útil guardar una copia como archivo CSV.</p>
+<p>En Excel:</p>
+<p><strong>File → Save As</strong></p>
+<p>y selecciona:</p>
+<pre class="text"><code>CSV (Comma delimited) (*.csv)</code></pre>
+<p>Guarda el archivo dentro de la carpeta <code>data</code> de tu proyecto de RStudio.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>data/camera_data.csv</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Conserva tus datos originales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No reemplaces ni modifiques la única copia de tu base de datos original.</p>
+<p>Una buena práctica es conservar el archivo original sin modificaciones y crear una copia separada en CSV para realizar el análisis.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>data/
+├── camera_data_original.xlsx
+└── camera_data.csv</code></pre>
+</div>
+</div>
+</section><section id="importar-un-archivo-csv" class="level2"><h2 class="anchored" data-anchor-id="importar-un-archivo-csv">Importar un archivo CSV</h2>
+<p>R base incluye la función:</p>
+<pre class="text"><code>read.csv()</code></pre>
+<p>que lee un archivo CSV y lo convierte en un data frame.</p>
+<p>Si nuestro archivo se encuentra aquí:</p>
+<pre class="text"><code>data/camera_data.csv</code></pre>
+<p>podemos importarlo utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>camera_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aquí están ocurriendo dos cosas importantes.</p>
+<p>Primero:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>lee el archivo.</p>
+<p>Segundo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>camera_data <span class="ot">&lt;-</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>guarda la base de datos importada dentro de un objeto de R llamado <code>camera_data</code>.</p>
+<p>Si olvidamos hacer la asignación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                 species n_events n_stations
+1              Armadillo       33          6
+2                   Bird       20          3
+3          Black vulture       23          2
+4                 Bobcat        3          2
+5                 Coyote       37          2
+6  Eastern gray squirrel        1          1
+7           Fox squirrel        3          2
+8               Gray fox        9          2
+9                    Hog        9          4
+10                 Human       18         12
+11               Raccoon       35          5
+12        Turkey vulture       53          4
+13      Virginia opossum       23          3
+14     White-tailed deer      104          7</code></pre>
+</div>
+</div>
+<p>R puede leer y mostrar el archivo, pero no lo hemos guardado como un objeto con el cual podamos continuar trabajando.</p>
+</section><section id="revisar-que-los-datos-se-hayan-cargado-correctamente" class="level2"><h2 class="anchored" data-anchor-id="revisar-que-los-datos-se-hayan-cargado-correctamente">Revisar que los datos se hayan cargado correctamente</h2>
+<p>Importar un archivo sin recibir un error no significa necesariamente que todo haya sido leído correctamente.</p>
+<p>Siempre debemos inspeccionar los datos después de importarlos.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(camera_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                species n_events n_stations
+1             Armadillo       33          6
+2                  Bird       20          3
+3         Black vulture       23          2
+4                Bobcat        3          2
+5                Coyote       37          2
+6 Eastern gray squirrel        1          1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(camera_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   14 obs. of  3 variables:
+ $ species   : chr  "Armadillo" "Bird" "Black vulture" "Bobcat" ...
+ $ n_events  : int  33 20 23 3 37 1 3 9 9 18 ...
+ $ n_stations: int  6 3 2 2 2 1 2 2 4 12 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(camera_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14  3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(camera_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "species"    "n_events"   "n_stations"</code></pre>
+</div>
+</div>
+<p>Estas funciones ya deberían resultarte familiares del módulo anterior.</p>
+<p>También podemos abrir la base de datos utilizando el visor de datos de RStudio:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(camera_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Siempre revisa los datos que importaste
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Después de importar una base de datos, pregúntate:</p>
+<ul>
+<li>¿Tiene el número esperado de filas?</li>
+<li>¿Tiene el número esperado de columnas?</li>
+<li>¿Los nombres de las columnas son correctos?</li>
+<li>¿Las columnas numéricas realmente son numéricas?</li>
+<li>¿Los valores faltantes se importaron correctamente?</li>
+<li>¿La base de datos se parece al archivo que esperaba cargar?</li>
+</ul>
+<p>Nunca asumas que un archivo fue importado correctamente solamente porque R no devolvió un error.</p>
+</div>
+</div>
+</section><section id="problemas-comunes-con-archivos-csv" class="level2"><h2 class="anchored" data-anchor-id="problemas-comunes-con-archivos-csv">Problemas comunes con archivos CSV</h2>
+<p>Los archivos no siempre se importan exactamente como esperamos.</p>
+<p>Algunos problemas comunes incluyen:</p>
+<section id="nombre-incorrecto-del-archivo" class="level3"><h3 class="anchored" data-anchor-id="nombre-incorrecto-del-archivo">Nombre incorrecto del archivo</h3>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera-data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>no funcionará si el archivo real se llama:</p>
+<pre class="text"><code>camera_data.csv</code></pre>
+<p>Los nombres deben coincidir.</p>
+</section><section id="carpeta-incorrecta" class="level3"><h3 class="anchored" data-anchor-id="carpeta-incorrecta">Carpeta incorrecta</h3>
+<p>Esto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>le indica a R que busque el archivo directamente dentro de la carpeta principal del proyecto.</p>
+<p>Pero si el archivo se encuentra dentro de:</p>
+<pre class="text"><code>data/</code></pre>
+<p>necesitamos utilizar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="mayúsculas-y-minúsculas" class="level3"><h3 class="anchored" data-anchor-id="mayúsculas-y-minúsculas">Mayúsculas y minúsculas</h3>
+<p>Dependiendo del sistema operativo:</p>
+<pre class="text"><code>Camera_Data.csv</code></pre>
+<p>y:</p>
+<pre class="text"><code>camera_data.csv</code></pre>
+<p>pueden ser considerados nombres de archivos diferentes.</p>
+<p>Utilizar nombres consistentes ayuda a evitar estos problemas.</p>
+</section></section><section id="existe-el-archivo" class="level2"><h2 class="anchored" data-anchor-id="existe-el-archivo">¿Existe el archivo?</h2>
+<p>Si R nos indica que no puede encontrar un archivo, podemos comprobar si R puede verlo.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Si R devuelve:</p>
+<pre class="text"><code>TRUE</code></pre>
+<p>el archivo existe en esa ubicación.</p>
+<p>Si R devuelve:</p>
+<pre class="text"><code>FALSE</code></pre>
+<p>hay algún problema con la ruta o con el nombre del archivo.</p>
+<p>También podemos ver los archivos que existen dentro de nuestra carpeta <code>data</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "camera_data.csv"  "camera_data.xlsx"</code></pre>
+</div>
+</div>
+<p>Estas dos funciones pueden ser extremadamente útiles cuando intentamos resolver problemas relacionados con la importación de archivos.</p>
+</section><section id="importar-archivos-csv-con-readr" class="level2"><h2 class="anchored" data-anchor-id="importar-archivos-csv-con-readr">Importar archivos CSV con <code>readr</code>
+</h2>
+<p>Existen varias formas de importar el mismo tipo de archivo en R.</p>
+<p>El <code>tidyverse</code> incluye un paquete llamado <code>readr</code> que proporciona otra función para leer archivos CSV:</p>
+<pre class="text"><code>read_csv()</code></pre>
+<p>Como instalamos <code>tidyverse</code> al comienzo del curso, podemos cargarlo utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>Después:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>camera_data2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Observa la diferencia:</p>
+<pre class="text"><code>R base       read.csv()
+
+readr        read_csv()</code></pre>
+<p>Ambas funciones pueden leer archivos CSV.</p>
+<p>Durante este curso encontrarás ambas, pero más adelante utilizaremos frecuentemente <code>read_csv()</code> porque funciona naturalmente con otras herramientas del tidyverse.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No necesitas memorizar diferentes formas de importar el mismo archivo.</p>
+<p>Lo importante es entender:</p>
+<ol type="1">
+<li>dónde está el archivo,</li>
+<li>qué tipo de archivo es,</li>
+<li>qué función puede leerlo,</li>
+<li>y qué objeto almacenará el resultado.</li>
+</ol>
+</div>
+</div>
+</section><section id="importar-archivos-de-excel" class="level2"><h2 class="anchored" data-anchor-id="importar-archivos-de-excel">Importar archivos de Excel</h2>
+<p>A veces queremos importar directamente un archivo de Excel en lugar de convertirlo a CSV.</p>
+<p>R base no incluye una función para leer archivos <code>.xlsx</code>, por lo que necesitamos un paquete adicional.</p>
+<p>Instalamos <code>readxl</code> durante la sección Primeros pasos.</p>
+<p>Lo cargamos utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Después podemos importar un archivo de Excel utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>camera_data3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/camera_data.xlsx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La función se llama:</p>
+<pre class="text"><code>read_excel()</code></pre>
+<p>y pertenece al paquete <code>readxl</code>.</p>
+<section id="archivos-de-excel-con-varias-hojas" class="level3"><h3 class="anchored" data-anchor-id="archivos-de-excel-con-varias-hojas">Archivos de Excel con varias hojas</h3>
+<p>Un libro de Excel puede contener varias hojas.</p>
+<p>Podemos ver sus nombres utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(<span class="st">"data/camera_data.xlsx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "camera_records" "secret_tab"    </code></pre>
+</div>
+</div>
+<p>Si el archivo contiene una hoja llamada:</p>
+<pre class="text"><code>camera_records</code></pre>
+<p>podemos importar específicamente esa hoja utilizando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>camera_data3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/camera_data.xlsx"</span>,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sheet =</span> <span class="st">"camera_records"</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>También podemos seleccionar una hoja por su posición:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>camera_data3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/camera_data.xlsx"</span>,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sheet =</span> <span class="dv">1</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="csv-o-excel" class="level2"><h2 class="anchored" data-anchor-id="csv-o-excel">¿CSV o Excel?</h2>
+<p>Ambos formatos pueden ser útiles.</p>
+<section id="csv" class="level3"><h3 class="anchored" data-anchor-id="csv">CSV</h3>
+<p>Ventajas:</p>
+<ul>
+<li>formato sencillo,</li>
+<li>formato abierto,</li>
+<li>fácil de compartir,</li>
+<li>puede ser leído por prácticamente cualquier software,</li>
+<li>útil para análisis y reproducibilidad.</li>
+</ul>
+<p>Limitaciones:</p>
+<ul>
+<li>solamente almacena una tabla,</li>
+<li>no conserva formato visual,</li>
+<li>no almacena fórmulas ni varias hojas.</li>
+</ul></section><section id="excel" class="level3"><h3 class="anchored" data-anchor-id="excel">Excel</h3>
+<p>Ventajas:</p>
+<ul>
+<li>familiar para muchos usuarios,</li>
+<li>puede contener varias hojas,</li>
+<li>útil para ingresar y revisar datos.</li>
+</ul>
+<p>Limitaciones:</p>
+<ul>
+<li>formato de archivo más complejo,</li>
+<li>el formato visual puede ocultar algunos problemas con los datos,</li>
+<li>el software de hojas de cálculo puede modificar automáticamente fechas u otros valores.</li>
+</ul>
+<p>Un flujo de trabajo común es:</p>
+<blockquote class="blockquote">
+<p><strong>Ingresar/revisar los datos en Excel → guardar un CSV limpio → analizar el CSV en R</strong></p>
+</blockquote>
+<p>Sin embargo, R puede trabajar directamente con cualquiera de los dos formatos.</p>
+</section></section><section id="importar-datos-utilizando-rstudio" class="level2"><h2 class="anchored" data-anchor-id="importar-datos-utilizando-rstudio">Importar datos utilizando RStudio</h2>
+<p>RStudio también proporciona una interfaz gráfica para importar bases de datos.</p>
+<p>En el panel <strong>Environment</strong>, selecciona:</p>
+<p><strong>Import Dataset</strong></p>
+<p>RStudio mostrará diferentes opciones para importar archivos de texto y Excel.</p>
+<p>Esto puede ser útil cuando estás aprendiendo porque RStudio muestra una vista previa de los datos y genera automáticamente el código correspondiente.</p>
+<p>Sin embargo, una vez que entiendas cómo funciona la función de importación, es mejor mantener el comando dentro de tu script.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>camera_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/camera_data.csv"</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>De esta manera, el análisis puede reproducirse posteriormente sin tener que hacer clic manualmente en diferentes menús.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La herramienta gráfica para importar datos es útil para aprender.</p>
+<p>Pero intenta copiar el código generado dentro de tu script para que puedas reproducir la importación posteriormente.</p>
+</div>
+</div>
+</section><section id="nombres-de-archivos-y-columnas" class="level2"><h2 class="anchored" data-anchor-id="nombres-de-archivos-y-columnas">Nombres de archivos y columnas</h2>
+<p>Una buena organización de los datos comienza incluso antes de importarlos a R.</p>
+<p>Intenta utilizar nombres de archivos sencillos y consistentes.</p>
+<p>En lugar de:</p>
+<pre class="text"><code>Camera Data FINAL version 2 updated!!!.xlsx</code></pre>
+<p>utiliza algo como:</p>
+<pre class="text"><code>camera_data.xlsx</code></pre>
+<p>o:</p>
+<pre class="text"><code>camera_data_2026.xlsx</code></pre>
+<p>El mismo principio se aplica a los nombres de las columnas.</p>
+<p>En lugar de:</p>
+<pre class="text"><code>Camera Station
+Number of detections
+Habitat Type</code></pre>
+<p>considera:</p>
+<pre class="text"><code>station
+detections
+habitat</code></pre>
+<p>o:</p>
+<pre class="text"><code>camera_station
+number_of_detections
+habitat_type</code></pre>
+<p>Utilizar nombres consistentes hace que trabajar con datos en R sea mucho más sencillo.</p>
+</section><section id="exportar-datos" class="level2"><h2 class="anchored" data-anchor-id="exportar-datos">Exportar datos</h2>
+<p>A veces queremos guardar una base de datos después de modificarla o resumirla en R.</p>
+<p>Para archivos CSV, R base proporciona:</p>
+<pre class="text"><code>write.csv()</code></pre>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  camera_data,</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/camera_data_clean.csv"</span>,</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esto crea:</p>
+<pre class="text"><code>outputs/camera_data_clean.csv</code></pre>
+<p>Utilizamos:</p>
+<pre class="text"><code>row.names = FALSE</code></pre>
+<p>porque de lo contrario R base agregará una columna adicional con los números de las filas.</p>
+<section id="exportar-con-readr" class="level3"><h3 class="anchored" data-anchor-id="exportar-con-readr">Exportar con <code>readr</code>
+</h3>
+<p>Si estamos utilizando tidyverse, también podemos utilizar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  camera_data,</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/camera_data_clean.csv"</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>write_csv()</code> no agrega nombres de filas de manera predeterminada.</p>
+<p>Nuevamente, no necesitas memorizar todas las alternativas.</p>
+<p>La idea importante es:</p>
+<pre class="text"><code>read  → traer datos a R
+
+write → guardar datos desde R</code></pre>
+</section></section><section id="mantener-los-datos-originales-separados-de-los-resultados" class="level2"><h2 class="anchored" data-anchor-id="mantener-los-datos-originales-separados-de-los-resultados">Mantener los datos originales separados de los resultados</h2>
+<p>Recuerda la estructura de nuestro proyecto:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+├── scripts/
+└── outputs/</code></pre>
+<p>Una regla útil es que:</p>
+<pre class="text"><code>data/</code></pre>
+<p>contiene los datos originales que recibimos o recolectamos.</p>
+<p>Mientras que:</p>
+<pre class="text"><code>outputs/</code></pre>
+<p>contiene archivos creados durante nuestro análisis.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+│   └── camera_data.csv
+│
+├── scripts/
+│   └── module-04.R
+│
+└── outputs/
+    └── camera_data_clean.csv</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Intenta no sobrescribir tus datos originales desde R.</p>
+<p>Mantener los datos originales sin modificaciones significa que siempre puedes regresar a la información original y reproducir cada cambio utilizando tu script.</p>
+</div>
+</div>
+</section><section id="práctica-en-casa" class="level2"><h2 class="anchored" data-anchor-id="práctica-en-casa">Práctica en casa</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta actividad debería tomar aproximadamente <strong>15–20 minutos</strong>.</p>
+<p>Abre tu proyecto <code>intro-r-course</code> y crea un nuevo script llamado:</p>
+<pre class="text"><code>practice-04.R</code></pre>
+<p>Guárdalo dentro de la carpeta <code>scripts</code>.</p>
+<p>Utiliza cualquier base de datos pequeña de Excel que tengas disponible, o crea una con al menos:</p>
+<ul>
+<li>5 filas,</li>
+<li>3 columnas,</li>
+<li>una columna que contenga texto,</li>
+<li>una columna que contenga números.</li>
+</ul>
+<p>Por ejemplo:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>station</th>
+<th>habitat</th>
+<th style="text-align: right;">detections</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>CT01</td>
+<td>Forest</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td>CT02</td>
+<td>Pasture</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>CT03</td>
+<td>Forest</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td>CT04</td>
+<td>Pasture</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>CT05</td>
+<td>Forest</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+<section id="parte-1-preparar-los-datos" class="level3"><h3 class="anchored" data-anchor-id="parte-1-preparar-los-datos">Parte 1: Preparar los datos</h3>
+<ol type="1">
+<li>Guarda el archivo de Excel dentro de la carpeta <code>data</code> de tu proyecto.</li>
+<li>Guarda una segunda copia como archivo <code>.csv</code>.</li>
+</ol>
+<p>Tu carpeta debería contener algo similar a:</p>
+<pre class="text"><code>data/
+├── practice_data.xlsx
+└── practice_data.csv</code></pre>
+</section><section id="parte-2-importar-el-csv" class="level3"><h3 class="anchored" data-anchor-id="parte-2-importar-el-csv">Parte 2: Importar el CSV</h3>
+<p>Importa el archivo CSV dentro de un objeto llamado:</p>
+<pre class="text"><code>practice_data</code></pre>
+<p>Después utiliza:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>()</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>()</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>para inspeccionar la base de datos importada.</p>
+</section><section id="parte-3-importar-el-archivo-de-excel" class="level3"><h3 class="anchored" data-anchor-id="parte-3-importar-el-archivo-de-excel">Parte 3: Importar el archivo de Excel</h3>
+<p>Carga el paquete <code>readxl</code> e importa la versión de Excel de la misma base de datos.</p>
+<p>Guárdala como:</p>
+<pre class="text"><code>practice_excel</code></pre>
+<p>Compara:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_data)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_excel)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>e inspecciona ambos objetos.</p>
+</section><section id="parte-4-exportar-los-datos" class="level3"><h3 class="anchored" data-anchor-id="parte-4-exportar-los-datos">Parte 4: Exportar los datos</h3>
+<p>Exporta <code>practice_data</code> a la carpeta <code>outputs</code> con el nombre:</p>
+<pre class="text"><code>practice_data_exported.csv</code></pre>
+<p>Finalmente, comprueba que el nuevo archivo aparezca dentro de la carpeta <code>outputs</code>.</p>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solución sugerida
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Práctica del Módulo 4</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Importar CSV</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>practice_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/practice_data.csv"</span></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspeccionar los datos</span></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(practice_data)</span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(practice_data)</span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(practice_data)</span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(practice_data)</span>
+<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Importar Excel</span></span>
+<span id="cb84-20"><a href="#cb84-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-21"><a href="#cb84-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-22"><a href="#cb84-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb84-23"><a href="#cb84-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-24"><a href="#cb84-24" aria-hidden="true" tabindex="-1"></a>practice_excel <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb84-25"><a href="#cb84-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/practice_data.xlsx"</span></span>
+<span id="cb84-26"><a href="#cb84-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-27"><a href="#cb84-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-28"><a href="#cb84-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspeccionar los datos de Excel</span></span>
+<span id="cb84-29"><a href="#cb84-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(practice_excel)</span>
+<span id="cb84-30"><a href="#cb84-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(practice_excel)</span>
+<span id="cb84-31"><a href="#cb84-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-32"><a href="#cb84-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparar clases</span></span>
+<span id="cb84-33"><a href="#cb84-33" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_data)</span>
+<span id="cb84-34"><a href="#cb84-34" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_excel)</span>
+<span id="cb84-35"><a href="#cb84-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-36"><a href="#cb84-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-37"><a href="#cb84-37" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-38"><a href="#cb84-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Exportar datos</span></span>
+<span id="cb84-39"><a href="#cb84-39" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-40"><a href="#cb84-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-41"><a href="#cb84-41" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
+<span id="cb84-42"><a href="#cb84-42" aria-hidden="true" tabindex="-1"></a>  practice_data,</span>
+<span id="cb84-43"><a href="#cb84-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/practice_data_exported.csv"</span>,</span>
+<span id="cb84-44"><a href="#cb84-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb84-45"><a href="#cb84-45" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lo importante es que entiendas el flujo de trabajo completo:</p>
+<pre class="text"><code>archivo externo
+      ↓
+ruta relativa
+      ↓
+leer el archivo
+      ↓
+guardarlo como un objeto de R
+      ↓
+inspeccionar el objeto
+      ↓
+trabajar con los datos
+      ↓
+guardar un archivo de salida</code></pre>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

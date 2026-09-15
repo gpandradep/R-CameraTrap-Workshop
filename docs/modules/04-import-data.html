@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>import-data – Introduction to R</title>
+<title>Module 4: Importing and Exporting Data – Introduction to R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
@@ -142,11 +177,858 @@ ul.task-list li input[type="checkbox"] {
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#lets-get-started" id="toc-lets-get-started" class="nav-link" data-scroll-target="#lets-get-started">Let’s get started</a></li>
+  <li><a href="#where-is-r-looking-for-files" id="toc-where-is-r-looking-for-files" class="nav-link" data-scroll-target="#where-is-r-looking-for-files">Where is R looking for files?</a></li>
+  <li>
+<a href="#file-paths" id="toc-file-paths" class="nav-link" data-scroll-target="#file-paths">File paths</a>
+  <ul class="collapse">
+<li><a href="#absolute-paths" id="toc-absolute-paths" class="nav-link" data-scroll-target="#absolute-paths">Absolute paths</a></li>
+  <li><a href="#relative-paths" id="toc-relative-paths" class="nav-link" data-scroll-target="#relative-paths">Relative paths</a></li>
+  </ul>
+</li>
+  <li><a href="#what-is-a-csv-file" id="toc-what-is-a-csv-file" class="nav-link" data-scroll-target="#what-is-a-csv-file">What is a CSV file?</a></li>
+  <li><a href="#from-excel-to-csv" id="toc-from-excel-to-csv" class="nav-link" data-scroll-target="#from-excel-to-csv">From Excel to CSV</a></li>
+  <li><a href="#importing-a-csv-file" id="toc-importing-a-csv-file" class="nav-link" data-scroll-target="#importing-a-csv-file">Importing a CSV file</a></li>
+  <li><a href="#check-that-the-data-loaded-correctly" id="toc-check-that-the-data-loaded-correctly" class="nav-link" data-scroll-target="#check-that-the-data-loaded-correctly">Check that the data loaded correctly</a></li>
+  <li>
+<a href="#common-csv-problems" id="toc-common-csv-problems" class="nav-link" data-scroll-target="#common-csv-problems">Common CSV problems</a>
+  <ul class="collapse">
+<li><a href="#wrong-file-name" id="toc-wrong-file-name" class="nav-link" data-scroll-target="#wrong-file-name">Wrong file name</a></li>
+  <li><a href="#wrong-folder" id="toc-wrong-folder" class="nav-link" data-scroll-target="#wrong-folder">Wrong folder</a></li>
+  <li><a href="#capitalization" id="toc-capitalization" class="nav-link" data-scroll-target="#capitalization">Capitalization</a></li>
+  </ul>
+</li>
+  <li><a href="#does-the-file-exist" id="toc-does-the-file-exist" class="nav-link" data-scroll-target="#does-the-file-exist">Does the file exist?</a></li>
+  <li><a href="#importing-csv-files-with-readr" id="toc-importing-csv-files-with-readr" class="nav-link" data-scroll-target="#importing-csv-files-with-readr">Importing CSV files with <code>readr</code></a></li>
+  <li>
+<a href="#importing-excel-files" id="toc-importing-excel-files" class="nav-link" data-scroll-target="#importing-excel-files">Importing Excel files</a>
+  <ul class="collapse">
+<li><a href="#excel-files-with-multiple-sheets" id="toc-excel-files-with-multiple-sheets" class="nav-link" data-scroll-target="#excel-files-with-multiple-sheets">Excel files with multiple sheets</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#csv-or-excel" id="toc-csv-or-excel" class="nav-link" data-scroll-target="#csv-or-excel">CSV or Excel?</a>
+  <ul class="collapse">
+<li><a href="#csv" id="toc-csv" class="nav-link" data-scroll-target="#csv">CSV</a></li>
+  <li><a href="#excel" id="toc-excel" class="nav-link" data-scroll-target="#excel">Excel</a></li>
+  </ul>
+</li>
+  <li><a href="#importing-data-using-rstudio" id="toc-importing-data-using-rstudio" class="nav-link" data-scroll-target="#importing-data-using-rstudio">Importing data using RStudio</a></li>
+  <li><a href="#file-names-and-column-names" id="toc-file-names-and-column-names" class="nav-link" data-scroll-target="#file-names-and-column-names">File names and column names</a></li>
+  <li>
+<a href="#exporting-data" id="toc-exporting-data" class="nav-link" data-scroll-target="#exporting-data">Exporting data</a>
+  <ul class="collapse">
+<li><a href="#exporting-with-readr" id="toc-exporting-with-readr" class="nav-link" data-scroll-target="#exporting-with-readr">Exporting with <code>readr</code></a></li>
+  </ul>
+</li>
+  <li><a href="#keep-raw-data-separate-from-outputs" id="toc-keep-raw-data-separate-from-outputs" class="nav-link" data-scroll-target="#keep-raw-data-separate-from-outputs">Keep raw data separate from outputs</a></li>
+  <li><a href="#practice-at-home" id="toc-practice-at-home" class="nav-link" data-scroll-target="#practice-at-home">Practice at home</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Module 4: Importing and Exporting Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>So far, we have created all of our objects directly inside R.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CT01"</span>, <span class="st">"CT02"</span>, <span class="st">"CT03"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>detections <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But this is not how we normally work with real datasets.</p>
+<p>Most of the time, our data already exist in a file created in Excel, Google Sheets, field-data software, or another program.</p>
+<p>One of the most important skills when learning R is therefore knowing how to <strong>bring external data into R</strong>.</p>
+<p>In this module we will learn how to:</p>
+<ul>
+<li>understand where R looks for files,</li>
+<li>organize data inside an RStudio Project,</li>
+<li>import <code>.csv</code> files,</li>
+<li>import Excel files,</li>
+<li>inspect imported data,</li>
+<li>and export data from R.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Download the example data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will use these files throughout this module.</p>
+<p><a href="../data/camera_data.csv" class="btn btn-primary" download="camera_data.csv">Download CSV</a></p>
+<p><a href="../data/camera_data.xlsx" class="btn btn-secondary" download="camera_data.xlsx">Download Excel</a></p>
+</div>
+</div>
+</section><section id="lets-get-started" class="level2"><h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
+<p>Open your <code>intro-r-course</code> project and create a new R script.</p>
+<p>Save it inside the <code>scripts</code> folder as:</p>
+<pre class="text"><code>module-04.R</code></pre>
+<p>Remember that our project should look approximately like this:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+├── scripts/
+│   └── module-04.R
+├── outputs/
+└── intro-r-course.Rproj</code></pre>
+<p>Throughout this module, the files we want to import will be stored inside:</p>
+<pre class="text"><code>data/</code></pre>
+</section><section id="where-is-r-looking-for-files" class="level2"><h2 class="anchored" data-anchor-id="where-is-r-looking-for-files">Where is R looking for files?</h2>
+<p>Before importing a file, R needs to know <strong>where the file is located</strong>.</p>
+<p>The folder that R currently considers its starting location is called the <strong>working directory</strong>.</p>
+<p>We can check it using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/andradegp/AppData/Local/Temp/RtmpgnKrUP/file3db433375d40/modules"</code></pre>
+</div>
+</div>
+<p>Because we are working inside an RStudio Project, the working directory should normally be the main folder of our project:</p>
+<pre class="text"><code>intro-r-course/</code></pre>
+<p>This is one of the main reasons we created an RStudio Project at the beginning of the course.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoid using <code>setwd()</code> inside your scripts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You may see tutorials that use:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/YourName/Documents/MyProject"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>to specify the working directory.</p>
+<p>This may work on your computer, but that path will probably not work on someone else’s computer.</p>
+<p>Using an RStudio Project allows us to avoid this problem and work with <strong>relative paths</strong> instead.</p>
+</div>
+</div>
+</section><section id="file-paths" class="level2"><h2 class="anchored" data-anchor-id="file-paths">File paths</h2>
+<p>A <strong>file path</strong> tells R where a file is located.</p>
+<p>There are two general types of paths:</p>
+<ul>
+<li>absolute paths,</li>
+<li>relative paths.</li>
+</ul>
+<section id="absolute-paths" class="level3"><h3 class="anchored" data-anchor-id="absolute-paths">Absolute paths</h3>
+<p>An absolute path describes the complete location of a file on your computer.</p>
+<p>For example:</p>
+<pre class="text"><code>C:/Users/Gabriel/Documents/intro-r-course/data/camera_data.csv</code></pre>
+<p>This may work perfectly on one computer.</p>
+<p>But if we send the project to another person, their computer probably does not have:</p>
+<pre class="text"><code>C:/Users/Gabriel/</code></pre>
+<p>So the code will no longer work.</p>
+</section><section id="relative-paths" class="level3"><h3 class="anchored" data-anchor-id="relative-paths">Relative paths</h3>
+<p>A relative path describes the location of a file <strong>relative to our project folder</strong>.</p>
+<p>If our file is stored here:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+│   └── camera_data.csv
+│
+├── scripts/
+└── outputs/</code></pre>
+<p>we can refer to it simply as:</p>
+<pre class="text"><code>data/camera_data.csv</code></pre>
+<p>This is much more portable.</p>
+<p>If we move the entire project to another computer, the internal structure remains the same.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Keep your project organized
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A simple project structure such as:</p>
+<pre class="text"><code>project/
+├── data/
+├── scripts/
+└── outputs/</code></pre>
+<p>makes file paths much easier to understand and helps keep your analyses reproducible.</p>
+</div>
+</div>
+</section></section><section id="what-is-a-csv-file" class="level2"><h2 class="anchored" data-anchor-id="what-is-a-csv-file">What is a CSV file?</h2>
+<p>One of the most common formats for storing tabular data is <strong>CSV</strong>.</p>
+<p>CSV stands for:</p>
+<blockquote class="blockquote">
+<p><strong>Comma-Separated Values</strong></p>
+</blockquote>
+<p>A CSV file is essentially a plain-text table.</p>
+<p>For example, a spreadsheet that looks like this:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>station</th>
+<th>species</th>
+<th style="text-align: right;">detections</th>
+<th style="text-align: right;">camera_days</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>CT01</td>
+<td>Raccoon</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td>CT02</td>
+<td>Coyote</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td>CT03</td>
+<td>Bobcat</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+</tr>
+</tbody>
+</table>
+<p>may be stored internally as:</p>
+<pre class="text"><code>station,species,detections,camera_days
+CT01,Raccoon,12,30
+CT02,Coyote,5,28
+CT03,Bobcat,8,30</code></pre>
+<p>Because CSV files are simple text files, they can be opened by many different programs, including:</p>
+<ul>
+<li>Excel,</li>
+<li>Google Sheets,</li>
+<li>R,</li>
+<li>Python,</li>
+<li>text editors,</li>
+<li>and many other programs.</li>
+</ul>
+<p>This makes CSV a very useful format for sharing and analyzing data.</p>
+</section><section id="from-excel-to-csv" class="level2"><h2 class="anchored" data-anchor-id="from-excel-to-csv">From Excel to CSV</h2>
+<p>Many datasets begin their life in Excel.</p>
+<p>That is completely fine.</p>
+<p>However, when we begin analyzing the data in R, it is often useful to save a copy as a CSV file.</p>
+<p>In Excel:</p>
+<p><strong>File → Save As</strong></p>
+<p>and select:</p>
+<pre class="text"><code>CSV (Comma delimited) (*.csv)</code></pre>
+<p>Save the file inside the <code>data</code> folder of your RStudio Project.</p>
+<p>For example:</p>
+<pre class="text"><code>data/camera_data.csv</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Keep your original data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not replace or modify your only copy of the original dataset.</p>
+<p>A good workflow is to keep the original file unchanged and create a separate CSV file for analysis.</p>
+<p>For example:</p>
+<pre class="text"><code>data/
+├── camera_data_original.xlsx
+└── camera_data.csv</code></pre>
+</div>
+</div>
+</section><section id="importing-a-csv-file" class="level2"><h2 class="anchored" data-anchor-id="importing-a-csv-file">Importing a CSV file</h2>
+<p>Base R includes the function:</p>
+<pre class="text"><code>read.csv()</code></pre>
+<p>which reads a CSV file and converts it into a data frame.</p>
+<p>If our file is located here:</p>
+<pre class="text"><code>data/camera_data.csv</code></pre>
+<p>we can import it using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>camera_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are two important things happening here.</p>
+<p>First:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>reads the file.</p>
+<p>Second:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>camera_data <span class="ot">&lt;-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>stores the imported dataset in an R object called <code>camera_data</code>.</p>
+<p>If we forget the assignment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                 species n_events n_stations
+1              Armadillo       33          6
+2                   Bird       20          3
+3          Black vulture       23          2
+4                 Bobcat        3          2
+5                 Coyote       37          2
+6  Eastern gray squirrel        1          1
+7           Fox squirrel        3          2
+8               Gray fox        9          2
+9                    Hog        9          4
+10                 Human       18         12
+11               Raccoon       35          5
+12        Turkey vulture       53          4
+13      Virginia opossum       23          3
+14     White-tailed deer      104          7</code></pre>
+</div>
+</div>
+<p>R can still read and display the file, but we have not saved it as an object that we can continue working with.</p>
+</section><section id="check-that-the-data-loaded-correctly" class="level2"><h2 class="anchored" data-anchor-id="check-that-the-data-loaded-correctly">Check that the data loaded correctly</h2>
+<p>Importing a file without an error does not necessarily mean that everything was read correctly.</p>
+<p>We should always inspect the data after importing it.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(camera_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                species n_events n_stations
+1             Armadillo       33          6
+2                  Bird       20          3
+3         Black vulture       23          2
+4                Bobcat        3          2
+5                Coyote       37          2
+6 Eastern gray squirrel        1          1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(camera_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   14 obs. of  3 variables:
+ $ species   : chr  "Armadillo" "Bird" "Black vulture" "Bobcat" ...
+ $ n_events  : int  33 20 23 3 37 1 3 9 9 18 ...
+ $ n_stations: int  6 3 2 2 2 1 2 2 4 12 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(camera_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14  3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(camera_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "species"    "n_events"   "n_stations"</code></pre>
+</div>
+</div>
+<p>These functions should already look familiar from the previous module.</p>
+<p>We can also open the dataset using RStudio’s data viewer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(camera_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Always check your imported data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After importing a dataset, ask yourself:</p>
+<ul>
+<li>Does it have the expected number of rows?</li>
+<li>Does it have the expected number of columns?</li>
+<li>Are the column names correct?</li>
+<li>Are numeric columns actually numeric?</li>
+<li>Did missing values import correctly?</li>
+<li>Does the dataset look like the file I expected to load?</li>
+</ul>
+<p>Never assume that a file was imported correctly just because R did not return an error.</p>
+</div>
+</div>
+</section><section id="common-csv-problems" class="level2"><h2 class="anchored" data-anchor-id="common-csv-problems">Common CSV problems</h2>
+<p>Files do not always import exactly as expected.</p>
+<p>A few common problems include:</p>
+<section id="wrong-file-name" class="level3"><h3 class="anchored" data-anchor-id="wrong-file-name">Wrong file name</h3>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera-data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>will not work if the actual file is called:</p>
+<pre class="text"><code>camera_data.csv</code></pre>
+<p>The names must match.</p>
+</section><section id="wrong-folder" class="level3"><h3 class="anchored" data-anchor-id="wrong-folder">Wrong folder</h3>
+<p>This:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>tells R to look for the file directly inside the project folder.</p>
+<p>But if the file is inside:</p>
+<pre class="text"><code>data/</code></pre>
+<p>we need:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="capitalization" class="level3"><h3 class="anchored" data-anchor-id="capitalization">Capitalization</h3>
+<p>Depending on the operating system:</p>
+<pre class="text"><code>Camera_Data.csv</code></pre>
+<p>and:</p>
+<pre class="text"><code>camera_data.csv</code></pre>
+<p>may be treated as different file names.</p>
+<p>Consistent file names help avoid these problems.</p>
+</section></section><section id="does-the-file-exist" class="level2"><h2 class="anchored" data-anchor-id="does-the-file-exist">Does the file exist?</h2>
+<p>If R tells you that it cannot find a file, we can check whether R can see it.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>If R returns:</p>
+<pre class="text"><code>TRUE</code></pre>
+<p>the file exists at that location.</p>
+<p>If R returns:</p>
+<pre class="text"><code>FALSE</code></pre>
+<p>something about the path or file name is incorrect.</p>
+<p>We can also see the files inside our <code>data</code> folder:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "camera_data.csv"  "camera_data.xlsx"</code></pre>
+</div>
+</div>
+<p>These two functions can be extremely useful when troubleshooting import problems.</p>
+</section><section id="importing-csv-files-with-readr" class="level2"><h2 class="anchored" data-anchor-id="importing-csv-files-with-readr">Importing CSV files with <code>readr</code>
+</h2>
+<p>There are several ways to import the same type of file in R.</p>
+<p>The <code>tidyverse</code> includes a package called <code>readr</code> that provides another function for reading CSV files:</p>
+<pre class="text"><code>read_csv()</code></pre>
+<p>Because we installed <code>tidyverse</code> at the beginning of the course, we can load it using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>Then:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>camera_data2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/camera_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice the difference:</p>
+<pre class="text"><code>Base R       read.csv()
+
+readr        read_csv()</code></pre>
+<p>Both functions can read CSV files.</p>
+<p>For this course, you may see both, but later we will frequently use <code>read_csv()</code> because it works naturally with other tidyverse tools.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You do not need to memorize multiple ways to import the same file.</p>
+<p>What matters is understanding:</p>
+<ol type="1">
+<li>where the file is,</li>
+<li>what type of file it is,</li>
+<li>which function can read it,</li>
+<li>and what object will store the result.</li>
+</ol>
+</div>
+</div>
+</section><section id="importing-excel-files" class="level2"><h2 class="anchored" data-anchor-id="importing-excel-files">Importing Excel files</h2>
+<p>Sometimes we want to import an Excel file directly instead of converting it to CSV.</p>
+<p>Base R does not include a function for reading <code>.xlsx</code> files, so we need an additional package.</p>
+<p>We installed <code>readxl</code> during the Getting Started section.</p>
+<p>Load it using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can import an Excel file using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>camera_data3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>( <span class="st">"data/camera_data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The function is called:</p>
+<pre class="text"><code>read_excel()</code></pre>
+<p>and comes from the <code>readxl</code> package.</p>
+<section id="excel-files-with-multiple-sheets" class="level3"><h3 class="anchored" data-anchor-id="excel-files-with-multiple-sheets">Excel files with multiple sheets</h3>
+<p>An Excel workbook can contain several sheets.</p>
+<p>We can see their names using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(<span class="st">"data/camera_data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "camera_records" "secret_tab"    </code></pre>
+</div>
+</div>
+<p>If the workbook contains a sheet called:</p>
+<pre class="text"><code>camera_records</code></pre>
+<p>we can import that specific sheet using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>camera_data3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/camera_data.xlsx"</span>,</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sheet =</span> <span class="st">"camera_records"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also select a sheet by position:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>camera_data3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/camera_data.xlsx"</span>,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sheet =</span> <span class="dv">1</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="csv-or-excel" class="level2"><h2 class="anchored" data-anchor-id="csv-or-excel">CSV or Excel?</h2>
+<p>Both formats can be useful.</p>
+<section id="csv" class="level3"><h3 class="anchored" data-anchor-id="csv">CSV</h3>
+<p>Advantages:</p>
+<ul>
+<li>simple,</li>
+<li>open format,</li>
+<li>easy to share,</li>
+<li>readable by almost any software,</li>
+<li>good for analysis and reproducibility.</li>
+</ul>
+<p>Limitations:</p>
+<ul>
+<li>only stores one table,</li>
+<li>does not preserve formatting,</li>
+<li>does not store formulas or multiple sheets.</li>
+</ul></section><section id="excel" class="level3"><h3 class="anchored" data-anchor-id="excel">Excel</h3>
+<p>Advantages:</p>
+<ul>
+<li>familiar to many users,</li>
+<li>can contain multiple sheets,</li>
+<li>useful for entering and reviewing data.</li>
+</ul>
+<p>Limitations:</p>
+<ul>
+<li>more complex file format,</li>
+<li>formatting can sometimes hide data problems,</li>
+<li>spreadsheet software may automatically modify dates or other values.</li>
+</ul>
+<p>A common workflow is:</p>
+<blockquote class="blockquote">
+<p><strong>Enter/review data in Excel → save a clean CSV → analyze the CSV in R</strong></p>
+</blockquote>
+<p>But R can work directly with either format.</p>
+</section></section><section id="importing-data-using-rstudio" class="level2"><h2 class="anchored" data-anchor-id="importing-data-using-rstudio">Importing data using RStudio</h2>
+<p>RStudio also provides a graphical interface for importing datasets.</p>
+<p>In the <strong>Environment</strong> panel, select:</p>
+<p><strong>Import Dataset</strong></p>
+<p>RStudio will provide options for importing text and Excel files.</p>
+<p>This can be useful when you are learning because RStudio shows a preview of the data and generates the corresponding R code.</p>
+<p>However, once you understand the import function, it is better to keep the import command inside your script.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>camera_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/camera_data.csv"</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This way, the analysis can be reproduced later without manually clicking through menus.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The graphical import tool is useful for learning.</p>
+<p>But try to copy the generated code into your script so that you can reproduce the import later.</p>
+</div>
+</div>
+</section><section id="file-names-and-column-names" class="level2"><h2 class="anchored" data-anchor-id="file-names-and-column-names">File names and column names</h2>
+<p>Good file organization begins before we import anything into R.</p>
+<p>Try to use simple and consistent file names.</p>
+<p>Instead of:</p>
+<pre class="text"><code>Camera Data FINAL version 2 updated!!!.xlsx</code></pre>
+<p>use something like:</p>
+<pre class="text"><code>camera_data.xlsx</code></pre>
+<p>or:</p>
+<pre class="text"><code>camera_data_2026.xlsx</code></pre>
+<p>The same principle applies to column names.</p>
+<p>Instead of:</p>
+<pre class="text"><code>Camera Station
+Number of detections
+Habitat Type</code></pre>
+<p>consider:</p>
+<pre class="text"><code>station
+detections
+habitat</code></pre>
+<p>or:</p>
+<pre class="text"><code>camera_station
+number_of_detections
+habitat_type</code></pre>
+<p>Consistent names make working with data in R much easier.</p>
+</section><section id="exporting-data" class="level2"><h2 class="anchored" data-anchor-id="exporting-data">Exporting data</h2>
+<p>Sometimes we want to save a dataset after modifying or summarizing it in R.</p>
+<p>For CSV files, base R provides:</p>
+<pre class="text"><code>write.csv()</code></pre>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  camera_data,</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/camera_data_clean.csv"</span>,</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This creates:</p>
+<pre class="text"><code>outputs/camera_data_clean.csv</code></pre>
+<p>We use:</p>
+<pre class="text"><code>row.names = FALSE</code></pre>
+<p>because otherwise base R will add an extra column containing the row numbers.</p>
+<section id="exporting-with-readr" class="level3"><h3 class="anchored" data-anchor-id="exporting-with-readr">Exporting with <code>readr</code>
+</h3>
+<p>If we are using the tidyverse, we can also use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  camera_data,</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/camera_data_clean.csv"</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>write_csv()</code> does not add row names by default.</p>
+<p>Again, you do not need to memorize every alternative.</p>
+<p>The important idea is:</p>
+<pre class="text"><code>read  → bring data into R
+
+write → save data from R</code></pre>
+</section></section><section id="keep-raw-data-separate-from-outputs" class="level2"><h2 class="anchored" data-anchor-id="keep-raw-data-separate-from-outputs">Keep raw data separate from outputs</h2>
+<p>Remember our project structure:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+├── scripts/
+└── outputs/</code></pre>
+<p>A useful rule is:</p>
+<pre class="text"><code>data/</code></pre>
+<p>contains the original data that we received or collected.</p>
+<pre class="text"><code>outputs/</code></pre>
+<p>contains files created by our analysis.</p>
+<p>For example:</p>
+<pre class="text"><code>intro-r-course/
+│
+├── data/
+│   └── camera_data.csv
+│
+├── scripts/
+│   └── module-04.R
+│
+└── outputs/
+    └── camera_data_clean.csv</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try not to overwrite your original data from R.</p>
+<p>Keeping the raw data unchanged means that you can always return to the original information and reproduce every change using your script.</p>
+</div>
+</div>
+</section><section id="practice-at-home" class="level2"><h2 class="anchored" data-anchor-id="practice-at-home">Practice at home</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This activity should take approximately <strong>15–20 minutes</strong>.</p>
+<p>Open your <code>intro-r-course</code> project and create a new script called:</p>
+<pre class="text"><code>practice-04.R</code></pre>
+<p>Save it inside the <code>scripts</code> folder.</p>
+<p>Use any small Excel dataset you have available, or create one with at least:</p>
+<ul>
+<li>5 rows,</li>
+<li>3 columns,</li>
+<li>one column containing text,</li>
+<li>one column containing numbers.</li>
+</ul>
+<p>For example:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>station</th>
+<th>habitat</th>
+<th style="text-align: right;">detections</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>CT01</td>
+<td>Forest</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td>CT02</td>
+<td>Pasture</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>CT03</td>
+<td>Forest</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td>CT04</td>
+<td>Pasture</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>CT05</td>
+<td>Forest</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+<section id="part-1-prepare-the-data" class="level3"><h3 class="anchored" data-anchor-id="part-1-prepare-the-data">Part 1: Prepare the data</h3>
+<ol type="1">
+<li>Save the Excel file inside your project’s <code>data</code> folder.</li>
+<li>Save a second copy as a <code>.csv</code> file.</li>
+</ol>
+<p>Your folder should contain something like:</p>
+<pre class="text"><code>data/
+├── practice_data.xlsx
+└── practice_data.csv</code></pre>
+</section><section id="part-2-import-the-csv" class="level3"><h3 class="anchored" data-anchor-id="part-2-import-the-csv">Part 2: Import the CSV</h3>
+<p>Import the CSV file into an object called:</p>
+<pre class="text"><code>practice_data</code></pre>
+<p>Then use:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>()</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>()</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>to inspect the imported dataset.</p>
+</section><section id="part-3-import-the-excel-file" class="level3"><h3 class="anchored" data-anchor-id="part-3-import-the-excel-file">Part 3: Import the Excel file</h3>
+<p>Load the <code>readxl</code> package and import the Excel version of the same dataset.</p>
+<p>Save it as:</p>
+<pre class="text"><code>practice_excel</code></pre>
+<p>Compare:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_data)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_excel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and inspect both objects.</p>
+</section><section id="part-4-export-the-data" class="level3"><h3 class="anchored" data-anchor-id="part-4-export-the-data">Part 4: Export the data</h3>
+<p>Export <code>practice_data</code> into the <code>outputs</code> folder with the name:</p>
+<pre class="text"><code>practice_data_exported.csv</code></pre>
+<p>Finally, check that the new file appears inside the <code>outputs</code> folder.</p>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Suggested solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice for Module 4</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import CSV</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>practice_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/practice_data.csv"</span></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the data</span></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(practice_data)</span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(practice_data)</span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(practice_data)</span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(practice_data)</span>
+<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Excel</span></span>
+<span id="cb84-20"><a href="#cb84-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-21"><a href="#cb84-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-22"><a href="#cb84-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb84-23"><a href="#cb84-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-24"><a href="#cb84-24" aria-hidden="true" tabindex="-1"></a>practice_excel <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb84-25"><a href="#cb84-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/practice_data.xlsx"</span></span>
+<span id="cb84-26"><a href="#cb84-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-27"><a href="#cb84-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-28"><a href="#cb84-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the Excel data</span></span>
+<span id="cb84-29"><a href="#cb84-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(practice_excel)</span>
+<span id="cb84-30"><a href="#cb84-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(practice_excel)</span>
+<span id="cb84-31"><a href="#cb84-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-32"><a href="#cb84-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare classes</span></span>
+<span id="cb84-33"><a href="#cb84-33" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_data)</span>
+<span id="cb84-34"><a href="#cb84-34" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(practice_excel)</span>
+<span id="cb84-35"><a href="#cb84-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-36"><a href="#cb84-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-37"><a href="#cb84-37" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-38"><a href="#cb84-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Export data</span></span>
+<span id="cb84-39"><a href="#cb84-39" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb84-40"><a href="#cb84-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-41"><a href="#cb84-41" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
+<span id="cb84-42"><a href="#cb84-42" aria-hidden="true" tabindex="-1"></a>  practice_data,</span>
+<span id="cb84-43"><a href="#cb84-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/practice_data_exported.csv"</span>,</span>
+<span id="cb84-44"><a href="#cb84-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb84-45"><a href="#cb84-45" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The important thing is that you understand the complete workflow:</p>
+<pre class="text"><code>external file
+      ↓
+relative path
+      ↓
+read the file
+      ↓
+store it as an R object
+      ↓
+inspect the object
+      ↓
+work with the data
+      ↓
+write an output file</code></pre>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

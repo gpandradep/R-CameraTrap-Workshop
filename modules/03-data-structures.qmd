@@ -1,0 +1,1178 @@
+---
+title: "Module 3: Data Structures in R"
+toc: true
+---
+
+## Introduction
+
+In the previous module, we learned that R stores information in **objects**.
+
+So far, most of our objects contained only one value:
+
+```{r}
+number_of_cameras <- 12
+
+species <- "Raccoon"
+
+camera_active <- TRUE
+```
+
+But real datasets contain much more information than a single number or word.
+
+R allows us to organize multiple values into different **data structures**.
+
+In this module, we will focus on four of the most common:
+
+- vectors,
+- matrices,
+- lists,
+- data frames.
+
+Understanding the difference between these structures will make it much easier to understand what R is doing later when we start working with real datasets.
+
+## Let's get started
+
+Open your `intro-r-course` project and create a new R script.
+
+Save it inside the `scripts` folder as:
+
+```text
+module-03.R
+```
+
+We will use this script throughout the module.
+
+## Vectors
+
+A **vector** is one of the most basic and important data structures in R.
+
+A vector allows us to store several values inside a single object.
+
+We can create a vector using the function:
+
+```text
+c()
+```
+
+The `c` stands for **combine**.
+
+For example:
+
+```{r}
+detections <- c(5, 12, 8, 0, 3)
+
+detections
+```
+
+Instead of creating five different objects:
+
+```{r}
+detection_1 <- 5
+detection_2 <- 12
+detection_3 <- 8
+detection_4 <- 0
+detection_5 <- 3
+```
+
+we can store all five values together:
+
+```{r}
+detections <- c(5, 12, 8, 0, 3)
+```
+
+This makes it much easier to work with several related observations.
+
+### Numeric vectors
+
+Vectors can contain numeric values:
+
+```{r}
+camera_days <- c(30, 28, 30, 25, 29)
+
+camera_days
+```
+
+We can perform operations directly on the entire vector:
+
+```{r}
+camera_days + 1
+```
+
+or:
+
+```{r}
+camera_days * 2
+```
+
+R applies the operation to **each element of the vector**.
+
+We can also use functions:
+
+```{r}
+mean(camera_days)
+```
+
+```{r}
+sum(camera_days)
+```
+
+```{r}
+length(camera_days)
+```
+
+The function `length()` tells us how many elements are contained in the vector.
+
+### Character vectors
+
+Vectors can also contain text:
+
+```{r}
+species <- c(
+  "Raccoon",
+  "Coyote",
+  "Bobcat",
+  "White-tailed deer"
+)
+
+species
+```
+
+And logical values:
+
+```{r}
+camera_active <- c(TRUE, TRUE, FALSE, TRUE)
+
+camera_active
+```
+
+::: {.callout-important}
+## Vectors contain one type of data
+
+An atomic vector can contain only **one basic data type**.
+
+For example, all its values can be numeric, all can be character, or all can be logical.
+:::
+
+What happens if we mix types?
+
+```{r}
+mixed_vector <- c(1, 2, "Raccoon", 4)
+
+mixed_vector
+```
+
+R converts all the values to a compatible type.
+
+Check:
+
+```{r}
+class(mixed_vector)
+```
+
+
+Because the vector contains text, R converted the numbers into character values too.
+
+This automatic conversion is called **coercion**.
+
+::: {.callout-tip}
+If an object that you expected to be numeric suddenly becomes `character`, check whether one of its values contains text.
+:::
+
+## Creating sequences
+
+Sometimes we do not want to type every number individually.
+
+For example:
+
+```{r}
+1:10
+```
+
+
+We can save it as an object:
+
+```{r}
+sampling_days <- 1:10
+
+sampling_days
+```
+
+The function `seq()` gives us more control. This function has several arguments: `from` is the starting number, `to` is the ending number, `length.out` is used to control the length of the vector, and `by` allows us to specify the interval of the sequence.
+
+```{r}
+seq(from = 0, to = 30, by = 5)
+```
+
+
+We can also repeat values using `rep()`. The `times` argument allows us to specify the number of times a value or vector will be repeated. When we specify `each`, we can control the number of times each value within the vector is repeated.
+
+```{r}
+rep("Camera", times = 5)
+```
+
+These functions are useful when we need to generate repeated or sequential values without typing everything manually.
+
+## Selecting elements from a vector
+
+Sometimes we only want one or a few values from a vector.
+
+We can select elements using square brackets:
+
+```text
+[]
+```
+
+Let's create a vector:
+
+```{r}
+detections <- c(5, 12, 8, 0, 3)
+```
+
+To select the first value:
+
+```{r}
+detections[1]
+```
+
+To select the third:
+
+```{r}
+detections[3]
+```
+
+We can select several positions:
+
+```{r}
+detections[c(1, 3, 5)]
+```
+
+Or a sequence of positions:
+
+```{r}
+detections[1:3]
+```
+
+::: {.callout-important}
+R starts counting at **1**, not at 0.
+
+The first element of a vector is:
+
+```{r}
+#| eval: false
+#| 
+x[1]
+```
+
+:::
+
+We can also exclude positions using negative numbers:
+
+```{r}
+detections[-1]
+```
+
+This returns everything except the first element.
+
+### Selecting values using a condition
+
+Remember the relational operators from the previous module?
+
+We can use them with vectors.
+
+For example:
+
+```{r}
+detections > 5
+```
+
+R returns a logical value for every element:
+
+
+
+We can use this condition inside the brackets:
+
+```{r}
+detections[detections > 5]
+```
+
+R returns only the values that meet the condition:
+
+
+This idea will become extremely important later when we start filtering datasets.
+
+::: {.callout-note}
+## Try it yourself
+
+Create this vector:
+
+```{r}
+camera_days <- c(30, 21, 29, 15, 30, 27)
+```
+
+Then:
+
+1. Select the second value.
+2. Select the first three values.
+3. Select values 2, 4, and 6.
+4. Find which values are greater than 25.
+5. Return only the values greater than 25.
+:::
+
+## Matrices
+
+A **matrix** is a two-dimensional data structure.
+
+Unlike a vector, which has only one dimension, a matrix has:
+
+- rows,
+- columns.
+
+We can create a matrix using the function `matrix()`.
+
+For example:
+
+```{r}
+camera_matrix <- matrix(
+  1:12,
+  nrow = 4,
+  ncol = 3
+)
+
+camera_matrix
+```
+
+R fills matrices by column by default.
+
+We can change this using:
+
+```{r}
+camera_matrix <- matrix(
+  1:12,
+  nrow = 4,
+  ncol = 3,
+  byrow = TRUE
+)
+
+camera_matrix
+```
+
+Now the values are filled by row.
+
+### Matrix dimensions
+
+We can inspect the dimensions of a matrix using:
+
+```{r}
+dim(camera_matrix)
+```
+
+This returns the number of rows and columns.
+
+We can also use:
+
+```{r}
+nrow(camera_matrix)
+```
+
+and:
+
+```{r}
+ncol(camera_matrix)
+```
+
+### Creating matrices from vectors
+
+We can combine vectors into a matrix.
+
+For example:
+
+```{r}
+station_1 <- c(5, 2, 0)
+station_2 <- c(3, 1, 4)
+station_3 <- c(8, 0, 2)
+```
+
+We can combine them by rows:
+
+```{r}
+detection_matrix <- rbind(
+  station_1,
+  station_2,
+  station_3
+)
+
+detection_matrix
+```
+
+Or by columns:
+
+```{r}
+cbind(
+  station_1,
+  station_2,
+  station_3
+)
+```
+
+The functions are easy to remember:
+
+```text
+rbind = row bind
+
+cbind = column bind
+```
+
+### Naming rows and columns
+
+Matrices can have row and column names.
+
+For example:
+
+```{r}
+rownames(detection_matrix) <- c(
+  "CT01",
+  "CT02",
+  "CT03"
+)
+
+colnames(detection_matrix) <- c(
+  "Raccoon",
+  "Coyote",
+  "Bobcat"
+)
+
+detection_matrix
+```
+
+Now our matrix is much easier to interpret.
+
+This type of structure will become familiar later when we work with camera-trap detection histories.
+
+### Selecting elements from a matrix
+
+Because matrices have two dimensions, we need to specify:
+
+```text
+[row, column]
+```
+
+For example:
+
+```{r}
+detection_matrix[1, 2]
+```
+
+means:
+
+> row 1, column 2
+
+We can select an entire row:
+
+```{r}
+detection_matrix[1, ]
+```
+
+Or an entire column:
+
+```{r}
+detection_matrix[, 2]
+```
+
+We can also use names:
+
+```{r}
+detection_matrix["CT01", "Coyote"]
+```
+
+or:
+
+```{r}
+detection_matrix[, "Raccoon"]
+```
+
+::: {.callout-tip}
+A useful way to remember matrix indexing is:
+
+```text
+object[row, column]
+```
+
+The comma separates the two dimensions.
+:::
+
+We can also select values from the diagonal using `diag`
+
+```{r}
+diag(detection_matrix)
+```
+
+Delete row 1 and select column 2
+```{r}
+
+detection_matrix[-1,2]
+```
+
+
+
+Delete rows 1 and 4, and select columns 1 and 3
+```{r}
+detection_matrix[c(-1,-4), c(1,3)]
+```
+
+When we use the selectors on the left side of the object definition, we can replace the values with the ones we are defining.
+
+```{r}
+# We can replace values in matrices
+
+# Replace the second row with 100, 200, and 300
+detection_matrix[2,] <- c(100,200, 300)
+detection_matrix
+```
+
+### Matrices contain one type of data
+
+Like vectors, matrices contain only one basic type of data.
+
+For example:
+
+```{r}
+numeric_matrix <- matrix(1:9, nrow = 3)
+
+numeric_matrix
+```
+
+But if we introduce text:
+
+```{r}
+mixed_matrix <- cbind(
+  station = c("CT01", "CT02", "CT03"),
+  detections = c(5, 8, 2)
+)
+
+mixed_matrix
+```
+
+R converts the numeric values into characters because the entire matrix must have a common type.
+
+This limitation is one of the reasons why **data frames** are more useful for most datasets.
+
+## Lists
+
+A **list** is a very flexible R data structure.
+
+Unlike vectors and matrices, lists can contain objects of **different types and structures**.
+
+For example:
+
+```{r}
+camera_information <- list(
+  station = "CT01",
+  active = TRUE,
+  detections = 25,
+  species = c("Raccoon", "Coyote", "Bobcat")
+)
+
+camera_information
+```
+
+This single list contains:
+
+- a character value,
+- a logical value,
+- a numeric value,
+- a character vector.
+
+A list can even contain matrices, data frames, or other lists.
+
+For example:
+
+```{r}
+example_list <- list(
+  numbers = c(1, 2, 3),
+  matrix = matrix(1:4, nrow = 2),
+  message = "Hello R"
+)
+
+example_list
+```
+
+This flexibility makes lists extremely common in R.
+
+Many functions and statistical models return their results as lists containing several different objects.
+
+### Selecting elements from a list
+
+If the elements have names, we can use `$`:
+
+```{r}
+camera_information$station
+```
+
+```{r}
+camera_information$species
+```
+
+We can also use double brackets:
+
+```{r}
+camera_information[[1]]
+```
+
+or:
+
+```{r}
+camera_information[["station"]]
+```
+
+You may also see:
+
+```{r}
+camera_information[1]
+```
+
+but there is an important difference.
+
+returns a **list containing the first element**.
+
+In contrast:
+
+```{r}
+camera_information[[1]]
+```
+
+returns the **contents of the first element**.
+
+This distinction can be confusing at first, and you do not need to memorize it yet.
+
+For now, the most important idea is:
+
+> Lists can store many different kinds of objects together.
+
+## Data frames
+
+For the type of work we will do in this course, **data frames will probably be the most important data structure**.
+
+A data frame is a rectangular table with:
+
+- rows,
+- columns.
+
+It looks very similar to an Excel spreadsheet.
+
+However, unlike a matrix, **different columns of a data frame can contain different types of data**.
+
+For example, let's create some information from a hypothetical camera-trap survey:
+
+```{r}
+station <- c(
+  "CT01",
+  "CT02",
+  "CT03",
+  "CT04"
+)
+
+habitat <- c(
+  "Forest",
+  "Forest",
+  "Pasture",
+  "Pasture"
+)
+
+camera_days <- c(
+  30,
+  28,
+  30,
+  27
+)
+
+active <- c(
+  TRUE,
+  TRUE,
+  FALSE,
+  TRUE
+)
+```
+
+Each object is a vector.
+
+Now we can combine them into a data frame:
+
+```{r}
+camera_data <- data.frame(
+  station,
+  habitat,
+  camera_days,
+  active
+)
+
+camera_data
+```
+
+We now have one object containing several columns.
+
+Each column can have a different type:
+
+```{r}
+class(camera_data$station)
+```
+
+```{r}
+class(camera_data$camera_days)
+```
+
+```{r}
+class(camera_data$active)
+```
+
+The data frame itself has its own class:
+
+```{r}
+class(camera_data)
+```
+
+R returns:
+
+
+::: {.callout-important}
+## Rows and columns usually represent different things
+
+In most ecological datasets:
+
+- **rows** represent observations,
+- **columns** represent variables.
+
+Understanding this organization is extremely important when preparing data for analysis.
+:::
+
+In our example:
+
+```text
+station      habitat      camera_days      active
+```
+
+are variables.
+
+Each row represents one camera station.
+
+## Inspecting a data frame
+
+Before analyzing a dataset, we should always look at its structure.
+
+Some useful functions are:
+
+```{r}
+camera_data
+```
+
+### `head()`
+
+Shows the first few rows:
+
+```{r}
+head(camera_data)
+```
+
+### `str()`
+
+Shows the internal structure of the object:
+```{r}
+str(camera_data)
+```
+
+### `dim()`
+
+Returns the number of rows and columns:
+
+```{r}
+dim(camera_data)
+```
+
+### `nrow()`
+
+Returns the number of rows:
+
+```{r}
+nrow(camera_data)
+```
+
+### `ncol()`
+
+Returns the number of columns:
+```{r}
+ncol(camera_data)
+```
+
+### `names()`
+
+Returns the column names:
+```{r}
+names(camera_data)
+```
+
+
+
+::: {.callout-tip}
+When you load a new dataset into R, one of the first things you should do is inspect it.
+
+Functions such as:
+
+```r
+head()
+str()
+dim()
+names()
+```
+
+can help you identify problems before you begin an analysis.
+:::
+
+## Selecting columns from a data frame
+
+We can access a column using `$`:
+
+```{r}
+camera_data$station
+```
+
+```{r}
+camera_data$camera_days
+```
+
+Notice what happens when we do this:
+
+```{r}
+class(camera_data$camera_days)
+```
+
+The column itself is a vector.
+
+This is an important idea:
+
+> A data frame is essentially a collection of equal-length vectors organized as columns.
+
+We can also use square brackets.
+
+For example:
+
+```{r}
+camera_data[1, 2]
+```
+
+means:
+
+> row 1, column 2
+
+To select the first row:
+
+```{r}
+camera_data[1, ]
+```
+
+To select the second column:
+
+```{r}
+camera_data[, 2]
+```
+
+We can also use column names:
+
+```{r}
+camera_data[, "habitat"]
+```
+
+Or select several columns:
+
+```{r}
+camera_data[, c("station", "camera_days")]
+```
+
+Later we will learn easier and more readable ways to select rows and columns using `dplyr`.
+
+For now, it is important to understand how data frames work in base R.
+
+## Adding a column
+
+We can add a new column using `$`.
+
+For example:
+
+```{r}
+camera_data$elevation <- c(
+  105,
+  112,
+  98,
+  101
+)
+
+camera_data
+```
+
+The new column must have the correct number of values.
+
+Our data frame has four rows, so the new column needs four values.
+
+We can verify the number of rows with:
+
+```{r}
+nrow(camera_data)
+```
+
+## Changing values
+
+We can also replace specific values.
+
+For example:
+
+```{r}
+camera_data$camera_days[2] <- 30
+
+camera_data
+```
+
+Or using row and column positions:
+
+```{r}
+camera_data[2, "camera_days"] <- 30
+```
+
+This can be useful, but we should be careful when modifying raw data manually.
+
+::: {.callout-important}
+Whenever possible, avoid manually changing your original data file.
+
+It is usually better to make corrections through code so that the changes are documented and reproducible.
+:::
+
+## Different structures, different purposes
+
+Let's summarize the four structures we have seen.
+
+| Structure | Dimensions | Same data type? | Common use |
+|---|---:|---|---|
+| Vector | 1 | Yes | Store a sequence of values |
+| Matrix | 2 | Yes | Numeric or structured rectangular data |
+| List | 1 | No | Store different objects together |
+| Data frame | 2 | Different types allowed by column | Store datasets |
+
+The structure we choose depends on the type of information we want to store.
+
+Throughout the rest of the course:
+
+- we will constantly work with **vectors**,
+- most of our datasets will be **data frames**,
+- we will occasionally encounter **matrices**,
+- and many R functions will return results as **lists**.
+
+When we eventually work with `camtrapR`, all four of these ideas will appear again.
+
+## Converting between data structures
+
+R also provides functions for converting objects from one structure to another.
+
+For example:
+
+```{r}
+as.data.frame(detection_matrix)
+```
+
+converts a matrix into a data frame.
+
+We can save the result:
+
+```{r}
+detection_data <- as.data.frame(detection_matrix)
+
+class(detection_data)
+```
+
+Similarly:
+
+```{r}
+as.matrix(camera_data)
+```
+
+attempts to convert a data frame into a matrix.
+
+However, remember that a matrix can contain only one basic data type.
+
+Because `camera_data` contains text, numbers, and logical values, R will need to convert everything to a common type.
+
+Try:
+
+```{r}
+camera_matrix_2 <- as.matrix(camera_data)
+
+camera_matrix_2
+```
+
+and then:
+
+```{r}
+class(camera_matrix_2)
+```
+
+This is another good example of why understanding data structures matters.
+
+A function may technically convert an object, but the result may not have the structure or data type that you expected.
+
+## Practice at home
+
+::: {.callout-tip}
+This activity should take approximately **15–20 minutes**.
+
+Open your `intro-r-course` project and create a new script called:
+
+```text
+practice-03.R
+```
+
+Save it inside the `scripts` folder.
+
+### Part 1: Vectors
+
+Create these objects:
+
+```{r}
+stations <- c("CT01", "CT02", "CT03", "CT04", "CT05")
+
+detections <- c(12, 5, 0, 18, 7)
+
+camera_days <- c(30, 28, 30, 25, 29)
+```
+
+Then:
+
+1. Return the third element of `stations`.
+2. Return the first three values of `detections`.
+3. Determine which values of `detections` are greater than 10.
+4. Return only the detections greater than 10.
+5. Calculate the mean number of camera-days.
+
+### Part 2: Data frame
+
+Create a data frame called `survey_data` using:
+
+```{r}
+stations
+detections
+camera_days
+```
+
+Then:
+
+1. Display the data frame.
+2. Use `str()` to inspect its structure.
+3. Use `dim()` to find its dimensions.
+4. Use `names()` to obtain its column names.
+5. Select only the `detections` column.
+6. Select the information from the second camera station.
+7. Add a new column called `habitat` containing:
+
+```{r}
+c("Forest", "Forest", "Pasture", "Forest", "Pasture")
+```
+
+8. Use `str()` again and look at the type of each column.
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Suggested solution
+
+```{r}
+# Practice for Module 3
+
+# ---------------------------
+# Part 1: Vectors
+# ---------------------------
+
+stations <- c(
+  "CT01",
+  "CT02",
+  "CT03",
+  "CT04",
+  "CT05"
+)
+
+detections <- c(
+  12,
+  5,
+  0,
+  18,
+  7
+)
+
+camera_days <- c(
+  30,
+  28,
+  30,
+  25,
+  29
+)
+
+# Third station
+stations[3]
+
+# First three detection values
+detections[1:3]
+
+# Which values are greater than 10?
+detections > 10
+
+# Return only detections greater than 10
+detections[detections > 10]
+
+# Mean camera-days
+mean(camera_days)
+
+
+# ---------------------------
+# Part 2: Data frame
+# ---------------------------
+
+survey_data <- data.frame(
+  stations,
+  detections,
+  camera_days
+)
+
+# Display the data
+survey_data
+
+# Inspect structure
+str(survey_data)
+
+# Dimensions
+dim(survey_data)
+
+# Column names
+names(survey_data)
+
+# Select detections
+survey_data$detections
+
+# Select the second camera station
+survey_data[2, ]
+
+# Add habitat
+survey_data$habitat <- c(
+  "Forest",
+  "Forest",
+  "Pasture",
+  "Forest",
+  "Pasture"
+)
+
+# Inspect the updated data frame
+str(survey_data)
+```
+
+The important thing is that you understand the difference between:
+
+- a vector,
+- a matrix,
+- a list,
+- and a data frame,
+
+and that you can recognize how rows, columns, and positions are used to access information.
+:::
