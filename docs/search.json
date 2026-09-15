@@ -691,5 +691,278 @@
     "title": "Module 4: Importing and Exporting Data",
     "section": "Practice at home",
     "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis activity should take approximately 15–20 minutes.\nOpen your intro-r-course project and create a new script called:\npractice-04.R\nSave it inside the scripts folder.\nUse any small Excel dataset you have available, or create one with at least:\n\n5 rows,\n3 columns,\none column containing text,\none column containing numbers.\n\nFor example:\n\n\n\nstation\nhabitat\ndetections\n\n\n\n\nCT01\nForest\n8\n\n\nCT02\nPasture\n3\n\n\nCT03\nForest\n12\n\n\nCT04\nPasture\n0\n\n\nCT05\nForest\n5\n\n\n\n\nPart 1: Prepare the data\n\nSave the Excel file inside your project’s data folder.\nSave a second copy as a .csv file.\n\nYour folder should contain something like:\ndata/\n├── practice_data.xlsx\n└── practice_data.csv\n\n\nPart 2: Import the CSV\nImport the CSV file into an object called:\npractice_data\nThen use:\nhead()\nstr()\ndim()\nnames()\nto inspect the imported dataset.\n\n\nPart 3: Import the Excel file\nLoad the readxl package and import the Excel version of the same dataset.\nSave it as:\npractice_excel\nCompare:\nclass(practice_data)\nclass(practice_excel)\nand inspect both objects.\n\n\nPart 4: Export the data\nExport practice_data into the outputs folder with the name:\npractice_data_exported.csv\nFinally, check that the new file appears inside the outputs folder.\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\n\n# Practice for Module 4\n\n# ---------------------------\n# Import CSV\n# ---------------------------\n\npractice_data &lt;- read.csv(\n  \"data/practice_data.csv\"\n)\n\n# Inspect the data\nhead(practice_data)\nstr(practice_data)\ndim(practice_data)\nnames(practice_data)\n\n\n# ---------------------------\n# Import Excel\n# ---------------------------\n\nlibrary(readxl)\n\npractice_excel &lt;- read_excel(\n  \"data/practice_data.xlsx\"\n)\n\n# Inspect the Excel data\nhead(practice_excel)\nstr(practice_excel)\n\n# Compare classes\nclass(practice_data)\nclass(practice_excel)\n\n\n# ---------------------------\n# Export data\n# ---------------------------\n\nwrite.csv(\n  practice_data,\n  \"outputs/practice_data_exported.csv\",\n  row.names = FALSE\n)\n\nThe important thing is that you understand the complete workflow:\nexternal file\n      ↓\nrelative path\n      ↓\nread the file\n      ↓\nstore it as an R object\n      ↓\ninspect the object\n      ↓\nwork with the data\n      ↓\nwrite an output file"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#objects-data-structures-and-importing-data",
+    "href": "slides/session-02-objects-data-import.html#objects-data-structures-and-importing-data",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Objects, Data Structures, and Importing Data",
+    "text": "Objects, Data Structures, and Importing Data\nSession 2\nToday we will connect three important ideas:\nobjects → data structures → external data files\nBy the end, we should be able to create simple R objects, understand the basic structure of datasets, and import data from CSV and Excel files."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#r-works-with-objects",
+    "href": "slides/session-02-objects-data-import.html#r-works-with-objects",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "R works with objects",
+    "text": "R works with objects\nMost of the time, we give R a value and store it in an object.\nnumber_of_cameras &lt;- 12\n\nspecies &lt;- \"Raccoon\"\n\ncamera_active &lt;- TRUE\nThe object name is on the left.\nThe value is on the right.\nobject_name &lt;- value"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#why-create-objects",
+    "href": "slides/session-02-objects-data-import.html#why-create-objects",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Why create objects?",
+    "text": "Why create objects?\nWithout an object, R gives us a result but does not save it.\n2 + 2\nBut if we assign the result:\nresult &lt;- 2 + 2\nwe can use it again later.\nresult\nresult * 10\n\nObjects allow us to build an analysis step by step."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#naming-objects",
+    "href": "slides/session-02-objects-data-import.html#naming-objects",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Naming objects",
+    "text": "Naming objects\nGood object names make code easier to understand.\nx &lt;- 25\nworks, but this is more informative:\nnumber_of_cameras &lt;- 25\nDuring this course, we will mostly use snake_case.\ncamera_days\nnumber_of_detections\nsurvey_data"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#a-few-naming-rules",
+    "href": "slides/session-02-objects-data-import.html#a-few-naming-rules",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "A few naming rules",
+    "text": "A few naming rules\nObject names:\n\nshould not begin with a number\nshould not contain spaces\nshould avoid special characters\nshould avoid accents\nshould not reuse common function names\n\nR is case-sensitive:\ncamera_data\nCamera_data\nare different names."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#basic-object-types",
+    "href": "slides/session-02-objects-data-import.html#basic-object-types",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Basic object types",
+    "text": "Basic object types\nR can store different types of values.\n\n\n\nType\nExample\n\n\n\n\nnumeric\n25\n\n\ncharacter\n\"Raccoon\"\n\n\nlogical\nTRUE\n\n\nmissing value\nNA\n\n\n\n\nA number inside quotation marks is not a number.\n\nfake_number &lt;- \"25\""
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#operators",
+    "href": "slides/session-02-objects-data-import.html#operators",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Operators",
+    "text": "Operators\nArithmetic operators return numbers.\n10 + 5\n10 - 5\n10 * 5\n10 / 5\n10 ^ 2\nRelational operators return TRUE or FALSE.\n10 &gt; 5\n10 == 5\n10 != 5"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#functions",
+    "href": "slides/session-02-objects-data-import.html#functions",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Functions",
+    "text": "Functions\nFunctions perform specific tasks.\nMost functions look like this:\nfunction_name(object)\nFor example:\nclass(25)\nclass(\"25\")\nclass(TRUE)\nFunctions can also use arguments:\nround(3.14159, digits = 2)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#help-is-part-of-using-r",
+    "href": "slides/session-02-objects-data-import.html#help-is-part-of-using-r",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Help is part of using R",
+    "text": "Help is part of using R\nYou do not need to memorize every function.\nUse the help system:\n?round\nor:\nhelp(round)\n\nLearning R is not memorizing commands.\nIt is learning how to find what you need."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#packages",
+    "href": "slides/session-02-objects-data-import.html#packages",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Packages",
+    "text": "Packages\nMany functions come from packages.\nThe basic workflow is:\ninstall → load → use\nFor example:\ninstall.packages(\"beepr\")\nlibrary(beepr)\nbeep(sound = 8)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#code-along-1",
+    "href": "slides/session-02-objects-data-import.html#code-along-1",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Code-along 1",
+    "text": "Code-along 1\nSwitch to RStudio.\nCreate a script called:\nsession-02.R\ninside your scripts/ folder.\nThen create:\nspecies &lt;- \"Raccoon\"\nstation &lt;- \"CT01\"\ndetections &lt;- 15\nUse R to ask:\ndetections &gt; 10\nclass(species)\nclass(detections)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#from-single-values-to-data-structures",
+    "href": "slides/session-02-objects-data-import.html#from-single-values-to-data-structures",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "From single values to data structures",
+    "text": "From single values to data structures\nSo far, most objects had one value.\nReal datasets have many values.\nR can organize values into different structures:\n\nvectors\nmatrices\nlists\ndata frames\n\n\nFor this course, data frames will be the most important."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#vectors",
+    "href": "slides/session-02-objects-data-import.html#vectors",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Vectors",
+    "text": "Vectors\nA vector stores several values in one object.\ndetections &lt;- c(5, 12, 8, 0, 3)\nThe function c() means combine.\nWe can use functions on vectors:\nmean(detections)\nsum(detections)\nlength(detections)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#vectors-have-one-data-type",
+    "href": "slides/session-02-objects-data-import.html#vectors-have-one-data-type",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Vectors have one data type",
+    "text": "Vectors have one data type\nA vector can contain numbers:\ncamera_days &lt;- c(30, 28, 30, 25)\nor text:\nspecies &lt;- c(\"Raccoon\", \"Coyote\", \"Bobcat\")\nor logical values:\ncamera_active &lt;- c(TRUE, TRUE, FALSE)\nBut mixing types can change the result.\nmixed_vector &lt;- c(1, 2, \"Raccoon\", 4)\nclass(mixed_vector)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#selecting-values-from-vectors",
+    "href": "slides/session-02-objects-data-import.html#selecting-values-from-vectors",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Selecting values from vectors",
+    "text": "Selecting values from vectors\nUse square brackets:\ndetections &lt;- c(5, 12, 8, 0, 3)\n\ndetections[1]\ndetections[3]\ndetections[1:3]\ndetections[c(1, 3, 5)]\nR starts counting at 1."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#selecting-with-conditions",
+    "href": "slides/session-02-objects-data-import.html#selecting-with-conditions",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Selecting with conditions",
+    "text": "Selecting with conditions\nRelational operators work with vectors.\ndetections &gt; 5\nThis returns one logical value for each element.\nWe can use that condition to select values:\ndetections[detections &gt; 5]\n\nThis is the basic idea behind filtering data."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#matrices",
+    "href": "slides/session-02-objects-data-import.html#matrices",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Matrices",
+    "text": "Matrices\nA matrix has two dimensions:\nrows × columns\nExample:\ndetection_matrix &lt;- matrix(\n  1:12,\n  nrow = 4,\n  ncol = 3\n)\n\ndetection_matrix\nTo select values:\ndetection_matrix[row, column]"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#why-should-we-care-about-matrices",
+    "href": "slides/session-02-objects-data-import.html#why-should-we-care-about-matrices",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Why should we care about matrices?",
+    "text": "Why should we care about matrices?\nCamera-trap detection histories often look like matrices.\n        occasion_1  occasion_2  occasion_3\nCT01         0           1           0\nCT02         1           0           0\nCT03         0           0           1\nRows are sites or stations.\nColumns are sampling occasions."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#lists",
+    "href": "slides/session-02-objects-data-import.html#lists",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Lists",
+    "text": "Lists\nLists can store different kinds of objects together.\ncamera_information &lt;- list(\n  station = \"CT01\",\n  active = TRUE,\n  detections = 25,\n  species = c(\"Raccoon\", \"Coyote\", \"Bobcat\")\n)\nAccess elements with:\ncamera_information$station\ncamera_information$species\n\nMany R functions return lists."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#data-frames",
+    "href": "slides/session-02-objects-data-import.html#data-frames",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Data frames",
+    "text": "Data frames\nA data frame is a rectangular table.\nIt has:\n\nrows\ncolumns\n\nIt looks similar to an Excel spreadsheet.\nBut unlike a matrix, each column can have a different type."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#creating-a-data-frame",
+    "href": "slides/session-02-objects-data-import.html#creating-a-data-frame",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Creating a data frame",
+    "text": "Creating a data frame\nstation &lt;- c(\"CT01\", \"CT02\", \"CT03\", \"CT04\")\n\nhabitat &lt;- c(\"Forest\", \"Forest\", \"Pasture\", \"Pasture\")\n\ncamera_days &lt;- c(30, 28, 30, 27)\n\nactive &lt;- c(TRUE, TRUE, FALSE, TRUE)\n\ncamera_data &lt;- data.frame(\n  station,\n  habitat,\n  camera_days,\n  active\n)\n\ncamera_data"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#rows-and-columns",
+    "href": "slides/session-02-objects-data-import.html#rows-and-columns",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Rows and columns",
+    "text": "Rows and columns\nIn most ecological datasets:\nrows    = observations\ncolumns = variables\nFor example:\n\n\n\nstation\nhabitat\ncamera_days\nactive\n\n\n\n\nCT01\nForest\n30\nTRUE\n\n\nCT02\nForest\n28\nTRUE\n\n\nCT03\nPasture\n30\nFALSE\n\n\n\nEach row is one camera station.\nEach column is one variable."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#inspecting-data-frames",
+    "href": "slides/session-02-objects-data-import.html#inspecting-data-frames",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Inspecting data frames",
+    "text": "Inspecting data frames\nBefore analyzing data, inspect it.\nhead(camera_data)\nstr(camera_data)\ndim(camera_data)\nnames(camera_data)\nAsk:\n\nHow many rows?\nHow many columns?\nAre the column names correct?\nAre numeric columns actually numeric?"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#selecting-from-a-data-frame",
+    "href": "slides/session-02-objects-data-import.html#selecting-from-a-data-frame",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Selecting from a data frame",
+    "text": "Selecting from a data frame\nUse $ to select a column:\ncamera_data$station\ncamera_data$camera_days\nUse [row, column] to select by position:\ncamera_data[1, 2]\ncamera_data[1, ]\ncamera_data[, 2]\nLater we will learn more readable tools with dplyr."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#code-along-2",
+    "href": "slides/session-02-objects-data-import.html#code-along-2",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Code-along 2",
+    "text": "Code-along 2\nCreate this data frame:\nstation &lt;- c(\"CT01\", \"CT02\", \"CT03\")\n\nhabitat &lt;- c(\"Forest\", \"Pasture\", \"Forest\")\n\ndetections &lt;- c(12, 5, 0)\n\nsurvey_data &lt;- data.frame(\n  station,\n  habitat,\n  detections\n)\nThen run:\nsurvey_data\nstr(survey_data)\nsurvey_data$detections"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#external-data-files",
+    "href": "slides/session-02-objects-data-import.html#external-data-files",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "External data files",
+    "text": "External data files\nMost real data will not be typed directly into R.\nThey will usually come from:\n\nExcel\nGoogle Sheets\nfield-data software\ncamera-trap metadata\nanother program\n\nSo R needs to know where the file is."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#working-directory",
+    "href": "slides/session-02-objects-data-import.html#working-directory",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Working directory",
+    "text": "Working directory\nThe working directory is the folder where R starts looking for files.\nCheck it with:\ngetwd()\nBecause we are using an RStudio Project, the working directory should be the main project folder.\nintro-r-course/"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#relative-paths",
+    "href": "slides/session-02-objects-data-import.html#relative-paths",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Relative paths",
+    "text": "Relative paths\nIf your file is here:\nintro-r-course/\n│\n├── data/\n│   └── camera_data.csv\n│\n├── scripts/\n└── outputs/\nyou can refer to it as:\ndata/camera_data.csv\n\nThis is better than using a full path from your own computer."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#csv-files",
+    "href": "slides/session-02-objects-data-import.html#csv-files",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "CSV files",
+    "text": "CSV files\nCSV means:\nComma-Separated Values\nA CSV is a plain-text table.\nstation,species,detections,camera_days\nCT01,Raccoon,12,30\nCT02,Coyote,5,28\nCT03,Bobcat,8,30\nCSV files are simple, portable, and easy to read in R."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#importing-a-csv-file",
+    "href": "slides/session-02-objects-data-import.html#importing-a-csv-file",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Importing a CSV file",
+    "text": "Importing a CSV file\nBase R:\ncamera_data &lt;- read.csv(\"data/camera_data.csv\")\nTidyverse / readr:\nlibrary(tidyverse)\n\ncamera_data2 &lt;- read_csv(\"data/camera_data.csv\")\nThe important pattern is:\nobject &lt;- read_function(\"path/to/file\")"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#importing-excel-files",
+    "href": "slides/session-02-objects-data-import.html#importing-excel-files",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Importing Excel files",
+    "text": "Importing Excel files\nTo read Excel files, use readxl.\nlibrary(readxl)\n\ncamera_data3 &lt;- read_excel(\"data/camera_data.xlsx\")\nIf the file has multiple sheets:\nexcel_sheets(\"data/camera_data.xlsx\")\ncamera_data3 &lt;- read_excel(\n  \"data/camera_data.xlsx\",\n  sheet = \"camera_records\"\n)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#always-inspect-imported-data",
+    "href": "slides/session-02-objects-data-import.html#always-inspect-imported-data",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Always inspect imported data",
+    "text": "Always inspect imported data\nAfter importing:\nhead(camera_data)\nstr(camera_data)\ndim(camera_data)\nnames(camera_data)\nDo not assume the file imported correctly just because R did not show an error.\n\nTrust, but verify."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#common-import-problems",
+    "href": "slides/session-02-objects-data-import.html#common-import-problems",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Common import problems",
+    "text": "Common import problems\nMost import errors are simple:\n\nwrong file name\nwrong folder\ndifferent capitalization\nmissing package\nfile not saved in the project\nExcel changed dates or values\n\nUseful checks:\nfile.exists(\"data/camera_data.csv\")\nlist.files(\"data\")"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#code-along-3",
+    "href": "slides/session-02-objects-data-import.html#code-along-3",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Code-along 3",
+    "text": "Code-along 3\nDownload the example files from Module 4.\nPlace them in:\nintro-r-course/data/\nThen import the CSV:\ncamera_data &lt;- read.csv(\"data/camera_data.csv\")\nInspect it:\nhead(camera_data)\nstr(camera_data)\ndim(camera_data)\nnames(camera_data)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#code-along-4",
+    "href": "slides/session-02-objects-data-import.html#code-along-4",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Code-along 4",
+    "text": "Code-along 4\nNow import the Excel file.\nlibrary(readxl)\n\ncamera_data_excel &lt;- read_excel(\n  \"data/camera_data.xlsx\"\n)\nCheck the sheets:\nexcel_sheets(\"data/camera_data.xlsx\")\nInspect the object:\nhead(camera_data_excel)\nstr(camera_data_excel)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#exporting-data",
+    "href": "slides/session-02-objects-data-import.html#exporting-data",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Exporting data",
+    "text": "Exporting data\nTo save a CSV from R:\nwrite.csv(\n  camera_data,\n  \"outputs/camera_data_clean.csv\",\n  row.names = FALSE\n)\nWith readr:\nwrite_csv(\n  camera_data,\n  \"outputs/camera_data_clean.csv\"\n)"
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#keep-raw-data-separate",
+    "href": "slides/session-02-objects-data-import.html#keep-raw-data-separate",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Keep raw data separate",
+    "text": "Keep raw data separate\nA useful structure:\nintro-r-course/\n│\n├── data/\n│   └── camera_data.csv\n│\n├── scripts/\n│   └── session-02.R\n│\n└── outputs/\n    └── camera_data_clean.csv\ndata/ contains original or input files.\noutputs/ contains files created by your analysis."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#practice-at-home",
+    "href": "slides/session-02-objects-data-import.html#practice-at-home",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Practice at home",
+    "text": "Practice at home\nBefore the next session:\n\nOpen your intro-r-course project.\nCreate practice-02.R and practice-03.R if you have not done them yet.\nDownload the Module 4 example CSV and Excel files.\nImport both files into R.\nInspect them using:\n\nhead()\nstr()\ndim()\nnames()\n\nExport one CSV file into the outputs/ folder."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#main-idea",
+    "href": "slides/session-02-objects-data-import.html#main-idea",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Main idea",
+    "text": "Main idea\nR work often follows this pattern:\ncreate objects\n      ↓\norganize values\n      ↓\nimport data\n      ↓\ninspect data\n      ↓\nwork with data\n      ↓\nexport results\nThe details take practice.\nBut this workflow will appear again and again."
   }
 ]

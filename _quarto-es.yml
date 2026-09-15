@@ -35,6 +35,13 @@ website:
 
           - href: modules/09-camtrapR.qmd
             text: "9. Trabajando con datos de cámaras trampa usando camtrapR"
+     
+      - text: Slides
+        menu:
+          - href: slides/session-01-introduction.qmd
+            text: "1. Introducción a R y RStudio"
+          - href: slides/session-02-objects-data-import.qmd
+            text: "2. Objetos, estructura de datos y cargar bases"
 
       - text: Recursos adicionales
         menu:
