@@ -20,7 +20,7 @@ editor: visual
 
 Today we will connect three important ideas:
 
-```text
+``` text
 objects → data structures → external data files
 ```
 
@@ -32,7 +32,7 @@ By the end, we should be able to create simple R objects, understand the basic s
 
 Most of the time, we give R a value and store it in an object.
 
-```r
+``` r
 number_of_cameras <- 12
 
 species <- "Raccoon"
@@ -44,7 +44,7 @@ The object name is on the left.
 
 The value is on the right.
 
-```text
+``` text
 object_name <- value
 ```
 
@@ -54,19 +54,19 @@ object_name <- value
 
 Without an object, R gives us a result but does not save it.
 
-```r
+``` r
 2 + 2
 ```
 
 But if we assign the result:
 
-```r
+``` r
 result <- 2 + 2
 ```
 
 we can use it again later.
 
-```r
+``` r
 result
 result * 10
 ```
@@ -81,23 +81,27 @@ Objects allow us to build an analysis step by step.
 
 Good object names make code easier to understand.
 
-```r
+``` r
 x <- 25
 ```
 
 works, but this is more informative:
 
-```r
+``` r
 number_of_cameras <- 25
 ```
 
 During this course, we will mostly use `snake_case`.
 
-```r
+``` r
 camera_days
 number_of_detections
 survey_data
 ```
+
+------------------------------------------------------------------------
+
+![](/images/module-02/codingetiquete.jpg)
 
 ------------------------------------------------------------------------
 
@@ -113,7 +117,7 @@ Object names:
 
 R is case-sensitive:
 
-```r
+``` r
 camera_data
 Camera_data
 ```
@@ -126,18 +130,18 @@ are different names.
 
 R can store different types of values.
 
-| Type | Example |
-|---|---|
-| numeric | `25` |
-| character | `"Raccoon"` |
-| logical | `TRUE` |
-| missing value | `NA` |
+| Type          | Example     |
+|---------------|-------------|
+| numeric       | `25`        |
+| character     | `"Raccoon"` |
+| logical       | `TRUE`      |
+| missing value | `NA`        |
 
 ::: fragment
 A number inside quotation marks is not a number.
 :::
 
-```r
+``` r
 fake_number <- "25"
 ```
 
@@ -147,7 +151,7 @@ fake_number <- "25"
 
 Arithmetic operators return numbers.
 
-```r
+``` r
 10 + 5
 10 - 5
 10 * 5
@@ -157,7 +161,7 @@ Arithmetic operators return numbers.
 
 Relational operators return `TRUE` or `FALSE`.
 
-```r
+``` r
 10 > 5
 10 == 5
 10 != 5
@@ -171,13 +175,13 @@ Functions perform specific tasks.
 
 Most functions look like this:
 
-```text
+``` text
 function_name(object)
 ```
 
 For example:
 
-```r
+``` r
 class(25)
 class("25")
 class(TRUE)
@@ -185,7 +189,7 @@ class(TRUE)
 
 Functions can also use arguments:
 
-```r
+``` r
 round(3.14159, digits = 2)
 ```
 
@@ -197,18 +201,29 @@ You do not need to memorize every function.
 
 Use the help system:
 
-```r
+```{r}
+#| eval: false
+#| 
 ?round
+```
+
+``` r
 ```
 
 or:
 
-```r
+```{r}
+#| eval: false
+
 help(round)
+
+```
+
+``` r
 ```
 
 ::: fragment
-Learning R is not memorizing commands.  
+Learning R is not memorizing commands.\
 It is learning how to find what you need.
 :::
 
@@ -220,21 +235,23 @@ Many functions come from packages.
 
 The basic workflow is:
 
-```text
+``` text
 install → load → use
 ```
 
 For example:
 
-```r
+``` r
+#| eval: false
+#| 
 install.packages("beepr")
 ```
 
-```r
+``` r
 library(beepr)
 ```
 
-```r
+``` r
 beep(sound = 8)
 ```
 
@@ -246,7 +263,7 @@ Switch to RStudio.
 
 Create a script called:
 
-```text
+``` text
 session-02.R
 ```
 
@@ -254,7 +271,7 @@ inside your `scripts/` folder.
 
 Then create:
 
-```r
+``` r
 species <- "Raccoon"
 station <- "CT01"
 detections <- 15
@@ -262,7 +279,7 @@ detections <- 15
 
 Use R to ask:
 
-```r
+``` r
 detections > 10
 class(species)
 class(detections)
@@ -291,9 +308,11 @@ For this course, data frames will be the most important.
 
 ## Vectors
 
+![](/images/module-02/vectors.png){fig-align="center"}
+
 A vector stores several values in one object.
 
-```r
+``` r
 detections <- c(5, 12, 8, 0, 3)
 ```
 
@@ -301,7 +320,7 @@ The function `c()` means **combine**.
 
 We can use functions on vectors:
 
-```r
+``` r
 mean(detections)
 sum(detections)
 length(detections)
@@ -313,28 +332,32 @@ length(detections)
 
 A vector can contain numbers:
 
-```r
+``` r
 camera_days <- c(30, 28, 30, 25)
 ```
 
 or text:
 
-```r
+``` r
 species <- c("Raccoon", "Coyote", "Bobcat")
 ```
 
 or logical values:
 
-```r
+``` r
 camera_active <- c(TRUE, TRUE, FALSE)
 ```
 
 But mixing types can change the result.
 
-```r
+``` r
 mixed_vector <- c(1, 2, "Raccoon", 4)
 class(mixed_vector)
 ```
+
+------------------------------------------------------------------------
+
+![](/images/module-02/teletubo.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -342,7 +365,7 @@ class(mixed_vector)
 
 Use square brackets:
 
-```r
+``` r
 detections <- c(5, 12, 8, 0, 3)
 
 detections[1]
@@ -359,7 +382,7 @@ R starts counting at **1**.
 
 Relational operators work with vectors.
 
-```r
+``` r
 detections > 5
 ```
 
@@ -367,7 +390,7 @@ This returns one logical value for each element.
 
 We can use that condition to select values:
 
-```r
+``` r
 detections[detections > 5]
 ```
 
@@ -381,13 +404,17 @@ This is the basic idea behind filtering data.
 
 A matrix has two dimensions:
 
-```text
+``` text
 rows × columns
 ```
 
+![](/images/module-02/Matrix.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
 Example:
 
-```r
+``` r
 detection_matrix <- matrix(
   1:12,
   nrow = 4,
@@ -399,7 +426,7 @@ detection_matrix
 
 To select values:
 
-```r
+``` r
 detection_matrix[row, column]
 ```
 
@@ -409,7 +436,7 @@ detection_matrix[row, column]
 
 Camera-trap detection histories often look like matrices.
 
-```text
+``` text
         occasion_1  occasion_2  occasion_3
 CT01         0           1           0
 CT02         1           0           0
@@ -424,9 +451,11 @@ Columns are sampling occasions.
 
 ## Lists
 
+![](/images/module-02/Litst.png){fig-align="center"}
+
 Lists can store different kinds of objects together.
 
-```r
+``` r
 camera_information <- list(
   station = "CT01",
   active = TRUE,
@@ -435,9 +464,11 @@ camera_information <- list(
 )
 ```
 
+------------------------------------------------------------------------
+
 Access elements with:
 
-```r
+``` r
 camera_information$station
 camera_information$species
 ```
@@ -463,9 +494,15 @@ But unlike a matrix, each column can have a different type.
 
 ------------------------------------------------------------------------
 
+## Data frames
+
+![](/images/module-02/dataframe.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
 ## Creating a data frame
 
-```r
+``` r
 station <- c("CT01", "CT02", "CT03", "CT04")
 
 habitat <- c("Forest", "Forest", "Pasture", "Pasture")
@@ -490,7 +527,7 @@ camera_data
 
 In most ecological datasets:
 
-```text
+``` text
 rows    = observations
 columns = variables
 ```
@@ -498,10 +535,10 @@ columns = variables
 For example:
 
 | station | habitat | camera_days | active |
-|---|---|---:|---|
-| CT01 | Forest | 30 | TRUE |
-| CT02 | Forest | 28 | TRUE |
-| CT03 | Pasture | 30 | FALSE |
+|---------|---------|------------:|--------|
+| CT01    | Forest  |          30 | TRUE   |
+| CT02    | Forest  |          28 | TRUE   |
+| CT03    | Pasture |          30 | FALSE  |
 
 Each row is one camera station.
 
@@ -513,7 +550,7 @@ Each column is one variable.
 
 Before analyzing data, inspect it.
 
-```r
+``` r
 head(camera_data)
 str(camera_data)
 dim(camera_data)
@@ -533,14 +570,14 @@ Ask:
 
 Use `$` to select a column:
 
-```r
+``` r
 camera_data$station
 camera_data$camera_days
 ```
 
 Use `[row, column]` to select by position:
 
-```r
+``` r
 camera_data[1, 2]
 camera_data[1, ]
 camera_data[, 2]
@@ -554,7 +591,7 @@ Later we will learn more readable tools with `dplyr`.
 
 Create this data frame:
 
-```r
+``` r
 station <- c("CT01", "CT02", "CT03")
 
 habitat <- c("Forest", "Pasture", "Forest")
@@ -570,7 +607,7 @@ survey_data <- data.frame(
 
 Then run:
 
-```r
+``` r
 survey_data
 str(survey_data)
 survey_data$detections
@@ -600,13 +637,13 @@ The working directory is the folder where R starts looking for files.
 
 Check it with:
 
-```r
+``` r
 getwd()
 ```
 
 Because we are using an RStudio Project, the working directory should be the main project folder.
 
-```text
+``` text
 intro-r-course/
 ```
 
@@ -616,7 +653,7 @@ intro-r-course/
 
 If your file is here:
 
-```text
+``` text
 intro-r-course/
 │
 ├── data/
@@ -628,7 +665,7 @@ intro-r-course/
 
 you can refer to it as:
 
-```text
+``` text
 data/camera_data.csv
 ```
 
@@ -642,13 +679,13 @@ This is better than using a full path from your own computer.
 
 CSV means:
 
-```text
+``` text
 Comma-Separated Values
 ```
 
 A CSV is a plain-text table.
 
-```text
+``` text
 station,species,detections,camera_days
 CT01,Raccoon,12,30
 CT02,Coyote,5,28
@@ -663,13 +700,13 @@ CSV files are simple, portable, and easy to read in R.
 
 Base R:
 
-```r
+``` r
 camera_data <- read.csv("data/camera_data.csv")
 ```
 
 Tidyverse / readr:
 
-```r
+``` r
 library(tidyverse)
 
 camera_data2 <- read_csv("data/camera_data.csv")
@@ -677,7 +714,7 @@ camera_data2 <- read_csv("data/camera_data.csv")
 
 The important pattern is:
 
-```text
+``` text
 object <- read_function("path/to/file")
 ```
 
@@ -687,7 +724,7 @@ object <- read_function("path/to/file")
 
 To read Excel files, use `readxl`.
 
-```r
+``` r
 library(readxl)
 
 camera_data3 <- read_excel("data/camera_data.xlsx")
@@ -695,11 +732,11 @@ camera_data3 <- read_excel("data/camera_data.xlsx")
 
 If the file has multiple sheets:
 
-```r
+``` r
 excel_sheets("data/camera_data.xlsx")
 ```
 
-```r
+``` r
 camera_data3 <- read_excel(
   "data/camera_data.xlsx",
   sheet = "camera_records"
@@ -712,7 +749,7 @@ camera_data3 <- read_excel(
 
 After importing:
 
-```r
+``` r
 head(camera_data)
 str(camera_data)
 dim(camera_data)
@@ -740,7 +777,7 @@ Most import errors are simple:
 
 Useful checks:
 
-```r
+``` r
 file.exists("data/camera_data.csv")
 list.files("data")
 ```
@@ -753,19 +790,19 @@ Download the example files from Module 4.
 
 Place them in:
 
-```text
+``` text
 intro-r-course/data/
 ```
 
 Then import the CSV:
 
-```r
+``` r
 camera_data <- read.csv("data/camera_data.csv")
 ```
 
 Inspect it:
 
-```r
+``` r
 head(camera_data)
 str(camera_data)
 dim(camera_data)
@@ -778,7 +815,7 @@ names(camera_data)
 
 Now import the Excel file.
 
-```r
+``` r
 library(readxl)
 
 camera_data_excel <- read_excel(
@@ -788,13 +825,13 @@ camera_data_excel <- read_excel(
 
 Check the sheets:
 
-```r
+``` r
 excel_sheets("data/camera_data.xlsx")
 ```
 
 Inspect the object:
 
-```r
+``` r
 head(camera_data_excel)
 str(camera_data_excel)
 ```
@@ -805,7 +842,7 @@ str(camera_data_excel)
 
 To save a CSV from R:
 
-```r
+``` r
 write.csv(
   camera_data,
   "outputs/camera_data_clean.csv",
@@ -815,7 +852,7 @@ write.csv(
 
 With readr:
 
-```r
+``` r
 write_csv(
   camera_data,
   "outputs/camera_data_clean.csv"
@@ -828,7 +865,7 @@ write_csv(
 
 A useful structure:
 
-```text
+``` text
 intro-r-course/
 │
 ├── data/
@@ -851,20 +888,20 @@ intro-r-course/
 
 Before the next session:
 
-1. Open your `intro-r-course` project.
-2. Create `practice-02.R` and `practice-03.R` if you have not done them yet.
-3. Download the Module 4 example CSV and Excel files.
-4. Import both files into R.
-5. Inspect them using:
+1.  Open your `intro-r-course` project.
+2.  Create `practice-02.R` and `practice-03.R` if you have not done them yet.
+3.  Download the Module 4 example CSV and Excel files.
+4.  Import both files into R.
+5.  Inspect them using:
 
-```r
+``` r
 head()
 str()
 dim()
 names()
 ```
 
-6. Export one CSV file into the `outputs/` folder.
+6.  Export one CSV file into the `outputs/` folder.
 
 ------------------------------------------------------------------------
 
@@ -872,7 +909,7 @@ names()
 
 R work often follows this pattern:
 
-```text
+``` text
 create objects
       ↓
 organize values

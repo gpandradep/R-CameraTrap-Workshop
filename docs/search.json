@@ -60,14 +60,14 @@
     "href": "slides/session-02-objects-data-import.html#help-is-part-of-using-r",
     "title": "Objects, Data Structures, and Importing Data",
     "section": "Help is part of using R",
-    "text": "Help is part of using R\nYou do not need to memorize every function.\nUse the help system:\n?round\nor:\nhelp(round)\n\nLearning R is not memorizing commands.\nIt is learning how to find what you need."
+    "text": "Help is part of using R\nYou do not need to memorize every function.\nUse the help system:\n\nor:\n\n\nLearning R is not memorizing commands.\nIt is learning how to find what you need."
   },
   {
     "objectID": "slides/session-02-objects-data-import.html#packages",
     "href": "slides/session-02-objects-data-import.html#packages",
     "title": "Objects, Data Structures, and Importing Data",
     "section": "Packages",
-    "text": "Packages\nMany functions come from packages.\nThe basic workflow is:\ninstall → load → use\nFor example:\ninstall.packages(\"beepr\")\nlibrary(beepr)\nbeep(sound = 8)"
+    "text": "Packages\nMany functions come from packages.\nThe basic workflow is:\ninstall → load → use\nFor example:\n#| eval: false\n#| \ninstall.packages(\"beepr\")\nlibrary(beepr)\nbeep(sound = 8)"
   },
   {
     "objectID": "slides/session-02-objects-data-import.html#code-along-1",
@@ -88,7 +88,7 @@
     "href": "slides/session-02-objects-data-import.html#vectors",
     "title": "Objects, Data Structures, and Importing Data",
     "section": "Vectors",
-    "text": "Vectors\nA vector stores several values in one object.\ndetections &lt;- c(5, 12, 8, 0, 3)\nThe function c() means combine.\nWe can use functions on vectors:\nmean(detections)\nsum(detections)\nlength(detections)"
+    "text": "Vectors\n\nA vector stores several values in one object.\ndetections &lt;- c(5, 12, 8, 0, 3)\nThe function c() means combine.\nWe can use functions on vectors:\nmean(detections)\nsum(detections)\nlength(detections)"
   },
   {
     "objectID": "slides/session-02-objects-data-import.html#vectors-have-one-data-type",
@@ -116,7 +116,7 @@
     "href": "slides/session-02-objects-data-import.html#matrices",
     "title": "Objects, Data Structures, and Importing Data",
     "section": "Matrices",
-    "text": "Matrices\nA matrix has two dimensions:\nrows × columns\nExample:\ndetection_matrix &lt;- matrix(\n  1:12,\n  nrow = 4,\n  ncol = 3\n)\n\ndetection_matrix\nTo select values:\ndetection_matrix[row, column]"
+    "text": "Matrices\nA matrix has two dimensions:\nrows × columns"
   },
   {
     "objectID": "slides/session-02-objects-data-import.html#why-should-we-care-about-matrices",
@@ -130,7 +130,7 @@
     "href": "slides/session-02-objects-data-import.html#lists",
     "title": "Objects, Data Structures, and Importing Data",
     "section": "Lists",
-    "text": "Lists\nLists can store different kinds of objects together.\ncamera_information &lt;- list(\n  station = \"CT01\",\n  active = TRUE,\n  detections = 25,\n  species = c(\"Raccoon\", \"Coyote\", \"Bobcat\")\n)\nAccess elements with:\ncamera_information$station\ncamera_information$species\n\nMany R functions return lists."
+    "text": "Lists\n\nLists can store different kinds of objects together.\ncamera_information &lt;- list(\n  station = \"CT01\",\n  active = TRUE,\n  detections = 25,\n  species = c(\"Raccoon\", \"Coyote\", \"Bobcat\")\n)"
   },
   {
     "objectID": "slides/session-02-objects-data-import.html#data-frames",
@@ -138,6 +138,13 @@
     "title": "Objects, Data Structures, and Importing Data",
     "section": "Data frames",
     "text": "Data frames\nA data frame is a rectangular table.\nIt has:\n\nrows\ncolumns\n\nIt looks similar to an Excel spreadsheet.\nBut unlike a matrix, each column can have a different type."
+  },
+  {
+    "objectID": "slides/session-02-objects-data-import.html#data-frames-1",
+    "href": "slides/session-02-objects-data-import.html#data-frames-1",
+    "title": "Objects, Data Structures, and Importing Data",
+    "section": "Data frames",
+    "text": "Data frames"
   },
   {
     "objectID": "slides/session-02-objects-data-import.html#creating-a-data-frame",
@@ -298,7 +305,7 @@
     "href": "modules/04-import-data.html#where-is-r-looking-for-files",
     "title": "Module 4: Importing and Exporting Data",
     "section": "Where is R looking for files?",
-    "text": "Where is R looking for files?\nBefore importing a file, R needs to know where the file is located.\nThe folder that R currently considers its starting location is called the working directory.\nWe can check it using:\n\ngetwd()\n\n[1] \"C:/Users/andradegp/AppData/Local/Temp/RtmpgnKrUP/file3db44029254b/modules\"\n\n\nBecause we are working inside an RStudio Project, the working directory should normally be the main folder of our project:\nintro-r-course/\nThis is one of the main reasons we created an RStudio Project at the beginning of the course.\n\n\n\n\n\n\nAvoid using setwd() inside your scripts\n\n\n\nYou may see tutorials that use:\nsetwd(\"C:/Users/YourName/Documents/MyProject\")\nto specify the working directory.\nThis may work on your computer, but that path will probably not work on someone else’s computer.\nUsing an RStudio Project allows us to avoid this problem and work with relative paths instead."
+    "text": "Where is R looking for files?\nBefore importing a file, R needs to know where the file is located.\nThe folder that R currently considers its starting location is called the working directory.\nWe can check it using:\n\ngetwd()\n\n[1] \"C:/Users/andradegp/AppData/Local/Temp/RtmpmuJO5e/file91c0792f47b5/modules\"\n\n\nBecause we are working inside an RStudio Project, the working directory should normally be the main folder of our project:\nintro-r-course/\nThis is one of the main reasons we created an RStudio Project at the beginning of the course.\n\n\n\n\n\n\nAvoid using setwd() inside your scripts\n\n\n\nYou may see tutorials that use:\nsetwd(\"C:/Users/YourName/Documents/MyProject\")\nto specify the working directory.\nThis may work on your computer, but that path will probably not work on someone else’s computer.\nUsing an RStudio Project allows us to avoid this problem and work with relative paths instead."
   },
   {
     "objectID": "modules/04-import-data.html#file-paths",
