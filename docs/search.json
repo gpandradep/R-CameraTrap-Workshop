@@ -1412,5 +1412,320 @@
     "title": "Introduction to R",
     "section": "Keep writing code",
     "text": "Keep writing code\nThe easiest way to learn R is to use it.\nYou do not need to memorize every command.\nWrite code, make mistakes, modify examples, and keep your old scripts."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#visualization-debugging-and-data-manipulation",
+    "href": "slides/session-03-viz-datahandling.html#visualization-debugging-and-data-manipulation",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Visualization, Debugging, and Data Manipulation",
+    "text": "Visualization, Debugging, and Data Manipulation\nSession 3\nToday we will connect three skills:\nvisualize data\n      ↓\nrecognize and solve problems\n      ↓\nmanipulate data with dplyr"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#today-is-mostly-practice",
+    "href": "slides/session-03-viz-datahandling.html#today-is-mostly-practice",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Today is mostly practice",
+    "text": "Today is mostly practice\nWe will not cover every detail from Modules 5, 6, and 7.\nThe website contains the full explanations.\nToday we will focus on the most important tools you need to keep working with your own data."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#load-the-data",
+    "href": "slides/session-03-viz-datahandling.html#load-the-data",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Load the data",
+    "text": "Load the data\nOpen your intro-r-course project.\nCreate a script called:\nsession-03.R\ninside the scripts/ folder.\nThen run:\n\nlibrary(tidyverse)\n\nrecordTable &lt;- read_csv(\n  \"data/recordTable.csv\"\n)"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#always-inspect-first",
+    "href": "slides/session-03-viz-datahandling.html#always-inspect-first",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Always inspect first",
+    "text": "Always inspect first\nBefore plotting or manipulating data:\nhead(recordTable)\n\ndim(recordTable)\n\nnames(recordTable)\n\nstr(recordTable)\nAsk:\n\nWhat does one row represent?\nWhat are the variables?\nWhich columns are numeric?\nWhich columns are categorical?"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#the-logic-of-ggplot2",
+    "href": "slides/session-03-viz-datahandling.html#the-logic-of-ggplot2",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "The logic of ggplot2",
+    "text": "The logic of ggplot2\nMost plots follow the same structure:\n\nIn R:\nggplot(\n  data = my_data,\n  aes(x = variable)\n) +\n  geom_something()"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#bar-plots",
+    "href": "slides/session-03-viz-datahandling.html#bar-plots",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Bar plots",
+    "text": "Bar plots\nQuestion:\n\n\nHow many records do we have for each species?\n\n\n\n\n\nggplot(\n  data = recordTable,\n  aes(x = Species)\n) +\n  geom_bar()\n\n\ngeom_bar() counts observations automatically."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#make-it-readable",
+    "href": "slides/session-03-viz-datahandling.html#make-it-readable",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Make it readable",
+    "text": "Make it readable\n\n\nggplot(\n  data = recordTable,\n  aes(x = Species)\n) +\n  geom_bar(fill = \"steelblue\") +\n  coord_flip() +\n  labs(\n    title = \"Camera-trap records by species\",\n    x = \"Species\",\n    y = \"Number of records\"\n  ) +\n  theme_bw()"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#histograms",
+    "href": "slides/session-03-viz-datahandling.html#histograms",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Histograms",
+    "text": "Histograms\n\n\nQuestion:\n\nHow many images are usually associated with one record?\n\nggplot(\n  data = recordTable,\n  aes(x = n_images)\n) +\n  geom_histogram(\n    binwidth = 1,\n    fill = \"steelblue\",\n    color = \"white\"\n  ) +\n  theme_bw()"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#zooming-without-changing-the-data",
+    "href": "slides/session-03-viz-datahandling.html#zooming-without-changing-the-data",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Zooming without changing the data",
+    "text": "Zooming without changing the data\nggplot(\n  data = recordTable,\n  aes(x = n_images)\n) +\n  geom_histogram(\n    binwidth = 1,\n    fill = \"steelblue\",\n    color = \"white\"\n  ) +\n  coord_cartesian(\n    xlim = c(1, 20)\n  ) +\n  theme_bw()\ncoord_cartesian() changes what we display, not the original data."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#mapping-vs.-setting",
+    "href": "slides/session-03-viz-datahandling.html#mapping-vs.-setting",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Mapping vs. setting",
+    "text": "Mapping vs. setting\nSetting:\ngeom_point(color = \"steelblue\")\nEvery point has the same color.\nMapping:\ngeom_point(\n  aes(color = Species)\n)\nColor represents a variable."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#common-aesthetics",
+    "href": "slides/session-03-viz-datahandling.html#common-aesthetics",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Common aesthetics",
+    "text": "Common aesthetics\nWe can map or set:\ncolor\nfill\nshape\nsize\nalpha\nExample:\nggplot(\n  recordTable,\n  aes(\n    x = N_individuals,\n    y = n_images,\n    color = Species\n  )\n) +\n  geom_point(alpha = 0.4)"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#focus-on-a-few-species",
+    "href": "slides/session-03-viz-datahandling.html#focus-on-a-few-species",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Focus on a few species",
+    "text": "Focus on a few species\nSometimes a plot is easier to read if we focus on fewer groups.\n\ncommon_species &lt;- c(\n  \"White-tailed deer\",\n  \"Armadillo\",\n  \"Racoon\",\n  \"Hog\",\n  \"Virginia opossum\"\n)\n\ncommon_records &lt;- recordTable[\n  recordTable$Species %in% common_species,\n]"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#scatterplots",
+    "href": "slides/session-03-viz-datahandling.html#scatterplots",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Scatterplots",
+    "text": "Scatterplots\nQuestion:\n\nAre records with more individuals associated with more images?\n\nggplot(\n  data = common_records,\n  aes(\n    x = N_individuals,\n    y = n_images,\n    color = Species\n  )\n) +\n  geom_point(\n    alpha = 0.4,\n    size = 2\n  ) +\n  theme_bw()"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#from-raw-records-to-summaries",
+    "href": "slides/session-03-viz-datahandling.html#from-raw-records-to-summaries",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "From raw records to summaries",
+    "text": "From raw records to summaries\nSometimes we need to summarize before plotting.\nFor example:\n\nsp_counts &lt;- recordTable |&gt;\n  count(\n    Station,\n    Species\n  ) |&gt;\n  filter(\n    Species %in% common_species\n  )\n\nNow each row represents:\none station × one species"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#boxplots",
+    "href": "slides/session-03-viz-datahandling.html#boxplots",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Boxplots",
+    "text": "Boxplots\nggplot(\n  data = sp_counts,\n  aes(\n    x = Species,\n    y = n,\n    fill = Species\n  )\n) +\n  geom_boxplot(\n    show.legend = FALSE\n  ) +\n  scale_y_log10() +\n  coord_flip() +\n  theme_bw()\n\nHere, the data are still counts.\nOnly the axis is displayed on a log scale."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#combining-geometries",
+    "href": "slides/session-03-viz-datahandling.html#combining-geometries",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Combining geometries",
+    "text": "Combining geometries\nggplot(\n  data = sp_counts,\n  aes(\n    x = Species,\n    y = n,\n    fill = Species\n  )\n) +\n  geom_violin(alpha = 0.5) +\n  geom_boxplot(width = 0.15) +\n  geom_jitter(width = 0.15, alpha = 0.6) +\n  scale_y_log10() +\n  coord_flip() +\n  theme_bw()\nEach + adds a new layer."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#which-plot-should-i-use",
+    "href": "slides/session-03-viz-datahandling.html#which-plot-should-i-use",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Which plot should I use?",
+    "text": "Which plot should I use?\n\n\n\nVariables\nPossible plot\n\n\n\n\none categorical\nbar plot\n\n\none numeric\nhistogram\n\n\ntwo numeric\nscatterplot\n\n\ncategorical + numeric\nboxplot or violin plot\n\n\n\nStart with the question:\n\nWhat do I want to show?"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#saving-plots",
+    "href": "slides/session-03-viz-datahandling.html#saving-plots",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Saving plots",
+    "text": "Saving plots\nspecies_plot &lt;- ggplot(\n  recordTable,\n  aes(x = Species)\n) +\n  geom_bar(fill = \"steelblue\") +\n  coord_flip() +\n  theme_bw()\n\nggsave(\n  filename = \"outputs/species_records.png\",\n  plot = species_plot,\n  width = 8,\n  height = 6,\n  dpi = 300\n)"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#debugging-is-part-of-r",
+    "href": "slides/session-03-viz-datahandling.html#debugging-is-part-of-r",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Debugging is part of R",
+    "text": "Debugging is part of R\nYou will see:\n\nmessages,\nwarnings,\nerrors.\n\nThat is normal.\nThe goal is not to avoid every error.\nThe goal is to learn how to understand and fix them."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#messages-warnings-errors",
+    "href": "slides/session-03-viz-datahandling.html#messages-warnings-errors",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Messages, warnings, errors",
+    "text": "Messages, warnings, errors\nMessage\nR is telling you something.\nWarning\nR completed the operation, but something may need attention.\nError\nR stopped because something went wrong."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#read-the-error",
+    "href": "slides/session-03-viz-datahandling.html#read-the-error",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Read the error",
+    "text": "Read the error\nExample:\nplot(grafics)\nR may say:\nError: object 'grafics' not found\nStart with the message.\nWhat is R telling you?"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#common-things-to-check",
+    "href": "slides/session-03-viz-datahandling.html#common-things-to-check",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Common things to check",
+    "text": "Common things to check\n\nDid I spell the object correctly?\nDid I run the line that creates the object?\nIs the object in the Environment?\nDid I load the package?\nAre parentheses and commas correct?\nIs the file path correct?"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#inspect-the-object",
+    "href": "slides/session-03-viz-datahandling.html#inspect-the-object",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Inspect the object",
+    "text": "Inspect the object\nWhen code fails, check the object.\nclass(recordTable)\n\nstr(recordTable)\n\nhead(recordTable)\n\nnames(recordTable)\n\ndim(recordTable)\nDo not only inspect the code.\nInspect the data being used by the code."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#search-for-the-error",
+    "href": "slides/session-03-viz-datahandling.html#search-for-the-error",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Search for the error",
+    "text": "Search for the error\nMost errors have happened to someone else before.\nUseful search:\nR ggplot2 object not found\nLess useful search:\nobject not found\nInclude:\nR\npackage name\nfunction name\nimportant part of the error"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#ask-better-questions",
+    "href": "slides/session-03-viz-datahandling.html#ask-better-questions",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Ask better questions",
+    "text": "Ask better questions\nNot very useful:\nMy code does not work.\nMuch more useful:\nI am trying to make a bar plot of Species.\n\nThis is my code:\n\nggplot(recordTable, aes(x = Species))\n  geom_bar()\n\nThis is the error:\n\nError: unexpected symbol\n\nWhat should I check?"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#using-ai-tools",
+    "href": "slides/session-03-viz-datahandling.html#using-ai-tools",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Using AI tools",
+    "text": "Using AI tools\nAI tools can help you:\n\ninterpret errors,\nexplain code,\nsuggest things to check,\nidentify syntax problems,\nexplain arguments.\n\nBut use them as a learning tool.\nNot as something that does your thinking for you."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#ai-can-be-wrong",
+    "href": "slides/session-03-viz-datahandling.html#ai-can-be-wrong",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "AI can be wrong",
+    "text": "AI can be wrong\nAlways:\n\nRead the suggested code.\nRun it yourself.\nInspect the result.\nAsk whether the result makes sense.\nCheck documentation when needed.\n\n\n\n\n\n\n\nImportant\n\n\nDo not copy and run code that you do not understand."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#data-manipulation",
+    "href": "slides/session-03-viz-datahandling.html#data-manipulation",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Data manipulation",
+    "text": "Data manipulation\nNow we move from:\nplotting raw data\nto:\npreparing data for questions\nWe will use dplyr.\nMany dplyr functions are verbs."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#important-dplyr-verbs",
+    "href": "slides/session-03-viz-datahandling.html#important-dplyr-verbs",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Important dplyr verbs",
+    "text": "Important dplyr verbs\n\n\n\nFunction\nAction\n\n\n\n\nselect()\nchoose columns\n\n\nfilter()\nchoose rows\n\n\narrange()\nsort rows\n\n\nrename()\nrename columns\n\n\nmutate()\ncreate columns\n\n\ncount()\ncount observations\n\n\ngroup_by()\ncreate groups\n\n\nsummarise()\ncalculate summaries"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#select-columns",
+    "href": "slides/session-03-viz-datahandling.html#select-columns",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Select columns",
+    "text": "Select columns\nselected_records &lt;- recordTable |&gt;\n  select(\n    Station,\n    Species,\n    N_individuals,\n    Age,\n    n_images\n  )\nselect() works with columns."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#filter-rows",
+    "href": "slides/session-03-viz-datahandling.html#filter-rows",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Filter rows",
+    "text": "Filter rows\ndeer_records &lt;- recordTable |&gt;\n  filter(\n    Species == \"White-tailed deer\"\n  )\nfilter() works with rows."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#multiple-conditions",
+    "href": "slides/session-03-viz-datahandling.html#multiple-conditions",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Multiple conditions",
+    "text": "Multiple conditions\nrecordTable |&gt;\n  filter(\n    Species == \"White-tailed deer\",\n    N_individuals &gt; 1\n  )\nBoth conditions must be true.\nThis is like using:\nAND"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#several-categories",
+    "href": "slides/session-03-viz-datahandling.html#several-categories",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Several categories",
+    "text": "Several categories\nrecordTable |&gt;\n  filter(\n    Species %in% c(\n      \"White-tailed deer\",\n      \"Armadillo\",\n      \"Racoon\"\n    )\n  )\n%in% asks:\n\nIs this value inside this group of possible values?"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#rename-columns",
+    "href": "slides/session-03-viz-datahandling.html#rename-columns",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Rename columns",
+    "text": "Rename columns\nrecord_data &lt;- recordTable |&gt;\n  rename(\n    station = Station,\n    species = Species,\n    individuals = N_individuals,\n    age = Age,\n    images = n_images,\n    date = Date,\n    time = Time\n  )\nNow the column names are easier to type."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#create-new-columns",
+    "href": "slides/session-03-viz-datahandling.html#create-new-columns",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Create new columns",
+    "text": "Create new columns\nrecord_data &lt;- record_data |&gt;\n  mutate(\n    multiple_individuals = individuals &gt; 1\n  )\nThe new column is logical:\nTRUE / FALSE"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#count-records",
+    "href": "slides/session-03-viz-datahandling.html#count-records",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Count records",
+    "text": "Count records\nrecord_data |&gt;\n  count(\n    species,\n    sort = TRUE\n  )\nThe result has one row per species.\nThe column n contains the number of records."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#count-combinations",
+    "href": "slides/session-03-viz-datahandling.html#count-combinations",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Count combinations",
+    "text": "Count combinations\nrecord_data |&gt;\n  count(\n    station,\n    species\n  )\nNow each row represents:\none station × one species\nThis is a different unit than the original data."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#group-and-summarize",
+    "href": "slides/session-03-viz-datahandling.html#group-and-summarize",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Group and summarize",
+    "text": "Group and summarize\nspecies_summary &lt;- record_data |&gt;\n  group_by(species) |&gt;\n  summarise(\n    records = n(),\n    stations = n_distinct(station),\n    total_individuals = sum(\n      individuals,\n      na.rm = TRUE\n    ),\n    .groups = \"drop\"\n  )\nNow each row represents one species."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#always-ask",
+    "href": "slides/session-03-viz-datahandling.html#always-ask",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Always ask",
+    "text": "Always ask\nWhat does one row represent?\nBefore summarizing:\n1 row = 1 camera-trap record\nAfter summarizing by species:\n1 row = 1 species\nAfter summarizing by station:\n1 row = 1 station"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#pipes",
+    "href": "slides/session-03-viz-datahandling.html#pipes",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Pipes",
+    "text": "Pipes\nThe pipe:\n|&gt;\npasses the result of one step into the next step.\nRead it as:\nthen\nExample:\nrecordTable |&gt;\n  filter(Species == \"White-tailed deer\") |&gt;\n  count(Station)"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#a-complete-pipeline",
+    "href": "slides/session-03-viz-datahandling.html#a-complete-pipeline",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "A complete pipeline",
+    "text": "A complete pipeline\ncommon_species &lt;- c(\n  \"White-tailed deer\",\n  \"Armadillo\",\n  \"Racoon\",\n  \"Hog\",\n  \"Virginia opossum\"\n)\n\ncommon_summary &lt;- recordTable |&gt;\n  filter(\n    Species %in% common_species\n  ) |&gt;\n  group_by(Species) |&gt;\n  summarise(\n    records = n(),\n    stations = n_distinct(Station),\n    .groups = \"drop\"\n  ) |&gt;\n  arrange(\n    desc(records)\n  )"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#summaries-can-become-plots",
+    "href": "slides/session-03-viz-datahandling.html#summaries-can-become-plots",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Summaries can become plots",
+    "text": "Summaries can become plots\nggplot(\n  common_summary,\n  aes(\n    x = Species,\n    y = records,\n    fill = Species\n  )\n) +\n  geom_col(\n    show.legend = FALSE\n  ) +\n  coord_flip() +\n  theme_bw()\nUse geom_col() when the counts already exist in the data."
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#session-workflow",
+    "href": "slides/session-03-viz-datahandling.html#session-workflow",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Session workflow",
+    "text": "Session workflow\nimport data\n      ↓\ninspect\n      ↓\nvisualize\n      ↓\ndebug when needed\n      ↓\nselect / filter\n      ↓\ngroup / summarize\n      ↓\nvisualize summaries\n      ↓\nexport results"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#practice-at-home",
+    "href": "slides/session-03-viz-datahandling.html#practice-at-home",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Practice at home",
+    "text": "Practice at home\nBefore the next session:\n\nFinish the Module 5 practice.\nRead Module 6 and try the debugging exercises.\nComplete the Module 7 practice.\nFocus especially on:\n\nfilter()\nselect()\ncount()\ngroup_by()\nsummarise()"
+  },
+  {
+    "objectID": "slides/session-03-viz-datahandling.html#main-idea",
+    "href": "slides/session-03-viz-datahandling.html#main-idea",
+    "title": "Visualization, Debugging, and Data Manipulation",
+    "section": "Main idea",
+    "text": "Main idea\nR becomes powerful when you combine tools:\nggplot2 → show patterns\n\ndebugging → keep moving when code fails\n\ndplyr → reshape data into useful summaries\nYou do not need to memorize everything.\nYou need to keep practicing the workflow."
   }
 ]

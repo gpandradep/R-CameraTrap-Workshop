@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
+
+  <meta name="author" content="Gabriel Andrade">
+  <title>Introduction to R – Visualization, Debugging, and Data Manipulation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-00033b64c7f4405b1251d0bf85080562.css">
+  <link rel="stylesheet" href="slides.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Visualization, Debugging, and Data Manipulation</h1>
+  <p class="subtitle">Session 3</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Gabriel Andrade 
+</div>
+</div>
+</div>
+
+</section>
+<section id="visualization-debugging-and-data-manipulation" class="slide level2">
+<h2>Visualization, Debugging, and Data Manipulation</h2>
+<h3 id="session-3">Session 3</h3>
+<p>Today we will connect three skills:</p>
+<pre class="text"><code>visualize data
+      ↓
+recognize and solve problems
+      ↓
+manipulate data with dplyr</code></pre>
+</section>
+<section id="today-is-mostly-practice" class="slide level2">
+<h2>Today is mostly practice</h2>
+<p>We will not cover every detail from Modules 5, 6, and 7.</p>
+<p>The website contains the full explanations.</p>
+<p>Today we will focus on the most important tools you need to keep working with your own data.</p>
+</section>
+<section id="load-the-data" class="slide level2">
+<h2>Load the data</h2>
+<p>Open your <code>intro-r-course</code> project.</p>
+<p>Create a script called:</p>
+<pre class="text"><code>session-03.R</code></pre>
+<p>inside the <code>scripts/</code> folder.</p>
+<p>Then run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>recordTable <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/recordTable.csv"</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="always-inspect-first" class="slide level2">
+<h2>Always inspect first</h2>
+<p>Before plotting or manipulating data:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recordTable)</span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(recordTable)</span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(recordTable)</span>
+<span id="cb4-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(recordTable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ask:</p>
+<ul>
+<li>What does one row represent?</li>
+<li>What are the variables?</li>
+<li>Which columns are numeric?</li>
+<li>Which columns are categorical?</li>
+</ul>
+</section>
+<section id="the-logic-of-ggplot2" class="slide level2">
+<h2>The logic of ggplot2</h2>
+<p>Most plots follow the same structure:</p>
+
+<img data-src="https://ggplot2.tidyverse.org/articles/ggplot2_files/figure-html/overview_graphic-1.png" class="r-stretch"><p>In R:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> variable)</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_something</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bar-plots" class="slide level2">
+<h2>Bar plots</h2>
+<p>Question:</p>
+<div class="columns">
+<blockquote>
+<p>How many records do we have for each species?</p>
+</blockquote>
+</div>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> recordTable,</span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Species)</span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<p><code>geom_bar()</code> counts observations automatically.</p>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="make-it-readable" class="slide level2">
+<h2>Make it readable</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> recordTable,</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Species)</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Camera-trap records by species"</span>,</span>
+<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb7-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of records"</span></span>
+<span id="cb7-11"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="histograms" class="slide level2">
+<h2>Histograms</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p>Question:</p>
+<blockquote>
+<p>How many images are usually associated with one record?</p>
+</blockquote>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> recordTable,</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n_images)</span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb8-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:65%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="zooming-without-changing-the-data" class="slide level2">
+<h2>Zooming without changing the data</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> recordTable,</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n_images)</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb9-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">20</span>)</span>
+<span id="cb9-12"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>coord_cartesian()</code> changes what we display, not the original data.</p>
+
+<img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="mapping-vs.-setting" class="slide level2">
+<h2>Mapping vs.&nbsp;setting</h2>
+<p>Setting:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Every point has the same color.</p>
+<p>Mapping:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">color =</span> Species)</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Color represents a variable.</p>
+</section>
+<section id="common-aesthetics" class="slide level2">
+<h2>Common aesthetics</h2>
+<p>We can map or set:</p>
+<pre class="text"><code>color
+fill
+shape
+size
+alpha</code></pre>
+<p>Example:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  recordTable,</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> N_individuals,</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n_images,</span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> Species</span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb13-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="focus-on-a-few-species" class="slide level2">
+<h2>Focus on a few species</h2>
+<p>Sometimes a plot is easier to read if we focus on fewer groups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>common_species <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Armadillo"</span>,</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Racoon"</span>,</span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hog"</span>,</span>
+<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Virginia opossum"</span></span>
+<span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a aria-hidden="true" tabindex="-1"></a>common_records <span class="ot">&lt;-</span> recordTable[</span>
+<span id="cb14-10"><a aria-hidden="true" tabindex="-1"></a>  recordTable<span class="sc">$</span>Species <span class="sc">%in%</span> common_species,</span>
+<span id="cb14-11"><a aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="scatterplots" class="slide level2">
+<h2>Scatterplots</h2>
+<p>Question:</p>
+<blockquote>
+<p>Are records with more individuals associated with more images?</p>
+</blockquote>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> common_records,</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> N_individuals,</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n_images,</span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> Species</span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb15-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb15-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb15-12"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="from-raw-records-to-summaries" class="slide level2">
+<h2>From raw records to summaries</h2>
+<p>Sometimes we need to summarize before plotting.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>sp_counts <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a>    Species</span>
+<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb16-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb16-7"><a aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">%in%</span> common_species</span>
+<span id="cb16-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now each row represents:</p>
+<pre class="text"><code>one station × one species</code></pre>
+</section>
+<section id="boxplots" class="slide level2">
+<h2>Boxplots</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> sp_counts,</span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Species,</span>
+<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n,</span>
+<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> Species</span>
+<span id="cb18-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb18-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb18-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-11"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb18-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb18-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="session-03-viz-datahandling_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"><p>Here, the data are still counts.</p>
+<p>Only the axis is displayed on a log scale.</p>
+</section>
+<section id="combining-geometries" class="slide level2">
+<h2>Combining geometries</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> sp_counts,</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Species,</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n,</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> Species</span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb19-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb19-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb19-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb19-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each <code>+</code> adds a new layer.</p>
+</section>
+<section id="which-plot-should-i-use" class="slide level2">
+<h2>Which plot should I use?</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variables</th>
+<th>Possible plot</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>one categorical</td>
+<td>bar plot</td>
+</tr>
+<tr class="even">
+<td>one numeric</td>
+<td>histogram</td>
+</tr>
+<tr class="odd">
+<td>two numeric</td>
+<td>scatterplot</td>
+</tr>
+<tr class="even">
+<td>categorical + numeric</td>
+<td>boxplot or violin plot</td>
+</tr>
+</tbody>
+</table>
+<p>Start with the question:</p>
+<blockquote>
+<p>What do I want to show?</p>
+</blockquote>
+</section>
+<section id="saving-plots" class="slide level2">
+<h2>Saving plots</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>species_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>  recordTable,</span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Species)</span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb20-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb20-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">"outputs/species_records.png"</span>,</span>
+<span id="cb20-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> species_plot,</span>
+<span id="cb20-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb20-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
+<span id="cb20-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb20-15"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="debugging-is-part-of-r" class="slide level2">
+<h2>Debugging is part of R</h2>
+<p>You will see:</p>
+<ul>
+<li>messages,</li>
+<li>warnings,</li>
+<li>errors.</li>
+</ul>
+<p>That is normal.</p>
+<p>The goal is not to avoid every error.</p>
+<p>The goal is to learn how to understand and fix them.</p>
+</section>
+<section id="messages-warnings-errors" class="slide level2">
+<h2>Messages, warnings, errors</h2>
+<h3 id="message">Message</h3>
+<p>R is telling you something.</p>
+<h3 id="warning">Warning</h3>
+<p>R completed the operation, but something may need attention.</p>
+<h3 id="error">Error</h3>
+<p>R stopped because something went wrong.</p>
+</section>
+<section id="read-the-error" class="slide level2">
+<h2>Read the error</h2>
+<p>Example:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grafics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>R may say:</p>
+<pre class="text"><code>Error: object 'grafics' not found</code></pre>
+<p>Start with the message.</p>
+<p>What is R telling you?</p>
+</section>
+<section id="common-things-to-check" class="slide level2">
+<h2>Common things to check</h2>
+<ul>
+<li>Did I spell the object correctly?</li>
+<li>Did I run the line that creates the object?</li>
+<li>Is the object in the Environment?</li>
+<li>Did I load the package?</li>
+<li>Are parentheses and commas correct?</li>
+<li>Is the file path correct?</li>
+</ul>
+</section>
+<section id="inspect-the-object" class="slide level2">
+<h2>Inspect the object</h2>
+<p>When code fails, check the object.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(recordTable)</span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(recordTable)</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recordTable)</span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(recordTable)</span>
+<span id="cb23-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(recordTable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Do not only inspect the code.</p>
+<p>Inspect the data being used by the code.</p>
+</section>
+<section id="search-for-the-error" class="slide level2">
+<h2>Search for the error</h2>
+<p>Most errors have happened to someone else before.</p>
+<p>Useful search:</p>
+<pre class="text"><code>R ggplot2 object not found</code></pre>
+<p>Less useful search:</p>
+<pre class="text"><code>object not found</code></pre>
+<p>Include:</p>
+<pre class="text"><code>R
+package name
+function name
+important part of the error</code></pre>
+</section>
+<section id="ask-better-questions" class="slide level2">
+<h2>Ask better questions</h2>
+<p>Not very useful:</p>
+<pre class="text"><code>My code does not work.</code></pre>
+<p>Much more useful:</p>
+<pre class="text"><code>I am trying to make a bar plot of Species.
+
+This is my code:
+
+ggplot(recordTable, aes(x = Species))
+  geom_bar()
+
+This is the error:
+
+Error: unexpected symbol
+
+What should I check?</code></pre>
+</section>
+<section id="using-ai-tools" class="slide level2">
+<h2>Using AI tools</h2>
+<p>AI tools can help you:</p>
+<ul>
+<li>interpret errors,</li>
+<li>explain code,</li>
+<li>suggest things to check,</li>
+<li>identify syntax problems,</li>
+<li>explain arguments.</li>
+</ul>
+<p>But use them as a learning tool.</p>
+<p>Not as something that does your thinking for you.</p>
+</section>
+<section id="ai-can-be-wrong" class="slide level2">
+<h2>AI can be wrong</h2>
+<p>Always:</p>
+<ol type="1">
+<li>Read the suggested code.</li>
+<li>Run it yourself.</li>
+<li>Inspect the result.</li>
+<li>Ask whether the result makes sense.</li>
+<li>Check documentation when needed.</li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Do not copy and run code that you do not understand.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="data-manipulation" class="slide level2">
+<h2>Data manipulation</h2>
+<p>Now we move from:</p>
+<pre class="text"><code>plotting raw data</code></pre>
+<p>to:</p>
+<pre class="text"><code>preparing data for questions</code></pre>
+<p>We will use <code>dplyr</code>.</p>
+<p>Many <code>dplyr</code> functions are verbs.</p>
+</section>
+<section id="important-dplyr-verbs" class="slide level2">
+<h2>Important dplyr verbs</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>select()</code></td>
+<td>choose columns</td>
+</tr>
+<tr class="even">
+<td><code>filter()</code></td>
+<td>choose rows</td>
+</tr>
+<tr class="odd">
+<td><code>arrange()</code></td>
+<td>sort rows</td>
+</tr>
+<tr class="even">
+<td><code>rename()</code></td>
+<td>rename columns</td>
+</tr>
+<tr class="odd">
+<td><code>mutate()</code></td>
+<td>create columns</td>
+</tr>
+<tr class="even">
+<td><code>count()</code></td>
+<td>count observations</td>
+</tr>
+<tr class="odd">
+<td><code>group_by()</code></td>
+<td>create groups</td>
+</tr>
+<tr class="even">
+<td><code>summarise()</code></td>
+<td>calculate summaries</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="select-columns" class="slide level2">
+<h2>Select columns</h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>selected_records <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a>    N_individuals,</span>
+<span id="cb31-6"><a aria-hidden="true" tabindex="-1"></a>    Age,</span>
+<span id="cb31-7"><a aria-hidden="true" tabindex="-1"></a>    n_images</span>
+<span id="cb31-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>select()</code> works with columns.</p>
+</section>
+<section id="filter-rows" class="slide level2">
+<h2>Filter rows</h2>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>deer_records <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb32-3"><a aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span></span>
+<span id="cb32-4"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>filter()</code> works with rows.</p>
+</section>
+<section id="multiple-conditions" class="slide level2">
+<h2>Multiple conditions</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Both conditions must be true.</p>
+<p>This is like using:</p>
+<pre class="text"><code>AND</code></pre>
+</section>
+<section id="several-categories" class="slide level2">
+<h2>Several categories</h2>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">%in%</span> <span class="fu">c</span>(</span>
+<span id="cb35-4"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb35-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"Armadillo"</span>,</span>
+<span id="cb35-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"Racoon"</span></span>
+<span id="cb35-7"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>%in%</code> asks:</p>
+<blockquote>
+<p>Is this value inside this group of possible values?</p>
+</blockquote>
+</section>
+<section id="rename-columns" class="slide level2">
+<h2>Rename columns</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>record_data <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">station =</span> Station,</span>
+<span id="cb36-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">species =</span> Species,</span>
+<span id="cb36-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">individuals =</span> N_individuals,</span>
+<span id="cb36-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> Age,</span>
+<span id="cb36-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">images =</span> n_images,</span>
+<span id="cb36-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> Date,</span>
+<span id="cb36-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> Time</span>
+<span id="cb36-10"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now the column names are easier to type.</p>
+</section>
+<section id="create-new-columns" class="slide level2">
+<h2>Create new columns</h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>record_data <span class="ot">&lt;-</span> record_data <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple_individuals =</span> individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The new column is logical:</p>
+<pre class="text"><code>TRUE / FALSE</code></pre>
+</section>
+<section id="count-records" class="slide level2">
+<h2>Count records</h2>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>    species,</span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">TRUE</span></span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The result has one row per species.</p>
+<p>The column <code>n</code> contains the number of records.</p>
+</section>
+<section id="count-combinations" class="slide level2">
+<h2>Count combinations</h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>    station,</span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>    species</span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now each row represents:</p>
+<pre class="text"><code>one station × one species</code></pre>
+<p>This is a different unit than the original data.</p>
+</section>
+<section id="group-and-summarize" class="slide level2">
+<h2>Group and summarize</h2>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a>species_summary <span class="ot">&lt;-</span> record_data <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">stations =</span> <span class="fu">n_distinct</span>(station),</span>
+<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_individuals =</span> <span class="fu">sum</span>(</span>
+<span id="cb42-7"><a aria-hidden="true" tabindex="-1"></a>      individuals,</span>
+<span id="cb42-8"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb42-9"><a aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb42-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb42-11"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now each row represents one species.</p>
+</section>
+<section id="always-ask" class="slide level2">
+<h2>Always ask</h2>
+<pre class="text"><code>What does one row represent?</code></pre>
+<p>Before summarizing:</p>
+<pre class="text"><code>1 row = 1 camera-trap record</code></pre>
+<p>After summarizing by species:</p>
+<pre class="text"><code>1 row = 1 species</code></pre>
+<p>After summarizing by station:</p>
+<pre class="text"><code>1 row = 1 station</code></pre>
+</section>
+<section id="pipes" class="slide level2">
+<h2>Pipes</h2>
+<p>The pipe:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="sc">|&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>passes the result of one step into the next step.</p>
+<p>Read it as:</p>
+<pre class="text"><code>then</code></pre>
+<p>Example:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-complete-pipeline" class="slide level2">
+<h2>A complete pipeline</h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-hidden="true" tabindex="-1"></a>common_species <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb50-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb50-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Armadillo"</span>,</span>
+<span id="cb50-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Racoon"</span>,</span>
+<span id="cb50-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hog"</span>,</span>
+<span id="cb50-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"Virginia opossum"</span></span>
+<span id="cb50-7"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a aria-hidden="true" tabindex="-1"></a>common_summary <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb50-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb50-11"><a aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">%in%</span> common_species</span>
+<span id="cb50-12"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb50-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">|&gt;</span></span>
+<span id="cb50-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb50-15"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb50-16"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">stations =</span> <span class="fu">n_distinct</span>(Station),</span>
+<span id="cb50-17"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb50-18"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb50-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb50-20"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(records)</span>
+<span id="cb50-21"><a aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="summaries-can-become-plots" class="slide level2">
+<h2>Summaries can become plots</h2>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>  common_summary,</span>
+<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Species,</span>
+<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> records,</span>
+<span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> Species</span>
+<span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb51-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb51-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb51-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb51-11"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb51-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb51-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use <code>geom_col()</code> when the counts already exist in the data.</p>
+</section>
+<section id="session-workflow" class="slide level2">
+<h2>Session workflow</h2>
+<pre class="text"><code>import data
+      ↓
+inspect
+      ↓
+visualize
+      ↓
+debug when needed
+      ↓
+select / filter
+      ↓
+group / summarize
+      ↓
+visualize summaries
+      ↓
+export results</code></pre>
+</section>
+<section id="practice-at-home" class="slide level2">
+<h2>Practice at home</h2>
+<p>Before the next session:</p>
+<ol type="1">
+<li>Finish the Module 5 practice.</li>
+<li>Read Module 6 and try the debugging exercises.</li>
+<li>Complete the Module 7 practice.</li>
+<li>Focus especially on:</li>
+</ol>
+<pre class="text"><code>filter()
+select()
+count()
+group_by()
+summarise()</code></pre>
+</section>
+<section id="main-idea" class="slide level2">
+<h2>Main idea</h2>
+<p>R becomes powerful when you combine tools:</p>
+<pre class="text"><code>ggplot2 → show patterns
+
+debugging → keep moving when code fails
+
+dplyr → reshape data into useful summaries</code></pre>
+<p>You do not need to memorize everything.</p>
+<p>You need to keep practicing the workflow.</p>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1400,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 4.0e-2,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

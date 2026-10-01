@@ -1,0 +1,1068 @@
+---
+title: "Visualization, Debugging, and Data Manipulation"
+subtitle: "Session 3"
+author: "Gabriel Andrade"
+format:
+  revealjs:
+    theme: night
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    transition: fade
+    incremental: false
+    code-line-numbers: false
+    width: 1400
+    height: 900
+    margin: 0.04
+    css: slides.css
+editor: visual
+---
+
+## Visualization, Debugging, and Data Manipulation
+
+### Session 3
+
+Today we will connect three skills:
+
+``` text
+visualize data
+      ↓
+recognize and solve problems
+      ↓
+manipulate data with dplyr
+```
+
+------------------------------------------------------------------------
+
+## Today is mostly practice
+
+We will not cover every detail from Modules 5, 6, and 7.
+
+The website contains the full explanations.
+
+Today we will focus on the most important tools you need to keep working with your own data.
+
+------------------------------------------------------------------------
+
+## Load the data
+
+Open your `intro-r-course` project.
+
+Create a script called:
+
+``` text
+session-03.R
+```
+
+inside the `scripts/` folder.
+
+Then run:
+
+```{r}
+#| eval: true
+#| 
+library(tidyverse)
+
+recordTable <- read_csv(here::here("data", "recordTable.csv"))
+```
+
+```{r}
+#| eval: false
+#| echo: true
+library(tidyverse)
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+```
+
+------------------------------------------------------------------------
+
+## Always inspect first
+
+Before plotting or manipulating data:
+
+``` r
+head(recordTable)
+
+dim(recordTable)
+
+names(recordTable)
+
+str(recordTable)
+```
+
+Ask:
+
+- What does one row represent?
+- What are the variables?
+- Which columns are numeric?
+- Which columns are categorical?
+
+------------------------------------------------------------------------
+
+## The logic of ggplot2
+
+Most plots follow the same structure:
+
+![](https://ggplot2.tidyverse.org/articles/ggplot2_files/figure-html/overview_graphic-1.png)
+
+In R:
+
+``` r
+ggplot(
+  data = my_data,
+  aes(x = variable)
+) +
+  geom_something()
+```
+
+------------------------------------------------------------------------
+
+## Bar plots
+
+Question:
+
+::: columns
+> How many records do we have for each species?
+:::
+
+:::::: columns
+:::: {.column width="30%"}
+```{r}
+#| eval: false
+#| echo: true
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar()
+```
+
+::: columns
+`geom_bar()` counts observations automatically.
+:::
+::::
+
+::: {.column width="70%"}
+```{r}
+#| eval: true
+
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar()
+```
+:::
+
+::::::
+
+------------------------------------------------------------------------
+
+## Make it readable
+:::::: columns
+:::: {.column width="30%"}
+
+``` r
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+::::
+:::: {.column width="70%"}
+
+```{r}
+#| eval: true
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+::::
+::::::
+
+------------------------------------------------------------------------
+
+## Histograms
+
+:::::: columns
+:::: {.column width="35%"}
+Question:
+
+> How many images are usually associated with one record?
+
+``` r
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_bw()
+```
+::::
+:::: {.column width="65%"}
+```{r}
+#| eval: true
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_bw()
+```
+
+::::
+::::::
+
+------------------------------------------------------------------------
+
+## Zooming without changing the data
+
+``` r
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(
+    xlim = c(1, 20)
+  ) +
+  theme_bw()
+```
+
+`coord_cartesian()` changes what we display, not the original data.
+
+```{r}
+#| eval: true
+#| 
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(
+    xlim = c(1, 20)
+  ) +
+  theme_bw()
+```
+
+
+------------------------------------------------------------------------
+
+## Mapping vs. setting
+
+Setting:
+
+``` r
+geom_point(color = "steelblue")
+```
+
+Every point has the same color.
+
+Mapping:
+
+``` r
+geom_point(
+  aes(color = Species)
+)
+```
+
+Color represents a variable.
+
+------------------------------------------------------------------------
+
+## Common aesthetics
+
+We can map or set:
+
+``` text
+color
+fill
+shape
+size
+alpha
+```
+
+Example:
+
+``` r
+ggplot(
+  recordTable,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point(alpha = 0.4)
+```
+
+```{r}
+#| eval: true
+ggplot(
+  recordTable,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point(alpha = 0.4)
+```
+
+
+------------------------------------------------------------------------
+
+## Focus on a few species
+
+Sometimes a plot is easier to read if we focus on fewer groups.
+
+```{r}
+#| echo: true
+common_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Racoon",
+  "Hog",
+  "Virginia opossum"
+)
+
+common_records <- recordTable[
+  recordTable$Species %in% common_species,
+]
+```
+
+
+
+------------------------------------------------------------------------
+
+## Scatterplots
+
+Question:
+
+> Are records with more individuals associated with more images?
+
+``` r
+ggplot(
+  data = common_records,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point(
+    alpha = 0.4,
+    size = 2
+  ) +
+  theme_bw()
+```
+```{r}
+#| eval: true
+ggplot(
+  data = common_records,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point(
+    alpha = 0.4,
+    size = 2
+  ) +
+  theme_bw()
+```
+
+------------------------------------------------------------------------
+
+## From raw records to summaries
+
+Sometimes we need to summarize before plotting.
+
+For example:
+
+```{r}
+#| echo: true
+sp_counts <- recordTable |>
+  count(
+    Station,
+    Species
+  ) |>
+  filter(
+    Species %in% common_species
+  )
+```
+
+Now each row represents:
+
+``` text
+one station × one species
+```
+
+------------------------------------------------------------------------
+
+## Boxplots
+
+``` r
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_boxplot(
+    show.legend = FALSE
+  ) +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw()
+```
+```{r}
+#| eval: true
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_boxplot(
+    show.legend = FALSE
+  ) +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw()
+```
+
+
+Here, the data are still counts.
+
+Only the axis is displayed on a log scale.
+
+------------------------------------------------------------------------
+
+## Combining geometries
+
+``` r
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.15) +
+  geom_jitter(width = 0.15, alpha = 0.6) +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw()
+```
+
+Each `+` adds a new layer.
+
+------------------------------------------------------------------------
+
+## Which plot should I use?
+
+| Variables             | Possible plot          |
+|-----------------------|------------------------|
+| one categorical       | bar plot               |
+| one numeric           | histogram              |
+| two numeric           | scatterplot            |
+| categorical + numeric | boxplot or violin plot |
+
+Start with the question:
+
+> What do I want to show?
+
+------------------------------------------------------------------------
+
+## Saving plots
+
+``` r
+species_plot <- ggplot(
+  recordTable,
+  aes(x = Species)
+) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  theme_bw()
+
+ggsave(
+  filename = "outputs/species_records.png",
+  plot = species_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+------------------------------------------------------------------------
+
+## Debugging is part of R
+
+You will see:
+
+- messages,
+- warnings,
+- errors.
+
+That is normal.
+
+The goal is not to avoid every error.
+
+The goal is to learn how to understand and fix them.
+
+------------------------------------------------------------------------
+
+## Messages, warnings, errors
+
+### Message
+
+R is telling you something.
+
+### Warning
+
+R completed the operation, but something may need attention.
+
+### Error
+
+R stopped because something went wrong.
+
+------------------------------------------------------------------------
+
+## Read the error
+
+Example:
+
+``` r
+plot(grafics)
+```
+
+R may say:
+
+``` text
+Error: object 'grafics' not found
+```
+
+Start with the message.
+
+What is R telling you?
+
+------------------------------------------------------------------------
+
+## Common things to check
+
+- Did I spell the object correctly?
+- Did I run the line that creates the object?
+- Is the object in the Environment?
+- Did I load the package?
+- Are parentheses and commas correct?
+- Is the file path correct?
+
+------------------------------------------------------------------------
+
+## Inspect the object
+
+When code fails, check the object.
+
+``` r
+class(recordTable)
+
+str(recordTable)
+
+head(recordTable)
+
+names(recordTable)
+
+dim(recordTable)
+```
+
+Do not only inspect the code.
+
+Inspect the data being used by the code.
+
+------------------------------------------------------------------------
+
+## Search for the error
+
+Most errors have happened to someone else before.
+
+Useful search:
+
+``` text
+R ggplot2 object not found
+```
+
+Less useful search:
+
+``` text
+object not found
+```
+
+Include:
+
+``` text
+R
+package name
+function name
+important part of the error
+```
+
+------------------------------------------------------------------------
+
+## Ask better questions
+
+Not very useful:
+
+``` text
+My code does not work.
+```
+
+Much more useful:
+
+``` text
+I am trying to make a bar plot of Species.
+
+This is my code:
+
+ggplot(recordTable, aes(x = Species))
+  geom_bar()
+
+This is the error:
+
+Error: unexpected symbol
+
+What should I check?
+```
+
+------------------------------------------------------------------------
+
+## Using AI tools
+
+AI tools can help you:
+
+- interpret errors,
+- explain code,
+- suggest things to check,
+- identify syntax problems,
+- explain arguments.
+
+But use them as a learning tool.
+
+Not as something that does your thinking for you.
+
+------------------------------------------------------------------------
+
+## AI can be wrong
+
+Always:
+
+1.  Read the suggested code.
+2.  Run it yourself.
+3.  Inspect the result.
+4.  Ask whether the result makes sense.
+5.  Check documentation when needed.
+
+::: callout-important
+Do not copy and run code that you do not understand.
+:::
+
+------------------------------------------------------------------------
+
+## Data manipulation
+
+Now we move from:
+
+``` text
+plotting raw data
+```
+
+to:
+
+``` text
+preparing data for questions
+```
+
+We will use `dplyr`.
+
+Many `dplyr` functions are verbs.
+
+------------------------------------------------------------------------
+
+## Important dplyr verbs
+
+| Function      | Action              |
+|---------------|---------------------|
+| `select()`    | choose columns      |
+| `filter()`    | choose rows         |
+| `arrange()`   | sort rows           |
+| `rename()`    | rename columns      |
+| `mutate()`    | create columns      |
+| `count()`     | count observations  |
+| `group_by()`  | create groups       |
+| `summarise()` | calculate summaries |
+
+------------------------------------------------------------------------
+
+## Select columns
+
+``` r
+selected_records <- recordTable |>
+  select(
+    Station,
+    Species,
+    N_individuals,
+    Age,
+    n_images
+  )
+```
+
+`select()` works with columns.
+
+------------------------------------------------------------------------
+
+## Filter rows
+
+``` r
+deer_records <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  )
+```
+
+`filter()` works with rows.
+
+------------------------------------------------------------------------
+
+## Multiple conditions
+
+``` r
+recordTable |>
+  filter(
+    Species == "White-tailed deer",
+    N_individuals > 1
+  )
+```
+
+Both conditions must be true.
+
+This is like using:
+
+``` text
+AND
+```
+
+------------------------------------------------------------------------
+
+## Several categories
+
+``` r
+recordTable |>
+  filter(
+    Species %in% c(
+      "White-tailed deer",
+      "Armadillo",
+      "Racoon"
+    )
+  )
+```
+
+`%in%` asks:
+
+> Is this value inside this group of possible values?
+
+------------------------------------------------------------------------
+
+## Rename columns
+
+``` r
+record_data <- recordTable |>
+  rename(
+    station = Station,
+    species = Species,
+    individuals = N_individuals,
+    age = Age,
+    images = n_images,
+    date = Date,
+    time = Time
+  )
+```
+
+Now the column names are easier to type.
+
+------------------------------------------------------------------------
+
+## Create new columns
+
+``` r
+record_data <- record_data |>
+  mutate(
+    multiple_individuals = individuals > 1
+  )
+```
+
+The new column is logical:
+
+``` text
+TRUE / FALSE
+```
+
+------------------------------------------------------------------------
+
+## Count records
+
+``` r
+record_data |>
+  count(
+    species,
+    sort = TRUE
+  )
+```
+
+The result has one row per species.
+
+The column `n` contains the number of records.
+
+------------------------------------------------------------------------
+
+## Count combinations
+
+``` r
+record_data |>
+  count(
+    station,
+    species
+  )
+```
+
+Now each row represents:
+
+``` text
+one station × one species
+```
+
+This is a different unit than the original data.
+
+------------------------------------------------------------------------
+
+## Group and summarize
+
+``` r
+species_summary <- record_data |>
+  group_by(species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(station),
+    total_individuals = sum(
+      individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+```
+
+Now each row represents one species.
+
+------------------------------------------------------------------------
+
+## Always ask
+
+``` text
+What does one row represent?
+```
+
+Before summarizing:
+
+``` text
+1 row = 1 camera-trap record
+```
+
+After summarizing by species:
+
+``` text
+1 row = 1 species
+```
+
+After summarizing by station:
+
+``` text
+1 row = 1 station
+```
+
+------------------------------------------------------------------------
+
+## Pipes
+
+The pipe:
+
+``` r
+|>
+```
+
+passes the result of one step into the next step.
+
+Read it as:
+
+``` text
+then
+```
+
+Example:
+
+``` r
+recordTable |>
+  filter(Species == "White-tailed deer") |>
+  count(Station)
+```
+
+------------------------------------------------------------------------
+
+## A complete pipeline
+
+``` r
+common_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Racoon",
+  "Hog",
+  "Virginia opossum"
+)
+
+common_summary <- recordTable |>
+  filter(
+    Species %in% common_species
+  ) |>
+  group_by(Species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    .groups = "drop"
+  ) |>
+  arrange(
+    desc(records)
+  )
+```
+
+------------------------------------------------------------------------
+
+## Summaries can become plots
+
+``` r
+ggplot(
+  common_summary,
+  aes(
+    x = Species,
+    y = records,
+    fill = Species
+  )
+) +
+  geom_col(
+    show.legend = FALSE
+  ) +
+  coord_flip() +
+  theme_bw()
+```
+
+Use `geom_col()` when the counts already exist in the data.
+
+------------------------------------------------------------------------
+
+## Session workflow
+
+``` text
+import data
+      ↓
+inspect
+      ↓
+visualize
+      ↓
+debug when needed
+      ↓
+select / filter
+      ↓
+group / summarize
+      ↓
+visualize summaries
+      ↓
+export results
+```
+
+------------------------------------------------------------------------
+
+## Practice at home
+
+Before the next session:
+
+1.  Finish the Module 5 practice.
+2.  Read Module 6 and try the debugging exercises.
+3.  Complete the Module 7 practice.
+4.  Focus especially on:
+
+``` text
+filter()
+select()
+count()
+group_by()
+summarise()
+```
+
+------------------------------------------------------------------------
+
+## Main idea
+
+R becomes powerful when you combine tools:
+
+``` text
+ggplot2 → show patterns
+
+debugging → keep moving when code fails
+
+dplyr → reshape data into useful summaries
+```
+
+You do not need to memorize everything.
+
+You need to keep practicing the workflow.
