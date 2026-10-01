@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<link rel="alternate" hreflang="en" href="https://gpandradep.github.io/R-CameraTrap-Workshop//modules/07-data-manipulation.html" />
-<link rel="alternate" hreflang="es" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/07-data-manipulation.es.html" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>data-manipulation – Introduction to R</title>
+
+
+<title>Module 7: Data Manipulation with tidyverse – Introduction to R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,18 +20,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -52,116 +100,1610 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="../styles.css">
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
 </head>
-<body class="nav-fixed quarto-light">
+
+<body class="quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Introduction to R</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item"><div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> Español</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/07-data-manipulation.html" id="language-link-es">Español</a></li></ul>
-</div></li>
-<li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../getting-started/setup.html"> 
-<span class="menu-text">Getting Started</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modules" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Modules</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-modules">
-<li>
-    <a class="dropdown-item" href="../modules/01-introduction.html">
- <span class="dropdown-text">1. Introduction to R and RStudio</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/02-objects-functions.html">
- <span class="dropdown-text">2. Objects, operators, and functions</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/03-data-structures.html">
- <span class="dropdown-text">3. Data structures in R</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/04-import-data.html">
- <span class="dropdown-text">4. Importing and exporting data</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/05-data-visualization.html">
- <span class="dropdown-text">5. Data visualization</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/06-errors-help.html">
- <span class="dropdown-text">6. Errors, help, and problem solving</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/07-data-manipulation.html">
- <span class="dropdown-text">7. Data manipulation with the tidyverse</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/08-exploratory-analysis.html">
- <span class="dropdown-text">8. Exploratory data analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../modules/09-camtrapR.html">
- <span class="dropdown-text">9. Working with camera-trap data using camtrapR</span></a>
-  </li>  
-    </ul>
-</li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slides" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Slides</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-slides">
-<li>
-    <a class="dropdown-item" href="../slides/session-01-introduction.html">
- <span class="dropdown-text">1. Introduction to R and RStudio</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../slides/session-02-objects-data-import.html">
- <span class="dropdown-text">2. Objects, data strcutures and importing</span></a>
-  </li>  
-    </ul>
-</li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Extra Resources</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-resources">
-<li>
-    <a class="dropdown-item" href="../resources/quarto.html">
- <span class="dropdown-text">Reproducible documents with Quarto</span></a>
-  </li>  
-    </ul>
-</li>
-</ul>
-</div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-is-the-tidyverse" id="toc-what-is-the-tidyverse" class="nav-link" data-scroll-target="#what-is-the-tidyverse">What is the tidyverse?</a></li>
+  <li><a href="#lets-get-started" id="toc-lets-get-started" class="nav-link" data-scroll-target="#lets-get-started">Let’s get started</a></li>
+  <li><a href="#think-of-dplyr-as-a-set-of-verbs" id="toc-think-of-dplyr-as-a-set-of-verbs" class="nav-link" data-scroll-target="#think-of-dplyr-as-a-set-of-verbs">Think of <code>dplyr</code> as a set of verbs</a></li>
+  <li><a href="#selecting-columns-with-select" id="toc-selecting-columns-with-select" class="nav-link" data-scroll-target="#selecting-columns-with-select">Selecting columns with <code>select()</code></a>
+  <ul class="collapse">
+  <li><a href="#removing-columns" id="toc-removing-columns" class="nav-link" data-scroll-target="#removing-columns">Removing columns</a></li>
+  <li><a href="#selecting-by-data-type" id="toc-selecting-by-data-type" class="nav-link" data-scroll-target="#selecting-by-data-type">Selecting by data type</a></li>
+  </ul></li>
+  <li><a href="#filtering-rows-with-filter" id="toc-filtering-rows-with-filter" class="nav-link" data-scroll-target="#filtering-rows-with-filter">Filtering rows with <code>filter()</code></a>
+  <ul class="collapse">
+  <li><a href="#filtering-numeric-values" id="toc-filtering-numeric-values" class="nav-link" data-scroll-target="#filtering-numeric-values">Filtering numeric values</a></li>
+  </ul></li>
+  <li><a href="#multiple-filtering-conditions" id="toc-multiple-filtering-conditions" class="nav-link" data-scroll-target="#multiple-filtering-conditions">Multiple filtering conditions</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a></li>
+  <li><a href="#sorting-rows-with-arrange" id="toc-sorting-rows-with-arrange" class="nav-link" data-scroll-target="#sorting-rows-with-arrange">Sorting rows with <code>arrange()</code></a></li>
+  <li><a href="#renaming-columns" id="toc-renaming-columns" class="nav-link" data-scroll-target="#renaming-columns">Renaming columns</a></li>
+  <li><a href="#creating-new-columns-with-mutate" id="toc-creating-new-columns-with-mutate" class="nav-link" data-scroll-target="#creating-new-columns-with-mutate">Creating new columns with <code>mutate()</code></a></li>
+  <li><a href="#counting-observations" id="toc-counting-observations" class="nav-link" data-scroll-target="#counting-observations">Counting observations</a>
+  <ul class="collapse">
+  <li><a href="#counting-combinations" id="toc-counting-combinations" class="nav-link" data-scroll-target="#counting-combinations">Counting combinations</a></li>
+  </ul></li>
+  <li><a href="#unique-values-with-distinct" id="toc-unique-values-with-distinct" class="nav-link" data-scroll-target="#unique-values-with-distinct">Unique values with <code>distinct()</code></a></li>
+  <li><a href="#grouping-and-summarizing-data" id="toc-grouping-and-summarizing-data" class="nav-link" data-scroll-target="#grouping-and-summarizing-data">Grouping and summarizing data</a></li>
+  <li><a href="#more-than-one-summary" id="toc-more-than-one-summary" class="nav-link" data-scroll-target="#more-than-one-summary">More than one summary</a></li>
+  <li><a href="#summarizing-by-camera-station" id="toc-summarizing-by-camera-station" class="nav-link" data-scroll-target="#summarizing-by-camera-station">Summarizing by camera station</a></li>
+  <li><a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes">Pipes</a></li>
+  <li><a href="#why-use-pipes" id="toc-why-use-pipes" class="nav-link" data-scroll-target="#why-use-pipes">Why use pipes?</a></li>
+  <li><a href="#or" id="toc-or" class="nav-link" data-scroll-target="#or"><code>|&gt;</code> or <code>%&gt;%</code>?</a></li>
+  <li><a href="#putting-everything-together" id="toc-putting-everything-together" class="nav-link" data-scroll-target="#putting-everything-together">Putting everything together</a></li>
+  <li><a href="#from-data-manipulation-to-visualization" id="toc-from-data-manipulation-to-visualization" class="nav-link" data-scroll-target="#from-data-manipulation-to-visualization">From data manipulation to visualization</a></li>
+  <li><a href="#from-raw-data-to-a-result" id="toc-from-raw-data-to-a-result" class="nav-link" data-scroll-target="#from-raw-data-to-a-result">From raw data to a result</a></li>
+  <li><a href="#practice-at-home" id="toc-practice-at-home" class="nav-link" data-scroll-target="#practice-at-home">Practice at home</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Module 7: Data Manipulation with tidyverse</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>So far, we have learned how to:</p>
+<ul>
+<li>create objects,</li>
+<li>work with different data structures,</li>
+<li>import data,</li>
+<li>inspect datasets,</li>
+<li>and visualize information.</li>
+</ul>
+<p>But real datasets rarely arrive exactly in the format we need.</p>
+<p>Before analyzing data, we often need to:</p>
+<ul>
+<li>select variables,</li>
+<li>filter observations,</li>
+<li>rename columns,</li>
+<li>create new variables,</li>
+<li>count observations,</li>
+<li>group data,</li>
+<li>and calculate summaries.</li>
+</ul>
+<p>This process is often called <strong>data manipulation</strong> or <strong>data wrangling</strong>.</p>
+<p>In this module, we will use tools from the <strong>tidyverse</strong>, particularly the package <code>dplyr</code>, to manipulate our camera-trap data.</p>
+</section>
+<section id="what-is-the-tidyverse" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-tidyverse">What is the tidyverse?</h2>
+<p>The <strong>tidyverse</strong> is a collection of R packages designed to work together for common data-science tasks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\images/module-07/tidyverse.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>We have already used some of them:</p>
+<pre class="text"><code>readr     → importing and exporting data
+
+ggplot2   → data visualization
+
+dplyr     → data manipulation</code></pre>
+<p>There are several others, but you do not need to learn all of them at once.</p>
+<p>For this module, we will focus primarily on:</p>
+<pre class="text"><code>dplyr</code></pre>
+<p>When we load:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>the most commonly used tidyverse packages, including <code>dplyr</code>, are loaded automatically.</p>
+</section>
+<section id="lets-get-started" class="level2">
+<h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
+<p>Open your <code>intro-r-course</code> project and create a new R script.</p>
+<p>Save it inside the <code>scripts</code> folder as:</p>
+<pre class="text"><code>module-07.R</code></pre>
+<p>Load the tidyverse:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then import our camera-trap record table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/recordTable.csv"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s remind ourselves what the dataset looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(recordTable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3898   25</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(recordTable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "RootFolder"        "File"              "RelativePath"     
+ [4] "Station"           "Camera"            "DateTime"         
+ [7] "Species"           "N_individuals"     "Sex"              
+[10] "Age"               "Identifier"        "Comments"         
+[13] "Favorite"          "DateTime_original" "year"             
+[16] "date_shift"        "n_images"          "Date"             
+[19] "Time"              "delta.time.secs"   "delta.time.mins"  
+[22] "delta.time.hours"  "delta.time.days"   "DateTime2"        
+[25] "Date2"            </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recordTable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 25
+  RootFolder       File  RelativePath Station Camera DateTime            Species
+  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+1 Field Station 2… DSCF… "Control 0\… Contro… Contr… 2025-05-15 14:53:20 White-…
+2 Field Station 2… DSCF… "Control 1\… Contro… Contr… 2025-06-05 04:25:19 Armadi…
+3 Field Station 2… DSCF… "Control 1\… Contro… Contr… 2025-06-26 07:39:44 Armadi…
+4 Field Station 2… DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:07:20 Armadi…
+5 Field Station 2… DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:39:46 Armadi…
+6 Field Station 2… DSCF… "Control 1\… Contro… Contr… 2025-07-20 01:11:11 Armadi…
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Download the example data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you do not already have the dataset from Module 5, you can download it here:</p>
+<p><a href="../data/recordTable.csv" class="btn btn-primary" download="recordTable.csv">Download recordTable.csv</a></p>
+</div>
+</div>
+</section>
+<section id="think-of-dplyr-as-a-set-of-verbs" class="level2">
+<h2 class="anchored" data-anchor-id="think-of-dplyr-as-a-set-of-verbs">Think of <code>dplyr</code> as a set of verbs</h2>
+<p>Many <code>dplyr</code> functions are named after the action they perform.</p>
+<p>Some of the most useful are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>What does it do?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>select()</code></td>
+<td>Select columns</td>
+</tr>
+<tr class="even">
+<td><code>filter()</code></td>
+<td>Select rows</td>
+</tr>
+<tr class="odd">
+<td><code>arrange()</code></td>
+<td>Sort rows</td>
+</tr>
+<tr class="even">
+<td><code>rename()</code></td>
+<td>Rename columns</td>
+</tr>
+<tr class="odd">
+<td><code>mutate()</code></td>
+<td>Create or modify columns</td>
+</tr>
+<tr class="even">
+<td><code>count()</code></td>
+<td>Count observations</td>
+</tr>
+<tr class="odd">
+<td><code>group_by()</code></td>
+<td>Create groups</td>
+</tr>
+<tr class="even">
+<td><code>summarise()</code></td>
+<td>Calculate summaries</td>
+</tr>
+</tbody>
+</table>
+<p>You will use these functions again and again when working with data in R.</p>
+</section>
+<section id="selecting-columns-with-select" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-columns-with-select">Selecting columns with <code>select()</code></h2>
+<p>Our <code>recordTable</code> contains many variables.</p>
+<p>Sometimes we only need a few of them.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    N_individuals,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    Age,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    n_images</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 5
+   Station   Species           N_individuals Age     n_images
+   &lt;chr&gt;     &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+ 1 Control 0 White-tailed deer             0 Unknown        1
+ 2 Control 1 Armadillo                     1 Adult          2
+ 3 Control 1 Armadillo                     2 Unknown        2
+ 4 Control 1 Armadillo                     1 Unknown        1
+ 5 Control 1 Armadillo                     1 Unknown        1
+ 6 Control 1 Armadillo                     1 Adult          2
+ 7 Control 1 Armadillo                     1 Adult          1
+ 8 Control 1 Bug                           1 Adult          1
+ 9 Control 1 Bug                           1 Adult          2
+10 Control 1 Bug                           1 Adult          1
+# ℹ 3,888 more rows</code></pre>
+</div>
+</div>
+<p>This creates a dataset containing only those columns.</p>
+<p>We can save the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>selected_records <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    N_individuals,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    Age,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    n_images</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(selected_records)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Station"       "Species"       "N_individuals" "Age"          
+[5] "n_images"     </code></pre>
+</div>
+</div>
+<p>contains only the columns we selected.</p>
+<section id="removing-columns" class="level3">
+<h3 class="anchored" data-anchor-id="removing-columns">Removing columns</h3>
+<p>We can also use <code>select()</code> to remove columns.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>RootFolder,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>RelativePath</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 23
+   File     Station Camera DateTime            Species N_individuals Sex   Age  
+   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 DSCF000… Contro… Contr… 2025-05-15 14:53:20 White-…             0 &lt;NA&gt;  Unkn…
+ 2 DSCF013… Contro… Contr… 2025-06-05 04:25:19 Armadi…             1 Unkn… Adult
+ 3 DSCF042… Contro… Contr… 2025-06-26 07:39:44 Armadi…             2 Unkn… Unkn…
+ 4 DSCF042… Contro… Contr… 2025-06-26 08:07:20 Armadi…             1 Unkn… Unkn…
+ 5 DSCF042… Contro… Contr… 2025-06-26 08:39:46 Armadi…             1 Unkn… Unkn…
+ 6 DSCF040… Contro… Contr… 2025-07-20 01:11:11 Armadi…             1 Unkn… Adult
+ 7 DSCF041… Contro… Contr… 2025-07-20 02:11:12 Armadi…             1 Unkn… Adult
+ 8 DSCF016… Contro… Contr… 2025-06-09 13:26:30 Bug                 1 Unkn… Adult
+ 9 DSCF025… Contro… Contr… 2025-07-06 13:27:56 Bug                 1 Unkn… Adult
+10 DSCF025… Contro… Contr… 2025-07-06 14:24:44 Bug                 1 Unkn… Adult
+# ℹ 3,888 more rows
+# ℹ 15 more variables: Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;,
+#   DateTime_original &lt;dttm&gt;, year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;,
+#   Date &lt;date&gt;, Time &lt;time&gt;, delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;,
+#   delta.time.hours &lt;dbl&gt;, delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;,
+#   Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>The <code>-</code> means:</p>
+<blockquote class="blockquote">
+<p>Everything except these columns.</p>
+</blockquote>
+</section>
+<section id="selecting-by-data-type" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-by-data-type">Selecting by data type</h3>
+<p>We can also select columns based on their type.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 8
+   N_individuals  year date_shift n_images delta.time.secs delta.time.mins
+           &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+ 1             0  2025         NA        1               0             0  
+ 2             1  2025         89        2               0             0  
+ 3             2  2025         89        2         1826065         30434. 
+ 4             1  2025         89        1            1656            27.6
+ 5             1  2025         89        1            1946            32.4
+ 6             1  2025         89        2         2046685         34111. 
+ 7             1  2025         89        1            3601            60  
+ 8             1  2025         89        1               0             0  
+ 9             1  2025         89        2         2332886         38881. 
+10             1  2025         89        1            3408            56.8
+# ℹ 3,888 more rows
+# ℹ 2 more variables: delta.time.hours &lt;dbl&gt;, delta.time.days &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>returns only numeric columns.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You do not need to memorize every option available in <code>select()</code>.</p>
+<p>Start with selecting columns by name. The more advanced selection tools become useful as your datasets become larger.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="filtering-rows-with-filter" class="level2">
+<h2 class="anchored" data-anchor-id="filtering-rows-with-filter">Filtering rows with <code>filter()</code></h2>
+<p>While <code>select()</code> works with <strong>columns</strong>, <code>filter()</code> works with <strong>rows</strong>.</p>
+<p>For example, let’s select only records of White-tailed deer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>deer_records <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(deer_records<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "White-tailed deer"</code></pre>
+</div>
+</div>
+<p>All observations now correspond to the same species.</p>
+<section id="filtering-numeric-values" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-numeric-values">Filtering numeric values</h3>
+<p>We can also use relational operators.</p>
+<p>For example, records containing more than one individual:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 244 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 07:39:44 Armadi…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-28 16:48:44 Bug    
+ 3 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-29 15:10:02 Bug    
+ 4 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-29 16:08:40 Bug    
+ 5 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-30 15:38:00 Bug    
+ 6 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-20 06:56:25 White-…
+ 7 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-20 07:56:26 White-…
+ 8 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-28 12:48:34 White-…
+ 9 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-04-17 02:47:44 Armadi…
+10 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-06 23:31:16 Bug    
+# ℹ 234 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>Remember the operators we learned earlier:</p>
+<pre class="text"><code>&gt;      greater than
+&gt;=     greater than or equal to
+&lt;      less than
+&lt;=     less than or equal to
+==     equal to
+!=     different from</code></pre>
+</section>
+</section>
+<section id="multiple-filtering-conditions" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-filtering-conditions">Multiple filtering conditions</h2>
+<p>We can combine conditions.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 86 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-20 06:56:25 White-…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-20 07:56:26 White-…
+ 3 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-28 12:48:34 White-…
+ 4 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-04-24 15:32:46 White-…
+ 5 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-04-24 16:55:22 White-…
+ 6 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-05-05 14:58:46 White-…
+ 7 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-06 20:44:02 White-…
+ 8 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-06 21:44:04 White-…
+ 9 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-07 02:31:38 White-…
+10 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-07 16:02:24 White-…
+# ℹ 76 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>When conditions are separated by commas inside <code>filter()</code>, both conditions must be satisfied.</p>
+<p>This is equivalent to using:</p>
+<pre class="text"><code>&amp;</code></pre>
+<p>for <strong>AND</strong>.</p>
+<p>We can also select several species using <code>%in%</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">%in%</span> <span class="fu">c</span>(</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Armadillo"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Racoon"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,342 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 0\… Contro… Contr… 2025-05-15 14:53:20 White-…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-05 04:25:19 Armadi…
+ 3 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 07:39:44 Armadi…
+ 4 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:07:20 Armadi…
+ 5 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:39:46 Armadi…
+ 6 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-20 01:11:11 Armadi…
+ 7 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-20 02:11:12 Armadi…
+ 8 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-07 23:35:55 Racoon 
+ 9 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-05 06:20:42 Racoon 
+10 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-09 20:38:20 Racoon 
+# ℹ 2,332 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>The <code>%in%</code> operator is extremely useful when we want observations belonging to several categories.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember the difference:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Species <span class="sc">==</span> <span class="st">"Armadillo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>asks for one specific value.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Species <span class="sc">%in%</span> <span class="fu">c</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Armadillo"</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Racoon"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hog"</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>asks whether <code>Species</code> belongs to a group of possible values.</p>
+</div>
+</div>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
+<p>We can also use <code>filter()</code> to investigate missing information.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(Age)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-05 06:20:42 Racoon 
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-28 12:48:34 White-…
+ 3 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-13 02:54:18 Bug    
+ 4 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-21 00:40:56 Hog    
+ 5 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-21 01:40:40 Hog    
+ 6 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-27 19:58:32 Hog    
+ 7 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-27 20:58:32 Hog    
+ 8 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-30 10:12:50 Hog    
+ 9 Field Station … DSCF… "Control 2\… Contro… contr… 2025-08-10 03:54:34 Hog    
+10 Field Station … DSCF… "Control 2\… Contro… contr… 2025-08-10 04:22:32 Hog    
+# ℹ 77 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>This returns records where <code>Age</code> is missing.</p>
+<p>To keep records where <code>Age</code> is <strong>not</strong> missing:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Age)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,811 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 0\… Contro… Contr… 2025-05-15 14:53:20 White-…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-05 04:25:19 Armadi…
+ 3 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 07:39:44 Armadi…
+ 4 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:07:20 Armadi…
+ 5 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:39:46 Armadi…
+ 6 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-20 01:11:11 Armadi…
+ 7 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-20 02:11:12 Armadi…
+ 8 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-09 13:26:30 Bug    
+ 9 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-06 13:27:56 Bug    
+10 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-06 14:24:44 Bug    
+# ℹ 3,801 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>Here:</p>
+<pre class="text"><code>!</code></pre>
+<p>means <strong>NOT</strong>.</p>
+<p>So:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="fu">is.na</span>(Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>means:</p>
+<blockquote class="blockquote">
+<p>Age is not missing.</p>
+</blockquote>
+</section>
+<section id="sorting-rows-with-arrange" class="level2">
+<h2 class="anchored" data-anchor-id="sorting-rows-with-arrange">Sorting rows with <code>arrange()</code></h2>
+<p>Sometimes we want to sort a dataset.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(N_individuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 0\… Contro… Contr… 2025-05-15 14:53:20 White-…
+ 2 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-01 21:09:32 Bug    
+ 3 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-01 22:09:34 Bug    
+ 4 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-11 20:27:54 Bug    
+ 5 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-11 21:27:54 Bug    
+ 6 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-05-13 16:46:58 Human  
+ 7 Field Station … DSCF… "Control 4\… Contro… Contr… 2025-06-03 13:49:55 Human  
+ 8 Field Station … DSCF… "Control 4\… Contro… Contr… 2025-06-03 16:30:05 Human  
+ 9 Field Station … DSCF… "Control 4\… Contro… Contr… 2025-06-08 18:05:55 Human  
+10 Field Station … DSCF… "Control 4\… Contro… Contr… 2025-06-18 08:58:30 Wild t…
+# ℹ 3,888 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>sorts observations from the smallest to the largest number of individuals.</p>
+<p>To reverse the order:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(N_individuals)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-12 20:23:28 Hog    
+ 2 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-25 09:41:08 Hog    
+ 3 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-12 19:23:27 Hog    
+ 4 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-20 18:25:04 Hog    
+ 5 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-07-27 20:58:32 Hog    
+ 6 Field Station … DSCF… "Control 2\… Contro… contr… 2025-09-29 03:11:16 Hog    
+ 7 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-22 17:58:00 White-…
+ 8 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-10 16:11:14 Hog    
+ 9 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-20 17:25:03 Hog    
+10 Field Station … DSCF… "Control 2\… Contro… contr… 2025-06-04 14:41:56 Human  
+# ℹ 3,888 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>Now the records containing the largest number of individuals appear first.</p>
+<p>We can also sort using several variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(N_individuals)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Pine Canop… Pine C… Pine … 2025-06-22 07:48:45 Armadi…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 07:39:44 Armadi…
+ 3 Field Station … DSCF… "Control 2\… Contro… Contr… 2025-04-17 02:47:44 Armadi…
+ 4 Field Station … DSCF… "Control 3\… Contro… Contr… 2025-07-08 03:48:50 Armadi…
+ 5 Field Station … DSCF… "Control 3\… Contro… Contr… 2025-09-10 23:41:46 Armadi…
+ 6 Field Station … DSCF… "Control 4\… Contro… Contr… 2025-07-18 04:54:14 Armadi…
+ 7 Field Station … DSCF… "Fish 0\\Fi… Fish 0  Fish … 2025-06-14 17:49:00 Armadi…
+ 8 Field Station … DSCF… "Fish 0\\Fi… Fish 0  Fish … 2025-06-25 08:04:08 Armadi…
+ 9 Field Station … DSCF… "Fish 1\\Fi… Fish 1  Fish … 2025-06-23 20:45:15 Armadi…
+10 Field Station … DSCF… "Fish 2\\Fi… Fish 2  Fish … 2025-07-06 07:31:54 Armadi…
+# ℹ 3,888 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="renaming-columns" class="level2">
+<h2 class="anchored" data-anchor-id="renaming-columns">Renaming columns</h2>
+<p>Sometimes column names are too long, inconsistent, or difficult to type.</p>
+<p>We can rename them using <code>rename()</code>.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">station =</span> Station,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">species =</span> Species,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individuals =</span> N_individuals,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> Sex,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> Age,</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">images =</span> n_images,</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> Date,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> Time</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check the names:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(record_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "RootFolder"        "File"              "RelativePath"     
+ [4] "station"           "Camera"            "DateTime"         
+ [7] "species"           "individuals"       "sex"              
+[10] "age"               "Identifier"        "Comments"         
+[13] "Favorite"          "DateTime_original" "year"             
+[16] "date_shift"        "images"            "date"             
+[19] "time"              "delta.time.secs"   "delta.time.mins"  
+[22] "delta.time.hours"  "delta.time.days"   "DateTime2"        
+[25] "Date2"            </code></pre>
+</div>
+</div>
+<p>The original <code>recordTable</code> has not been modified.</p>
+<p>We created a <strong>new object</strong> called:</p>
+<pre class="text"><code>record_data</code></pre>
+<p>with the renamed columns.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Creating a new object is usually safer than repeatedly modifying your original imported data.</p>
+<p>For example:</p>
+<pre class="text"><code>recordTable    → original imported data
+
+record_data    → modified working data</code></pre>
+<p>This makes it easier to return to the original information if something goes wrong.</p>
+</div>
+</div>
+<p>We will use <code>record_data</code> for some of the next examples.</p>
+</section>
+<section id="creating-new-columns-with-mutate" class="level2">
+<h2 class="anchored" data-anchor-id="creating-new-columns-with-mutate">Creating new columns with <code>mutate()</code></h2>
+<p>The function <code>mutate()</code> allows us to create or modify columns.</p>
+<p>For example, we can create a logical variable indicating whether a record contains more than one individual:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="ot">&lt;-</span> record_data <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple_individuals =</span> individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  record_data,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  species,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  individuals,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  multiple_individuals</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 3
+   species           individuals multiple_individuals
+   &lt;chr&gt;                   &lt;dbl&gt; &lt;lgl&gt;               
+ 1 White-tailed deer           0 FALSE               
+ 2 Armadillo                   1 FALSE               
+ 3 Armadillo                   2 TRUE                
+ 4 Armadillo                   1 FALSE               
+ 5 Armadillo                   1 FALSE               
+ 6 Armadillo                   1 FALSE               
+ 7 Armadillo                   1 FALSE               
+ 8 Bug                         1 FALSE               
+ 9 Bug                         1 FALSE               
+10 Bug                         1 FALSE               
+# ℹ 3,888 more rows</code></pre>
+</div>
+</div>
+<p>contains our new variable.</p>
+<p>Because the condition:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>individuals <span class="sc">&gt;</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>returns <code>TRUE</code> or <code>FALSE</code>, the new column is logical.</p>
+<p>We could also create a numeric variable.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="ot">&lt;-</span> record_data <span class="sc">|&gt;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">images_double =</span> images <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Of course, there is not much biological meaning in doubling the number of images.</p>
+<p>The point is simply that <code>mutate()</code> can use existing variables to create new ones.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A useful question when using <code>mutate()</code> is:</p>
+<blockquote class="blockquote">
+<p>Can this new variable be calculated from information already contained in my dataset?</p>
+</blockquote>
+</div>
+</div>
+</section>
+<section id="counting-observations" class="level2">
+<h2 class="anchored" data-anchor-id="counting-observations">Counting observations</h2>
+<p>Counting observations is extremely common when working with camera-trap records.</p>
+<p>For example:</p>
+<blockquote class="blockquote">
+<p>How many records do we have for each species?</p>
+</blockquote>
+<p>We can use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 2
+   species                   n
+   &lt;chr&gt;                 &lt;int&gt;
+ 1 Armadillo               554
+ 2 Bird                     78
+ 3 Black vulture             3
+ 4 Bobcat                   22
+ 5 Bug                      99
+ 6 Coyote                   75
+ 7 Domestic cat              2
+ 8 Domestic dog              5
+ 9 Eastern Cottontail       61
+10 Eastern gray squirrel   244
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>By default, the new column containing the count is called:</p>
+<pre class="text"><code>n</code></pre>
+<p>We can sort the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    species,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">TRUE</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 2
+   species                   n
+   &lt;chr&gt;                 &lt;int&gt;
+ 1 White-tailed deer      1266
+ 2 Armadillo               554
+ 3 Racoon                  522
+ 4 Hog                     454
+ 5 Virginia opossum        295
+ 6 Eastern gray squirrel   244
+ 7 Bug                      99
+ 8 Human                    80
+ 9 Bird                     78
+10 Coyote                   75
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>Now the species with the most records appears first.</p>
+<section id="counting-combinations" class="level3">
+<h3 class="anchored" data-anchor-id="counting-combinations">Counting combinations</h3>
+<p>We can count more than one variable.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    station,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    species</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 154 × 3
+   station   species                n
+   &lt;chr&gt;     &lt;chr&gt;              &lt;int&gt;
+ 1 Control 0 White-tailed deer      1
+ 2 Control 1 Armadillo              6
+ 3 Control 1 Bug                   30
+ 4 Control 1 Coyote                 1
+ 5 Control 1 Eastern Cottontail     5
+ 6 Control 1 Hog                    7
+ 7 Control 1 Human                  1
+ 8 Control 1 Racoon                12
+ 9 Control 1 Virginia opossum       2
+10 Control 1 White-tailed deer     29
+# ℹ 144 more rows</code></pre>
+</div>
+</div>
+<p>Now each row represents:</p>
+<pre class="text"><code>one station × one species</code></pre>
+<p>and <code>n</code> represents the number of records for that combination.</p>
+<p>This is exactly the type of summarized dataset we used in the previous module when comparing the number of records among species.</p>
+</section>
+</section>
+<section id="unique-values-with-distinct" class="level2">
+<h2 class="anchored" data-anchor-id="unique-values-with-distinct">Unique values with <code>distinct()</code></h2>
+<p>Sometimes we want to know which unique values occur in a variable.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 1
+   species           
+   &lt;chr&gt;             
+ 1 White-tailed deer 
+ 2 Armadillo         
+ 3 Bug               
+ 4 Coyote            
+ 5 Eastern Cottontail
+ 6 Hog               
+ 7 Human             
+ 8 Racoon            
+ 9 Virginia opossum  
+10 Bobcat            
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>gives us one row for each species.</p>
+<p>Similarly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 1
+   station          
+   &lt;chr&gt;            
+ 1 Control 0        
+ 2 Control 1        
+ 3 Control 2        
+ 4 Control 3        
+ 5 Control 4        
+ 6 Fish 0           
+ 7 Fish 1           
+ 8 Fish 2           
+ 9 Fish 3           
+10 Hardwood Canopy 1
+11 Hardwood Canopy 2
+12 Perfume 0        
+13 Perfume 1        
+14 Perfume 2        
+15 Pine Canopy 1    
+16 Pine Canopy 2    
+17 Pine Canopy 3    </code></pre>
+</div>
+</div>
+<p>gives us the unique camera stations.</p>
+<p>We can also ask:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(record_data<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22</code></pre>
+</div>
+</div>
+<p>to obtain the total number of unique species.</p>
+</section>
+<section id="grouping-and-summarizing-data" class="level2">
+<h2 class="anchored" data-anchor-id="grouping-and-summarizing-data">Grouping and summarizing data</h2>
+<p><code>count()</code> is useful for simple counts.</p>
+<p>But often we want to calculate several summaries for each group.</p>
+<p>This is where:</p>
+<pre class="text"><code>group_by()</code></pre>
+<p>and:</p>
+<pre class="text"><code>summarise()</code></pre>
+<p>become extremely useful.</p>
+<p>For example, let’s group our records by species:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,898 × 27
+# Groups:   species [22]
+   RootFolder      File  RelativePath station Camera DateTime            species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 0\… Contro… Contr… 2025-05-15 14:53:20 White-…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-05 04:25:19 Armadi…
+ 3 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 07:39:44 Armadi…
+ 4 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:07:20 Armadi…
+ 5 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-26 08:39:46 Armadi…
+ 6 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-20 01:11:11 Armadi…
+ 7 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-20 02:11:12 Armadi…
+ 8 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-09 13:26:30 Bug    
+ 9 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-06 13:27:56 Bug    
+10 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-07-06 14:24:44 Bug    
+# ℹ 3,888 more rows
+# ℹ 20 more variables: individuals &lt;dbl&gt;, sex &lt;chr&gt;, age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, images &lt;dbl&gt;, date &lt;date&gt;, time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;,
+#   multiple_individuals &lt;lgl&gt;, images_double &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>By itself, <code>group_by()</code> does not visibly change much.</p>
+<p>It tells R:</p>
+<blockquote class="blockquote">
+<p>The next operations should be performed separately for each species.</p>
+</blockquote>
+<p>Now we can add <code>summarise()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>record_data <span class="sc">|&gt;</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>()</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 2
+   species               records
+   &lt;chr&gt;                   &lt;int&gt;
+ 1 Armadillo                 554
+ 2 Bird                       78
+ 3 Black vulture               3
+ 4 Bobcat                     22
+ 5 Bug                        99
+ 6 Coyote                     75
+ 7 Domestic cat                2
+ 8 Domestic dog                5
+ 9 Eastern Cottontail         61
+10 Eastern gray squirrel     244
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>The function:</p>
+<pre class="text"><code>n()</code></pre>
+<p>counts the number of rows within each group.</p>
+</section>
+<section id="more-than-one-summary" class="level2">
+<h2 class="anchored" data-anchor-id="more-than-one-summary">More than one summary</h2>
+<p>We can calculate several statistics at the same time.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>species_summary <span class="ot">&lt;-</span> record_data <span class="sc">|&gt;</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stations =</span> <span class="fu">n_distinct</span>(station),</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_individuals =</span> <span class="fu">sum</span>(</span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>      individuals,</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_individuals =</span> <span class="fu">mean</span>(</span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>      individuals,</span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now inspect:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>species_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 5
+   species               records stations total_individuals mean_individuals
+   &lt;chr&gt;                   &lt;int&gt;    &lt;int&gt;             &lt;dbl&gt;            &lt;dbl&gt;
+ 1 Armadillo                 554       15               576            1.04 
+ 2 Bird                       78        9                83            1.06 
+ 3 Black vulture               3        1                 4            1.33 
+ 4 Bobcat                     22        6                22            1    
+ 5 Bug                        99        8               113            1.14 
+ 6 Coyote                     75       11                79            1.05 
+ 7 Domestic cat                2        1                 2            1    
+ 8 Domestic dog                5        2                 6            1.2  
+ 9 Eastern Cottontail         61        8                60            0.984
+10 Eastern gray squirrel     244        9               252            1.03 
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>Each row represents one species.</p>
+<p>The columns contain different summaries:</p>
+<pre class="text"><code>records
+stations
+total_individuals
+mean_individuals</code></pre>
+<p>This is very different from our original <code>recordTable</code>, where each row represented an individual camera-trap record.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is an important change in the <strong>unit represented by each row</strong>.</p>
+<p>Before:</p>
+<pre class="text"><code>1 row = 1 camera-trap record</code></pre>
+<p>After summarizing:</p>
+<pre class="text"><code>1 row = 1 species</code></pre>
+<p>Always ask yourself:</p>
+<blockquote class="blockquote">
+<p>What does one row represent in this dataset?</p>
+</blockquote>
+</div>
+</div>
+</section>
+<section id="summarizing-by-camera-station" class="level2">
+<h2 class="anchored" data-anchor-id="summarizing-by-camera-station">Summarizing by camera station</h2>
+<p>We can group by any variable.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>station_summary <span class="ot">&lt;-</span> record_data <span class="sc">|&gt;</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(station) <span class="sc">|&gt;</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">species_richness =</span> <span class="fu">n_distinct</span>(species),</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_individuals =</span> <span class="fu">sum</span>(</span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>      individuals,</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>station_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 4
+   station           records species_richness total_individuals
+   &lt;chr&gt;               &lt;int&gt;            &lt;int&gt;             &lt;dbl&gt;
+ 1 Control 0               1                1                 0
+ 2 Control 1              93                9               101
+ 3 Control 2            1029               13              1169
+ 4 Control 3             214               14               232
+ 5 Control 4             232               14               250
+ 6 Fish 0                759               16               789
+ 7 Fish 1                156               11               148
+ 8 Fish 2                402               14               428
+ 9 Fish 3                 42                8                44
+10 Hardwood Canopy 1     158                6               180
+11 Hardwood Canopy 2      64                7                79
+12 Perfume 0             430               11               450
+13 Perfume 1              42                6                42
+14 Perfume 2             252               13               254
+15 Pine Canopy 1          11                5                 8
+16 Pine Canopy 2           4                2                 4
+17 Pine Canopy 3           9                4                10</code></pre>
+</div>
+</div>
+<p>contains one row per camera station.</p>
+<p>This is already much closer to the type of data we might use for ecological comparisons among sites.</p>
+</section>
+<section id="pipes" class="level2">
+<h2 class="anchored" data-anchor-id="pipes">Pipes</h2>
+<p>You have probably noticed that we have been using:</p>
+<pre class="text"><code>|&gt;</code></pre>
+<p>throughout this module.</p>
+<p>This is called a <strong>pipe</strong>.</p>
+<p>The pipe allows us to pass the result of one operation directly into the next one.</p>
+<p>You can read:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>approximately as:</p>
+<blockquote class="blockquote">
+<p>Take <code>data</code>, <strong>then</strong> apply <code>function()</code>.</p>
+</blockquote>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,266 × 25
+   RootFolder      File  RelativePath Station Camera DateTime            Species
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  
+ 1 Field Station … DSCF… "Control 0\… Contro… Contr… 2025-05-15 14:53:20 White-…
+ 2 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-04 21:02:19 White-…
+ 3 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-09 23:34:22 White-…
+ 4 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-10 00:34:24 White-…
+ 5 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-16 09:39:38 White-…
+ 6 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-16 10:39:40 White-…
+ 7 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-18 08:46:21 White-…
+ 8 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-18 09:46:22 White-…
+ 9 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-20 06:56:25 White-…
+10 Field Station … DSCF… "Control 1\… Contro… Contr… 2025-06-20 07:56:26 White-…
+# ℹ 1,256 more rows
+# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,
+#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,
+#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,
+#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,
+#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
+</div>
+</div>
+<p>can be read as:</p>
+<blockquote class="blockquote">
+<p>Take <code>recordTable</code>, <strong>then</strong> keep only White-tailed deer.</p>
+</blockquote>
+</section>
+<section id="why-use-pipes" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-pipes">Why use pipes?</h2>
+<p>Imagine we want to:</p>
+<ol type="1">
+<li>filter White-tailed deer,</li>
+<li>select a few variables,</li>
+<li>keep records with more than one individual,</li>
+<li>and count records by station.</li>
+</ol>
+<p>Without pipes, we could write:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>deer_records <span class="ot">&lt;-</span> <span class="fu">filter</span>(</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  recordTable,</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span></span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>deer_records <span class="ot">&lt;-</span> <span class="fu">select</span>(</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  deer_records,</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  Station,</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>  Species,</span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a>  N_individuals</span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a>deer_records <span class="ot">&lt;-</span> <span class="fu">filter</span>(</span>
+<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a>  deer_records,</span>
+<span id="cb91-15"><a href="#cb91-15" aria-hidden="true" tabindex="-1"></a>  N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb91-16"><a href="#cb91-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb91-17"><a href="#cb91-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-18"><a href="#cb91-18" aria-hidden="true" tabindex="-1"></a>deer_summary <span class="ot">&lt;-</span> <span class="fu">count</span>(</span>
+<span id="cb91-19"><a href="#cb91-19" aria-hidden="true" tabindex="-1"></a>  deer_records,</span>
+<span id="cb91-20"><a href="#cb91-20" aria-hidden="true" tabindex="-1"></a>  Station,</span>
+<span id="cb91-21"><a href="#cb91-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">sort =</span> <span class="cn">TRUE</span></span>
+<span id="cb91-22"><a href="#cb91-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This works.</p>
+<p>But with pipes, we can write the entire workflow as a sequence:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>deer_summary <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>    N_individuals</span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">TRUE</span></span>
+<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now the code reads from top to bottom:</p>
+<pre class="text"><code>start with recordTable
+        ↓
+keep deer
+        ↓
+select variables
+        ↓
+keep records with &gt;1 individual
+        ↓
+count records by station</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\images/module-07/Pipe.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>This is the idea behind a <strong>data pipeline</strong>.</p>
+</section>
+<section id="or" class="level2">
+<h2 class="anchored" data-anchor-id="or"><code>|&gt;</code> or <code>%&gt;%</code>?</h2>
+<p>You may encounter another pipe in R code:</p>
+<pre class="text"><code>%&gt;%</code></pre>
+<p>For example:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This pipe comes from the tidyverse ecosystem and was widely used before R introduced its own pipe:</p>
+<pre class="text"><code>|&gt;</code></pre>
+<p>Both are still common.</p>
+<p>In this course, we will primarily use:</p>
+<pre class="text"><code>|&gt;</code></pre>
+<p>because it is now built directly into R.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You do not need to rewrite old code just because it uses <code>%&gt;%</code>.</p>
+<p>It is useful to recognize both.</p>
+<p>For most of what we do in this course, they behave very similarly.</p>
+</div>
+</div>
+</section>
+<section id="putting-everything-together" class="level2">
+<h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
+<p>Now let’s create a more complete pipeline.</p>
+<p>Suppose we want to answer:</p>
+<blockquote class="blockquote">
+<p>At how many stations was each of the five most commonly recorded species detected, and how many records did each species have?</p>
+</blockquote>
+<p>First, define the species we want:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>common_species <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Armadillo"</span>,</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Racoon"</span>,</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hog"</span>,</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Virginia opossum"</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>common_summary <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">%in%</span> common_species</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">|&gt;</span></span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">stations =</span> <span class="fu">n_distinct</span>(Station),</span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_individuals =</span> <span class="fu">sum</span>(</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>      N_individuals,</span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(records)</span>
+<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Look at the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>common_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  Species           records stations total_individuals
+  &lt;chr&gt;               &lt;int&gt;    &lt;int&gt;             &lt;dbl&gt;
+1 White-tailed deer    1266       16              1366
+2 Armadillo             554       15               576
+3 Racoon                522       11               538
+4 Hog                   454       11               574
+5 Virginia opossum      295        9               299</code></pre>
+</div>
+</div>
+<p>A relatively large raw dataset has now become a small table that directly answers our question.</p>
+</section>
+<section id="from-data-manipulation-to-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="from-data-manipulation-to-visualization">From data manipulation to visualization</h2>
+<p>Because <code>dplyr</code> and <code>ggplot2</code> are designed to work together, we can easily visualize our summarized data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  common_summary,</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Species,</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> records,</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> Species</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Camera-trap records of common species"</span>,</span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of records"</span></span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-data-manipulation_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that here we use:</p>
+<pre class="text"><code>geom_col()</code></pre>
+<p>instead of:</p>
+<pre class="text"><code>geom_bar()</code></pre>
+<p>Why?</p>
+<p><code>geom_bar()</code> counts the observations for us.</p>
+<p>But <code>common_summary</code> already contains a column called:</p>
+<pre class="text"><code>records</code></pre>
+<p>with the counts we want to plot.</p>
+<p><code>geom_col()</code> uses those existing values directly.</p>
+</section>
+<section id="from-raw-data-to-a-result" class="level2">
+<h2 class="anchored" data-anchor-id="from-raw-data-to-a-result">From raw data to a result</h2>
+<p>At this point, we can begin to see a complete R workflow:</p>
+<pre class="text"><code>raw data
+    ↓
+import
+    ↓
+inspect
+    ↓
+filter / select
+    ↓
+create variables
+    ↓
+group and summarize
+    ↓
+visualize
+    ↓
+export</code></pre>
+<p>For example, we can save our species summary:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  common_summary,</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"outputs/common_species_summary.csv"</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now our entire workflow can be reproduced by running the script again.</p>
+</section>
+<section id="practice-at-home" class="level2">
+<h2 class="anchored" data-anchor-id="practice-at-home">Practice at home</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This activity should take approximately <strong>20–30 minutes</strong>.</p>
+<p>Open your <code>intro-r-course</code> project and create:</p>
+<pre class="text"><code>practice-07.R</code></pre>
+<p>inside your <code>scripts</code> folder.</p>
+<p>Load <code>tidyverse</code> and import:</p>
+<pre class="text"><code>data/recordTable.csv</code></pre>
+<section id="part-1-select" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-select">Part 1: Select</h3>
+<p>Create a new object called:</p>
+<pre class="text"><code>practice_records</code></pre>
+<p>containing only:</p>
+<pre class="text"><code>Station
+Species
+N_individuals
+Age
+n_images</code></pre>
+</section>
+<section id="part-2-filter" class="level3">
+<h3 class="anchored" data-anchor-id="part-2-filter">Part 2: Filter</h3>
+<p>Using <code>practice_records</code>:</p>
+<ol type="1">
+<li>Keep only <code>"White-tailed deer"</code> records.</li>
+<li>Keep only records with more than one individual.</li>
+<li>Try combining both conditions.</li>
+</ol>
+</section>
+<section id="part-3-count" class="level3">
+<h3 class="anchored" data-anchor-id="part-3-count">Part 3: Count</h3>
+<p>Using the original <code>recordTable</code>, calculate the number of records for each species.</p>
+<p>Sort the result from most to least common.</p>
+</section>
+<section id="part-4-group-and-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-group-and-summarize">Part 4: Group and summarize</h3>
+<p>Create one table with one row per <code>Station</code>.</p>
+<p>For each station calculate:</p>
+<pre class="text"><code>number of records
+number of species
+total number of individuals</code></pre>
+</section>
+<section id="part-5-create-a-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="part-5-create-a-pipeline">Part 5: Create a pipeline</h3>
+<p>Create a single pipeline that:</p>
+<ol type="1">
+<li>starts with <code>recordTable</code>,</li>
+<li>keeps only <code>"Armadillo"</code>, <code>"Racoon"</code>, and <code>"Hog"</code>,</li>
+<li>keeps only records with <code>N_individuals &gt; 0</code>,</li>
+<li>groups by <code>Species</code>,</li>
+<li>calculates the number of records,</li>
+<li>calculates the number of camera stations,</li>
+<li>sorts the table from the most to the fewest records.</li>
+</ol>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Suggested solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>recordTable <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/recordTable.csv"</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 1: Select</span></span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>practice_records <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a>    Station,</span>
+<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a>    N_individuals,</span>
+<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a>    Age,</span>
+<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>    n_images</span>
+<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-21"><a href="#cb113-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-22"><a href="#cb113-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-23"><a href="#cb113-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 2: Filter</span></span>
+<span id="cb113-24"><a href="#cb113-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-25"><a href="#cb113-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-26"><a href="#cb113-26" aria-hidden="true" tabindex="-1"></a>practice_records <span class="sc">|&gt;</span></span>
+<span id="cb113-27"><a href="#cb113-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb113-28"><a href="#cb113-28" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span></span>
+<span id="cb113-29"><a href="#cb113-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-30"><a href="#cb113-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-31"><a href="#cb113-31" aria-hidden="true" tabindex="-1"></a>practice_records <span class="sc">|&gt;</span></span>
+<span id="cb113-32"><a href="#cb113-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb113-33"><a href="#cb113-33" aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb113-34"><a href="#cb113-34" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-35"><a href="#cb113-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-36"><a href="#cb113-36" aria-hidden="true" tabindex="-1"></a>practice_records <span class="sc">|&gt;</span></span>
+<span id="cb113-37"><a href="#cb113-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb113-38"><a href="#cb113-38" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">==</span> <span class="st">"White-tailed deer"</span>,</span>
+<span id="cb113-39"><a href="#cb113-39" aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb113-40"><a href="#cb113-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-41"><a href="#cb113-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-42"><a href="#cb113-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-43"><a href="#cb113-43" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-44"><a href="#cb113-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 3: Count</span></span>
+<span id="cb113-45"><a href="#cb113-45" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-46"><a href="#cb113-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-47"><a href="#cb113-47" aria-hidden="true" tabindex="-1"></a>recordTable <span class="sc">|&gt;</span></span>
+<span id="cb113-48"><a href="#cb113-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb113-49"><a href="#cb113-49" aria-hidden="true" tabindex="-1"></a>    Species,</span>
+<span id="cb113-50"><a href="#cb113-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">sort =</span> <span class="cn">TRUE</span></span>
+<span id="cb113-51"><a href="#cb113-51" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-52"><a href="#cb113-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-53"><a href="#cb113-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-54"><a href="#cb113-54" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-55"><a href="#cb113-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 4: Group and summarize</span></span>
+<span id="cb113-56"><a href="#cb113-56" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-57"><a href="#cb113-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-58"><a href="#cb113-58" aria-hidden="true" tabindex="-1"></a>station_summary <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb113-59"><a href="#cb113-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Station) <span class="sc">|&gt;</span></span>
+<span id="cb113-60"><a href="#cb113-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb113-61"><a href="#cb113-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb113-62"><a href="#cb113-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">species =</span> <span class="fu">n_distinct</span>(Species),</span>
+<span id="cb113-63"><a href="#cb113-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_individuals =</span> <span class="fu">sum</span>(</span>
+<span id="cb113-64"><a href="#cb113-64" aria-hidden="true" tabindex="-1"></a>      N_individuals,</span>
+<span id="cb113-65"><a href="#cb113-65" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb113-66"><a href="#cb113-66" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb113-67"><a href="#cb113-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb113-68"><a href="#cb113-68" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-69"><a href="#cb113-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-70"><a href="#cb113-70" aria-hidden="true" tabindex="-1"></a>station_summary</span>
+<span id="cb113-71"><a href="#cb113-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-72"><a href="#cb113-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-73"><a href="#cb113-73" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-74"><a href="#cb113-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 5: Pipeline</span></span>
+<span id="cb113-75"><a href="#cb113-75" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------</span></span>
+<span id="cb113-76"><a href="#cb113-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-77"><a href="#cb113-77" aria-hidden="true" tabindex="-1"></a>species_summary <span class="ot">&lt;-</span> recordTable <span class="sc">|&gt;</span></span>
+<span id="cb113-78"><a href="#cb113-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb113-79"><a href="#cb113-79" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">%in%</span> <span class="fu">c</span>(</span>
+<span id="cb113-80"><a href="#cb113-80" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Armadillo"</span>,</span>
+<span id="cb113-81"><a href="#cb113-81" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Racoon"</span>,</span>
+<span id="cb113-82"><a href="#cb113-82" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Hog"</span></span>
+<span id="cb113-83"><a href="#cb113-83" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb113-84"><a href="#cb113-84" aria-hidden="true" tabindex="-1"></a>    N_individuals <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb113-85"><a href="#cb113-85" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb113-86"><a href="#cb113-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">|&gt;</span></span>
+<span id="cb113-87"><a href="#cb113-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb113-88"><a href="#cb113-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> <span class="fu">n</span>(),</span>
+<span id="cb113-89"><a href="#cb113-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">stations =</span> <span class="fu">n_distinct</span>(Station),</span>
+<span id="cb113-90"><a href="#cb113-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb113-91"><a href="#cb113-91" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb113-92"><a href="#cb113-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb113-93"><a href="#cb113-93" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(records)</span>
+<span id="cb113-94"><a href="#cb113-94" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-95"><a href="#cb113-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-96"><a href="#cb113-96" aria-hidden="true" tabindex="-1"></a>species_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The exact values in your results are less important than understanding how the pipeline works.</p>
+<p>Try reading your code from top to bottom:</p>
+<pre class="text"><code>start with the data
+       ↓
+select or filter
+       ↓
+group
+       ↓
+summarize
+       ↓
+arrange</code></pre>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -565,5 +2107,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-</body>
-</html>
+</body></html>

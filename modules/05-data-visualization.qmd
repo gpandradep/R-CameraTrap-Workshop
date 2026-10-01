@@ -1,0 +1,1165 @@
+---
+title: "Module 5: Data Visualization with ggplot2"
+toc: true
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+
+recordTable <- read_csv(
+  here("data", "recordTable.csv"),
+  show_col_types = FALSE
+)
+```
+
+## Introduction
+
+One of the most useful — and fun — things we can do with R is create graphics.
+
+Data visualization can help us:
+
+- understand our data,
+- identify patterns,
+- detect unusual values,
+- compare groups,
+- explore relationships,
+- and communicate results.
+
+In this module, we will use the package **ggplot2**.
+
+`ggplot2` is part of the `tidyverse` and uses a consistent system for building graphics by adding different **layers**.
+
+::: callout-note
+## Download the example data
+
+We will use a camera-trap record table throughout this module.
+
+[Download recordTable.csv](../data/recordTable.csv){.btn .btn-primary download="recordTable.csv"}
+:::
+
+## Let's get started
+
+Open your `intro-r-course` project and create a new R script.
+
+Save it inside the `scripts` folder as:
+
+``` text
+module-05.R
+```
+
+First, load the `tidyverse` package:
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+```
+
+Then import the dataset:
+
+```{r}
+#| eval: false
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+```
+
+Remember that we should always inspect a dataset after importing it.
+
+```{r}
+head(recordTable)
+```
+
+```{r}
+dim(recordTable)
+```
+
+```{r}
+names(recordTable)
+```
+
+```{r}
+str(recordTable)
+```
+
+For this module, some of the variables that will be especially useful are:
+
+``` text
+Station
+Species
+N_individuals
+Age
+n_images
+Date
+Time
+```
+
+## The logic of ggplot2
+
+Most graphics in `ggplot2` follow the same general structure:
+
+``` text
+data
+  +
+aesthetics
+  +
+geometry
+  +
+additional layers
+```
+
+In R, this looks like:
+
+``` r
+ggplot(
+  data = data,
+  aes(x = variable)
+) +
+  geom_something()
+```
+
+The function:
+
+``` text
+ggplot()
+```
+
+creates the graphical object.
+
+Inside:
+
+``` text
+aes()
+```
+
+we specify which variables will be represented visually.
+
+Then we add a **geometry**, or `geom`, that determines how those variables will be displayed.
+
+For example:
+
+``` r
+geom_bar()
+geom_histogram()
+geom_point()
+geom_boxplot()
+geom_violin()
+```
+
+Each geometry answers a slightly different type of question.
+
+| Geometry           | Useful for                                   |
+|--------------------|----------------------------------------------|
+| `geom_bar()`       | Counts among categories                      |
+| `geom_histogram()` | Distribution of a numeric variable           |
+| `geom_point()`     | Relationship between two variables           |
+| `geom_boxplot()`   | Comparing numeric distributions among groups |
+| `geom_violin()`    | Visualizing distributions among groups       |
+
+::: callout-tip
+## I'll show you the basics, but you can get creative
+
+There are many more options depending on what you want to explore or communicate with your data.
+
+If you want to go further, I recommend visiting these two websites:
+
+[R Charts](https://r-charts.com/distribution/) & [R Graph Gallery](https://r-graph-gallery.com/)
+
+![](/images/module-05/datavizexample.png){fig-align="center"}
+:::
+
+We will explore each of these using our camera-trap data.
+
+## Bar plots
+
+Let's begin with a simple question:
+
+> How many records do we have for each species?
+
+Our variable `Species` contains the species identified in each record.
+
+We can create a bar plot using:
+
+```{r}
+ggplot(
+  data = recordTable, # data
+  aes(x = Species) #x axis variabe
+) +
+  geom_bar() # geometry
+```
+
+`geom_bar()` automatically counts how many observations occur in each category.
+
+Because we have several species, the labels are difficult to read.
+
+We can rotate the plot using:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar() +
+  coord_flip() # Rotate the axis
+```
+
+Now each bar represents the number of records for one species.
+
+### Adding color
+
+We can change the appearance of the bars by adding a `fill` argument:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar(fill = "steelblue") +
+  coord_flip()
+```
+
+In this case:
+
+``` r
+fill = "steelblue"
+```
+
+does not represent a variable.
+
+We are simply telling `ggplot2`:
+
+> Make all the bars this color.
+
+## Labels
+
+A graph should tell the reader what they are looking at.
+
+We can add labels using `labs()`:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  )
+```
+
+We can also add a theme:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+## Themes
+
+Themes control the general appearance of a plot.
+
+For example:
+
+``` r
+theme_bw()
+```
+
+``` r
+theme_classic()
+```
+
+``` r
+theme_minimal()
+```
+
+Try replacing `theme_bw()` with the other themes and see which one you prefer.
+
+::: callout-tip
+There is no single correct theme.
+
+The most important thing is that the graph is clear and easy to interpret.
+:::
+
+## Histograms
+
+A histogram helps us visualize the distribution of a **numeric variable**.
+
+Our dataset contains:
+
+``` text
+n_images
+```
+
+which represents the number of images associated with a record.
+
+Let's look at its distribution:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram()
+```
+
+By default, `ggplot2` chooses the number of bins automatically.
+
+We can control this ourselves.
+
+For example:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  labs(
+    title = "Number of images per record",
+    x = "Number of images",
+    y = "Frequency"
+  ) +
+  theme_bw()
+```
+
+The dataset contains a few records with many images, so most observations are concentrated on the left side of the plot.
+
+We can zoom into the first 20 images:
+
+```{r}
+ggplot(
+  data = recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(
+    xlim = c(1, 20)
+  ) +
+  labs(
+    title = "Number of images per record",
+    x = "Number of images",
+    y = "Frequency"
+  ) +
+  theme_bw()
+```
+
+::: callout-note
+Changing the number or width of the bins can change how a histogram looks.
+
+Always experiment with different values before interpreting the pattern.
+:::
+
+## Aesthetics: mapping versus setting
+
+One of the most important ideas in `ggplot2` is the difference between **mapping** an aesthetic to a variable and **setting** an aesthetic manually.
+
+For example:
+
+``` r
+geom_point(color = "steelblue")
+```
+
+means:
+
+> Make every point steel blue.
+
+But:
+
+``` r
+geom_point(aes(color = Species))
+```
+
+means:
+
+> Use different colors to represent different species.
+
+The first is a **setting**.
+
+The second is a **mapping**.
+
+The same idea applies to:
+
+``` text
+color
+fill
+shape
+size
+alpha
+```
+
+## Selecting some species
+
+Our dataset contains many species.
+
+For some graphics, it will be easier to focus on a few common species.
+
+Let's create a vector containing five species:
+
+```{r}
+common_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Racoon",
+  "Hog",
+  "Virginia opossum"
+)
+```
+
+Remember what we learned about logical operators and selecting rows?
+
+We can use:
+
+```{r}
+common_records <- recordTable[
+  recordTable$Species %in% common_species,
+]
+```
+
+Now check:
+
+```{r}
+unique(common_records$Species)
+```
+
+We have created a smaller dataset containing only those species.
+
+::: callout-note
+We are using base R selection here because we already learned how logical selection works.
+
+Later in the course, we will learn easier ways to filter datasets using `dplyr`.
+:::
+
+## Scatterplots
+
+Scatterplots are useful for exploring the relationship between two numeric variables.
+
+For example, we can ask:
+
+> Is the number of individuals in a record related to the number of images taken?
+
+We can visualize this using:
+
+```{r}
+ggplot(
+  data = common_records,
+  aes(
+    x = N_individuals,
+    y = n_images
+  )
+) +
+  geom_point()
+```
+
+Now let's map species to color:
+
+```{r}
+ggplot(
+  data = common_records,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point() +
+  labs(
+    title = "Number of individuals and images per record",
+    x = "Number of individuals",
+    y = "Number of images",
+    color = "Species"
+  ) +
+  theme_bw()
+```
+
+We can make points partially transparent using `alpha`:
+
+```{r}
+ggplot(
+  data = common_records,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point(
+    alpha = 0.4,
+    size = 2
+  ) +
+  labs(
+    title = "Number of individuals and images per record",
+    x = "Number of individuals",
+    y = "Number of images",
+    color = "Species"
+  ) +
+  theme_bw()
+```
+
+Lower values of `alpha` make points more transparent.
+
+This can be useful when many observations overlap.
+
+## Shapes
+
+Categorical variables can also be represented using different shapes.
+
+For example:
+
+```{r}
+ggplot(
+  data = common_records,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    shape = Age
+  )
+) +
+  geom_point(
+    size = 3,
+    alpha = 0.5
+  ) +
+  labs(
+    title = "Number of individuals and images per record",
+    x = "Number of individuals",
+    y = "Number of images",
+    shape = "Age"
+  ) +
+  theme_bw()
+```
+
+Here:
+
+``` r
+shape = Age
+```
+
+is inside `aes()` because the shape of each point depends on a variable.
+
+## Boxplots
+
+A boxplot is useful for comparing the distribution of a numeric variable among groups.
+
+For this example, let's first calculate the number of records of each species at each camera station:
+
+```{r}
+sp_counts <- recordTable |> 
+  count(Station, Species) |> 
+  filter(Species %in% common_species)
+```
+
+
+Now we can compare how the number of records per station varies among species:
+
+```{r}
+
+
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n
+  )
+) +
+  geom_boxplot() +
+  scale_y_log10() +
+  coord_flip()
+```
+
+Because the number of records varies considerably among stations, we are displaying the y-axis on a **logarithmic scale**.
+
+The original values in `sp_counts$n` are not modified; we are only changing how they are displayed in the graph.
+
+We can also map species to `fill`:
+
+
+
+```{r}
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_boxplot(
+    show.legend = FALSE
+  ) +
+  scale_y_log10() +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records per station",
+    x = "Species",
+    y = "Number of records per station"
+  ) +
+  theme_bw()
+```
+
+
+## Violin plots
+
+A violin plot is another way of visualizing the distribution of a numeric variable among groups.
+
+```{r}
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_violin(
+    show.legend = FALSE
+  ) +
+  scale_y_log10() +
+  coord_flip() +
+  labs(
+    title = "Distribution of records among camera stations",
+    x = "Species",
+    y = "Number of records per station"
+  ) +
+  theme_bw()
+```
+
+The width of the violin represents where observations are more concentrated.
+
+## Combining geometries
+
+One of the most powerful features of `ggplot2` is that we can add multiple geometries as layers.
+
+For example, we can combine a violin plot, a boxplot, and the individual observations:
+
+```{r}
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_violin(
+    alpha = 0.5,
+    show.legend = FALSE
+  ) +
+  geom_boxplot(
+    width = 0.15,
+    show.legend = FALSE
+  ) +
+  geom_jitter(
+    aes(color = Species),
+    width = 0.15,
+    alpha = 0.9,
+    show.legend = FALSE
+  ) +
+  scale_y_log10() +
+  coord_flip() +
+  labs(
+    title = "Distribution of records among camera stations",
+    x = "Species",
+    y = "Number of records per station"
+  ) +
+  theme_bw()
+```
+
+Each new `+` adds another layer to the graphic.
+
+This is the basic logic behind `ggplot2`.
+
+``` text
+data
+  +
+aesthetics
+  +
+geometry
+  +
+geometry
+  +
+geometry
+  +
+labels
+  +
+theme
+```
+
+## Which geometry should I use?
+
+The graph should depend on the question and the type of variables you have.
+
+### One categorical variable
+
+For example:
+
+``` text
+Species
+```
+
+A bar plot can show the number of observations:
+
+``` r
+geom_bar()
+```
+
+### One numeric variable
+
+For example:
+
+``` text
+n_images
+```
+
+A histogram can show its distribution:
+
+``` r
+geom_histogram()
+```
+
+### Two numeric variables
+
+For example:
+
+``` text
+N_individuals
+n_images
+```
+
+A scatterplot can show their relationship:
+
+``` r
+geom_point()
+```
+
+### One categorical and one numeric variable
+
+For example:
+
+``` text
+Species
+n_images
+```
+
+We can compare distributions using:
+
+``` r
+geom_boxplot()
+```
+
+or:
+
+``` r
+geom_violin()
+```
+
+::: callout-important
+Do not choose a graph just because it looks nice.
+
+Start by asking:
+
+> What variables do I have, and what do I want to show?
+:::
+
+## Saving a plot
+
+We will often want to save a figure so that we can use it in a report, presentation, poster, or manuscript.
+
+First, we can save the entire plot as an R object:
+
+```{r}
+species_plot <- ggplot(
+  data = recordTable,
+  aes(x = Species)
+) +
+  geom_bar(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+To display the plot:
+
+```{r}
+species_plot
+```
+
+Then we can save it using `ggsave()`:
+
+```{r}
+#| eval: false
+
+ggsave(
+  filename = "outputs/species_records.png",
+  plot = species_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+This will create:
+
+``` text
+outputs/species_records.png
+```
+
+Because we are using our RStudio Project, the figure will be saved directly inside the `outputs` folder.
+
+::: callout-tip
+Saving a plot through code makes the figure reproducible.
+
+If you later change your data or your graphic, you can simply run the code again.
+:::
+
+## The basic ggplot2 workflow
+
+Most of the graphics we created followed the same logic:
+
+``` r
+ggplot(
+  data = my_data,
+  aes(
+    x = x_variable,
+    y = y_variable
+  )
+) +
+  geom_something() +
+  labs() +
+  theme_something()
+```
+
+You do not need to memorize every `geom`, argument, color, or theme.
+
+What matters is understanding how the pieces fit together.
+
+## Practice at home
+
+::: callout-tip
+This activity should take approximately **20–30 minutes**.
+
+Open your `intro-r-course` project and create a new script called:
+
+``` text
+practice-05.R
+```
+
+Save it inside the `scripts` folder.
+
+Load `tidyverse` and import:
+
+``` text
+data/recordTable.csv
+```
+
+### Part 1: Bar plot
+
+Create a bar plot showing the number of records for each `Species`.
+
+Your graph should include:
+
+- a title,
+- labels for both axes,
+- a color of your choice,
+- and a theme.
+
+Try both the regular orientation and:
+
+``` r
+coord_flip()
+```
+
+Decide which version is easier to read.
+
+### Part 2: Histogram
+
+Create a histogram of:
+
+``` text
+n_images
+```
+
+Try at least three different values for either:
+
+``` text
+bins
+```
+
+or:
+
+``` text
+binwidth
+```
+
+How does changing the bins affect the appearance of the distribution?
+
+### Part 3: Compare species
+
+Create an object containing these three species:
+
+```{r}
+practice_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Hog"
+)
+```
+
+Select only those records:
+
+```{r}
+practice_records <- recordTable[
+  recordTable$Species %in% practice_species,
+]
+```
+
+Create either:
+
+``` r
+geom_boxplot()
+```
+
+or:
+
+``` r
+geom_violin()
+```
+
+to compare `n_images` among the three species.
+
+### Part 4: Scatterplot
+
+Using `practice_records` and `geom_points` create a scatterplot with:
+
+``` text
+N_individuals
+```
+
+on the x-axis and:
+
+``` text
+n_images
+```
+
+on the y-axis.
+
+Map:
+
+``` text
+Species
+```
+
+to either `color` or `shape`.
+
+Experiment with:
+
+``` text
+size
+alpha
+```
+
+until the plot is easy to read.
+
+### Part 5: Save a figure
+
+Choose one of your plots, save it as an R object, and export it into:
+
+``` text
+outputs/
+```
+
+using:
+
+``` r
+ggsave()
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## Suggested solution
+
+```{r}
+#| eval: false
+
+# Practice for Module 5
+
+library(tidyverse)
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+
+
+# ---------------------------
+# Bar plot
+# ---------------------------
+
+ggplot(
+  recordTable,
+  aes(x = Species)
+) +
+  geom_bar(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+
+
+# ---------------------------
+# Histogram
+# ---------------------------
+
+ggplot(
+  recordTable,
+  aes(x = n_images)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(
+    xlim = c(1, 20)
+  ) +
+  labs(
+    x = "Number of images",
+    y = "Frequency"
+  ) +
+  theme_classic()
+
+
+# ---------------------------
+# Select species
+# ---------------------------
+
+practice_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Hog"
+)
+
+practice_records <- recordTable[
+  recordTable$Species %in% practice_species,
+]
+
+
+# ---------------------------
+# Boxplot
+# ---------------------------
+
+ggplot(
+  practice_records,
+  aes(
+    x = Species,
+    y = n_images,
+    fill = Species
+  )
+) +
+  geom_boxplot(
+    show.legend = FALSE
+  ) +
+  labs(
+    x = "Species",
+    y = "Number of images"
+  ) +
+  theme_bw()
+
+
+# ---------------------------
+# Scatterplot
+# ---------------------------
+
+ggplot(
+  practice_records,
+  aes(
+    x = N_individuals,
+    y = n_images,
+    color = Species
+  )
+) +
+  geom_point(
+    alpha = 0.5,
+    size = 2
+  ) +
+  labs(
+    x = "Number of individuals",
+    y = "Number of images",
+    color = "Species"
+  ) +
+  theme_bw()
+
+
+# ---------------------------
+# Save a plot
+# ---------------------------
+
+species_plot <- ggplot(
+  recordTable,
+  aes(x = Species)
+) +
+  geom_bar(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records by species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+
+ggsave(
+  filename = "outputs/species_records.png",
+  plot = species_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+Your plots do not need to look exactly like these.
+
+The important thing is that you practice:
+
+- choosing an appropriate geometry,
+- mapping variables with `aes()`,
+- changing colors, shapes, size, and transparency,
+- adding labels and themes,
+- and saving your plots.
+:::

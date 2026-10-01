@@ -1,0 +1,1235 @@
+---
+title: "Module 7: Data Manipulation with tidyverse"
+toc: true
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+
+recordTable <- read_csv(
+  here("data", "recordTable.csv"),
+  show_col_types = FALSE
+)
+```
+
+## Introduction
+
+So far, we have learned how to:
+
+- create objects,
+- work with different data structures,
+- import data,
+- inspect datasets,
+- and visualize information.
+
+But real datasets rarely arrive exactly in the format we need.
+
+Before analyzing data, we often need to:
+
+- select variables,
+- filter observations,
+- rename columns,
+- create new variables,
+- count observations,
+- group data,
+- and calculate summaries.
+
+This process is often called **data manipulation** or **data wrangling**.
+
+In this module, we will use tools from the **tidyverse**, particularly the package `dplyr`, to manipulate our camera-trap data.
+
+## What is the tidyverse?
+
+The **tidyverse** is a collection of R packages designed to work together for common data-science tasks.
+
+![](/images/module-07/tidyverse.png){fig-align="center"}
+
+We have already used some of them:
+
+```text
+readr     → importing and exporting data
+
+ggplot2   → data visualization
+
+dplyr     → data manipulation
+```
+
+There are several others, but you do not need to learn all of them at once.
+
+For this module, we will focus primarily on:
+
+```text
+dplyr
+```
+
+When we load:
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+```
+
+the most commonly used tidyverse packages, including `dplyr`, are loaded automatically.
+
+## Let's get started
+
+Open your `intro-r-course` project and create a new R script.
+
+Save it inside the `scripts` folder as:
+
+```text
+module-07.R
+```
+
+Load the tidyverse:
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+```
+
+Then import our camera-trap record table:
+
+```{r}
+#| eval: false
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+```
+
+Let's remind ourselves what the dataset looks like:
+
+```{r}
+dim(recordTable)
+```
+
+```{r}
+names(recordTable)
+```
+
+```{r}
+head(recordTable)
+```
+
+::: {.callout-note}
+## Download the example data
+
+If you do not already have the dataset from Module 5, you can download it here:
+
+[Download recordTable.csv](../data/recordTable.csv){.btn .btn-primary download="recordTable.csv"}
+:::
+
+## Think of `dplyr` as a set of verbs
+
+Many `dplyr` functions are named after the action they perform.
+
+Some of the most useful are:
+
+| Function | What does it do? |
+|---|---|
+| `select()` | Select columns |
+| `filter()` | Select rows |
+| `arrange()` | Sort rows |
+| `rename()` | Rename columns |
+| `mutate()` | Create or modify columns |
+| `count()` | Count observations |
+| `group_by()` | Create groups |
+| `summarise()` | Calculate summaries |
+
+You will use these functions again and again when working with data in R.
+
+## Selecting columns with `select()`
+
+Our `recordTable` contains many variables.
+
+Sometimes we only need a few of them.
+
+For example:
+
+```{r}
+recordTable |>
+  select(
+    Station,
+    Species,
+    N_individuals,
+    Age,
+    n_images
+  )
+```
+
+This creates a dataset containing only those columns.
+
+We can save the result:
+
+```{r}
+selected_records <- recordTable |>
+  select(
+    Station,
+    Species,
+    N_individuals,
+    Age,
+    n_images
+  )
+```
+
+Now:
+
+```{r}
+names(selected_records)
+```
+
+contains only the columns we selected.
+
+### Removing columns
+
+We can also use `select()` to remove columns.
+
+For example:
+
+```{r}
+recordTable |>
+  select(
+    -RootFolder,
+    -RelativePath
+  )
+```
+
+The `-` means:
+
+> Everything except these columns.
+
+### Selecting by data type
+
+We can also select columns based on their type.
+
+For example:
+
+```{r}
+recordTable |>
+  select(where(is.numeric))
+```
+
+returns only numeric columns.
+
+::: {.callout-tip}
+You do not need to memorize every option available in `select()`.
+
+Start with selecting columns by name. The more advanced selection tools become useful as your datasets become larger.
+:::
+
+## Filtering rows with `filter()`
+
+While `select()` works with **columns**, `filter()` works with **rows**.
+
+For example, let's select only records of White-tailed deer:
+
+```{r}
+deer_records <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  )
+```
+
+Check:
+
+```{r}
+unique(deer_records$Species)
+```
+
+All observations now correspond to the same species.
+
+### Filtering numeric values
+
+We can also use relational operators.
+
+For example, records containing more than one individual:
+
+```{r}
+recordTable |>
+  filter(
+    N_individuals > 1
+  )
+```
+
+Remember the operators we learned earlier:
+
+```text
+>      greater than
+>=     greater than or equal to
+<      less than
+<=     less than or equal to
+==     equal to
+!=     different from
+```
+
+## Multiple filtering conditions
+
+We can combine conditions.
+
+For example:
+
+```{r}
+recordTable |>
+  filter(
+    Species == "White-tailed deer",
+    N_individuals > 1
+  )
+```
+
+When conditions are separated by commas inside `filter()`, both conditions must be satisfied.
+
+This is equivalent to using:
+
+```text
+&
+```
+
+for **AND**.
+
+We can also select several species using `%in%`.
+
+```{r}
+recordTable |>
+  filter(
+    Species %in% c(
+      "White-tailed deer",
+      "Armadillo",
+      "Racoon"
+    )
+  )
+```
+
+The `%in%` operator is extremely useful when we want observations belonging to several categories.
+
+::: {.callout-note}
+Remember the difference:
+
+```r
+Species == "Armadillo"
+```
+
+asks for one specific value.
+
+```r
+Species %in% c(
+  "Armadillo",
+  "Racoon",
+  "Hog"
+)
+```
+
+asks whether `Species` belongs to a group of possible values.
+:::
+
+## Missing values
+
+We can also use `filter()` to investigate missing information.
+
+For example:
+
+```{r}
+recordTable |>
+  filter(
+    is.na(Age)
+  )
+```
+
+This returns records where `Age` is missing.
+
+To keep records where `Age` is **not** missing:
+
+```{r}
+recordTable |>
+  filter(
+    !is.na(Age)
+  )
+```
+
+Here:
+
+```text
+!
+```
+
+means **NOT**.
+
+So:
+
+```r
+!is.na(Age)
+```
+
+means:
+
+> Age is not missing.
+
+## Sorting rows with `arrange()`
+
+Sometimes we want to sort a dataset.
+
+For example:
+
+```{r}
+recordTable |>
+  arrange(N_individuals)
+```
+
+sorts observations from the smallest to the largest number of individuals.
+
+To reverse the order:
+
+```{r}
+recordTable |>
+  arrange(
+    desc(N_individuals)
+  )
+```
+
+Now the records containing the largest number of individuals appear first.
+
+We can also sort using several variables:
+
+```{r}
+recordTable |>
+  arrange(
+    Species,
+    desc(N_individuals)
+  )
+```
+
+## Renaming columns
+
+Sometimes column names are too long, inconsistent, or difficult to type.
+
+We can rename them using `rename()`.
+
+For example:
+
+```{r}
+record_data <- recordTable |>
+  rename(
+    station = Station,
+    species = Species,
+    individuals = N_individuals,
+    sex = Sex,
+    age = Age,
+    images = n_images,
+    date = Date,
+    time = Time
+  )
+```
+
+Check the names:
+
+```{r}
+names(record_data)
+```
+
+The original `recordTable` has not been modified.
+
+We created a **new object** called:
+
+```text
+record_data
+```
+
+with the renamed columns.
+
+::: {.callout-important}
+Creating a new object is usually safer than repeatedly modifying your original imported data.
+
+For example:
+
+```text
+recordTable    → original imported data
+
+record_data    → modified working data
+```
+
+This makes it easier to return to the original information if something goes wrong.
+:::
+
+We will use `record_data` for some of the next examples.
+
+## Creating new columns with `mutate()`
+
+The function `mutate()` allows us to create or modify columns.
+
+For example, we can create a logical variable indicating whether a record contains more than one individual:
+
+```{r}
+record_data <- record_data |>
+  mutate(
+    multiple_individuals = individuals > 1
+  )
+```
+
+Now:
+
+```{r}
+select(
+  record_data,
+  species,
+  individuals,
+  multiple_individuals
+)
+```
+
+contains our new variable.
+
+Because the condition:
+
+```r
+individuals > 1
+```
+
+returns `TRUE` or `FALSE`, the new column is logical.
+
+We could also create a numeric variable.
+
+For example:
+
+```{r}
+record_data <- record_data |>
+  mutate(
+    images_double = images * 2
+  )
+```
+
+Of course, there is not much biological meaning in doubling the number of images.
+
+The point is simply that `mutate()` can use existing variables to create new ones.
+
+::: {.callout-tip}
+A useful question when using `mutate()` is:
+
+> Can this new variable be calculated from information already contained in my dataset?
+:::
+
+## Counting observations
+
+Counting observations is extremely common when working with camera-trap records.
+
+For example:
+
+> How many records do we have for each species?
+
+We can use:
+
+```{r}
+record_data |>
+  count(species)
+```
+
+By default, the new column containing the count is called:
+
+```text
+n
+```
+
+We can sort the result:
+
+```{r}
+record_data |>
+  count(
+    species,
+    sort = TRUE
+  )
+```
+
+Now the species with the most records appears first.
+
+### Counting combinations
+
+We can count more than one variable.
+
+For example:
+
+```{r}
+record_data |>
+  count(
+    station,
+    species
+  )
+```
+
+Now each row represents:
+
+```text
+one station × one species
+```
+
+and `n` represents the number of records for that combination.
+
+This is exactly the type of summarized dataset we used in the previous module when comparing the number of records among species.
+
+## Unique values with `distinct()`
+
+Sometimes we want to know which unique values occur in a variable.
+
+For example:
+
+```{r}
+record_data |>
+  distinct(species)
+```
+
+gives us one row for each species.
+
+Similarly:
+
+```{r}
+record_data |>
+  distinct(station)
+```
+
+gives us the unique camera stations.
+
+We can also ask:
+
+```{r}
+n_distinct(record_data$species)
+```
+
+to obtain the total number of unique species.
+
+## Grouping and summarizing data
+
+`count()` is useful for simple counts.
+
+But often we want to calculate several summaries for each group.
+
+This is where:
+
+```text
+group_by()
+```
+
+and:
+
+```text
+summarise()
+```
+
+become extremely useful.
+
+For example, let's group our records by species:
+
+```{r}
+record_data |>
+  group_by(species)
+```
+
+By itself, `group_by()` does not visibly change much.
+
+It tells R:
+
+> The next operations should be performed separately for each species.
+
+Now we can add `summarise()`:
+
+```{r}
+record_data |>
+  group_by(species) |>
+  summarise(
+    records = n()
+  )
+```
+
+The function:
+
+```text
+n()
+```
+
+counts the number of rows within each group.
+
+## More than one summary
+
+We can calculate several statistics at the same time.
+
+For example:
+
+```{r}
+species_summary <- record_data |>
+  group_by(species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(station),
+    total_individuals = sum(
+      individuals,
+      na.rm = TRUE
+    ),
+    mean_individuals = mean(
+      individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+```
+
+Now inspect:
+
+```{r}
+species_summary
+```
+
+Each row represents one species.
+
+The columns contain different summaries:
+
+```text
+records
+stations
+total_individuals
+mean_individuals
+```
+
+This is very different from our original `recordTable`, where each row represented an individual camera-trap record.
+
+::: {.callout-important}
+This is an important change in the **unit represented by each row**.
+
+Before:
+
+```text
+1 row = 1 camera-trap record
+```
+
+After summarizing:
+
+```text
+1 row = 1 species
+```
+
+Always ask yourself:
+
+> What does one row represent in this dataset?
+:::
+
+## Summarizing by camera station
+
+We can group by any variable.
+
+For example:
+
+```{r}
+station_summary <- record_data |>
+  group_by(station) |>
+  summarise(
+    records = n(),
+    species_richness = n_distinct(species),
+    total_individuals = sum(
+      individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+```
+
+Now:
+
+```{r}
+station_summary
+```
+
+contains one row per camera station.
+
+This is already much closer to the type of data we might use for ecological comparisons among sites.
+
+## Pipes
+
+You have probably noticed that we have been using:
+
+```text
+|>
+```
+
+throughout this module.
+
+This is called a **pipe**.
+
+The pipe allows us to pass the result of one operation directly into the next one.
+
+You can read:
+
+```r
+data |>
+  function()
+```
+
+approximately as:
+
+> Take `data`, **then** apply `function()`.
+
+For example:
+
+```{r}
+recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  )
+```
+
+can be read as:
+
+> Take `recordTable`, **then** keep only White-tailed deer.
+
+## Why use pipes?
+
+Imagine we want to:
+
+1. filter White-tailed deer,
+2. select a few variables,
+3. keep records with more than one individual,
+4. and count records by station.
+
+Without pipes, we could write:
+
+```{r}
+deer_records <- filter(
+  recordTable,
+  Species == "White-tailed deer"
+)
+
+deer_records <- select(
+  deer_records,
+  Station,
+  Species,
+  N_individuals
+)
+
+deer_records <- filter(
+  deer_records,
+  N_individuals > 1
+)
+
+deer_summary <- count(
+  deer_records,
+  Station,
+  sort = TRUE
+)
+```
+
+This works.
+
+But with pipes, we can write the entire workflow as a sequence:
+
+```{r}
+deer_summary <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  ) |>
+  select(
+    Station,
+    Species,
+    N_individuals
+  ) |>
+  filter(
+    N_individuals > 1
+  ) |>
+  count(
+    Station,
+    sort = TRUE
+  )
+```
+
+Now the code reads from top to bottom:
+
+```text
+start with recordTable
+        ↓
+keep deer
+        ↓
+select variables
+        ↓
+keep records with >1 individual
+        ↓
+count records by station
+```
+![](/images/module-07/Pipe.jpg){fig-align="center"}
+
+This is the idea behind a **data pipeline**.
+
+## `|>` or `%>%`?
+
+You may encounter another pipe in R code:
+
+```text
+%>%
+```
+
+For example:
+
+```r
+recordTable %>%
+  filter(Species == "White-tailed deer") %>%
+  count(Station)
+```
+
+This pipe comes from the tidyverse ecosystem and was widely used before R introduced its own pipe:
+
+```text
+|>
+```
+
+Both are still common.
+
+In this course, we will primarily use:
+
+```text
+|>
+```
+
+because it is now built directly into R.
+
+::: {.callout-tip}
+You do not need to rewrite old code just because it uses `%>%`.
+
+It is useful to recognize both.
+
+For most of what we do in this course, they behave very similarly.
+:::
+
+## Putting everything together
+
+Now let's create a more complete pipeline.
+
+Suppose we want to answer:
+
+> At how many stations was each of the five most commonly recorded species detected, and how many records did each species have?
+
+First, define the species we want:
+
+```{r}
+common_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Racoon",
+  "Hog",
+  "Virginia opossum"
+)
+```
+
+Then:
+
+```{r}
+common_summary <- recordTable |>
+  filter(
+    Species %in% common_species
+  ) |>
+  group_by(Species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    total_individuals = sum(
+      N_individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  ) |>
+  arrange(
+    desc(records)
+  )
+```
+
+Look at the result:
+
+```{r}
+common_summary
+```
+
+A relatively large raw dataset has now become a small table that directly answers our question.
+
+## From data manipulation to visualization
+
+Because `dplyr` and `ggplot2` are designed to work together, we can easily visualize our summarized data.
+
+```{r}
+ggplot(
+  common_summary,
+  aes(
+    x = Species,
+    y = records,
+    fill = Species
+  )
+) +
+  geom_col(
+    show.legend = FALSE
+  ) +
+  coord_flip() +
+  labs(
+    title = "Camera-trap records of common species",
+    x = "Species",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+Notice that here we use:
+
+```text
+geom_col()
+```
+
+instead of:
+
+```text
+geom_bar()
+```
+
+Why?
+
+`geom_bar()` counts the observations for us.
+
+But `common_summary` already contains a column called:
+
+```text
+records
+```
+
+with the counts we want to plot.
+
+`geom_col()` uses those existing values directly.
+
+## From raw data to a result
+
+At this point, we can begin to see a complete R workflow:
+
+```text
+raw data
+    ↓
+import
+    ↓
+inspect
+    ↓
+filter / select
+    ↓
+create variables
+    ↓
+group and summarize
+    ↓
+visualize
+    ↓
+export
+```
+
+For example, we can save our species summary:
+
+```{r}
+#| eval: false
+
+write_csv(
+  common_summary,
+  "outputs/common_species_summary.csv"
+)
+```
+
+Now our entire workflow can be reproduced by running the script again.
+
+## Practice at home
+
+::: {.callout-tip}
+This activity should take approximately **20–30 minutes**.
+
+Open your `intro-r-course` project and create:
+
+```text
+practice-07.R
+```
+
+inside your `scripts` folder.
+
+Load `tidyverse` and import:
+
+```text
+data/recordTable.csv
+```
+
+### Part 1: Select
+
+Create a new object called:
+
+```text
+practice_records
+```
+
+containing only:
+
+```text
+Station
+Species
+N_individuals
+Age
+n_images
+```
+
+### Part 2: Filter
+
+Using `practice_records`:
+
+1. Keep only `"White-tailed deer"` records.
+2. Keep only records with more than one individual.
+3. Try combining both conditions.
+
+### Part 3: Count
+
+Using the original `recordTable`, calculate the number of records for each species.
+
+Sort the result from most to least common.
+
+### Part 4: Group and summarize
+
+Create one table with one row per `Station`.
+
+For each station calculate:
+
+```text
+number of records
+number of species
+total number of individuals
+```
+
+### Part 5: Create a pipeline
+
+Create a single pipeline that:
+
+1. starts with `recordTable`,
+2. keeps only `"Armadillo"`, `"Racoon"`, and `"Hog"`,
+3. keeps only records with `N_individuals > 0`,
+4. groups by `Species`,
+5. calculates the number of records,
+6. calculates the number of camera stations,
+7. sorts the table from the most to the fewest records.
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Suggested solution
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+
+
+# ---------------------------
+# Part 1: Select
+# ---------------------------
+
+practice_records <- recordTable |>
+  select(
+    Station,
+    Species,
+    N_individuals,
+    Age,
+    n_images
+  )
+
+
+# ---------------------------
+# Part 2: Filter
+# ---------------------------
+
+practice_records |>
+  filter(
+    Species == "White-tailed deer"
+  )
+
+practice_records |>
+  filter(
+    N_individuals > 1
+  )
+
+practice_records |>
+  filter(
+    Species == "White-tailed deer",
+    N_individuals > 1
+  )
+
+
+# ---------------------------
+# Part 3: Count
+# ---------------------------
+
+recordTable |>
+  count(
+    Species,
+    sort = TRUE
+  )
+
+
+# ---------------------------
+# Part 4: Group and summarize
+# ---------------------------
+
+station_summary <- recordTable |>
+  group_by(Station) |>
+  summarise(
+    records = n(),
+    species = n_distinct(Species),
+    total_individuals = sum(
+      N_individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+
+station_summary
+
+
+# ---------------------------
+# Part 5: Pipeline
+# ---------------------------
+
+species_summary <- recordTable |>
+  filter(
+    Species %in% c(
+      "Armadillo",
+      "Racoon",
+      "Hog"
+    ),
+    N_individuals > 0
+  ) |>
+  group_by(Species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    .groups = "drop"
+  ) |>
+  arrange(
+    desc(records)
+  )
+
+species_summary
+```
+
+The exact values in your results are less important than understanding how the pipeline works.
+
+Try reading your code from top to bottom:
+
+```text
+start with the data
+       ↓
+select or filter
+       ↓
+group
+       ↓
+summarize
+       ↓
+arrange
+```
+
+:::
