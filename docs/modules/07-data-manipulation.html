@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<link rel="alternate" hreflang="en" href="https://gpandradep.github.io/R-CameraTrap-Workshop//modules/07-data-manipulation.html" />
+<link rel="alternate" hreflang="es" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/07-data-manipulation.es.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Module 7: Data Manipulation with tidyverse – Introduction to R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -56,30 +56,17 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -100,46 +87,143 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../styles.css">
+}</script><link rel="stylesheet" href="../styles.css">
 </head>
-
-<body class="quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Introduction to R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item"><div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> Español</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/07-data-manipulation.html" id="language-link-es">Español</a></li></ul>
+</div></li>
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../getting-started/setup.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modules" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Modules</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modules">
+<li>
+    <a class="dropdown-item" href="../modules/01-introduction.html">
+ <span class="dropdown-text">1. Introduction to R and RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/02-objects-functions.html">
+ <span class="dropdown-text">2. Objects, operators, and functions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/03-data-structures.html">
+ <span class="dropdown-text">3. Data structures in R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/04-import-data.html">
+ <span class="dropdown-text">4. Importing and exporting data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/05-data-visualization.html">
+ <span class="dropdown-text">5. Data visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/06-errors-help.html">
+ <span class="dropdown-text">6. Errors, help, and problem solving</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/07-data-manipulation.html">
+ <span class="dropdown-text">7. Data manipulation with the tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/08-exploratory-analysis.html">
+ <span class="dropdown-text">8. Exploratory data analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/09-camtrapR.html">
+ <span class="dropdown-text">9. Working with camera-trap data using camtrapR</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slides" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Slides</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-slides">
+<li>
+    <a class="dropdown-item" href="../slides/session-01-introduction.html">
+ <span class="dropdown-text">1. Introduction to R and RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/session-02-objects-data-import.html">
+ <span class="dropdown-text">2. Objects, data strcutures and importing</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extra Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-resources">
+<li>
+    <a class="dropdown-item" href="../resources/quarto.html">
+ <span class="dropdown-text">Reproducible documents with Quarto</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#what-is-the-tidyverse" id="toc-what-is-the-tidyverse" class="nav-link" data-scroll-target="#what-is-the-tidyverse">What is the tidyverse?</a></li>
   <li><a href="#lets-get-started" id="toc-lets-get-started" class="nav-link" data-scroll-target="#lets-get-started">Let’s get started</a></li>
   <li><a href="#think-of-dplyr-as-a-set-of-verbs" id="toc-think-of-dplyr-as-a-set-of-verbs" class="nav-link" data-scroll-target="#think-of-dplyr-as-a-set-of-verbs">Think of <code>dplyr</code> as a set of verbs</a></li>
-  <li><a href="#selecting-columns-with-select" id="toc-selecting-columns-with-select" class="nav-link" data-scroll-target="#selecting-columns-with-select">Selecting columns with <code>select()</code></a>
+  <li>
+<a href="#selecting-columns-with-select" id="toc-selecting-columns-with-select" class="nav-link" data-scroll-target="#selecting-columns-with-select">Selecting columns with <code>select()</code></a>
   <ul class="collapse">
-  <li><a href="#removing-columns" id="toc-removing-columns" class="nav-link" data-scroll-target="#removing-columns">Removing columns</a></li>
+<li><a href="#removing-columns" id="toc-removing-columns" class="nav-link" data-scroll-target="#removing-columns">Removing columns</a></li>
   <li><a href="#selecting-by-data-type" id="toc-selecting-by-data-type" class="nav-link" data-scroll-target="#selecting-by-data-type">Selecting by data type</a></li>
-  </ul></li>
-  <li><a href="#filtering-rows-with-filter" id="toc-filtering-rows-with-filter" class="nav-link" data-scroll-target="#filtering-rows-with-filter">Filtering rows with <code>filter()</code></a>
+  </ul>
+</li>
+  <li>
+<a href="#filtering-rows-with-filter" id="toc-filtering-rows-with-filter" class="nav-link" data-scroll-target="#filtering-rows-with-filter">Filtering rows with <code>filter()</code></a>
   <ul class="collapse">
-  <li><a href="#filtering-numeric-values" id="toc-filtering-numeric-values" class="nav-link" data-scroll-target="#filtering-numeric-values">Filtering numeric values</a></li>
-  </ul></li>
+<li><a href="#filtering-numeric-values" id="toc-filtering-numeric-values" class="nav-link" data-scroll-target="#filtering-numeric-values">Filtering numeric values</a></li>
+  </ul>
+</li>
   <li><a href="#multiple-filtering-conditions" id="toc-multiple-filtering-conditions" class="nav-link" data-scroll-target="#multiple-filtering-conditions">Multiple filtering conditions</a></li>
   <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a></li>
   <li><a href="#sorting-rows-with-arrange" id="toc-sorting-rows-with-arrange" class="nav-link" data-scroll-target="#sorting-rows-with-arrange">Sorting rows with <code>arrange()</code></a></li>
   <li><a href="#renaming-columns" id="toc-renaming-columns" class="nav-link" data-scroll-target="#renaming-columns">Renaming columns</a></li>
   <li><a href="#creating-new-columns-with-mutate" id="toc-creating-new-columns-with-mutate" class="nav-link" data-scroll-target="#creating-new-columns-with-mutate">Creating new columns with <code>mutate()</code></a></li>
-  <li><a href="#counting-observations" id="toc-counting-observations" class="nav-link" data-scroll-target="#counting-observations">Counting observations</a>
+  <li>
+<a href="#counting-observations" id="toc-counting-observations" class="nav-link" data-scroll-target="#counting-observations">Counting observations</a>
   <ul class="collapse">
-  <li><a href="#counting-combinations" id="toc-counting-combinations" class="nav-link" data-scroll-target="#counting-combinations">Counting combinations</a></li>
-  </ul></li>
+<li><a href="#counting-combinations" id="toc-counting-combinations" class="nav-link" data-scroll-target="#counting-combinations">Counting combinations</a></li>
+  </ul>
+</li>
   <li><a href="#unique-values-with-distinct" id="toc-unique-values-with-distinct" class="nav-link" data-scroll-target="#unique-values-with-distinct">Unique values with <code>distinct()</code></a></li>
   <li><a href="#grouping-and-summarizing-data" id="toc-grouping-and-summarizing-data" class="nav-link" data-scroll-target="#grouping-and-summarizing-data">Grouping and summarizing data</a></li>
   <li><a href="#more-than-one-summary" id="toc-more-than-one-summary" class="nav-link" data-scroll-target="#more-than-one-summary">More than one summary</a></li>
@@ -151,14 +235,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#from-data-manipulation-to-visualization" id="toc-from-data-manipulation-to-visualization" class="nav-link" data-scroll-target="#from-data-manipulation-to-visualization">From data manipulation to visualization</a></li>
   <li><a href="#from-raw-data-to-a-result" id="toc-from-raw-data-to-a-result" class="nav-link" data-scroll-target="#from-raw-data-to-a-result">From raw data to a result</a></li>
   <li><a href="#practice-at-home" id="toc-practice-at-home" class="nav-link" data-scroll-target="#practice-at-home">Practice at home</a></li>
-  </ul>
-</nav>
-    </div>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Module 7: Data Manipulation with tidyverse</h1>
 </div>
 
@@ -173,11 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>So far, we have learned how to:</p>
 <ul>
 <li>create objects,</li>
@@ -199,13 +275,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>This process is often called <strong>data manipulation</strong> or <strong>data wrangling</strong>.</p>
 <p>In this module, we will use tools from the <strong>tidyverse</strong>, particularly the package <code>dplyr</code>, to manipulate our camera-trap data.</p>
-</section>
-<section id="what-is-the-tidyverse" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-the-tidyverse">What is the tidyverse?</h2>
+</section><section id="what-is-the-tidyverse" class="level2"><h2 class="anchored" data-anchor-id="what-is-the-tidyverse">What is the tidyverse?</h2>
 <p>The <strong>tidyverse</strong> is a collection of R packages designed to work together for common data-science tasks.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-07/tidyverse.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-07/tidyverse.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>We have already used some of them:</p>
@@ -222,9 +295,7 @@ dplyr     → data manipulation</code></pre>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>the most commonly used tidyverse packages, including <code>dplyr</code>, are loaded automatically.</p>
-</section>
-<section id="lets-get-started" class="level2">
-<h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
+</section><section id="lets-get-started" class="level2"><h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
 <p>Open your <code>intro-r-course</code> project and create a new R script.</p>
 <p>Save it inside the <code>scripts</code> folder as:</p>
 <pre class="text"><code>module-07.R</code></pre>
@@ -292,18 +363,14 @@ Download the example data
 <p><a href="../data/recordTable.csv" class="btn btn-primary" download="recordTable.csv">Download recordTable.csv</a></p>
 </div>
 </div>
-</section>
-<section id="think-of-dplyr-as-a-set-of-verbs" class="level2">
-<h2 class="anchored" data-anchor-id="think-of-dplyr-as-a-set-of-verbs">Think of <code>dplyr</code> as a set of verbs</h2>
+</section><section id="think-of-dplyr-as-a-set-of-verbs" class="level2"><h2 class="anchored" data-anchor-id="think-of-dplyr-as-a-set-of-verbs">Think of <code>dplyr</code> as a set of verbs</h2>
 <p>Many <code>dplyr</code> functions are named after the action they perform.</p>
 <p>Some of the most useful are:</p>
 <table class="caption-top table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Function</th>
 <th>What does it do?</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td><code>select()</code></td>
@@ -340,9 +407,8 @@ Download the example data
 </tbody>
 </table>
 <p>You will use these functions again and again when working with data in R.</p>
-</section>
-<section id="selecting-columns-with-select" class="level2">
-<h2 class="anchored" data-anchor-id="selecting-columns-with-select">Selecting columns with <code>select()</code></h2>
+</section><section id="selecting-columns-with-select" class="level2"><h2 class="anchored" data-anchor-id="selecting-columns-with-select">Selecting columns with <code>select()</code>
+</h2>
 <p>Our <code>recordTable</code> contains many variables.</p>
 <p>Sometimes we only need a few of them.</p>
 <p>For example:</p>
@@ -393,8 +459,7 @@ Download the example data
 </div>
 </div>
 <p>contains only the columns we selected.</p>
-<section id="removing-columns" class="level3">
-<h3 class="anchored" data-anchor-id="removing-columns">Removing columns</h3>
+<section id="removing-columns" class="level3"><h3 class="anchored" data-anchor-id="removing-columns">Removing columns</h3>
 <p>We can also use <code>select()</code> to remove columns.</p>
 <p>For example:</p>
 <div class="cell">
@@ -429,9 +494,7 @@ Download the example data
 <blockquote class="blockquote">
 <p>Everything except these columns.</p>
 </blockquote>
-</section>
-<section id="selecting-by-data-type" class="level3">
-<h3 class="anchored" data-anchor-id="selecting-by-data-type">Selecting by data type</h3>
+</section><section id="selecting-by-data-type" class="level3"><h3 class="anchored" data-anchor-id="selecting-by-data-type">Selecting by data type</h3>
 <p>We can also select columns based on their type.</p>
 <p>For example:</p>
 <div class="cell">
@@ -470,10 +533,8 @@ Tip
 <p>Start with selecting columns by name. The more advanced selection tools become useful as your datasets become larger.</p>
 </div>
 </div>
-</section>
-</section>
-<section id="filtering-rows-with-filter" class="level2">
-<h2 class="anchored" data-anchor-id="filtering-rows-with-filter">Filtering rows with <code>filter()</code></h2>
+</section></section><section id="filtering-rows-with-filter" class="level2"><h2 class="anchored" data-anchor-id="filtering-rows-with-filter">Filtering rows with <code>filter()</code>
+</h2>
 <p>While <code>select()</code> works with <strong>columns</strong>, <code>filter()</code> works with <strong>rows</strong>.</p>
 <p>For example, let’s select only records of White-tailed deer:</p>
 <div class="cell">
@@ -490,8 +551,7 @@ Tip
 </div>
 </div>
 <p>All observations now correspond to the same species.</p>
-<section id="filtering-numeric-values" class="level3">
-<h3 class="anchored" data-anchor-id="filtering-numeric-values">Filtering numeric values</h3>
+<section id="filtering-numeric-values" class="level3"><h3 class="anchored" data-anchor-id="filtering-numeric-values">Filtering numeric values</h3>
 <p>We can also use relational operators.</p>
 <p>For example, records containing more than one individual:</p>
 <div class="cell">
@@ -528,10 +588,7 @@ Tip
 &lt;=     less than or equal to
 ==     equal to
 !=     different from</code></pre>
-</section>
-</section>
-<section id="multiple-filtering-conditions" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-filtering-conditions">Multiple filtering conditions</h2>
+</section></section><section id="multiple-filtering-conditions" class="level2"><h2 class="anchored" data-anchor-id="multiple-filtering-conditions">Multiple filtering conditions</h2>
 <p>We can combine conditions.</p>
 <p>For example:</p>
 <div class="cell">
@@ -620,9 +677,7 @@ Note
 <p>asks whether <code>Species</code> belongs to a group of possible values.</p>
 </div>
 </div>
-</section>
-<section id="missing-values" class="level2">
-<h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
+</section><section id="missing-values" class="level2"><h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
 <p>We can also use <code>filter()</code> to investigate missing information.</p>
 <p>For example:</p>
 <div class="cell">
@@ -690,9 +745,8 @@ Note
 <blockquote class="blockquote">
 <p>Age is not missing.</p>
 </blockquote>
-</section>
-<section id="sorting-rows-with-arrange" class="level2">
-<h2 class="anchored" data-anchor-id="sorting-rows-with-arrange">Sorting rows with <code>arrange()</code></h2>
+</section><section id="sorting-rows-with-arrange" class="level2"><h2 class="anchored" data-anchor-id="sorting-rows-with-arrange">Sorting rows with <code>arrange()</code>
+</h2>
 <p>Sometimes we want to sort a dataset.</p>
 <p>For example:</p>
 <div class="cell">
@@ -779,9 +833,7 @@ Note
 #   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="renaming-columns" class="level2">
-<h2 class="anchored" data-anchor-id="renaming-columns">Renaming columns</h2>
+</section><section id="renaming-columns" class="level2"><h2 class="anchored" data-anchor-id="renaming-columns">Renaming columns</h2>
 <p>Sometimes column names are too long, inconsistent, or difficult to type.</p>
 <p>We can rename them using <code>rename()</code>.</p>
 <p>For example:</p>
@@ -836,9 +888,8 @@ record_data    → modified working data</code></pre>
 </div>
 </div>
 <p>We will use <code>record_data</code> for some of the next examples.</p>
-</section>
-<section id="creating-new-columns-with-mutate" class="level2">
-<h2 class="anchored" data-anchor-id="creating-new-columns-with-mutate">Creating new columns with <code>mutate()</code></h2>
+</section><section id="creating-new-columns-with-mutate" class="level2"><h2 class="anchored" data-anchor-id="creating-new-columns-with-mutate">Creating new columns with <code>mutate()</code>
+</h2>
 <p>The function <code>mutate()</code> allows us to create or modify columns.</p>
 <p>For example, we can create a logical variable indicating whether a record contains more than one individual:</p>
 <div class="cell">
@@ -902,9 +953,7 @@ Tip
 </blockquote>
 </div>
 </div>
-</section>
-<section id="counting-observations" class="level2">
-<h2 class="anchored" data-anchor-id="counting-observations">Counting observations</h2>
+</section><section id="counting-observations" class="level2"><h2 class="anchored" data-anchor-id="counting-observations">Counting observations</h2>
 <p>Counting observations is extremely common when working with camera-trap records.</p>
 <p>For example:</p>
 <blockquote class="blockquote">
@@ -958,8 +1007,7 @@ Tip
 </div>
 </div>
 <p>Now the species with the most records appears first.</p>
-<section id="counting-combinations" class="level3">
-<h3 class="anchored" data-anchor-id="counting-combinations">Counting combinations</h3>
+<section id="counting-combinations" class="level3"><h3 class="anchored" data-anchor-id="counting-combinations">Counting combinations</h3>
 <p>We can count more than one variable.</p>
 <p>For example:</p>
 <div class="cell">
@@ -989,10 +1037,8 @@ Tip
 <pre class="text"><code>one station × one species</code></pre>
 <p>and <code>n</code> represents the number of records for that combination.</p>
 <p>This is exactly the type of summarized dataset we used in the previous module when comparing the number of records among species.</p>
-</section>
-</section>
-<section id="unique-values-with-distinct" class="level2">
-<h2 class="anchored" data-anchor-id="unique-values-with-distinct">Unique values with <code>distinct()</code></h2>
+</section></section><section id="unique-values-with-distinct" class="level2"><h2 class="anchored" data-anchor-id="unique-values-with-distinct">Unique values with <code>distinct()</code>
+</h2>
 <p>Sometimes we want to know which unique values occur in a variable.</p>
 <p>For example:</p>
 <div class="cell">
@@ -1052,9 +1098,7 @@ Tip
 </div>
 </div>
 <p>to obtain the total number of unique species.</p>
-</section>
-<section id="grouping-and-summarizing-data" class="level2">
-<h2 class="anchored" data-anchor-id="grouping-and-summarizing-data">Grouping and summarizing data</h2>
+</section><section id="grouping-and-summarizing-data" class="level2"><h2 class="anchored" data-anchor-id="grouping-and-summarizing-data">Grouping and summarizing data</h2>
 <p><code>count()</code> is useful for simple counts.</p>
 <p>But often we want to calculate several summaries for each group.</p>
 <p>This is where:</p>
@@ -1122,9 +1166,7 @@ Tip
 <p>The function:</p>
 <pre class="text"><code>n()</code></pre>
 <p>counts the number of rows within each group.</p>
-</section>
-<section id="more-than-one-summary" class="level2">
-<h2 class="anchored" data-anchor-id="more-than-one-summary">More than one summary</h2>
+</section><section id="more-than-one-summary" class="level2"><h2 class="anchored" data-anchor-id="more-than-one-summary">More than one summary</h2>
 <p>We can calculate several statistics at the same time.</p>
 <p>For example:</p>
 <div class="cell">
@@ -1192,9 +1234,7 @@ Important
 </blockquote>
 </div>
 </div>
-</section>
-<section id="summarizing-by-camera-station" class="level2">
-<h2 class="anchored" data-anchor-id="summarizing-by-camera-station">Summarizing by camera station</h2>
+</section><section id="summarizing-by-camera-station" class="level2"><h2 class="anchored" data-anchor-id="summarizing-by-camera-station">Summarizing by camera station</h2>
 <p>We can group by any variable.</p>
 <p>For example:</p>
 <div class="cell">
@@ -1238,9 +1278,7 @@ Important
 </div>
 <p>contains one row per camera station.</p>
 <p>This is already much closer to the type of data we might use for ecological comparisons among sites.</p>
-</section>
-<section id="pipes" class="level2">
-<h2 class="anchored" data-anchor-id="pipes">Pipes</h2>
+</section><section id="pipes" class="level2"><h2 class="anchored" data-anchor-id="pipes">Pipes</h2>
 <p>You have probably noticed that we have been using:</p>
 <pre class="text"><code>|&gt;</code></pre>
 <p>throughout this module.</p>
@@ -1285,9 +1323,7 @@ Important
 <blockquote class="blockquote">
 <p>Take <code>recordTable</code>, <strong>then</strong> keep only White-tailed deer.</p>
 </blockquote>
-</section>
-<section id="why-use-pipes" class="level2">
-<h2 class="anchored" data-anchor-id="why-use-pipes">Why use pipes?</h2>
+</section><section id="why-use-pipes" class="level2"><h2 class="anchored" data-anchor-id="why-use-pipes">Why use pipes?</h2>
 <p>Imagine we want to:</p>
 <ol type="1">
 <li>filter White-tailed deer,</li>
@@ -1351,14 +1387,12 @@ keep records with &gt;1 individual
         ↓
 count records by station</code></pre>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-07/Pipe.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-07/Pipe.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>This is the idea behind a <strong>data pipeline</strong>.</p>
-</section>
-<section id="or" class="level2">
-<h2 class="anchored" data-anchor-id="or"><code>|&gt;</code> or <code>%&gt;%</code>?</h2>
+</section><section id="or" class="level2"><h2 class="anchored" data-anchor-id="or">
+<code>|&gt;</code> or <code>%&gt;%</code>?</h2>
 <p>You may encounter another pipe in R code:</p>
 <pre class="text"><code>%&gt;%</code></pre>
 <p>For example:</p>
@@ -1386,9 +1420,7 @@ Tip
 <p>For most of what we do in this course, they behave very similarly.</p>
 </div>
 </div>
-</section>
-<section id="putting-everything-together" class="level2">
-<h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
+</section><section id="putting-everything-together" class="level2"><h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
 <p>Now let’s create a more complete pipeline.</p>
 <p>Suppose we want to answer:</p>
 <blockquote class="blockquote">
@@ -1439,9 +1471,7 @@ Tip
 </div>
 </div>
 <p>A relatively large raw dataset has now become a small table that directly answers our question.</p>
-</section>
-<section id="from-data-manipulation-to-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="from-data-manipulation-to-visualization">From data manipulation to visualization</h2>
+</section><section id="from-data-manipulation-to-visualization" class="level2"><h2 class="anchored" data-anchor-id="from-data-manipulation-to-visualization">From data manipulation to visualization</h2>
 <p>Because <code>dplyr</code> and <code>ggplot2</code> are designed to work together, we can easily visualize our summarized data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1464,8 +1494,7 @@ Tip
 <span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="07-data-manipulation_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="07-data-manipulation_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1480,9 +1509,7 @@ Tip
 <pre class="text"><code>records</code></pre>
 <p>with the counts we want to plot.</p>
 <p><code>geom_col()</code> uses those existing values directly.</p>
-</section>
-<section id="from-raw-data-to-a-result" class="level2">
-<h2 class="anchored" data-anchor-id="from-raw-data-to-a-result">From raw data to a result</h2>
+</section><section id="from-raw-data-to-a-result" class="level2"><h2 class="anchored" data-anchor-id="from-raw-data-to-a-result">From raw data to a result</h2>
 <p>At this point, we can begin to see a complete R workflow:</p>
 <pre class="text"><code>raw data
     ↓
@@ -1507,9 +1534,7 @@ export</code></pre>
 <span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now our entire workflow can be reproduced by running the script again.</p>
-</section>
-<section id="practice-at-home" class="level2">
-<h2 class="anchored" data-anchor-id="practice-at-home">Practice at home</h2>
+</section><section id="practice-at-home" class="level2"><h2 class="anchored" data-anchor-id="practice-at-home">Practice at home</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1526,8 +1551,7 @@ Tip
 <p>inside your <code>scripts</code> folder.</p>
 <p>Load <code>tidyverse</code> and import:</p>
 <pre class="text"><code>data/recordTable.csv</code></pre>
-<section id="part-1-select" class="level3">
-<h3 class="anchored" data-anchor-id="part-1-select">Part 1: Select</h3>
+<section id="part-1-select" class="level3"><h3 class="anchored" data-anchor-id="part-1-select">Part 1: Select</h3>
 <p>Create a new object called:</p>
 <pre class="text"><code>practice_records</code></pre>
 <p>containing only:</p>
@@ -1536,31 +1560,22 @@ Species
 N_individuals
 Age
 n_images</code></pre>
-</section>
-<section id="part-2-filter" class="level3">
-<h3 class="anchored" data-anchor-id="part-2-filter">Part 2: Filter</h3>
+</section><section id="part-2-filter" class="level3"><h3 class="anchored" data-anchor-id="part-2-filter">Part 2: Filter</h3>
 <p>Using <code>practice_records</code>:</p>
 <ol type="1">
 <li>Keep only <code>"White-tailed deer"</code> records.</li>
 <li>Keep only records with more than one individual.</li>
 <li>Try combining both conditions.</li>
-</ol>
-</section>
-<section id="part-3-count" class="level3">
-<h3 class="anchored" data-anchor-id="part-3-count">Part 3: Count</h3>
+</ol></section><section id="part-3-count" class="level3"><h3 class="anchored" data-anchor-id="part-3-count">Part 3: Count</h3>
 <p>Using the original <code>recordTable</code>, calculate the number of records for each species.</p>
 <p>Sort the result from most to least common.</p>
-</section>
-<section id="part-4-group-and-summarize" class="level3">
-<h3 class="anchored" data-anchor-id="part-4-group-and-summarize">Part 4: Group and summarize</h3>
+</section><section id="part-4-group-and-summarize" class="level3"><h3 class="anchored" data-anchor-id="part-4-group-and-summarize">Part 4: Group and summarize</h3>
 <p>Create one table with one row per <code>Station</code>.</p>
 <p>For each station calculate:</p>
 <pre class="text"><code>number of records
 number of species
 total number of individuals</code></pre>
-</section>
-<section id="part-5-create-a-pipeline" class="level3">
-<h3 class="anchored" data-anchor-id="part-5-create-a-pipeline">Part 5: Create a pipeline</h3>
+</section><section id="part-5-create-a-pipeline" class="level3"><h3 class="anchored" data-anchor-id="part-5-create-a-pipeline">Part 5: Create a pipeline</h3>
 <p>Create a single pipeline that:</p>
 <ol type="1">
 <li>starts with <code>recordTable</code>,</li>
@@ -1570,8 +1585,7 @@ total number of individuals</code></pre>
 <li>calculates the number of records,</li>
 <li>calculates the number of camera stations,</li>
 <li>sorts the table from the most to the fewest records.</li>
-</ol>
-</section>
+</ol></section>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -1700,10 +1714,7 @@ arrange</code></pre>
 </div>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -2107,4 +2118,5 @@ arrange</code></pre>
 
 
 
-</body></html>
+</body>
+</html>

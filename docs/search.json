@@ -280,6 +280,146 @@
     "text": "Main idea\nR work often follows this pattern:\ncreate objects\n      ↓\norganize values\n      ↓\nimport data\n      ↓\ninspect data\n      ↓\nwork with data\n      ↓\nexport results\nThe details take practice.\nBut this workflow will appear again and again."
   },
   {
+    "objectID": "modules/06-errors-help.html",
+    "href": "modules/06-errors-help.html",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "",
+    "text": "If you work with R, you will get errors.\nA lot of them.\nThat is completely normal.\nEven experienced R users spend a considerable amount of time:\n\nreading error messages,\nchecking objects,\nreading documentation,\nsearching for solutions,\nand trying different approaches.\n\nThe difference is not that experienced users stop getting errors.\nThey simply become better at understanding what the error is telling them and where to look for a solution.\nIn this module, we will learn a simple strategy for solving problems in R."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#introduction",
+    "href": "modules/06-errors-help.html#introduction",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "",
+    "text": "If you work with R, you will get errors.\nA lot of them.\nThat is completely normal.\nEven experienced R users spend a considerable amount of time:\n\nreading error messages,\nchecking objects,\nreading documentation,\nsearching for solutions,\nand trying different approaches.\n\nThe difference is not that experienced users stop getting errors.\nThey simply become better at understanding what the error is telling them and where to look for a solution.\nIn this module, we will learn a simple strategy for solving problems in R."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#lets-get-started",
+    "href": "modules/06-errors-help.html#lets-get-started",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Let’s get started",
+    "text": "Let’s get started\nOpen your intro-r-course project and create a new R script.\nSave it inside the scripts folder as:\nmodule-06.R"
+  },
+  {
+    "objectID": "modules/06-errors-help.html#messages-warnings-and-errors",
+    "href": "modules/06-errors-help.html#messages-warnings-and-errors",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Messages, warnings, and errors",
+    "text": "Messages, warnings, and errors\nNot everything that appears in the R Console means the same thing.\nR can give us:\n\nmessages,\nwarnings,\nerrors.\n\nUnderstanding the difference is the first step in figuring out what happened."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#messages",
+    "href": "modules/06-errors-help.html#messages",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Messages",
+    "text": "Messages\nMessages simply provide information about something R is doing.\nFor example:\n\nmessage(\"This is a message\")\n\nThis is a message\n\n\nYou may also see messages when:\n\nloading packages,\nimporting data,\nfitting models,\nor running functions that provide information about their progress.\n\nA message does not necessarily mean that anything went wrong."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#warnings",
+    "href": "modules/06-errors-help.html#warnings",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Warnings",
+    "text": "Warnings\nA warning tells us that something unusual or potentially problematic happened.\nHowever, unlike an error, the function normally continues running.\nFor example:\n\nlog10(-5)\n\nThe calculation was attempted, but the result is not a valid real number:\nNaN\nNaN means:\n\nNot a Number\n\nWarnings should not automatically be ignored.\nSometimes they are harmless, but sometimes they tell us that our result may not be what we expected.\n\n\n\n\n\n\nImportant\n\n\n\nA warning does not mean:\n\nEverything is fine.\n\nIt means:\n\nR completed the operation, but something happened that you should probably investigate.\n\n\n\n\nMissing values and warnings\nProblems can also propagate through later calculations.\nFor example:\n\nvalues &lt;- c(2, 4, 6, NA, 10)\n\nmean(values)\n\n[1] NA\n\n\nThe function itself works correctly, but the missing value prevents R from calculating the mean.\nIf we know that removing missing values is appropriate, we can use:\n\nmean(\n  values,\n  na.rm = TRUE\n)\n\n[1] 5.5\n\n\nThis is why understanding your data is just as important as understanding the function."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#errors",
+    "href": "modules/06-errors-help.html#errors",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Errors",
+    "text": "Errors\nAn error stops the operation.\nFor example:\n\n\"1\" + 2\n\nR will return an error because we are trying to add text and a number.\nAnother very common error is:\n\nplot(grafics)\n\nR returns something similar to:\nError: object 'grafics' not found\nR cannot find an object called grafics.\nMaybe:\n\nwe never created it,\nwe deleted it,\nwe misspelled the name,\nor the object has a slightly different name.\n\n\n\n\n\n\n\nTip\n\n\n\nError messages are information.\nThe first question should always be:\n\nWhat is R trying to tell me?"
+  },
+  {
+    "objectID": "modules/06-errors-help.html#some-common-errors",
+    "href": "modules/06-errors-help.html#some-common-errors",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Some common errors",
+    "text": "Some common errors\nAs you begin working with R, you will probably see some errors repeatedly.\n\n\n\n\n\n\n\nMessage\nPossible problem\n\n\n\n\nobject 'x' not found\nThe object does not exist or its name is misspelled\n\n\ncould not find function\nFunction name is wrong or the package is not loaded\n\n\nunexpected symbol\nThere may be a syntax problem\n\n\nunexpected ')'\nParentheses may not match\n\n\ncannot open file\nFile name or path may be incorrect\n\n\nnon-numeric argument\nR expected numbers but received another type\n\n\n\nYou do not need to memorize these messages.\nWith time, you will start recognizing them."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#step-1-read-the-error",
+    "href": "modules/06-errors-help.html#step-1-read-the-error",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Step 1: Read the error",
+    "text": "Step 1: Read the error\nThis sounds obvious.\nBut when people see a large red message in the Console, their first reaction is often:\n\nSomething is broken!\n\nBefore changing your code, read what R says.\nFor example:\nError: object 'grafics' not found\nThe important part is:\nobject 'grafics' not found\nNow we have something specific to investigate.\nAsk yourself:\n\nDid I create grafics?\nDid I spell it correctly?\nDoes it appear in the Environment?\nDid the line that creates it run successfully?\n\nVery often, the error itself already tells us where to begin."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#step-2-check-your-objects",
+    "href": "modules/06-errors-help.html#step-2-check-your-objects",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Step 2: Check your objects",
+    "text": "Step 2: Check your objects\nMany problems occur because an object is not what we think it is.\nFor example:\n\nmat &lt;- matrix(\n  letters[5:20],\n  nrow = 4\n)\n\nmat\n\n     [,1] [,2] [,3] [,4]\n[1,] \"e\"  \"i\"  \"m\"  \"q\" \n[2,] \"f\"  \"j\"  \"n\"  \"r\" \n[3,] \"g\"  \"k\"  \"o\"  \"s\" \n[4,] \"h\"  \"l\"  \"p\"  \"t\" \n\n\nWhat type of object is it?\n\nclass(mat)\n\n[1] \"matrix\" \"array\" \n\n\nWhat does it contain?\n\nstr(mat)\n\n chr [1:4, 1:4] \"e\" \"f\" \"g\" \"h\" \"i\" \"j\" \"k\" \"l\" \"m\" \"n\" \"o\" \"p\" \"q\" \"r\" \"s\" ...\n\n\nNow imagine trying:\n\nmean(mat)\n\nmean() expects numeric or logical values, but our matrix contains characters.\nUseful functions for investigating objects include:\nclass()\nstr()\nhead()\nnames()\ndim()\nsummary()\nWe have already used most of these throughout the course.\n\n\n\n\n\n\nTip\n\n\n\nWhen code fails, do not only inspect the code.\nInspect the objects being used by the code."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#step-3-check-the-simplest-things-first",
+    "href": "modules/06-errors-help.html#step-3-check-the-simplest-things-first",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Step 3: Check the simplest things first",
+    "text": "Step 3: Check the simplest things first\nMany R problems are caused by very small mistakes.\nBefore searching for a complicated explanation, check:\n\nSpelling\nrecordTable\nis different from:\nrecordtable\n\n\nParentheses\nmean(values\nis missing:\n)\n\n\nCommas\nggplot(\n  data = recordTable\n  aes(x = Species)\n)\nis missing a comma after:\nrecordTable\n\n\nFile names\nread_csv(\"data/camera-data.csv\")\nwill not work if the file is actually called:\ncamera_data.csv\n\n\nPackages\nIf R says:\ncould not find function \"read_csv\"\nask yourself whether you loaded the package:\nlibrary(tidyverse)\nSmall mistakes are extremely common.\nCheck them first."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#step-4-read-the-documentation",
+    "href": "modules/06-errors-help.html#step-4-read-the-documentation",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Step 4: Read the documentation",
+    "text": "Step 4: Read the documentation\nIf the function exists but is not behaving as expected, check its documentation.\nFor example:\n\n?mean\n\nor:\n\nhelp(mean)\n\nDocumentation usually contains:\n\nwhat the function does,\nits arguments,\ndefault values,\npossible options,\nand examples.\n\nFor example, the help page for mean() shows the argument:\nna.rm\nwhich allows us to specify whether missing values should be removed.\n\nvalues &lt;- c(2, 4, 6, NA, 10)\n\nmean(\n  values,\n  na.rm = TRUE\n)\n\n[1] 5.5\n\n\nLearning how to read documentation is much more useful than trying to memorize every function."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#step-5-search-for-the-error",
+    "href": "modules/06-errors-help.html#step-5-search-for-the-error",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Step 5: Search for the error",
+    "text": "Step 5: Search for the error\nThere is a very good chance that someone else has encountered the same error before and already figured out how to fix it.\nMost of the time, simply copying the error message and Googling it is enough to find a solution.\n\n\n\n\n\nOne thing I really like about R is that the community is usually very willing to help. Over time, you will also learn how to Google errors and warnings more effectively, and finding solutions will become much easier.\n\n\n\n\n\nOne very useful resource is Stack Overflow, where you can find examples and discussions about coding problems, error messages, and even statistical questions.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nWhen searching, include:\nR\nand, when relevant, the package or function name.\nFor example:\nR ggplot2 object not found\nis much more useful than searching only:\nobject not found"
+  },
+  {
+    "objectID": "modules/06-errors-help.html#step-6-ask-for-help",
+    "href": "modules/06-errors-help.html#step-6-ask-for-help",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Step 6: Ask for help",
+    "text": "Step 6: Ask for help\nSometimes you will still need another person to help solve the problem.\nThat is completely normal.\nHowever:\n\n“My code doesn’t work.”\n\nis very difficult to answer.\nA much more useful question includes:\n\nwhat you are trying to do,\nthe code that produces the problem,\nthe exact error message,\nwhat you expected to happen,\ninformation about the object involved.\n\nFor example:\nI am trying to calculate the mean number of individuals.\n\nI ran:\n\nmean(recordTable$N_individuals)\n\nand received this result:\n\nNA\n\nI expected a numeric mean.\n\nstr(recordTable$N_individuals) shows that the variable is numeric.\n\nWhat should I check next?\nNow someone has enough information to help."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#using-ai-tools-to-solve-r-problems",
+    "href": "modules/06-errors-help.html#using-ai-tools-to-solve-r-problems",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Using AI tools to solve R problems",
+    "text": "Using AI tools to solve R problems\nNowadays, AI tools and large language models (LLMs) have become very common in coding. Whether you use them to learn, debug, or write code, they can be extremely powerful tools, but they also come with some risks.\n\n\n\n\n\nBeyond the broader ethical discussion about using AI, these tools can influence how you learn, particularly how you learn to code.\nIt is really tempting to simply ask an AI to create the code for you. Sure, that can save you a lot of time, but if you are just starting to code, relying on it too much can slow down your learning.\nWhy?\nBecause programming is a lot like learning a language. You need to practice, become familiar with the syntax, make mistakes, and actually write code yourself.\nIf you start by simply copying and pasting everything that an AI gives you into the Console, you may get the answer, but you may not understand how you got there. And if you do not practice writing and modifying the code yourself, it will be much harder to remember how to do it later.\n\n\n\n\n\nSo, although this may sound a little hypocritical because I use AI a lot in my own daily work, I suggest delaying heavy reliance on AI as much as you can while you are learning the basics.\n\n\n\n\n\n\nTip\n\n\n\n🧑‍💻 If you want to go further in the AI, learning, and coding topic, you can start with these readings\nMarissa A Dyck, A letter to a young data analyst: learning before leaning on AI, Journal of Mammalogy, Volume 107, Issue 1, February 2026, Pages 210–211, https://doi.org/10.1093/jmammal/gyaf082\nB.A. Han,K.R. Varshney,S. LaDeau,A. Subramaniam,K.C. Weathers, & J. Zwart. (2023). A synergistic future for AI and ecology, Proc. Natl. Acad. Sci. U.S.A. 120 (38) e2220283120, https://doi.org/10.1073/pnas.2220283120\nCooper, N., Clark, A. T., Lecomte, N., Qiao, H., & Ellison, A. M. (2024). Harnessing large language models for coding, teaching and inclusion to empower research in ecology and evolution. Methods in Ecology and Evolution, 15, 1757–1763. https://doi.org/10.1111/2041-210X.14325\n\n\nI say this because it is more important at the beginning to learn how R works and understand the code you are writing. Later, as you develop your programming skills, style, and experience, you can rely more on AI to assist you with repetitive tasks, debugging, brainstorming, or things you already understand.\nSo, if you want to use AI on a daily basis, that is completely fine. Just try to use it as a learning tool, rather than as something that blindly solves every problem or does your homework for you.\nThey can help you:\n\ninterpret an error message,\nexplain unfamiliar code,\nsuggest things to check,\nidentify possible syntax problems,\nexplain function arguments,\nor suggest alternative approaches.\n\nBut the quality of the answer depends heavily on the information you provide.\n\nNot very useful\nMy R code doesn't work. Fix it.\n\n\nMuch more useful\nI am using R and ggplot2.\n\nI want to make a bar plot using the Species column from\na data frame called recordTable.\n\nThis is my code:\n\nggplot(recordTable, aes(x = Species))\n  geom_bar()\n\nR returns:\n\nError: unexpected symbol\n\nCan you explain what the error means and show me what I should check?\nProviding the:\ngoal\n+\ncode\n+\nerror\n+\ncontext\nusually produces a much more useful answer."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#ai-can-also-be-wrong",
+    "href": "modules/06-errors-help.html#ai-can-also-be-wrong",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "AI can also be wrong",
+    "text": "AI can also be wrong\nAn AI-generated answer should be treated as a suggestion to test, not as proof that the solution is correct.\nAn AI tool may:\n\nmisunderstand your data,\nsuggest a function that does not fit your problem,\nuse an argument incorrectly,\nassume a package is loaded,\nor produce code that runs but does something different from what you intended.\n\nAlways:\n\nRead the suggested code.\nRun it yourself.\nInspect the result.\nAsk whether the result makes sense.\nCheck the function documentation when necessary.\n\n\n\n\n\n\n\nImportant\n\n\n\nDo not copy and run code that you do not understand.\nIf an AI gives you code, ask it to explain why the code works and what each important part does."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#be-careful-what-you-share",
+    "href": "modules/06-errors-help.html#be-careful-what-you-share",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Be careful what you share",
+    "text": "Be careful what you share\nWhen asking for help online or using an AI assistant, you usually do not need to share your complete dataset.\nAvoid sharing:\n\npasswords,\npersonal information,\nconfidential data,\nunpublished sensitive datasets.\n\nInstead, share a small example that reproduces the problem.\nFor example:\nexample_data &lt;- data.frame(\n  Species = c(\"Raccoon\", \"Coyote\", \"Raccoon\"),\n  detections = c(4, 2, NA)\n)\nIf the error also happens with this small example, someone can help you without needing access to your complete dataset."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#a-simple-debugging-workflow",
+    "href": "modules/06-errors-help.html#a-simple-debugging-workflow",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "A simple debugging workflow",
+    "text": "A simple debugging workflow\nWhen something goes wrong, try this order:\n1. Read the message\n        ↓\n2. Check spelling and syntax\n        ↓\n3. Inspect your objects\n        ↓\n4. Read the function documentation\n        ↓\n5. Simplify the problem\n        ↓\n6. Search for the error\n        ↓\n7. Ask another person or an AI tool\n        ↓\n8. Test and verify the solution\nYou will not always need every step.\nWith experience, you will learn which ones are most useful for different types of problems."
+  },
+  {
+    "objectID": "modules/06-errors-help.html#practice-at-home",
+    "href": "modules/06-errors-help.html#practice-at-home",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Practice at home",
+    "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis activity should take approximately 10–15 minutes.\nCreate a new script called:\npractice-06.R\ninside your scripts folder.\nThe following pieces of code contain problems.\nFor each example:\n\nRun the code.\nRead the error or warning.\nIdentify what caused it.\nFix the problem.\nAdd a comment explaining what was wrong.\n\n\nProblem 1\n\nnumber_of_cameras &lt;- 20\n\nNumber_of_cameras + 5\n\n\n\nProblem 2\n\ndetections &lt;- c(2, 5, 8, NA, 12)\n\nmean(detections)\n\n\n\nProblem 3\n\nlibrary(tidyverse)\n\nggplot(\n  recordTable\n  aes(x = Species)\n) +\n  geom_bar()\n\n\n\nProblem 4\n\ncamera_days &lt;- c(\n  \"30\",\n  \"28\",\n  \"25\",\n  \"30\"\n)\n\nmean(camera_days)\n\n\n\nProblem 5\nImagine that R returns:\nError: object 'recordTable' not found\nWrite down at least three things you would check before asking someone else for help.\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\n\nProblem 1\nR is case-sensitive.\nnumber_of_cameras &lt;- 20\n\nnumber_of_cameras + 5\n\n\nProblem 2\nThe vector contains a missing value.\ndetections &lt;- c(2, 5, 8, NA, 12)\n\nmean(\n  detections,\n  na.rm = TRUE\n)\n\n\nProblem 3\nThere is a missing comma after recordTable.\nggplot(\n  recordTable,\n  aes(x = Species)\n) +\n  geom_bar()\n\n\nProblem 4\nThe values were stored as characters because they are inside quotation marks.\ncamera_days &lt;- c(\n  30,\n  28,\n  25,\n  30\n)\n\nmean(camera_days)\n\n\nProblem 5\nSome things you could check include:\n\nDid I import or create recordTable?\nDid the line that creates recordTable run successfully?\nDid I spell the object name correctly?\nDoes recordTable appear in the Environment?\nDid I restart R without rerunning the script?\nAm I running the correct script or project?"
+  },
+  {
+    "objectID": "modules/06-errors-help.html#errors-are-part-of-the-process",
+    "href": "modules/06-errors-help.html#errors-are-part-of-the-process",
+    "title": "Module 6: Errors, Help, and Problem Solving",
+    "section": "Errors are part of the process",
+    "text": "Errors are part of the process\nGetting an error does not mean that you are bad at R.\nDebugging is part of programming.\nAs you work with R, you will gradually move from:\nI got an error 😱\nto:\nI got an error... let's see what it says.\nThat change is one of the most useful skills you can develop."
+  },
+  {
     "objectID": "modules/04-import-data.html",
     "href": "modules/04-import-data.html",
     "title": "Module 4: Importing and Exporting Data",
@@ -305,7 +445,7 @@
     "href": "modules/04-import-data.html#where-is-r-looking-for-files",
     "title": "Module 4: Importing and Exporting Data",
     "section": "Where is R looking for files?",
-    "text": "Where is R looking for files?\nBefore importing a file, R needs to know where the file is located.\nThe folder that R currently considers its starting location is called the working directory.\nWe can check it using:\n\ngetwd()\n\n[1] \"C:/Users/andradegp/AppData/Local/Temp/RtmpmSCrji/file6a2c74193bfb/modules\"\n\n\nBecause we are working inside an RStudio Project, the working directory should normally be the main folder of our project:\nintro-r-course/\nThis is one of the main reasons we created an RStudio Project at the beginning of the course.\n\n\n\n\n\n\nAvoid using setwd() inside your scripts\n\n\n\nYou may see tutorials that use:\nsetwd(\"C:/Users/YourName/Documents/MyProject\")\nto specify the working directory.\nThis may work on your computer, but that path will probably not work on someone else’s computer.\nUsing an RStudio Project allows us to avoid this problem and work with relative paths instead."
+    "text": "Where is R looking for files?\nBefore importing a file, R needs to know where the file is located.\nThe folder that R currently considers its starting location is called the working directory.\nWe can check it using:\n\ngetwd()\n\n[1] \"C:/Users/andradegp/AppData/Local/Temp/RtmpW8fHyP/file85a434ae5f2c/modules\"\n\n\nBecause we are working inside an RStudio Project, the working directory should normally be the main folder of our project:\nintro-r-course/\nThis is one of the main reasons we created an RStudio Project at the beginning of the course.\n\n\n\n\n\n\nAvoid using setwd() inside your scripts\n\n\n\nYou may see tutorials that use:\nsetwd(\"C:/Users/YourName/Documents/MyProject\")\nto specify the working directory.\nThis may work on your computer, but that path will probably not work on someone else’s computer.\nUsing an RStudio Project allows us to avoid this problem and work with relative paths instead."
   },
   {
     "objectID": "modules/04-import-data.html#file-paths",
@@ -844,7 +984,7 @@
     "href": "modules/05-data-visualization.html#lets-get-started",
     "title": "Module 5: Data Visualization with ggplot2",
     "section": "Let’s get started",
-    "text": "Let’s get started\nOpen your intro-r-course project and create a new R script.\nSave it inside the scripts folder as:\nmodule-05.R\nFirst, load the tidyverse package:\n\nlibrary(tidyverse)\n\nThen import the dataset:\n\nrecordTable &lt;- read_csv(\n  \"data/recordTable.csv\"\n)\n\nRemember that we should always inspect a dataset after importing it.\n\nhead(recordTable)\n\n# A tibble: 6 × 25\n  RootFolder       File  RelativePath Station Camera DateTime            Species\n  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  \n1 Field Station 2… DSCF… \"Control 0\\… Contro… Contr… 2025-05-15 14:53:20 White-…\n2 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-05 04:25:19 Armadi…\n3 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-26 07:39:44 Armadi…\n4 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-26 08:07:20 Armadi…\n5 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-26 08:39:46 Armadi…\n6 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-07-20 01:11:11 Armadi…\n# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,\n#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,\n#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,\n#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,\n#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;\n\n\n\ndim(recordTable)\n\n[1] 3898   25\n\n\n\nnames(recordTable)\n\n [1] \"RootFolder\"        \"File\"              \"RelativePath\"     \n [4] \"Station\"           \"Camera\"            \"DateTime\"         \n [7] \"Species\"           \"N_individuals\"     \"Sex\"              \n[10] \"Age\"               \"Identifier\"        \"Comments\"         \n[13] \"Favorite\"          \"DateTime_original\" \"year\"             \n[16] \"date_shift\"        \"n_images\"          \"Date\"             \n[19] \"Time\"              \"delta.time.secs\"   \"delta.time.mins\"  \n[22] \"delta.time.hours\"  \"delta.time.days\"   \"DateTime2\"        \n[25] \"Date2\"            \n\n\n\nstr(recordTable)\n\nspc_tbl_ [3,898 × 25] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ RootFolder       : chr [1:3898] \"Field Station 2025\" \"Field Station 2025\" \"Field Station 2025\" \"Field Station 2025\" ...\n $ File             : chr [1:3898] \"DSCF0007.JPG\" \"DSCF0134.JPG\" \"DSCF0425.JPG\" \"DSCF0429.JPG\" ...\n $ RelativePath     : chr [1:3898] \"Control 0\\\\Control 0 A\" \"Control 1\\\\Control 1 B\" \"Control 1\\\\Control 1 B\" \"Control 1\\\\Control 1 B\" ...\n $ Station          : chr [1:3898] \"Control 0\" \"Control 1\" \"Control 1\" \"Control 1\" ...\n $ Camera           : chr [1:3898] \"Control 0 A\" \"Control 1 B\" \"Control 1 B\" \"Control 1 B\" ...\n $ DateTime         : POSIXct[1:3898], format: \"2025-05-15 14:53:20\" \"2025-06-05 04:25:19\" ...\n $ Species          : chr [1:3898] \"White-tailed deer\" \"Armadillo\" \"Armadillo\" \"Armadillo\" ...\n $ N_individuals    : num [1:3898] 0 1 2 1 1 1 1 1 1 1 ...\n $ Sex              : chr [1:3898] NA \"Unknown\" \"Unknown\" \"Unknown\" ...\n $ Age              : chr [1:3898] \"Unknown\" \"Adult\" \"Unknown\" \"Unknown\" ...\n $ Identifier       : chr [1:3898] NA NA NA NA ...\n $ Comments         : chr [1:3898] NA NA NA NA ...\n $ Favorite         : logi [1:3898] FALSE FALSE FALSE FALSE FALSE FALSE ...\n $ DateTime_original: POSIXct[1:3898], format: \"2025-05-15 14:53:20\" \"2025-03-08 04:25:19\" ...\n $ year             : num [1:3898] 2025 2025 2025 2025 2025 ...\n $ date_shift       : num [1:3898] NA 89 89 89 89 89 89 89 89 89 ...\n $ n_images         : num [1:3898] 1 2 2 1 1 2 1 1 2 1 ...\n $ Date             : Date[1:3898], format: \"2025-05-15\" \"2025-06-05\" ...\n $ Time             : 'hms' num [1:3898] 14:53:20 04:25:19 07:39:44 08:07:20 ...\n  ..- attr(*, \"units\")= chr \"secs\"\n $ delta.time.secs  : num [1:3898] 0 0 1826065 1656 1946 ...\n $ delta.time.mins  : num [1:3898] 0 0 30434.4 27.6 32.4 ...\n $ delta.time.hours : num [1:3898] 0 0 507.2 0.5 0.5 ...\n $ delta.time.days  : num [1:3898] 0 0 21.1 0 0 23.7 0 0 27 0 ...\n $ DateTime2        : POSIXct[1:3898], format: \"2025-05-15 14:53:20\" \"2025-06-05 04:25:19\" ...\n $ Date2            : Date[1:3898], format: \"2025-05-15\" \"2025-06-05\" ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   RootFolder = col_character(),\n  ..   File = col_character(),\n  ..   RelativePath = col_character(),\n  ..   Station = col_character(),\n  ..   Camera = col_character(),\n  ..   DateTime = col_datetime(format = \"\"),\n  ..   Species = col_character(),\n  ..   N_individuals = col_double(),\n  ..   Sex = col_character(),\n  ..   Age = col_character(),\n  ..   Identifier = col_character(),\n  ..   Comments = col_character(),\n  ..   Favorite = col_logical(),\n  ..   DateTime_original = col_datetime(format = \"\"),\n  ..   year = col_double(),\n  ..   date_shift = col_double(),\n  ..   n_images = col_double(),\n  ..   Date = col_date(format = \"\"),\n  ..   Time = col_time(format = \"\"),\n  ..   delta.time.secs = col_double(),\n  ..   delta.time.mins = col_double(),\n  ..   delta.time.hours = col_double(),\n  ..   delta.time.days = col_double(),\n  ..   DateTime2 = col_datetime(format = \"\"),\n  ..   Date2 = col_date(format = \"\")\n  .. )\n - attr(*, \"problems\")=&lt;pointer: 0x00000197225ffd40&gt; \n\n\nFor this module, some of the variables that will be especially useful are:\nStation\nSpecies\nN_individuals\nAge\nn_images\nDate\nTime"
+    "text": "Let’s get started\nOpen your intro-r-course project and create a new R script.\nSave it inside the scripts folder as:\nmodule-05.R\nFirst, load the tidyverse package:\n\nlibrary(tidyverse)\n\nThen import the dataset:\n\nrecordTable &lt;- read_csv(\n  \"data/recordTable.csv\"\n)\n\nRemember that we should always inspect a dataset after importing it.\n\nhead(recordTable)\n\n# A tibble: 6 × 25\n  RootFolder       File  RelativePath Station Camera DateTime            Species\n  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;  \n1 Field Station 2… DSCF… \"Control 0\\… Contro… Contr… 2025-05-15 14:53:20 White-…\n2 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-05 04:25:19 Armadi…\n3 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-26 07:39:44 Armadi…\n4 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-26 08:07:20 Armadi…\n5 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-06-26 08:39:46 Armadi…\n6 Field Station 2… DSCF… \"Control 1\\… Contro… Contr… 2025-07-20 01:11:11 Armadi…\n# ℹ 18 more variables: N_individuals &lt;dbl&gt;, Sex &lt;chr&gt;, Age &lt;chr&gt;,\n#   Identifier &lt;chr&gt;, Comments &lt;chr&gt;, Favorite &lt;lgl&gt;, DateTime_original &lt;dttm&gt;,\n#   year &lt;dbl&gt;, date_shift &lt;dbl&gt;, n_images &lt;dbl&gt;, Date &lt;date&gt;, Time &lt;time&gt;,\n#   delta.time.secs &lt;dbl&gt;, delta.time.mins &lt;dbl&gt;, delta.time.hours &lt;dbl&gt;,\n#   delta.time.days &lt;dbl&gt;, DateTime2 &lt;dttm&gt;, Date2 &lt;date&gt;\n\n\n\ndim(recordTable)\n\n[1] 3898   25\n\n\n\nnames(recordTable)\n\n [1] \"RootFolder\"        \"File\"              \"RelativePath\"     \n [4] \"Station\"           \"Camera\"            \"DateTime\"         \n [7] \"Species\"           \"N_individuals\"     \"Sex\"              \n[10] \"Age\"               \"Identifier\"        \"Comments\"         \n[13] \"Favorite\"          \"DateTime_original\" \"year\"             \n[16] \"date_shift\"        \"n_images\"          \"Date\"             \n[19] \"Time\"              \"delta.time.secs\"   \"delta.time.mins\"  \n[22] \"delta.time.hours\"  \"delta.time.days\"   \"DateTime2\"        \n[25] \"Date2\"            \n\n\n\nstr(recordTable)\n\nspc_tbl_ [3,898 × 25] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ RootFolder       : chr [1:3898] \"Field Station 2025\" \"Field Station 2025\" \"Field Station 2025\" \"Field Station 2025\" ...\n $ File             : chr [1:3898] \"DSCF0007.JPG\" \"DSCF0134.JPG\" \"DSCF0425.JPG\" \"DSCF0429.JPG\" ...\n $ RelativePath     : chr [1:3898] \"Control 0\\\\Control 0 A\" \"Control 1\\\\Control 1 B\" \"Control 1\\\\Control 1 B\" \"Control 1\\\\Control 1 B\" ...\n $ Station          : chr [1:3898] \"Control 0\" \"Control 1\" \"Control 1\" \"Control 1\" ...\n $ Camera           : chr [1:3898] \"Control 0 A\" \"Control 1 B\" \"Control 1 B\" \"Control 1 B\" ...\n $ DateTime         : POSIXct[1:3898], format: \"2025-05-15 14:53:20\" \"2025-06-05 04:25:19\" ...\n $ Species          : chr [1:3898] \"White-tailed deer\" \"Armadillo\" \"Armadillo\" \"Armadillo\" ...\n $ N_individuals    : num [1:3898] 0 1 2 1 1 1 1 1 1 1 ...\n $ Sex              : chr [1:3898] NA \"Unknown\" \"Unknown\" \"Unknown\" ...\n $ Age              : chr [1:3898] \"Unknown\" \"Adult\" \"Unknown\" \"Unknown\" ...\n $ Identifier       : chr [1:3898] NA NA NA NA ...\n $ Comments         : chr [1:3898] NA NA NA NA ...\n $ Favorite         : logi [1:3898] FALSE FALSE FALSE FALSE FALSE FALSE ...\n $ DateTime_original: POSIXct[1:3898], format: \"2025-05-15 14:53:20\" \"2025-03-08 04:25:19\" ...\n $ year             : num [1:3898] 2025 2025 2025 2025 2025 ...\n $ date_shift       : num [1:3898] NA 89 89 89 89 89 89 89 89 89 ...\n $ n_images         : num [1:3898] 1 2 2 1 1 2 1 1 2 1 ...\n $ Date             : Date[1:3898], format: \"2025-05-15\" \"2025-06-05\" ...\n $ Time             : 'hms' num [1:3898] 14:53:20 04:25:19 07:39:44 08:07:20 ...\n  ..- attr(*, \"units\")= chr \"secs\"\n $ delta.time.secs  : num [1:3898] 0 0 1826065 1656 1946 ...\n $ delta.time.mins  : num [1:3898] 0 0 30434.4 27.6 32.4 ...\n $ delta.time.hours : num [1:3898] 0 0 507.2 0.5 0.5 ...\n $ delta.time.days  : num [1:3898] 0 0 21.1 0 0 23.7 0 0 27 0 ...\n $ DateTime2        : POSIXct[1:3898], format: \"2025-05-15 14:53:20\" \"2025-06-05 04:25:19\" ...\n $ Date2            : Date[1:3898], format: \"2025-05-15\" \"2025-06-05\" ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   RootFolder = col_character(),\n  ..   File = col_character(),\n  ..   RelativePath = col_character(),\n  ..   Station = col_character(),\n  ..   Camera = col_character(),\n  ..   DateTime = col_datetime(format = \"\"),\n  ..   Species = col_character(),\n  ..   N_individuals = col_double(),\n  ..   Sex = col_character(),\n  ..   Age = col_character(),\n  ..   Identifier = col_character(),\n  ..   Comments = col_character(),\n  ..   Favorite = col_logical(),\n  ..   DateTime_original = col_datetime(format = \"\"),\n  ..   year = col_double(),\n  ..   date_shift = col_double(),\n  ..   n_images = col_double(),\n  ..   Date = col_date(format = \"\"),\n  ..   Time = col_time(format = \"\"),\n  ..   delta.time.secs = col_double(),\n  ..   delta.time.mins = col_double(),\n  ..   delta.time.hours = col_double(),\n  ..   delta.time.days = col_double(),\n  ..   DateTime2 = col_datetime(format = \"\"),\n  ..   Date2 = col_date(format = \"\")\n  .. )\n - attr(*, \"problems\")=&lt;pointer: 0x000001f2ca6ffd20&gt; \n\n\nFor this module, some of the variables that will be especially useful are:\nStation\nSpecies\nN_individuals\nAge\nn_images\nDate\nTime"
   },
   {
     "objectID": "modules/05-data-visualization.html#the-logic-of-ggplot2",
@@ -957,300 +1097,6 @@
     "title": "Module 5: Data Visualization with ggplot2",
     "section": "Practice at home",
     "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis activity should take approximately 20–30 minutes.\nOpen your intro-r-course project and create a new script called:\npractice-05.R\nSave it inside the scripts folder.\nLoad tidyverse and import:\ndata/recordTable.csv\n\nPart 1: Bar plot\nCreate a bar plot showing the number of records for each Species.\nYour graph should include:\n\na title,\nlabels for both axes,\na color of your choice,\nand a theme.\n\nTry both the regular orientation and:\ncoord_flip()\nDecide which version is easier to read.\n\n\nPart 2: Histogram\nCreate a histogram of:\nn_images\nTry at least three different values for either:\nbins\nor:\nbinwidth\nHow does changing the bins affect the appearance of the distribution?\n\n\nPart 3: Compare species\nCreate an object containing these three species:\n\npractice_species &lt;- c(\n  \"White-tailed deer\",\n  \"Armadillo\",\n  \"Hog\"\n)\n\nSelect only those records:\n\npractice_records &lt;- recordTable[\n  recordTable$Species %in% practice_species,\n]\n\nCreate either:\ngeom_boxplot()\nor:\ngeom_violin()\nto compare n_images among the three species.\n\n\nPart 4: Scatterplot\nUsing practice_records and geom_points create a scatterplot with:\nN_individuals\non the x-axis and:\nn_images\non the y-axis.\nMap:\nSpecies\nto either color or shape.\nExperiment with:\nsize\nalpha\nuntil the plot is easy to read.\n\n\nPart 5: Save a figure\nChoose one of your plots, save it as an R object, and export it into:\noutputs/\nusing:\nggsave()\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\n\n# Practice for Module 5\n\nlibrary(tidyverse)\n\nrecordTable &lt;- read_csv(\n  \"data/recordTable.csv\"\n)\n\n\n# ---------------------------\n# Bar plot\n# ---------------------------\n\nggplot(\n  recordTable,\n  aes(x = Species)\n) +\n  geom_bar(\n    fill = \"steelblue\"\n  ) +\n  coord_flip() +\n  labs(\n    title = \"Camera-trap records by species\",\n    x = \"Species\",\n    y = \"Number of records\"\n  ) +\n  theme_bw()\n\n\n# ---------------------------\n# Histogram\n# ---------------------------\n\nggplot(\n  recordTable,\n  aes(x = n_images)\n) +\n  geom_histogram(\n    binwidth = 1,\n    fill = \"steelblue\",\n    color = \"white\"\n  ) +\n  coord_cartesian(\n    xlim = c(1, 20)\n  ) +\n  labs(\n    x = \"Number of images\",\n    y = \"Frequency\"\n  ) +\n  theme_classic()\n\n\n# ---------------------------\n# Select species\n# ---------------------------\n\npractice_species &lt;- c(\n  \"White-tailed deer\",\n  \"Armadillo\",\n  \"Hog\"\n)\n\npractice_records &lt;- recordTable[\n  recordTable$Species %in% practice_species,\n]\n\n\n# ---------------------------\n# Boxplot\n# ---------------------------\n\nggplot(\n  practice_records,\n  aes(\n    x = Species,\n    y = n_images,\n    fill = Species\n  )\n) +\n  geom_boxplot(\n    show.legend = FALSE\n  ) +\n  labs(\n    x = \"Species\",\n    y = \"Number of images\"\n  ) +\n  theme_bw()\n\n\n# ---------------------------\n# Scatterplot\n# ---------------------------\n\nggplot(\n  practice_records,\n  aes(\n    x = N_individuals,\n    y = n_images,\n    color = Species\n  )\n) +\n  geom_point(\n    alpha = 0.5,\n    size = 2\n  ) +\n  labs(\n    x = \"Number of individuals\",\n    y = \"Number of images\",\n    color = \"Species\"\n  ) +\n  theme_bw()\n\n\n# ---------------------------\n# Save a plot\n# ---------------------------\n\nspecies_plot &lt;- ggplot(\n  recordTable,\n  aes(x = Species)\n) +\n  geom_bar(\n    fill = \"steelblue\"\n  ) +\n  coord_flip() +\n  labs(\n    title = \"Camera-trap records by species\",\n    x = \"Species\",\n    y = \"Number of records\"\n  ) +\n  theme_bw()\n\nggsave(\n  filename = \"outputs/species_records.png\",\n  plot = species_plot,\n  width = 8,\n  height = 6,\n  dpi = 300\n)\n\nYour plots do not need to look exactly like these.\nThe important thing is that you practice:\n\nchoosing an appropriate geometry,\nmapping variables with aes(),\nchanging colors, shapes, size, and transparency,\nadding labels and themes,\nand saving your plots."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#introduction-to-r",
-    "href": "slides/session-01-introduction.html#introduction-to-r",
-    "title": "Introduction to R",
-    "section": "Introduction to R",
-    "text": "Introduction to R\nSession 1\nToday we will start using R and RStudio.\nWe will also create the project folder that we will use throughout the course."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#what-is-r",
-    "href": "slides/session-01-introduction.html#what-is-r",
-    "title": "Introduction to R",
-    "section": "What is R?",
-    "text": "What is R?\n\n\n\n\n\n\nR is a language and environment designed for statistical and graphical operations.\nR allows us to work with data by writing code.\n\nThat may sound intimidating at first, but the goal is not to become a programmer overnight."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#a-very-short-history-of-r",
-    "href": "slides/session-01-introduction.html#a-very-short-history-of-r",
-    "title": "Introduction to R",
-    "section": "A very short history of R",
-    "text": "A very short history of R\n\n\nR was developed in the early 1990s by Ross Ihaka and Robert Gentleman.\nIt was inspired by an earlier language called S.\nThe problem with S? You had to buy it. And we all know we would rather spend our money on more important things…\n\nLike food 🍔\n\n\n\n\n\nR logo"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#why-is-r-useful",
-    "href": "slides/session-01-introduction.html#why-is-r-useful",
-    "title": "Introduction to R",
-    "section": "Why is R useful?",
-    "text": "Why is R useful?\nR is:\n\nFree\nOpen source\nWidely used in science and data analysis\nSupported by a large community\nExtremely flexible\n\n\nYou do not need to learn everything R can do.\n\n\nYou only need to start building the tools that are useful for your own work."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#what-is-rstudio",
-    "href": "slides/session-01-introduction.html#what-is-rstudio",
-    "title": "Introduction to R",
-    "section": "What is RStudio?",
-    "text": "What is RStudio?\n\n\nR does the work.\nRStudio helps us work with R.\nRStudio makes it easier to:\n\nwrite code\nsave scripts\norganize files\nview plots\ninstall packages\nmanage projects\n\n\n\n\n\nHaving fun with R: Artwork by Allison Horst"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#the-rstudio-interface",
-    "href": "slides/session-01-introduction.html#the-rstudio-interface",
-    "title": "Introduction to R",
-    "section": "The RStudio interface",
-    "text": "The RStudio interface\n\nRStudio User Guide 2026.08.2"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#console-vs.-script",
-    "href": "slides/session-01-introduction.html#console-vs.-script",
-    "title": "Introduction to R",
-    "section": "Console vs. Script",
-    "text": "Console vs. Script\n\n\nConsole\nGood for quick tests.\n2 + 2\n10 / 2\nBut Console commands are not automatically saved.\n\nScript\nBetter for real work.\n# My first R script\n\n2 + 2\n5 * 4\n100 / 10\nScripts allow us to save, edit, and reuse our code."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#first-code",
-    "href": "slides/session-01-introduction.html#first-code",
-    "title": "Introduction to R",
-    "section": "First code",
-    "text": "First code\nOpen a new R script:\nFile → New File → R Script\nThen write:\n2 + 2\n5 * 4\n100 / 10\nRun each line from the script:\nWindows: Ctrl + Enter\nMac: Command + Enter"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#comments",
-    "href": "slides/session-01-introduction.html#comments",
-    "title": "Introduction to R",
-    "section": "Comments",
-    "text": "Comments\nWe can add notes to scripts using #.\n# My first R script\n\n2 + 2\n\n# Multiplication\n5 * 4\n\n# Division\n100 / 10\nAnything after # is ignored by R.\n\nComments help your future self understand what your code was doing."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#rstudio-projects",
-    "href": "slides/session-01-introduction.html#rstudio-projects",
-    "title": "Introduction to R",
-    "section": "RStudio Projects",
-    "text": "RStudio Projects\n\n\nAn RStudio Project connects RStudio with a specific folder on your computer.\nThat folder can contain everything related to your work:\nmy-project/\n│\n├── data/\n├── scripts/\n├── outputs/\n└── my-project.Rproj"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#create-our-course-project",
-    "href": "slides/session-01-introduction.html#create-our-course-project",
-    "title": "Introduction to R",
-    "section": "Create our course project",
-    "text": "Create our course project\nToday we will create one project that we will use throughout the course.\nName it:\nintro-r-course\nThen create three folders:\nintro-r-course/\n│\n├── data/\n├── scripts/\n└── outputs/"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#why-use-projects",
-    "href": "slides/session-01-introduction.html#why-use-projects",
-    "title": "Introduction to R",
-    "section": "Why use projects?",
-    "text": "Why use projects?\nProjects help us avoid this:\nfinal.csv\nfinal2.csv\nfinal_revised.csv\nfinal_revised2.csv\nscript.R\nscript_new.R\nfigure1.png\nscattered across:\nDesktop/\nDownloads/\nDocuments/\n\nA project gives your work a home."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#why-learn-r",
-    "href": "slides/session-01-introduction.html#why-learn-r",
-    "title": "Introduction to R",
-    "section": "Why learn R?",
-    "text": "Why learn R?\n\n\nYou may be wondering:\n\nWhy do I need to learn R after spending years getting good at Excel?\n\nA selfish reason:\nIn many courses, labs, graduate programs, and research projects, knowing some R is already expected."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#good-reasons-to-learn-r",
-    "href": "slides/session-01-introduction.html#good-reasons-to-learn-r",
-    "title": "Introduction to R",
-    "section": "Good reasons to learn R",
-    "text": "Good reasons to learn R\n\nReproducibility\nYou can save and share exactly what you did.\n\nNot just so that someone can replicate it exactly and know whether it’s right or wrong, but also so that others can learn from it."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#what-can-you-do-with-r",
-    "href": "slides/session-01-introduction.html#what-can-you-do-with-r",
-    "title": "Introduction to R",
-    "section": "What can you do with R?",
-    "text": "What can you do with R?\n\n\nData\nClean, organize, and explore datasets.\nStatistics\nFit simple and complex models.\nGraphics\nCreate figures, maps, and animations.\n\nDocuments\nCreate reports, websites, presentations, and manuscripts.\nApps\nBuild interactive tools to explore data.\nAutomation\nAvoid doing repetitive tasks by hand."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#the-r-community",
-    "href": "slides/session-01-introduction.html#the-r-community",
-    "title": "Introduction to R",
-    "section": "The R community",
-    "text": "The R community\n\nAllison Horst code heroR has a large and generous community.\nThere are tutorials, books, forums, examples, packages, and people willing to help."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#you-will-not-learn-r-today",
-    "href": "slides/session-01-introduction.html#you-will-not-learn-r-today",
-    "title": "Introduction to R",
-    "section": "You will not learn R today",
-    "text": "You will not learn R today\n\n\nR is learned by practicing.\nYou will:\n\nmake mistakes,\nget errors,\nforget commands,\nreuse old scripts,\nsearch for help,\nand slowly become more comfortable."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#errors-are-part-of-learning-r",
-    "href": "slides/session-01-introduction.html#errors-are-part-of-learning-r",
-    "title": "Introduction to R",
-    "section": "Errors are part of learning R",
-    "text": "Errors are part of learning R\nYou are going to see errors.\n\n\n\n\nA lot of them.\n\nThat is normal.\n\n\nR is not about avoiding errors.\n\n\nIt is about making enough of them that you eventually learn how to fix them."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#learning-r-takes-time",
-    "href": "slides/session-01-introduction.html#learning-r-takes-time",
-    "title": "Introduction to R",
-    "section": "Learning R takes time",
-    "text": "Learning R takes time\nIn conclusion, whether or not you learn R will depend on how much time you spend on it, not on whether or not you take this tutorial. [@lawlor2022]\n\nAllison Horst rollercoaster"
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#practice-at-home",
-    "href": "slides/session-01-introduction.html#practice-at-home",
-    "title": "Introduction to R",
-    "section": "Practice at home",
-    "text": "Practice at home\nBefore the next session:\n\nOpen your intro-r-course project.\nCreate a new R script.\nSave it in scripts/ as:\n\npractice-01.R\n\nWrite and run at least 20 simple calculations.\nAdd comments using # explaining each line of code you wrote, the title of the script, and your name.\nClose RStudio and reopen the project using the .Rproj file."
-  },
-  {
-    "objectID": "slides/session-01-introduction.html#keep-writing-code",
-    "href": "slides/session-01-introduction.html#keep-writing-code",
-    "title": "Introduction to R",
-    "section": "Keep writing code",
-    "text": "Keep writing code\nThe easiest way to learn R is to use it.\nYou do not need to memorize every command.\nWrite code, make mistakes, modify examples, and keep your old scripts."
-  },
-  {
-    "objectID": "modules/06-errors-help.html",
-    "href": "modules/06-errors-help.html",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "",
-    "text": "If you work with R, you will get errors.\nA lot of them.\nThat is completely normal.\nEven experienced R users spend a considerable amount of time:\n\nreading error messages,\nchecking objects,\nreading documentation,\nsearching for solutions,\nand trying different approaches.\n\nThe difference is not that experienced users stop getting errors.\nThey simply become better at understanding what the error is telling them and where to look for a solution.\nIn this module, we will learn a simple strategy for solving problems in R."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#introduction",
-    "href": "modules/06-errors-help.html#introduction",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "",
-    "text": "If you work with R, you will get errors.\nA lot of them.\nThat is completely normal.\nEven experienced R users spend a considerable amount of time:\n\nreading error messages,\nchecking objects,\nreading documentation,\nsearching for solutions,\nand trying different approaches.\n\nThe difference is not that experienced users stop getting errors.\nThey simply become better at understanding what the error is telling them and where to look for a solution.\nIn this module, we will learn a simple strategy for solving problems in R."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#lets-get-started",
-    "href": "modules/06-errors-help.html#lets-get-started",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Let’s get started",
-    "text": "Let’s get started\nOpen your intro-r-course project and create a new R script.\nSave it inside the scripts folder as:\nmodule-06.R"
-  },
-  {
-    "objectID": "modules/06-errors-help.html#messages-warnings-and-errors",
-    "href": "modules/06-errors-help.html#messages-warnings-and-errors",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Messages, warnings, and errors",
-    "text": "Messages, warnings, and errors\nNot everything that appears in the R Console means the same thing.\nR can give us:\n\nmessages,\nwarnings,\nerrors.\n\nUnderstanding the difference is the first step in figuring out what happened."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#messages",
-    "href": "modules/06-errors-help.html#messages",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Messages",
-    "text": "Messages\nMessages simply provide information about something R is doing.\nFor example:\n\nmessage(\"This is a message\")\n\nThis is a message\n\n\nYou may also see messages when:\n\nloading packages,\nimporting data,\nfitting models,\nor running functions that provide information about their progress.\n\nA message does not necessarily mean that anything went wrong."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#warnings",
-    "href": "modules/06-errors-help.html#warnings",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Warnings",
-    "text": "Warnings\nA warning tells us that something unusual or potentially problematic happened.\nHowever, unlike an error, the function normally continues running.\nFor example:\n\nlog10(-5)\n\nThe calculation was attempted, but the result is not a valid real number:\nNaN\nNaN means:\n\nNot a Number\n\nWarnings should not automatically be ignored.\nSometimes they are harmless, but sometimes they tell us that our result may not be what we expected.\n\n\n\n\n\n\nImportant\n\n\n\nA warning does not mean:\n\nEverything is fine.\n\nIt means:\n\nR completed the operation, but something happened that you should probably investigate.\n\n\n\n\nMissing values and warnings\nProblems can also propagate through later calculations.\nFor example:\n\nvalues &lt;- c(2, 4, 6, NA, 10)\n\nmean(values)\n\n[1] NA\n\n\nThe function itself works correctly, but the missing value prevents R from calculating the mean.\nIf we know that removing missing values is appropriate, we can use:\n\nmean(\n  values,\n  na.rm = TRUE\n)\n\n[1] 5.5\n\n\nThis is why understanding your data is just as important as understanding the function."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#errors",
-    "href": "modules/06-errors-help.html#errors",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Errors",
-    "text": "Errors\nAn error stops the operation.\nFor example:\n\n\"1\" + 2\n\nR will return an error because we are trying to add text and a number.\nAnother very common error is:\n\nplot(grafics)\n\nR returns something similar to:\nError: object 'grafics' not found\nR cannot find an object called grafics.\nMaybe:\n\nwe never created it,\nwe deleted it,\nwe misspelled the name,\nor the object has a slightly different name.\n\n\n\n\n\n\n\nTip\n\n\n\nError messages are information.\nThe first question should always be:\n\nWhat is R trying to tell me?"
-  },
-  {
-    "objectID": "modules/06-errors-help.html#some-common-errors",
-    "href": "modules/06-errors-help.html#some-common-errors",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Some common errors",
-    "text": "Some common errors\nAs you begin working with R, you will probably see some errors repeatedly.\n\n\n\n\n\n\n\nMessage\nPossible problem\n\n\n\n\nobject 'x' not found\nThe object does not exist or its name is misspelled\n\n\ncould not find function\nFunction name is wrong or the package is not loaded\n\n\nunexpected symbol\nThere may be a syntax problem\n\n\nunexpected ')'\nParentheses may not match\n\n\ncannot open file\nFile name or path may be incorrect\n\n\nnon-numeric argument\nR expected numbers but received another type\n\n\n\nYou do not need to memorize these messages.\nWith time, you will start recognizing them."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-1-read-the-error",
-    "href": "modules/06-errors-help.html#step-1-read-the-error",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 1: Read the error",
-    "text": "Step 1: Read the error\nThis sounds obvious.\nBut when people see a large red message in the Console, their first reaction is often:\n\nSomething is broken!\n\nBefore changing your code, read what R says.\nFor example:\nError: object 'grafics' not found\nThe important part is:\nobject 'grafics' not found\nNow we have something specific to investigate.\nAsk yourself:\n\nDid I create grafics?\nDid I spell it correctly?\nDoes it appear in the Environment?\nDid the line that creates it run successfully?\n\nVery often, the error itself already tells us where to begin."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-2-check-your-objects",
-    "href": "modules/06-errors-help.html#step-2-check-your-objects",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 2: Check your objects",
-    "text": "Step 2: Check your objects\nMany problems occur because an object is not what we think it is.\nFor example:\n\nmat &lt;- matrix(\n  letters[5:20],\n  nrow = 4\n)\n\nmat\n\n     [,1] [,2] [,3] [,4]\n[1,] \"e\"  \"i\"  \"m\"  \"q\" \n[2,] \"f\"  \"j\"  \"n\"  \"r\" \n[3,] \"g\"  \"k\"  \"o\"  \"s\" \n[4,] \"h\"  \"l\"  \"p\"  \"t\" \n\n\nWhat type of object is it?\n\nclass(mat)\n\n[1] \"matrix\" \"array\" \n\n\nWhat does it contain?\n\nstr(mat)\n\n chr [1:4, 1:4] \"e\" \"f\" \"g\" \"h\" \"i\" \"j\" \"k\" \"l\" \"m\" \"n\" \"o\" \"p\" \"q\" \"r\" \"s\" ...\n\n\nNow imagine trying:\n\nmean(mat)\n\nmean() expects numeric or logical values, but our matrix contains characters.\nUseful functions for investigating objects include:\nclass()\nstr()\nhead()\nnames()\ndim()\nsummary()\nWe have already used most of these throughout the course.\n\n\n\n\n\n\nTip\n\n\n\nWhen code fails, do not only inspect the code.\nInspect the objects being used by the code."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-3-check-the-simplest-things-first",
-    "href": "modules/06-errors-help.html#step-3-check-the-simplest-things-first",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 3: Check the simplest things first",
-    "text": "Step 3: Check the simplest things first\nMany R problems are caused by very small mistakes.\nBefore searching for a complicated explanation, check:\n\nSpelling\nrecordTable\nis different from:\nrecordtable\n\n\nParentheses\nmean(values\nis missing:\n)\n\n\nCommas\nggplot(\n  data = recordTable\n  aes(x = Species)\n)\nis missing a comma after:\nrecordTable\n\n\nFile names\nread_csv(\"data/camera-data.csv\")\nwill not work if the file is actually called:\ncamera_data.csv\n\n\nPackages\nIf R says:\ncould not find function \"read_csv\"\nask yourself whether you loaded the package:\nlibrary(tidyverse)\nSmall mistakes are extremely common.\nCheck them first."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-4-read-the-documentation",
-    "href": "modules/06-errors-help.html#step-4-read-the-documentation",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 4: Read the documentation",
-    "text": "Step 4: Read the documentation\nIf the function exists but is not behaving as expected, check its documentation.\nFor example:\n\n?mean\n\nor:\n\nhelp(mean)\n\nDocumentation usually contains:\n\nwhat the function does,\nits arguments,\ndefault values,\npossible options,\nand examples.\n\nFor example, the help page for mean() shows the argument:\nna.rm\nwhich allows us to specify whether missing values should be removed.\n\nvalues &lt;- c(2, 4, 6, NA, 10)\n\nmean(\n  values,\n  na.rm = TRUE\n)\n\n[1] 5.5\n\n\nLearning how to read documentation is much more useful than trying to memorize every function."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-5-search-for-the-error",
-    "href": "modules/06-errors-help.html#step-5-search-for-the-error",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 5: Search for the error",
-    "text": "Step 5: Search for the error\nThere is a very good chance that someone else has encountered the same error before and already figured out how to fix it.\nMost of the time, simply copying the error message and Googling it is enough to find a solution.\n\n\n\n\n\nOne thing I really like about R is that the community is usually very willing to help. Over time, you will also learn how to Google errors and warnings more effectively, and finding solutions will become much easier.\n\n\n\n\n\nOne very useful resource is Stack Overflow, where you can find examples and discussions about coding problems, error messages, and even statistical questions.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nWhen searching, include:\nR\nand, when relevant, the package or function name.\nFor example:\nR ggplot2 object not found\nis much more useful than searching only:\nobject not found"
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-7-ask-for-help",
-    "href": "modules/06-errors-help.html#step-7-ask-for-help",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 7: Ask for help",
-    "text": "Step 7: Ask for help\nSometimes you will still need another person to help solve the problem.\nThat is completely normal.\nHowever:\n\n“My code doesn’t work.”\n\nis very difficult to answer.\nA much more useful question includes:\n\nwhat you are trying to do,\nthe code that produces the problem,\nthe exact error message,\nwhat you expected to happen,\ninformation about the object involved.\n\nFor example:\nI am trying to calculate the mean number of individuals.\n\nI ran:\n\nmean(recordTable$N_individuals)\n\nand received this result:\n\nNA\n\nI expected a numeric mean.\n\nstr(recordTable$N_individuals) shows that the variable is numeric.\n\nWhat should I check next?\nNow someone has enough information to help."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#using-ai-tools-to-solve-r-problems",
-    "href": "modules/06-errors-help.html#using-ai-tools-to-solve-r-problems",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Using AI tools to solve R problems",
-    "text": "Using AI tools to solve R problems\nNowadays, AI tools and large language models (LLMs) have become very common in coding. Whether you use them to learn, debug, or write code, they can be extremely powerful tools, but they also come with some risks.\n\n\n\n\n\nBeyond the broader ethical discussion about using AI, these tools can influence how you learn, particularly how you learn to code.\nIt is really tempting to simply ask an AI to create the code for you. Sure, that can save you a lot of time, but if you are just starting to code, relying on it too much can slow down your learning.\nWhy?\nBecause programming is a lot like learning a language. You need to practice, become familiar with the syntax, make mistakes, and actually write code yourself.\nIf you start by simply copying and pasting everything that an AI gives you into the Console, you may get the answer, but you may not understand how you got there. And if you do not practice writing and modifying the code yourself, it will be much harder to remember how to do it later.\n\n\n\n\n\nSo, although this may sound a little hypocritical because I use AI a lot in my own daily work, I suggest delaying heavy reliance on AI as much as you can while you are learning the basics.\n\n\n\n\n\n\nTip\n\n\n\n🧑‍💻 If you want to go further in the AI, learning, and coding topic, you can start with these readings\nMarissa A Dyck, A letter to a young data analyst: learning before leaning on AI, Journal of Mammalogy, Volume 107, Issue 1, February 2026, Pages 210–211, https://doi.org/10.1093/jmammal/gyaf082\nB.A. Han,K.R. Varshney,S. LaDeau,A. Subramaniam,K.C. Weathers, & J. Zwart. (2023). A synergistic future for AI and ecology, Proc. Natl. Acad. Sci. U.S.A. 120 (38) e2220283120, https://doi.org/10.1073/pnas.2220283120\nCooper, N., Clark, A. T., Lecomte, N., Qiao, H., & Ellison, A. M. (2024). Harnessing large language models for coding, teaching and inclusion to empower research in ecology and evolution. Methods in Ecology and Evolution, 15, 1757–1763. https://doi.org/10.1111/2041-210X.14325\n\n\nI say this because it is more important at the beginning to learn how R works and understand the code you are writing. Later, as you develop your programming skills, style, and experience, you can rely more on AI to assist you with repetitive tasks, debugging, brainstorming, or things you already understand.\nSo, if you want to use AI on a daily basis, that is completely fine. Just try to use it as a learning tool, rather than as something that blindly solves every problem or does your homework for you.\nThey can help you:\n\ninterpret an error message,\nexplain unfamiliar code,\nsuggest things to check,\nidentify possible syntax problems,\nexplain function arguments,\nor suggest alternative approaches.\n\nBut the quality of the answer depends heavily on the information you provide.\n\nNot very useful\nMy R code doesn't work. Fix it.\n\n\nMuch more useful\nI am using R and ggplot2.\n\nI want to make a bar plot using the Species column from\na data frame called recordTable.\n\nThis is my code:\n\nggplot(recordTable, aes(x = Species))\n  geom_bar()\n\nR returns:\n\nError: unexpected symbol\n\nCan you explain what the error means and show me what I should check?\nProviding the:\ngoal\n+\ncode\n+\nerror\n+\ncontext\nusually produces a much more useful answer."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#ai-can-also-be-wrong",
-    "href": "modules/06-errors-help.html#ai-can-also-be-wrong",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "AI can also be wrong",
-    "text": "AI can also be wrong\nAn AI-generated answer should be treated as a suggestion to test, not as proof that the solution is correct.\nAn AI tool may:\n\nmisunderstand your data,\nsuggest a function that does not fit your problem,\nuse an argument incorrectly,\nassume a package is loaded,\nor produce code that runs but does something different from what you intended.\n\nAlways:\n\nRead the suggested code.\nRun it yourself.\nInspect the result.\nAsk whether the result makes sense.\nCheck the function documentation when necessary.\n\n\n\n\n\n\n\nImportant\n\n\n\nDo not copy and run code that you do not understand.\nIf an AI gives you code, ask it to explain why the code works and what each important part does."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#be-careful-what-you-share",
-    "href": "modules/06-errors-help.html#be-careful-what-you-share",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Be careful what you share",
-    "text": "Be careful what you share\nWhen asking for help online or using an AI assistant, you usually do not need to share your complete dataset.\nAvoid sharing:\n\npasswords,\npersonal information,\nconfidential data,\nunpublished sensitive datasets.\n\nInstead, share a small example that reproduces the problem.\nFor example:\nexample_data &lt;- data.frame(\n  Species = c(\"Raccoon\", \"Coyote\", \"Raccoon\"),\n  detections = c(4, 2, NA)\n)\nIf the error also happens with this small example, someone can help you without needing access to your complete dataset."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#a-simple-debugging-workflow",
-    "href": "modules/06-errors-help.html#a-simple-debugging-workflow",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "A simple debugging workflow",
-    "text": "A simple debugging workflow\nWhen something goes wrong, try this order:\n1. Read the message\n        ↓\n2. Check spelling and syntax\n        ↓\n3. Inspect your objects\n        ↓\n4. Read the function documentation\n        ↓\n5. Simplify the problem\n        ↓\n6. Search for the error\n        ↓\n7. Ask another person or an AI tool\n        ↓\n8. Test and verify the solution\nYou will not always need every step.\nWith experience, you will learn which ones are most useful for different types of problems."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#practice-at-home",
-    "href": "modules/06-errors-help.html#practice-at-home",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Practice at home",
-    "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis activity should take approximately 10–15 minutes.\nCreate a new script called:\npractice-06.R\ninside your scripts folder.\nThe following pieces of code contain problems.\nFor each example:\n\nRun the code.\nRead the error or warning.\nIdentify what caused it.\nFix the problem.\nAdd a comment explaining what was wrong.\n\n\nProblem 1\n\nnumber_of_cameras &lt;- 20\n\nNumber_of_cameras + 5\n\n\n\nProblem 2\n\ndetections &lt;- c(2, 5, 8, NA, 12)\n\nmean(detections)\n\n\n\nProblem 3\n\nlibrary(tidyverse)\n\nggplot(\n  recordTable\n  aes(x = Species)\n) +\n  geom_bar()\n\n\n\nProblem 4\n\ncamera_days &lt;- c(\n  \"30\",\n  \"28\",\n  \"25\",\n  \"30\"\n)\n\nmean(camera_days)\n\n\n\nProblem 5\nImagine that R returns:\nError: object 'recordTable' not found\nWrite down at least three things you would check before asking someone else for help.\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\n\nProblem 1\nR is case-sensitive.\nnumber_of_cameras &lt;- 20\n\nnumber_of_cameras + 5\n\n\nProblem 2\nThe vector contains a missing value.\ndetections &lt;- c(2, 5, 8, NA, 12)\n\nmean(\n  detections,\n  na.rm = TRUE\n)\n\n\nProblem 3\nThere is a missing comma after recordTable.\nggplot(\n  recordTable,\n  aes(x = Species)\n) +\n  geom_bar()\n\n\nProblem 4\nThe values were stored as characters because they are inside quotation marks.\ncamera_days &lt;- c(\n  30,\n  28,\n  25,\n  30\n)\n\nmean(camera_days)\n\n\nProblem 5\nSome things you could check include:\n\nDid I import or create recordTable?\nDid the line that creates recordTable run successfully?\nDid I spell the object name correctly?\nDoes recordTable appear in the Environment?\nDid I restart R without rerunning the script?\nAm I running the correct script or project?"
-  },
-  {
-    "objectID": "modules/06-errors-help.html#errors-are-part-of-the-process",
-    "href": "modules/06-errors-help.html#errors-are-part-of-the-process",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Errors are part of the process",
-    "text": "Errors are part of the process\nGetting an error does not mean that you are bad at R.\nDebugging is part of programming.\nAs you work with R, you will gradually move from:\nI got an error 😱\nto:\nI got an error... let's see what it says.\nThat change is one of the most useful skills you can develop."
-  },
-  {
-    "objectID": "modules/06-errors-help.html#step-6-ask-for-help",
-    "href": "modules/06-errors-help.html#step-6-ask-for-help",
-    "title": "Module 6: Errors, Help, and Problem Solving",
-    "section": "Step 6: Ask for help",
-    "text": "Step 6: Ask for help\nSometimes you will still need another person to help solve the problem.\nThat is completely normal.\nHowever:\n\n“My code doesn’t work.”\n\nis very difficult to answer.\nA much more useful question includes:\n\nwhat you are trying to do,\nthe code that produces the problem,\nthe exact error message,\nwhat you expected to happen,\ninformation about the object involved.\n\nFor example:\nI am trying to calculate the mean number of individuals.\n\nI ran:\n\nmean(recordTable$N_individuals)\n\nand received this result:\n\nNA\n\nI expected a numeric mean.\n\nstr(recordTable$N_individuals) shows that the variable is numeric.\n\nWhat should I check next?\nNow someone has enough information to help."
   },
   {
     "objectID": "modules/07-data-manipulation.html",
@@ -1419,5 +1265,152 @@
     "title": "Module 7: Data Manipulation with tidyverse",
     "section": "Practice at home",
     "text": "Practice at home\n\n\n\n\n\n\nTip\n\n\n\nThis activity should take approximately 20–30 minutes.\nOpen your intro-r-course project and create:\npractice-07.R\ninside your scripts folder.\nLoad tidyverse and import:\ndata/recordTable.csv\n\nPart 1: Select\nCreate a new object called:\npractice_records\ncontaining only:\nStation\nSpecies\nN_individuals\nAge\nn_images\n\n\nPart 2: Filter\nUsing practice_records:\n\nKeep only \"White-tailed deer\" records.\nKeep only records with more than one individual.\nTry combining both conditions.\n\n\n\nPart 3: Count\nUsing the original recordTable, calculate the number of records for each species.\nSort the result from most to least common.\n\n\nPart 4: Group and summarize\nCreate one table with one row per Station.\nFor each station calculate:\nnumber of records\nnumber of species\ntotal number of individuals\n\n\nPart 5: Create a pipeline\nCreate a single pipeline that:\n\nstarts with recordTable,\nkeeps only \"Armadillo\", \"Racoon\", and \"Hog\",\nkeeps only records with N_individuals &gt; 0,\ngroups by Species,\ncalculates the number of records,\ncalculates the number of camera stations,\nsorts the table from the most to the fewest records.\n\n\n\n\n\n\n\n\n\n\nSuggested solution\n\n\n\n\n\n\nlibrary(tidyverse)\n\nrecordTable &lt;- read_csv(\n  \"data/recordTable.csv\"\n)\n\n\n# ---------------------------\n# Part 1: Select\n# ---------------------------\n\npractice_records &lt;- recordTable |&gt;\n  select(\n    Station,\n    Species,\n    N_individuals,\n    Age,\n    n_images\n  )\n\n\n# ---------------------------\n# Part 2: Filter\n# ---------------------------\n\npractice_records |&gt;\n  filter(\n    Species == \"White-tailed deer\"\n  )\n\npractice_records |&gt;\n  filter(\n    N_individuals &gt; 1\n  )\n\npractice_records |&gt;\n  filter(\n    Species == \"White-tailed deer\",\n    N_individuals &gt; 1\n  )\n\n\n# ---------------------------\n# Part 3: Count\n# ---------------------------\n\nrecordTable |&gt;\n  count(\n    Species,\n    sort = TRUE\n  )\n\n\n# ---------------------------\n# Part 4: Group and summarize\n# ---------------------------\n\nstation_summary &lt;- recordTable |&gt;\n  group_by(Station) |&gt;\n  summarise(\n    records = n(),\n    species = n_distinct(Species),\n    total_individuals = sum(\n      N_individuals,\n      na.rm = TRUE\n    ),\n    .groups = \"drop\"\n  )\n\nstation_summary\n\n\n# ---------------------------\n# Part 5: Pipeline\n# ---------------------------\n\nspecies_summary &lt;- recordTable |&gt;\n  filter(\n    Species %in% c(\n      \"Armadillo\",\n      \"Racoon\",\n      \"Hog\"\n    ),\n    N_individuals &gt; 0\n  ) |&gt;\n  group_by(Species) |&gt;\n  summarise(\n    records = n(),\n    stations = n_distinct(Station),\n    .groups = \"drop\"\n  ) |&gt;\n  arrange(\n    desc(records)\n  )\n\nspecies_summary\n\nThe exact values in your results are less important than understanding how the pipeline works.\nTry reading your code from top to bottom:\nstart with the data\n       ↓\nselect or filter\n       ↓\ngroup\n       ↓\nsummarize\n       ↓\narrange"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#introduction-to-r",
+    "href": "slides/session-01-introduction.html#introduction-to-r",
+    "title": "Introduction to R",
+    "section": "Introduction to R",
+    "text": "Introduction to R\nSession 1\nToday we will start using R and RStudio.\nWe will also create the project folder that we will use throughout the course."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#what-is-r",
+    "href": "slides/session-01-introduction.html#what-is-r",
+    "title": "Introduction to R",
+    "section": "What is R?",
+    "text": "What is R?\n\n\n\n\n\n\nR is a language and environment designed for statistical and graphical operations.\nR allows us to work with data by writing code.\n\nThat may sound intimidating at first, but the goal is not to become a programmer overnight."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#a-very-short-history-of-r",
+    "href": "slides/session-01-introduction.html#a-very-short-history-of-r",
+    "title": "Introduction to R",
+    "section": "A very short history of R",
+    "text": "A very short history of R\n\n\nR was developed in the early 1990s by Ross Ihaka and Robert Gentleman.\nIt was inspired by an earlier language called S.\nThe problem with S? You had to buy it. And we all know we would rather spend our money on more important things…\n\nLike food 🍔\n\n\n\n\n\nR logo"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#why-is-r-useful",
+    "href": "slides/session-01-introduction.html#why-is-r-useful",
+    "title": "Introduction to R",
+    "section": "Why is R useful?",
+    "text": "Why is R useful?\nR is:\n\nFree\nOpen source\nWidely used in science and data analysis\nSupported by a large community\nExtremely flexible\n\n\nYou do not need to learn everything R can do.\n\n\nYou only need to start building the tools that are useful for your own work."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#what-is-rstudio",
+    "href": "slides/session-01-introduction.html#what-is-rstudio",
+    "title": "Introduction to R",
+    "section": "What is RStudio?",
+    "text": "What is RStudio?\n\n\nR does the work.\nRStudio helps us work with R.\nRStudio makes it easier to:\n\nwrite code\nsave scripts\norganize files\nview plots\ninstall packages\nmanage projects\n\n\n\n\n\nHaving fun with R: Artwork by Allison Horst"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#the-rstudio-interface",
+    "href": "slides/session-01-introduction.html#the-rstudio-interface",
+    "title": "Introduction to R",
+    "section": "The RStudio interface",
+    "text": "The RStudio interface\n\nRStudio User Guide 2026.08.2"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#console-vs.-script",
+    "href": "slides/session-01-introduction.html#console-vs.-script",
+    "title": "Introduction to R",
+    "section": "Console vs. Script",
+    "text": "Console vs. Script\n\n\nConsole\nGood for quick tests.\n2 + 2\n10 / 2\nBut Console commands are not automatically saved.\n\nScript\nBetter for real work.\n# My first R script\n\n2 + 2\n5 * 4\n100 / 10\nScripts allow us to save, edit, and reuse our code."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#first-code",
+    "href": "slides/session-01-introduction.html#first-code",
+    "title": "Introduction to R",
+    "section": "First code",
+    "text": "First code\nOpen a new R script:\nFile → New File → R Script\nThen write:\n2 + 2\n5 * 4\n100 / 10\nRun each line from the script:\nWindows: Ctrl + Enter\nMac: Command + Enter"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#comments",
+    "href": "slides/session-01-introduction.html#comments",
+    "title": "Introduction to R",
+    "section": "Comments",
+    "text": "Comments\nWe can add notes to scripts using #.\n# My first R script\n\n2 + 2\n\n# Multiplication\n5 * 4\n\n# Division\n100 / 10\nAnything after # is ignored by R.\n\nComments help your future self understand what your code was doing."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#rstudio-projects",
+    "href": "slides/session-01-introduction.html#rstudio-projects",
+    "title": "Introduction to R",
+    "section": "RStudio Projects",
+    "text": "RStudio Projects\n\n\nAn RStudio Project connects RStudio with a specific folder on your computer.\nThat folder can contain everything related to your work:\nmy-project/\n│\n├── data/\n├── scripts/\n├── outputs/\n└── my-project.Rproj"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#create-our-course-project",
+    "href": "slides/session-01-introduction.html#create-our-course-project",
+    "title": "Introduction to R",
+    "section": "Create our course project",
+    "text": "Create our course project\nToday we will create one project that we will use throughout the course.\nName it:\nintro-r-course\nThen create three folders:\nintro-r-course/\n│\n├── data/\n├── scripts/\n└── outputs/"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#why-use-projects",
+    "href": "slides/session-01-introduction.html#why-use-projects",
+    "title": "Introduction to R",
+    "section": "Why use projects?",
+    "text": "Why use projects?\nProjects help us avoid this:\nfinal.csv\nfinal2.csv\nfinal_revised.csv\nfinal_revised2.csv\nscript.R\nscript_new.R\nfigure1.png\nscattered across:\nDesktop/\nDownloads/\nDocuments/\n\nA project gives your work a home."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#why-learn-r",
+    "href": "slides/session-01-introduction.html#why-learn-r",
+    "title": "Introduction to R",
+    "section": "Why learn R?",
+    "text": "Why learn R?\n\n\nYou may be wondering:\n\nWhy do I need to learn R after spending years getting good at Excel?\n\nA selfish reason:\nIn many courses, labs, graduate programs, and research projects, knowing some R is already expected."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#good-reasons-to-learn-r",
+    "href": "slides/session-01-introduction.html#good-reasons-to-learn-r",
+    "title": "Introduction to R",
+    "section": "Good reasons to learn R",
+    "text": "Good reasons to learn R\n\nReproducibility\nYou can save and share exactly what you did.\n\nNot just so that someone can replicate it exactly and know whether it’s right or wrong, but also so that others can learn from it."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#what-can-you-do-with-r",
+    "href": "slides/session-01-introduction.html#what-can-you-do-with-r",
+    "title": "Introduction to R",
+    "section": "What can you do with R?",
+    "text": "What can you do with R?\n\n\nData\nClean, organize, and explore datasets.\nStatistics\nFit simple and complex models.\nGraphics\nCreate figures, maps, and animations.\n\nDocuments\nCreate reports, websites, presentations, and manuscripts.\nApps\nBuild interactive tools to explore data.\nAutomation\nAvoid doing repetitive tasks by hand."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#the-r-community",
+    "href": "slides/session-01-introduction.html#the-r-community",
+    "title": "Introduction to R",
+    "section": "The R community",
+    "text": "The R community\n\nAllison Horst code heroR has a large and generous community.\nThere are tutorials, books, forums, examples, packages, and people willing to help."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#you-will-not-learn-r-today",
+    "href": "slides/session-01-introduction.html#you-will-not-learn-r-today",
+    "title": "Introduction to R",
+    "section": "You will not learn R today",
+    "text": "You will not learn R today\n\n\nR is learned by practicing.\nYou will:\n\nmake mistakes,\nget errors,\nforget commands,\nreuse old scripts,\nsearch for help,\nand slowly become more comfortable."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#errors-are-part-of-learning-r",
+    "href": "slides/session-01-introduction.html#errors-are-part-of-learning-r",
+    "title": "Introduction to R",
+    "section": "Errors are part of learning R",
+    "text": "Errors are part of learning R\nYou are going to see errors.\n\n\n\n\nA lot of them.\n\nThat is normal.\n\n\nR is not about avoiding errors.\n\n\nIt is about making enough of them that you eventually learn how to fix them."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#learning-r-takes-time",
+    "href": "slides/session-01-introduction.html#learning-r-takes-time",
+    "title": "Introduction to R",
+    "section": "Learning R takes time",
+    "text": "Learning R takes time\nIn conclusion, whether or not you learn R will depend on how much time you spend on it, not on whether or not you take this tutorial. [@lawlor2022]\n\nAllison Horst rollercoaster"
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#practice-at-home",
+    "href": "slides/session-01-introduction.html#practice-at-home",
+    "title": "Introduction to R",
+    "section": "Practice at home",
+    "text": "Practice at home\nBefore the next session:\n\nOpen your intro-r-course project.\nCreate a new R script.\nSave it in scripts/ as:\n\npractice-01.R\n\nWrite and run at least 20 simple calculations.\nAdd comments using # explaining each line of code you wrote, the title of the script, and your name.\nClose RStudio and reopen the project using the .Rproj file."
+  },
+  {
+    "objectID": "slides/session-01-introduction.html#keep-writing-code",
+    "href": "slides/session-01-introduction.html#keep-writing-code",
+    "title": "Introduction to R",
+    "section": "Keep writing code",
+    "text": "Keep writing code\nThe easiest way to learn R is to use it.\nYou do not need to memorize every command.\nWrite code, make mistakes, modify examples, and keep your old scripts."
   }
 ]

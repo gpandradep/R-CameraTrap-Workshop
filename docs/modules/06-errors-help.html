@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<link rel="alternate" hreflang="en" href="https://gpandradep.github.io/R-CameraTrap-Workshop//modules/06-errors-help.html" />
+<link rel="alternate" hreflang="es" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/06-errors-help.es.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Module 6: Errors, Help, and Problem Solving – Introduction to R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -56,30 +56,17 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -100,65 +87,158 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../styles.css">
+}</script><link rel="stylesheet" href="../styles.css">
 </head>
-
-<body class="quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Introduction to R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item"><div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> Español</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://gpandradep.github.io/R-CameraTrap-Workshop//es/modules/06-errors-help.html" id="language-link-es">Español</a></li></ul>
+</div></li>
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../getting-started/setup.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modules" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Modules</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modules">
+<li>
+    <a class="dropdown-item" href="../modules/01-introduction.html">
+ <span class="dropdown-text">1. Introduction to R and RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/02-objects-functions.html">
+ <span class="dropdown-text">2. Objects, operators, and functions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/03-data-structures.html">
+ <span class="dropdown-text">3. Data structures in R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/04-import-data.html">
+ <span class="dropdown-text">4. Importing and exporting data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/05-data-visualization.html">
+ <span class="dropdown-text">5. Data visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/06-errors-help.html">
+ <span class="dropdown-text">6. Errors, help, and problem solving</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/07-data-manipulation.html">
+ <span class="dropdown-text">7. Data manipulation with the tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/08-exploratory-analysis.html">
+ <span class="dropdown-text">8. Exploratory data analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../modules/09-camtrapR.html">
+ <span class="dropdown-text">9. Working with camera-trap data using camtrapR</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slides" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Slides</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-slides">
+<li>
+    <a class="dropdown-item" href="../slides/session-01-introduction.html">
+ <span class="dropdown-text">1. Introduction to R and RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/session-02-objects-data-import.html">
+ <span class="dropdown-text">2. Objects, data strcutures and importing</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extra Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-resources">
+<li>
+    <a class="dropdown-item" href="../resources/quarto.html">
+ <span class="dropdown-text">Reproducible documents with Quarto</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#lets-get-started" id="toc-lets-get-started" class="nav-link" data-scroll-target="#lets-get-started">Let’s get started</a></li>
   <li><a href="#messages-warnings-and-errors" id="toc-messages-warnings-and-errors" class="nav-link" data-scroll-target="#messages-warnings-and-errors">Messages, warnings, and errors</a></li>
   <li><a href="#messages" id="toc-messages" class="nav-link" data-scroll-target="#messages">Messages</a></li>
-  <li><a href="#warnings" id="toc-warnings" class="nav-link" data-scroll-target="#warnings">Warnings</a>
+  <li>
+<a href="#warnings" id="toc-warnings" class="nav-link" data-scroll-target="#warnings">Warnings</a>
   <ul class="collapse">
-  <li><a href="#missing-values-and-warnings" id="toc-missing-values-and-warnings" class="nav-link" data-scroll-target="#missing-values-and-warnings">Missing values and warnings</a></li>
-  </ul></li>
+<li><a href="#missing-values-and-warnings" id="toc-missing-values-and-warnings" class="nav-link" data-scroll-target="#missing-values-and-warnings">Missing values and warnings</a></li>
+  </ul>
+</li>
   <li><a href="#errors" id="toc-errors" class="nav-link" data-scroll-target="#errors">Errors</a></li>
   <li><a href="#some-common-errors" id="toc-some-common-errors" class="nav-link" data-scroll-target="#some-common-errors">Some common errors</a></li>
   <li><a href="#step-1-read-the-error" id="toc-step-1-read-the-error" class="nav-link" data-scroll-target="#step-1-read-the-error">Step 1: Read the error</a></li>
   <li><a href="#step-2-check-your-objects" id="toc-step-2-check-your-objects" class="nav-link" data-scroll-target="#step-2-check-your-objects">Step 2: Check your objects</a></li>
-  <li><a href="#step-3-check-the-simplest-things-first" id="toc-step-3-check-the-simplest-things-first" class="nav-link" data-scroll-target="#step-3-check-the-simplest-things-first">Step 3: Check the simplest things first</a>
+  <li>
+<a href="#step-3-check-the-simplest-things-first" id="toc-step-3-check-the-simplest-things-first" class="nav-link" data-scroll-target="#step-3-check-the-simplest-things-first">Step 3: Check the simplest things first</a>
   <ul class="collapse">
-  <li><a href="#spelling" id="toc-spelling" class="nav-link" data-scroll-target="#spelling">Spelling</a></li>
+<li><a href="#spelling" id="toc-spelling" class="nav-link" data-scroll-target="#spelling">Spelling</a></li>
   <li><a href="#parentheses" id="toc-parentheses" class="nav-link" data-scroll-target="#parentheses">Parentheses</a></li>
   <li><a href="#commas" id="toc-commas" class="nav-link" data-scroll-target="#commas">Commas</a></li>
   <li><a href="#file-names" id="toc-file-names" class="nav-link" data-scroll-target="#file-names">File names</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#step-4-read-the-documentation" id="toc-step-4-read-the-documentation" class="nav-link" data-scroll-target="#step-4-read-the-documentation">Step 4: Read the documentation</a></li>
   <li><a href="#step-5-search-for-the-error" id="toc-step-5-search-for-the-error" class="nav-link" data-scroll-target="#step-5-search-for-the-error">Step 5: Search for the error</a></li>
   <li><a href="#step-6-ask-for-help" id="toc-step-6-ask-for-help" class="nav-link" data-scroll-target="#step-6-ask-for-help">Step 6: Ask for help</a></li>
-  <li><a href="#using-ai-tools-to-solve-r-problems" id="toc-using-ai-tools-to-solve-r-problems" class="nav-link" data-scroll-target="#using-ai-tools-to-solve-r-problems">Using AI tools to solve R problems</a>
+  <li>
+<a href="#using-ai-tools-to-solve-r-problems" id="toc-using-ai-tools-to-solve-r-problems" class="nav-link" data-scroll-target="#using-ai-tools-to-solve-r-problems">Using AI tools to solve R problems</a>
   <ul class="collapse">
-  <li><a href="#not-very-useful" id="toc-not-very-useful" class="nav-link" data-scroll-target="#not-very-useful">Not very useful</a></li>
+<li><a href="#not-very-useful" id="toc-not-very-useful" class="nav-link" data-scroll-target="#not-very-useful">Not very useful</a></li>
   <li><a href="#much-more-useful" id="toc-much-more-useful" class="nav-link" data-scroll-target="#much-more-useful">Much more useful</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#ai-can-also-be-wrong" id="toc-ai-can-also-be-wrong" class="nav-link" data-scroll-target="#ai-can-also-be-wrong">AI can also be wrong</a></li>
   <li><a href="#be-careful-what-you-share" id="toc-be-careful-what-you-share" class="nav-link" data-scroll-target="#be-careful-what-you-share">Be careful what you share</a></li>
   <li><a href="#a-simple-debugging-workflow" id="toc-a-simple-debugging-workflow" class="nav-link" data-scroll-target="#a-simple-debugging-workflow">A simple debugging workflow</a></li>
   <li><a href="#practice-at-home" id="toc-practice-at-home" class="nav-link" data-scroll-target="#practice-at-home">Practice at home</a></li>
   <li><a href="#errors-are-part-of-the-process" id="toc-errors-are-part-of-the-process" class="nav-link" data-scroll-target="#errors-are-part-of-the-process">Errors are part of the process</a></li>
-  </ul>
-</nav>
-    </div>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Module 6: Errors, Help, and Problem Solving</h1>
 </div>
 
@@ -173,11 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>If you work with R, you will get errors.</p>
 <p>A lot of them.</p>
 <p>That is completely normal.</p>
@@ -192,26 +268,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The difference is not that experienced users stop getting errors.</p>
 <p>They simply become better at understanding <strong>what the error is telling them and where to look for a solution</strong>.</p>
 <p>In this module, we will learn a simple strategy for solving problems in R.</p>
-</section>
-<section id="lets-get-started" class="level2">
-<h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
+</section><section id="lets-get-started" class="level2"><h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
 <p>Open your <code>intro-r-course</code> project and create a new R script.</p>
 <p>Save it inside the <code>scripts</code> folder as:</p>
 <pre class="text"><code>module-06.R</code></pre>
-</section>
-<section id="messages-warnings-and-errors" class="level2">
-<h2 class="anchored" data-anchor-id="messages-warnings-and-errors">Messages, warnings, and errors</h2>
+</section><section id="messages-warnings-and-errors" class="level2"><h2 class="anchored" data-anchor-id="messages-warnings-and-errors">Messages, warnings, and errors</h2>
 <p>Not everything that appears in the R Console means the same thing.</p>
 <p>R can give us:</p>
 <ul>
-<li><strong>messages</strong>,</li>
-<li><strong>warnings</strong>,</li>
-<li><strong>errors</strong>.</li>
+<li>
+<strong>messages</strong>,</li>
+<li>
+<strong>warnings</strong>,</li>
+<li>
+<strong>errors</strong>.</li>
 </ul>
 <p>Understanding the difference is the first step in figuring out what happened.</p>
-</section>
-<section id="messages" class="level2">
-<h2 class="anchored" data-anchor-id="messages">Messages</h2>
+</section><section id="messages" class="level2"><h2 class="anchored" data-anchor-id="messages">Messages</h2>
 <p>Messages simply provide information about something R is doing.</p>
 <p>For example:</p>
 <div class="cell">
@@ -228,9 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>or running functions that provide information about their progress.</li>
 </ul>
 <p>A message does not necessarily mean that anything went wrong.</p>
-</section>
-<section id="warnings" class="level2">
-<h2 class="anchored" data-anchor-id="warnings">Warnings</h2>
+</section><section id="warnings" class="level2"><h2 class="anchored" data-anchor-id="warnings">Warnings</h2>
 <p>A <strong>warning</strong> tells us that something unusual or potentially problematic happened.</p>
 <p>However, unlike an error, the function normally continues running.</p>
 <p>For example:</p>
@@ -265,8 +336,7 @@ Important
 </blockquote>
 </div>
 </div>
-<section id="missing-values-and-warnings" class="level3">
-<h3 class="anchored" data-anchor-id="missing-values-and-warnings">Missing values and warnings</h3>
+<section id="missing-values-and-warnings" class="level3"><h3 class="anchored" data-anchor-id="missing-values-and-warnings">Missing values and warnings</h3>
 <p>Problems can also propagate through later calculations.</p>
 <p>For example:</p>
 <div class="cell">
@@ -289,10 +359,7 @@ Important
 </div>
 </div>
 <p>This is why understanding your data is just as important as understanding the function.</p>
-</section>
-</section>
-<section id="errors" class="level2">
-<h2 class="anchored" data-anchor-id="errors">Errors</h2>
+</section></section><section id="errors" class="level2"><h2 class="anchored" data-anchor-id="errors">Errors</h2>
 <p>An <strong>error</strong> stops the operation.</p>
 <p>For example:</p>
 <div class="cell">
@@ -330,21 +397,17 @@ Tip
 </blockquote>
 </div>
 </div>
-</section>
-<section id="some-common-errors" class="level2">
-<h2 class="anchored" data-anchor-id="some-common-errors">Some common errors</h2>
+</section><section id="some-common-errors" class="level2"><h2 class="anchored" data-anchor-id="some-common-errors">Some common errors</h2>
 <p>As you begin working with R, you will probably see some errors repeatedly.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Message</th>
 <th>Possible problem</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td><code>object 'x' not found</code></td>
@@ -374,9 +437,7 @@ Tip
 </table>
 <p>You do not need to memorize these messages.</p>
 <p>With time, you will start recognizing them.</p>
-</section>
-<section id="step-1-read-the-error" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-read-the-error">Step 1: Read the error</h2>
+</section><section id="step-1-read-the-error" class="level2"><h2 class="anchored" data-anchor-id="step-1-read-the-error">Step 1: Read the error</h2>
 <p>This sounds obvious.</p>
 <p>But when people see a large red message in the Console, their first reaction is often:</p>
 <blockquote class="blockquote">
@@ -396,9 +457,7 @@ Tip
 <li>Did the line that creates it run successfully?</li>
 </ul>
 <p>Very often, the error itself already tells us where to begin.</p>
-</section>
-<section id="step-2-check-your-objects" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-check-your-objects">Step 2: Check your objects</h2>
+</section><section id="step-2-check-your-objects" class="level2"><h2 class="anchored" data-anchor-id="step-2-check-your-objects">Step 2: Check your objects</h2>
 <p>Many problems occur because an object is not what we think it is.</p>
 <p>For example:</p>
 <div class="cell">
@@ -457,50 +516,36 @@ Tip
 <p>Inspect the <strong>objects being used by the code</strong>.</p>
 </div>
 </div>
-</section>
-<section id="step-3-check-the-simplest-things-first" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-check-the-simplest-things-first">Step 3: Check the simplest things first</h2>
+</section><section id="step-3-check-the-simplest-things-first" class="level2"><h2 class="anchored" data-anchor-id="step-3-check-the-simplest-things-first">Step 3: Check the simplest things first</h2>
 <p>Many R problems are caused by very small mistakes.</p>
 <p>Before searching for a complicated explanation, check:</p>
-<section id="spelling" class="level3">
-<h3 class="anchored" data-anchor-id="spelling">Spelling</h3>
+<section id="spelling" class="level3"><h3 class="anchored" data-anchor-id="spelling">Spelling</h3>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>recordTable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>is different from:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>recordtable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="parentheses" class="level3">
-<h3 class="anchored" data-anchor-id="parentheses">Parentheses</h3>
+</section><section id="parentheses" class="level3"><h3 class="anchored" data-anchor-id="parentheses">Parentheses</h3>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>is missing:</p>
 <pre class="text"><code>)</code></pre>
-</section>
-<section id="commas" class="level3">
-<h3 class="anchored" data-anchor-id="commas">Commas</h3>
+</section><section id="commas" class="level3"><h3 class="anchored" data-anchor-id="commas">Commas</h3>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> recordTable</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Species)</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>is missing a comma after:</p>
 <pre class="text"><code>recordTable</code></pre>
-</section>
-<section id="file-names" class="level3">
-<h3 class="anchored" data-anchor-id="file-names">File names</h3>
+</section><section id="file-names" class="level3"><h3 class="anchored" data-anchor-id="file-names">File names</h3>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/camera-data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>will not work if the file is actually called:</p>
 <pre class="text"><code>camera_data.csv</code></pre>
-</section>
-<section id="packages" class="level3">
-<h3 class="anchored" data-anchor-id="packages">Packages</h3>
+</section><section id="packages" class="level3"><h3 class="anchored" data-anchor-id="packages">Packages</h3>
 <p>If R says:</p>
 <pre class="text"><code>could not find function "read_csv"</code></pre>
 <p>ask yourself whether you loaded the package:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Small mistakes are extremely common.</p>
 <p>Check them first.</p>
-</section>
-</section>
-<section id="step-4-read-the-documentation" class="level2">
-<h2 class="anchored" data-anchor-id="step-4-read-the-documentation">Step 4: Read the documentation</h2>
+</section></section><section id="step-4-read-the-documentation" class="level2"><h2 class="anchored" data-anchor-id="step-4-read-the-documentation">Step 4: Read the documentation</h2>
 <p>If the function exists but is not behaving as expected, check its documentation.</p>
 <p>For example:</p>
 <div class="cell">
@@ -533,26 +578,21 @@ Tip
 </div>
 </div>
 <p>Learning how to read documentation is much more useful than trying to memorize every function.</p>
-</section>
-<section id="step-5-search-for-the-error" class="level2">
-<h2 class="anchored" data-anchor-id="step-5-search-for-the-error">Step 5: Search for the error</h2>
+</section><section id="step-5-search-for-the-error" class="level2"><h2 class="anchored" data-anchor-id="step-5-search-for-the-error">Step 5: Search for the error</h2>
 <p>There is a very good chance that someone else has encountered the same error before and already figured out how to fix it.</p>
 <p>Most of the time, simply copying the error message and Googling it is enough to find a solution.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-06/frygoogle.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-06/frygoogle.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>One thing I really like about R is that the community is usually very willing to help. Over time, you will also learn how to Google errors and warnings more effectively, and finding solutions will become much easier.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-06/rickmorty.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-06/rickmorty.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>One very useful resource is <strong>Stack Overflow</strong>, where you can find examples and discussions about coding problems, error messages, and even statistical questions.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-06/stackov.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-06/stackov.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -574,9 +614,7 @@ Tip
 <pre class="text"><code>object not found</code></pre>
 </div>
 </div>
-</section>
-<section id="step-6-ask-for-help" class="level2">
-<h2 class="anchored" data-anchor-id="step-6-ask-for-help">Step 6: Ask for help</h2>
+</section><section id="step-6-ask-for-help" class="level2"><h2 class="anchored" data-anchor-id="step-6-ask-for-help">Step 6: Ask for help</h2>
 <p>Sometimes you will still need another person to help solve the problem.</p>
 <p>That is completely normal.</p>
 <p>However:</p>
@@ -610,17 +648,13 @@ str(recordTable$N_individuals) shows that the variable is numeric.
 What should I check next?</code></pre>
 <p>Now someone has enough information to help.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-06/golum.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-06/golum.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-</section>
-<section id="using-ai-tools-to-solve-r-problems" class="level2">
-<h2 class="anchored" data-anchor-id="using-ai-tools-to-solve-r-problems">Using AI tools to solve R problems</h2>
+</section><section id="using-ai-tools-to-solve-r-problems" class="level2"><h2 class="anchored" data-anchor-id="using-ai-tools-to-solve-r-problems">Using AI tools to solve R problems</h2>
 <p>Nowadays, AI tools and large language models (LLMs) have become very common in coding. Whether you use them to learn, debug, or write code, they can be extremely powerful tools, but they also come with some risks.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-06/cachatgpt.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-06/cachatgpt.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>Beyond the broader ethical discussion about using AI, these tools can influence <strong>how you learn</strong>, particularly how you learn to code.</p>
@@ -629,8 +663,7 @@ What should I check next?</code></pre>
 <p>Because programming is a lot like learning a language. You need to practice, become familiar with the syntax, make mistakes, and actually write code yourself.</p>
 <p>If you start by simply copying and pasting everything that an AI gives you into the Console, you may get the answer, but you may not understand how you got there. And if you do not practice writing and modifying the code yourself, it will be much harder to remember how to do it later.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/module-06/homer.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figure class="figure"><p><img src="..\images/module-06/homer.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>So, although this may sound a little hypocritical because I use AI a lot in my own daily work, I suggest delaying <strong>heavy reliance on AI</strong> as much as you can while you are learning the basics.</p>
@@ -662,12 +695,9 @@ Tip
 <li>or suggest alternative approaches.</li>
 </ul>
 <p>But the quality of the answer depends heavily on the information you provide.</p>
-<section id="not-very-useful" class="level3">
-<h3 class="anchored" data-anchor-id="not-very-useful">Not very useful</h3>
+<section id="not-very-useful" class="level3"><h3 class="anchored" data-anchor-id="not-very-useful">Not very useful</h3>
 <pre class="text"><code>My R code doesn't work. Fix it.</code></pre>
-</section>
-<section id="much-more-useful" class="level3">
-<h3 class="anchored" data-anchor-id="much-more-useful">Much more useful</h3>
+</section><section id="much-more-useful" class="level3"><h3 class="anchored" data-anchor-id="much-more-useful">Much more useful</h3>
 <pre class="text"><code>I am using R and ggplot2.
 
 I want to make a bar plot using the Species column from
@@ -692,10 +722,7 @@ error
 +
 context</code></pre>
 <p>usually produces a much more useful answer.</p>
-</section>
-</section>
-<section id="ai-can-also-be-wrong" class="level2">
-<h2 class="anchored" data-anchor-id="ai-can-also-be-wrong">AI can also be wrong</h2>
+</section></section><section id="ai-can-also-be-wrong" class="level2"><h2 class="anchored" data-anchor-id="ai-can-also-be-wrong">AI can also be wrong</h2>
 <p>An AI-generated answer should be treated as a <strong>suggestion to test</strong>, not as proof that the solution is correct.</p>
 <p>An AI tool may:</p>
 <ul>
@@ -727,9 +754,7 @@ Important
 <p>If an AI gives you code, ask it to explain <strong>why the code works</strong> and what each important part does.</p>
 </div>
 </div>
-</section>
-<section id="be-careful-what-you-share" class="level2">
-<h2 class="anchored" data-anchor-id="be-careful-what-you-share">Be careful what you share</h2>
+</section><section id="be-careful-what-you-share" class="level2"><h2 class="anchored" data-anchor-id="be-careful-what-you-share">Be careful what you share</h2>
 <p>When asking for help online or using an AI assistant, you usually do <strong>not</strong> need to share your complete dataset.</p>
 <p>Avoid sharing:</p>
 <ul>
@@ -745,9 +770,7 @@ Important
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">detections =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If the error also happens with this small example, someone can help you without needing access to your complete dataset.</p>
-</section>
-<section id="a-simple-debugging-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="a-simple-debugging-workflow">A simple debugging workflow</h2>
+</section><section id="a-simple-debugging-workflow" class="level2"><h2 class="anchored" data-anchor-id="a-simple-debugging-workflow">A simple debugging workflow</h2>
 <p>When something goes wrong, try this order:</p>
 <pre class="text"><code>1. Read the message
         ↓
@@ -766,9 +789,7 @@ Important
 8. Test and verify the solution</code></pre>
 <p>You will not always need every step.</p>
 <p>With experience, you will learn which ones are most useful for different types of problems.</p>
-</section>
-<section id="practice-at-home" class="level2">
-<h2 class="anchored" data-anchor-id="practice-at-home">Practice at home</h2>
+</section><section id="practice-at-home" class="level2"><h2 class="anchored" data-anchor-id="practice-at-home">Practice at home</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -792,24 +813,19 @@ Tip
 <li>Fix the problem.</li>
 <li>Add a comment explaining what was wrong.</li>
 </ol>
-<section id="problem-1" class="level3">
-<h3 class="anchored" data-anchor-id="problem-1">Problem 1</h3>
+<section id="problem-1" class="level3"><h3 class="anchored" data-anchor-id="problem-1">Problem 1</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>number_of_cameras <span class="ot">&lt;-</span> <span class="dv">20</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>Number_of_cameras <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="problem-2" class="level3">
-<h3 class="anchored" data-anchor-id="problem-2">Problem 2</h3>
+</section><section id="problem-2" class="level3"><h3 class="anchored" data-anchor-id="problem-2">Problem 2</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>detections <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">12</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(detections)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="problem-3" class="level3">
-<h3 class="anchored" data-anchor-id="problem-3">Problem 3</h3>
+</section><section id="problem-3" class="level3"><h3 class="anchored" data-anchor-id="problem-3">Problem 3</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -819,9 +835,7 @@ Tip
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="problem-4" class="level3">
-<h3 class="anchored" data-anchor-id="problem-4">Problem 4</h3>
+</section><section id="problem-4" class="level3"><h3 class="anchored" data-anchor-id="problem-4">Problem 4</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>camera_days <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"30"</span>,</span>
@@ -832,9 +846,7 @@ Tip
 <span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(camera_days)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="problem-5" class="level3">
-<h3 class="anchored" data-anchor-id="problem-5">Problem 5</h3>
+</section><section id="problem-5" class="level3"><h3 class="anchored" data-anchor-id="problem-5">Problem 5</h3>
 <p>Imagine that R returns:</p>
 <pre class="text"><code>Error: object 'recordTable' not found</code></pre>
 <p>Write down at least <strong>three things you would check</strong> before asking someone else for help.</p>
@@ -853,15 +865,12 @@ Suggested solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<section id="problem-1-1" class="level3">
-<h3 class="anchored" data-anchor-id="problem-1-1">Problem 1</h3>
+<section id="problem-1-1" class="level3"><h3 class="anchored" data-anchor-id="problem-1-1">Problem 1</h3>
 <p>R is case-sensitive.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>number_of_cameras <span class="ot">&lt;-</span> <span class="dv">20</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>number_of_cameras <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="problem-2-1" class="level3">
-<h3 class="anchored" data-anchor-id="problem-2-1">Problem 2</h3>
+</section><section id="problem-2-1" class="level3"><h3 class="anchored" data-anchor-id="problem-2-1">Problem 2</h3>
 <p>The vector contains a missing value.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>detections <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">12</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -869,18 +878,14 @@ Suggested solution
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  detections,</span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
 <span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="problem-3-1" class="level3">
-<h3 class="anchored" data-anchor-id="problem-3-1">Problem 3</h3>
+</section><section id="problem-3-1" class="level3"><h3 class="anchored" data-anchor-id="problem-3-1">Problem 3</h3>
 <p>There is a missing comma after <code>recordTable</code>.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  recordTable,</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Species)</span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="problem-4-1" class="level3">
-<h3 class="anchored" data-anchor-id="problem-4-1">Problem 4</h3>
+</section><section id="problem-4-1" class="level3"><h3 class="anchored" data-anchor-id="problem-4-1">Problem 4</h3>
 <p>The values were stored as characters because they are inside quotation marks.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>camera_days <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">30</span>,</span>
@@ -890,9 +895,7 @@ Suggested solution
 <span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(camera_days)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="problem-5-1" class="level3">
-<h3 class="anchored" data-anchor-id="problem-5-1">Problem 5</h3>
+</section><section id="problem-5-1" class="level3"><h3 class="anchored" data-anchor-id="problem-5-1">Problem 5</h3>
 <p>Some things you could check include:</p>
 <ul>
 <li>Did I import or create <code>recordTable</code>?</li>
@@ -901,14 +904,11 @@ Suggested solution
 <li>Does <code>recordTable</code> appear in the Environment?</li>
 <li>Did I restart R without rerunning the script?</li>
 <li>Am I running the correct script or project?</li>
-</ul>
-</section>
+</ul></section>
 </div>
 </div>
 </div>
-</section>
-<section id="errors-are-part-of-the-process" class="level2">
-<h2 class="anchored" data-anchor-id="errors-are-part-of-the-process">Errors are part of the process</h2>
+</section><section id="errors-are-part-of-the-process" class="level2"><h2 class="anchored" data-anchor-id="errors-are-part-of-the-process">Errors are part of the process</h2>
 <p>Getting an error does not mean that you are bad at R.</p>
 <p>Debugging is part of programming.</p>
 <p>As you work with R, you will gradually move from:</p>
@@ -918,10 +918,7 @@ Suggested solution
 <p>That change is one of the most useful skills you can develop.</p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1325,4 +1322,5 @@ Suggested solution
 
 
 
-</body></html>
+</body>
+</html>
