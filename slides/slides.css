@@ -1,40 +1,46 @@
-/* Tamaño general del texto */
+/* Base */
 .reveal {
-  font-size: 30px;
+  font-size: 36px;
 }
 
-/* Títulos principales */
+/* Titles */
 .reveal h1 {
-  font-size: 1.8em;
+  font-size: 1.9em;
 }
 
 .reveal h2 {
-  font-size: 1.4em;
+  font-size: 1.55em;
+  margin-bottom: 0.45em;
 }
 
 .reveal h3 {
-  font-size: 1.15em;
+  font-size: 1.2em;
 }
 
-/* Párrafos y listas */
+/* Regular text */
 .reveal p,
 .reveal li {
-  font-size: 0.9em;
-  line-height: 1.3;
+  font-size: 1em;
+  line-height: 1.25;
 }
 
-/* Código */
+/* Code */
 .reveal pre code {
-  font-size: 0.75em;
-  line-height: 1.2;
+  font-size: 0.72em;
+  line-height: 1.18;
 }
 
-/* Que el contenido use mejor el ancho */
+/* Use slide width */
 .reveal .slides section {
   text-align: left;
 }
 
-/* Imágenes un poco más controladas */
+/* A little separation between columns */
+.reveal .columns {
+  gap: 2rem;
+}
+
+/* Images */
 .reveal img {
-  max-height: 80vh;
+  max-height: 78vh;
 }
