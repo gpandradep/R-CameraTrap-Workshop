@@ -119,6 +119,10 @@ ggplot(
 
 ------------------------------------------------------------------------
 
+There are many more options depending on what you want to explore or communicate with your data. If you want to go further, I recommend visiting these two websites: [R Charts](https://r-charts.com/distribution/) & [R Graph Gallery](https://r-graph-gallery.com/) \| ![](https://gpandradep.github.io/R-CameraTrap-Workshop/images/module-05/datavizexample.png)
+
+------------------------------------------------------------------------
+
 ## Bar plots
 
 Question:
@@ -155,15 +159,14 @@ ggplot(
   geom_bar()
 ```
 :::
-
 ::::::
 
 ------------------------------------------------------------------------
 
 ## Make it readable
-:::::: columns
-:::: {.column width="30%"}
 
+::::: columns
+::: {.column width="30%"}
 ``` r
 ggplot(
   data = recordTable,
@@ -178,10 +181,9 @@ ggplot(
   ) +
   theme_bw()
 ```
+:::
 
-::::
-:::: {.column width="70%"}
-
+::: {.column width="70%"}
 ```{r}
 #| eval: true
 ggplot(
@@ -197,16 +199,15 @@ ggplot(
   ) +
   theme_bw()
 ```
-
-::::
-::::::
+:::
+:::::
 
 ------------------------------------------------------------------------
 
 ## Histograms
 
-:::::: columns
-:::: {.column width="35%"}
+::::: columns
+::: {.column width="35%"}
 Question:
 
 > How many images are usually associated with one record?
@@ -223,8 +224,9 @@ ggplot(
   ) +
   theme_bw()
 ```
-::::
-:::: {.column width="65%"}
+:::
+
+::: {.column width="65%"}
 ```{r}
 #| eval: true
 ggplot(
@@ -238,9 +240,8 @@ ggplot(
   ) +
   theme_bw()
 ```
-
-::::
-::::::
+:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -281,7 +282,6 @@ ggplot(
   ) +
   theme_bw()
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -346,7 +346,6 @@ ggplot(
   geom_point(alpha = 0.4)
 ```
 
-
 ------------------------------------------------------------------------
 
 ## Focus on a few species
@@ -367,8 +366,6 @@ common_records <- recordTable[
   recordTable$Species %in% common_species,
 ]
 ```
-
-
 
 ------------------------------------------------------------------------
 
@@ -393,6 +390,7 @@ ggplot(
   ) +
   theme_bw()
 ```
+
 ```{r}
 #| eval: true
 ggplot(
@@ -428,6 +426,7 @@ sp_counts <- recordTable |>
   filter(
     Species %in% common_species
   )
+sp_counts
 ```
 
 Now each row represents:
@@ -456,6 +455,7 @@ ggplot(
   coord_flip() +
   theme_bw()
 ```
+
 ```{r}
 #| eval: true
 ggplot(
@@ -474,7 +474,6 @@ ggplot(
   theme_bw()
 ```
 
-
 Here, the data are still counts.
 
 Only the axis is displayed on a log scale.
@@ -484,6 +483,7 @@ Only the axis is displayed on a log scale.
 ## Combining geometries
 
 ``` r
+#| eval: true
 ggplot(
   data = sp_counts,
   aes(
@@ -501,6 +501,24 @@ ggplot(
 ```
 
 Each `+` adds a new layer.
+
+```{r}
+
+ggplot(
+  data = sp_counts,
+  aes(
+    x = Species,
+    y = n,
+    fill = Species
+  )
+) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.15) +
+  geom_jitter(width = 0.15, alpha = 0.6) +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw()
+```
 
 ------------------------------------------------------------------------
 
@@ -537,6 +555,372 @@ ggsave(
   height = 6,
   dpi = 300
 )
+```
+
+## Data manipulation
+
+Now we move from:
+
+*plotting raw data*
+
+to:
+
+*preparing data for questions*
+
+We will use `dplyr`.
+
+Many `dplyr` functions are verbs.
+
+------------------------------------------------------------------------
+
+## Important dplyr verbs
+
+| Function      | Action              |
+|---------------|---------------------|
+| `select()`    | choose columns      |
+| `filter()`    | choose rows         |
+| `arrange()`   | sort rows           |
+| `rename()`    | rename columns      |
+| `mutate()`    | create columns      |
+| `count()`     | count observations  |
+| `group_by()`  | create groups       |
+| `summarise()` | calculate summaries |
+
+------------------------------------------------------------------------
+
+## Select columns
+
+`select()` works with columns.
+
+```{r}
+#| eval: true
+#| echo: true
+#| 
+selected_records <- recordTable |>
+  select(
+    Station,
+    Species,
+    N_individuals,
+    Age,
+    n_images
+  )
+
+selected_records
+```
+
+------------------------------------------------------------------------
+
+## Filter rows
+
+```{r}
+#| eval: true
+#| echo: true
+
+deer_records <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  )
+
+deer_records
+```
+
+`filter()` works with rows.
+
+------------------------------------------------------------------------
+
+## Multiple conditions
+
+```{r}
+#| eval: true
+#| echo: true
+
+recordTable |>
+  filter(
+    Species == "White-tailed deer",
+    N_individuals > 1
+  )
+```
+
+Both conditions must be true.
+
+This is like using:
+
+*AND*
+
+------------------------------------------------------------------------
+
+## Several categories
+
+```{r}
+#| eval: true
+#| echo: true
+recordTable |>
+  filter(
+    Species %in% c(
+      "White-tailed deer",
+      "Armadillo",
+      "Racoon"
+    )
+  )
+```
+
+`%in%` asks:
+
+> Is this value inside this group of possible values?
+
+------------------------------------------------------------------------
+
+## Rename columns
+
+```{r}
+#| eval: true
+#| echo: true
+#| 
+record_data <- recordTable |>
+  rename(
+    station = Station,
+    species = Species,
+    individuals = N_individuals,
+    age = Age,
+    images = n_images,
+    date = Date,
+    time = Time
+  )
+record_data
+```
+
+Now the column names are easier to type.
+
+------------------------------------------------------------------------
+
+## Create new columns
+
+```{r}
+#| eval: true
+#| echo: true
+record_data <- record_data |>
+  mutate(
+    multiple_individuals = individuals > 1
+  )
+
+record_data
+```
+
+The new column is logical:
+
+``` text
+TRUE / FALSE
+```
+
+------------------------------------------------------------------------
+
+## Count records
+
+```{r}
+#| eval: true
+#| echo: true
+record_data |>
+  count(
+    species,
+    sort = TRUE
+  )
+```
+
+The result has one row per species.
+
+The column `n` contains the number of records.
+
+------------------------------------------------------------------------
+
+## Count combinations
+
+```{r}
+#| eval: true
+#| echo: true
+record_data |>
+  count(
+    station,
+    species
+  )
+```
+
+Now each row represents:
+
+``` text
+one station × one species
+```
+
+This is a different unit than the original data.
+
+------------------------------------------------------------------------
+
+## Group and summarize
+
+```{r}
+#| eval: true
+#| echo: true
+species_summary <- record_data |>
+  group_by(species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(station),
+    total_individuals = sum(
+      individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+species_summary 
+```
+
+Now each row represents one species.
+
+------------------------------------------------------------------------
+
+## Always ask
+
+``` text
+What does one row represent?
+```
+
+Before summarizing:
+
+``` text
+1 row = 1 camera-trap record
+```
+
+After summarizing by species:
+
+``` text
+1 row = 1 species
+```
+
+After summarizing by station:
+
+``` text
+1 row = 1 station
+```
+
+------------------------------------------------------------------------
+
+## Pipes
+
+The pipe:
+
+``` r
+|>
+```
+
+passes the result of one step into the next step.
+
+Read it as:
+
+``` text
+then
+```
+
+Example:
+
+``` r
+recordTable |>
+  filter(Species == "White-tailed deer") |>
+  count(Station)
+```
+
+![](https://gpandradep.github.io/R-CameraTrap-Workshop/images/module-07/Pipe.jpg)
+
+------------------------------------------------------------------------
+
+## A complete pipeline
+
+```{r}
+#| eval: true
+#| echo: true
+#| 
+common_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Racoon",
+  "Hog",
+  "Virginia opossum"
+)
+
+common_summary <- recordTable |>
+  filter(
+    Species %in% common_species
+  ) |>
+  group_by(Species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    .groups = "drop"
+  ) |>
+  arrange(
+    desc(records)
+  )
+
+common_summary 
+```
+
+------------------------------------------------------------------------
+
+## Summaries can become plots
+
+``` r
+ggplot(
+  common_summary,
+  aes(
+    x = Species,
+    y = records,
+    fill = Species
+  )
+) +
+  geom_col(
+    show.legend = FALSE
+  ) +
+  coord_flip() +
+  theme_bw()
+```
+
+```{r}
+#| eval: true
+ggplot(
+  common_summary,
+  aes(
+    x = Species,
+    y = records,
+    fill = Species
+  )
+) +
+  geom_col(
+    show.legend = FALSE
+  ) +
+  coord_flip() +
+  theme_bw()
+```
+
+Use `geom_col()` when the counts already exist in the data.
+
+------------------------------------------------------------------------
+
+## Session workflow
+
+``` text
+import data
+      ↓
+inspect
+      ↓
+visualize
+      ↓
+debug when needed
+      ↓
+select / filter
+      ↓
+group / summarize
+      ↓
+visualize summaries
+      ↓
+export results
 ```
 
 ------------------------------------------------------------------------
@@ -651,6 +1035,8 @@ function name
 important part of the error
 ```
 
+![](https://gpandradep.github.io/R-CameraTrap-Workshop//images/module-06/frygoogle.jpg)
+
 ------------------------------------------------------------------------
 
 ## Ask better questions
@@ -698,6 +1084,8 @@ Not as something that does your thinking for you.
 
 ## AI can be wrong
 
+::::: columns
+::: {.column width="35%"}
 Always:
 
 1.  Read the suggested code.
@@ -705,330 +1093,16 @@ Always:
 3.  Inspect the result.
 4.  Ask whether the result makes sense.
 5.  Check documentation when needed.
+:::
+
+::: {.column width="65%"}
+![](https://gpandradep.github.io/R-CameraTrap-Workshop//images/module-06/homer.webp){fig-align="center"}
+:::
+:::::
 
 ::: callout-important
 Do not copy and run code that you do not understand.
 :::
-
-------------------------------------------------------------------------
-
-## Data manipulation
-
-Now we move from:
-
-``` text
-plotting raw data
-```
-
-to:
-
-``` text
-preparing data for questions
-```
-
-We will use `dplyr`.
-
-Many `dplyr` functions are verbs.
-
-------------------------------------------------------------------------
-
-## Important dplyr verbs
-
-| Function      | Action              |
-|---------------|---------------------|
-| `select()`    | choose columns      |
-| `filter()`    | choose rows         |
-| `arrange()`   | sort rows           |
-| `rename()`    | rename columns      |
-| `mutate()`    | create columns      |
-| `count()`     | count observations  |
-| `group_by()`  | create groups       |
-| `summarise()` | calculate summaries |
-
-------------------------------------------------------------------------
-
-## Select columns
-
-``` r
-selected_records <- recordTable |>
-  select(
-    Station,
-    Species,
-    N_individuals,
-    Age,
-    n_images
-  )
-```
-
-`select()` works with columns.
-
-------------------------------------------------------------------------
-
-## Filter rows
-
-``` r
-deer_records <- recordTable |>
-  filter(
-    Species == "White-tailed deer"
-  )
-```
-
-`filter()` works with rows.
-
-------------------------------------------------------------------------
-
-## Multiple conditions
-
-``` r
-recordTable |>
-  filter(
-    Species == "White-tailed deer",
-    N_individuals > 1
-  )
-```
-
-Both conditions must be true.
-
-This is like using:
-
-``` text
-AND
-```
-
-------------------------------------------------------------------------
-
-## Several categories
-
-``` r
-recordTable |>
-  filter(
-    Species %in% c(
-      "White-tailed deer",
-      "Armadillo",
-      "Racoon"
-    )
-  )
-```
-
-`%in%` asks:
-
-> Is this value inside this group of possible values?
-
-------------------------------------------------------------------------
-
-## Rename columns
-
-``` r
-record_data <- recordTable |>
-  rename(
-    station = Station,
-    species = Species,
-    individuals = N_individuals,
-    age = Age,
-    images = n_images,
-    date = Date,
-    time = Time
-  )
-```
-
-Now the column names are easier to type.
-
-------------------------------------------------------------------------
-
-## Create new columns
-
-``` r
-record_data <- record_data |>
-  mutate(
-    multiple_individuals = individuals > 1
-  )
-```
-
-The new column is logical:
-
-``` text
-TRUE / FALSE
-```
-
-------------------------------------------------------------------------
-
-## Count records
-
-``` r
-record_data |>
-  count(
-    species,
-    sort = TRUE
-  )
-```
-
-The result has one row per species.
-
-The column `n` contains the number of records.
-
-------------------------------------------------------------------------
-
-## Count combinations
-
-``` r
-record_data |>
-  count(
-    station,
-    species
-  )
-```
-
-Now each row represents:
-
-``` text
-one station × one species
-```
-
-This is a different unit than the original data.
-
-------------------------------------------------------------------------
-
-## Group and summarize
-
-``` r
-species_summary <- record_data |>
-  group_by(species) |>
-  summarise(
-    records = n(),
-    stations = n_distinct(station),
-    total_individuals = sum(
-      individuals,
-      na.rm = TRUE
-    ),
-    .groups = "drop"
-  )
-```
-
-Now each row represents one species.
-
-------------------------------------------------------------------------
-
-## Always ask
-
-``` text
-What does one row represent?
-```
-
-Before summarizing:
-
-``` text
-1 row = 1 camera-trap record
-```
-
-After summarizing by species:
-
-``` text
-1 row = 1 species
-```
-
-After summarizing by station:
-
-``` text
-1 row = 1 station
-```
-
-------------------------------------------------------------------------
-
-## Pipes
-
-The pipe:
-
-``` r
-|>
-```
-
-passes the result of one step into the next step.
-
-Read it as:
-
-``` text
-then
-```
-
-Example:
-
-``` r
-recordTable |>
-  filter(Species == "White-tailed deer") |>
-  count(Station)
-```
-
-------------------------------------------------------------------------
-
-## A complete pipeline
-
-``` r
-common_species <- c(
-  "White-tailed deer",
-  "Armadillo",
-  "Racoon",
-  "Hog",
-  "Virginia opossum"
-)
-
-common_summary <- recordTable |>
-  filter(
-    Species %in% common_species
-  ) |>
-  group_by(Species) |>
-  summarise(
-    records = n(),
-    stations = n_distinct(Station),
-    .groups = "drop"
-  ) |>
-  arrange(
-    desc(records)
-  )
-```
-
-------------------------------------------------------------------------
-
-## Summaries can become plots
-
-``` r
-ggplot(
-  common_summary,
-  aes(
-    x = Species,
-    y = records,
-    fill = Species
-  )
-) +
-  geom_col(
-    show.legend = FALSE
-  ) +
-  coord_flip() +
-  theme_bw()
-```
-
-Use `geom_col()` when the counts already exist in the data.
-
-------------------------------------------------------------------------
-
-## Session workflow
-
-``` text
-import data
-      ↓
-inspect
-      ↓
-visualize
-      ↓
-debug when needed
-      ↓
-select / filter
-      ↓
-group / summarize
-      ↓
-visualize summaries
-      ↓
-export results
-```
 
 ------------------------------------------------------------------------
 
@@ -1048,21 +1122,3 @@ count()
 group_by()
 summarise()
 ```
-
-------------------------------------------------------------------------
-
-## Main idea
-
-R becomes powerful when you combine tools:
-
-``` text
-ggplot2 → show patterns
-
-debugging → keep moving when code fails
-
-dplyr → reshape data into useful summaries
-```
-
-You do not need to memorize everything.
-
-You need to keep practicing the workflow.

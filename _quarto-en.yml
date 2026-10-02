@@ -42,6 +42,8 @@ website:
             text: "1. Introduction to R and RStudio"
           - href: slides/session-02-objects-data-import.qmd
             text: "2. Objects, data strcutures and importing"
+          - href: slides/session-03-viz-datahandling.qmd
+            text: "3. daa viz and data handling"
             
       - text: Extra Resources
         menu:
