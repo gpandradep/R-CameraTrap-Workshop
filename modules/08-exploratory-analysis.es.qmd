@@ -1,0 +1,1145 @@
+---
+title: "Module 8: Exploratory Data Analysis"
+toc: true
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+
+recordTable <- read_csv(
+  here("data", "recordTable.csv"),
+  show_col_types = FALSE
+)
+```
+
+## Introduction
+
+Before running a statistical model, calculating an index, or interpreting ecological patterns, we should first understand our data.
+
+This process is called **Exploratory Data Analysis**, or **EDA**.
+
+EDA helps us answer questions such as:
+
+- How much data do we have?
+- What does one row represent?
+- Which variables are available?
+- Are there missing or unusual values?
+- Which species were recorded?
+- How are records distributed among camera stations?
+- How are records distributed through time?
+- Are there patterns that deserve further investigation?
+
+EDA is about understanding the dataset well enough to decide what questions we can reasonably ask next.
+
+::: {.callout-important}
+Exploration comes **before interpretation**.
+
+Finding a pattern in a graph does not necessarily mean that we have found an ecological mechanism.
+:::
+
+## Let's get started
+
+Open your `intro-r-course` project and create a new script.
+
+Save it inside:
+
+```text
+scripts/
+```
+
+as:
+
+```text
+module-08.R
+```
+
+Load the tidyverse:
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+```
+
+Then import our camera-trap dataset:
+
+```{r}
+#| eval: false
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+```
+
+::: {.callout-note}
+## Download the example data
+
+We will continue using the same camera-trap record table from the previous modules.
+
+[Download recordTable.csv](../data/recordTable.csv){.btn .btn-primary download="recordTable.csv"}
+:::
+
+## Step 1: Understand the structure
+
+Before calculating anything, ask:
+
+> What does one row represent?
+
+In `recordTable`, each row represents one camera-trap record in our dataset.
+
+Let's inspect the data:
+
+```{r}
+dim(recordTable)
+```
+
+```{r}
+names(recordTable)
+```
+
+```{r}
+glimpse(recordTable)
+```
+
+We can also look at the first observations:
+
+```{r}
+head(recordTable)
+```
+
+These simple functions already tell us a lot about the dataset.
+
+For example:
+
+```text
+dim()       → How large is the dataset?
+
+names()     → What variables are available?
+
+glimpse()   → What type of information does each variable contain?
+
+head()      → What do the actual observations look like?
+```
+
+::: {.callout-tip}
+Before analyzing any new dataset, try to answer:
+
+> What does one row represent?
+
+> What does one column represent?
+
+Many analysis problems begin when we misunderstand the unit represented by the data.
+:::
+
+## Step 2: How much information do we have?
+
+We can create a very simple overview of the dataset.
+
+```{r}
+recordTable |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    species = n_distinct(Species)
+  )
+```
+
+This gives us three useful numbers:
+
+```text
+number of records
+number of camera stations
+number of species/categories
+```
+
+We can also look at the temporal coverage:
+
+```{r}
+recordTable |>
+  summarise(
+    first_record = min(Date),
+    last_record = max(Date)
+  )
+```
+
+This gives us a quick description of the data available for exploration.
+
+## Step 3: Look for missing information
+
+Real ecological datasets almost always contain missing values.
+
+Missing information is not necessarily a problem.
+
+But we need to know where it occurs.
+
+For example:
+
+```{r}
+recordTable |>
+  summarise(
+    missing_sex = sum(is.na(Sex)),
+    missing_age = sum(is.na(Age)),
+    missing_identifier = sum(is.na(Identifier))
+  )
+```
+
+Remember:
+
+```r
+is.na()
+```
+
+returns `TRUE` when a value is missing.
+
+Because R treats `TRUE` as `1` and `FALSE` as `0` in this context:
+
+```r
+sum(is.na(Age))
+```
+
+counts the number of missing values.
+
+### Missing values are not the whole story
+
+Sometimes missing or uncertain information is represented using a category instead of `NA`.
+
+For example:
+
+```{r}
+recordTable |>
+  count(
+    Age,
+    sort = TRUE
+  )
+```
+
+and:
+
+```{r}
+recordTable |>
+  count(
+    Sex,
+    sort = TRUE
+  )
+```
+
+A value such as:
+
+```text
+Unknown
+```
+
+is not technically missing to R.
+
+It is a character value.
+
+But biologically, it may still represent information that we do not know.
+
+::: {.callout-important}
+R only knows what is written in the dataset.
+
+It does not know that:
+
+```text
+Unknown
+```
+
+may represent missing biological information.
+
+Understanding what values mean requires knowledge of how the data were collected.
+:::
+
+## Step 4: Look for unusual values
+
+EDA can also help us identify values that deserve closer inspection.
+
+For example:
+
+```{r}
+summary(recordTable$N_individuals)
+```
+
+and:
+
+```{r}
+summary(recordTable$n_images)
+```
+
+We can visualize them too:
+
+```{r}
+ggplot(
+  recordTable,
+  aes(x = N_individuals)
+) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  labs(
+    x = "Number of individuals",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+Now ask:
+
+- Are there zeros?
+- Are there unusually large values?
+- Do those values make biological sense?
+- Could they represent data-entry problems?
+- Could they represent legitimate observations?
+
+For example, we can inspect records with zero individuals:
+
+```{r}
+recordTable |>
+  filter(
+    N_individuals == 0
+  ) |>
+  select(
+    Station,
+    Species,
+    N_individuals,
+    Date,
+    File
+  )
+```
+
+::: {.callout-tip}
+An unusual value is not automatically an error.
+
+EDA helps us identify observations that should be **reviewed**, not automatically deleted.
+:::
+
+## Step 5: Explore categorical variables
+
+Categorical variables should also be inspected.
+
+For example:
+
+```{r}
+recordTable |>
+  count(
+    Species,
+    sort = TRUE
+  )
+```
+
+This shows which species or categories occur most frequently in the record table.
+
+We can visualize the result:
+
+```{r}
+recordTable |>
+  count(Species,sort = TRUE ) |>
+  ggplot( aes(  x = reorder(Species, n),  y = n  )) +
+  geom_col( fill = "steelblue") +
+  coord_flip() +
+  labs( x = "Species",
+    y = "Number of records",
+    title = "Camera-trap records by species"  ) +
+  theme_bw()
+```
+
+Notice that we are combining:
+
+```text
+data manipulation
+        ↓
+visualization
+```
+
+inside the same pipeline.
+
+## Be careful with record counts
+
+A species with more records is not necessarily more abundant.
+
+For example:
+
+```text
+more records
+```
+
+could result from:
+
+- more activity,
+- longer visits in front of the camera,
+- differences in detection probability,
+- differences in camera effort,
+- or actual differences in abundance.
+
+::: {.callout-important}
+## Records are not the same as abundance
+
+Throughout this exploratory analysis, we are describing the **records contained in the dataset**.
+
+We should not automatically interpret:
+
+```text
+more records = more animals
+```
+
+Camera-trap detections are influenced by both ecological and observation processes.
+
+:::
+
+## Step 6: Explore camera stations
+
+We can also ask:
+
+> How many records came from each camera station?
+
+```{r}
+station_records <- recordTable |>
+  count(
+    Station,
+    sort = TRUE
+  )
+
+station_records
+```
+
+And visualize them:
+
+```{r}
+ggplot(
+  station_records,
+  aes(
+    x = reorder(Station, n),
+    y = n
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  labs(
+    x = "Camera station",
+    y = "Number of records",
+    title = "Records by camera station"
+  ) +
+  theme_bw()
+```
+
+Some stations may have many more records than others.
+
+Why?
+
+Possible explanations include:
+
+```text
+animal activity
+habitat
+camera placement
+camera operation time
+technical failures
+sampling duration
+```
+
+The graph alone cannot tell us which explanation is correct.
+
+## Records are not sampling effort
+
+This distinction is especially important for camera-trap data.
+
+Suppose:
+
+```text
+Camera A = 500 records
+
+Camera B = 50 records
+```
+
+That does **not** tell us how long each camera was operating.
+
+Camera A may have operated for 100 days and Camera B for only 10 days.
+
+Our `recordTable` contains detection records.
+
+It does not by itself describe the complete sampling effort of cameras with no detections or periods when cameras were inactive.
+
+::: {.callout-important}
+Do not use the number of records at a station as a measure of camera effort.
+
+To calculate effort, we need information about when each camera was operating.
+
+We will return to this idea when we begin working with camera-trap-specific tools.
+:::
+
+## Step 7: Species richness by station
+
+We can ask another descriptive question:
+
+> How many different species were recorded at each station?
+
+```{r}
+station_summary <- recordTable |>
+  group_by(Station) |>
+  summarise(
+    records = n(),
+    species_richness = n_distinct(Species),
+    .groups = "drop"
+  )
+
+station_summary
+```
+
+Now each row represents:
+
+```text
+one camera station
+```
+
+We can visualize species richness:
+
+```{r}
+ggplot(
+  station_summary,
+  aes(
+    x = reorder(Station, species_richness),
+    y = species_richness
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  labs(
+    x = "Camera station",
+    y = "Number of species",
+    title = "Observed species richness by station"
+  ) +
+  theme_bw()
+```
+
+Notice the wording:
+
+```text
+observed species richness
+```
+
+We are describing the number of species recorded in our dataset.
+
+We are not claiming that this is the true number of species using each site.
+
+## Records and observed richness
+
+We can also explore whether stations with more records tend to contain more observed species.
+
+```{r}
+ggplot(
+  station_summary,
+  aes(
+    x = records,
+    y = species_richness
+  )
+) +
+  geom_point(
+    size = 3
+  ) +
+  labs(
+    x = "Number of records",
+    y = "Observed species richness"
+  ) +
+  theme_bw()
+```
+
+You may notice that stations with more records often also contain more species.
+
+Does that mean that those stations have better habitat?
+
+Not necessarily.
+
+::: {.callout-note}
+Stations with more sampling effort or more detections have more opportunities to record additional species.
+
+This is why exploratory relationships should not automatically be interpreted as ecological effects.
+:::
+
+## Step 8: Explore species among stations
+
+Sometimes we want to know where particular species were recorded.
+
+Let's focus on a few common species:
+
+```{r}
+common_species <- c(
+  "White-tailed deer",
+  "Armadillo",
+  "Racoon",
+  "Hog",
+  "Virginia opossum"
+)
+```
+
+Now summarize the number of records for each station and species:
+
+```{r}
+station_species <- recordTable |>
+  filter(
+    Species %in% common_species
+  ) |>
+  count(
+    Station,
+    Species
+  )
+
+station_species
+```
+
+We can visualize this using a heatmap:
+
+```{r}
+ggplot(
+  station_species,
+  aes(
+    x = Species,
+    y = Station,
+    fill = n
+  )
+) +
+  geom_tile() +
+  labs(
+    x = "Species",
+    y = "Camera station",
+    fill = "Records",
+    title = "Camera-trap records by station and species"
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  )
+```
+
+This type of graph can help us quickly identify:
+
+- species recorded at many stations,
+- species concentrated at particular stations,
+- stations with few records,
+- possible spatial patterns worth investigating.
+
+Again, these patterns are exploratory.
+
+## Step 9: Explore patterns through time
+
+Camera-trap datasets also contain a temporal component.
+
+We can summarize the number of records per day:
+
+```{r}
+daily_records <- recordTable |>
+  count(Date)
+
+daily_records
+```
+
+Then visualize the pattern:
+
+```{r}
+ggplot(
+  daily_records,
+  aes(
+    x = Date,
+    y = n
+  )
+) +
+  geom_line() +
+  labs(
+    x = "Date",
+    y = "Number of records",
+    title = "Camera-trap records through time"
+  ) +
+  theme_bw()
+```
+
+Large changes through time could reflect:
+
+- animal activity,
+- seasonal changes,
+- differences in sampling effort,
+- cameras being deployed or removed,
+- camera failures,
+- or other changes in the study.
+
+The plot helps us identify the pattern.
+
+It does not tell us its cause.
+
+## Explore one species through time
+
+We can also focus on one species.
+
+For example:
+
+```{r}
+deer_daily <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  ) |>
+  count(Date)
+```
+
+Then:
+
+```{r}
+ggplot(
+  deer_daily,
+  aes(
+    x = Date,
+    y = n
+  )
+) +
+  geom_line() +
+  labs(
+    x = "Date",
+    y = "White-tailed deer records",
+    title = "White-tailed deer records through time"
+  ) +
+  theme_bw()
+```
+
+This could help us generate new questions.
+
+For example:
+
+> Why are records higher during some portions of the sampling period?
+
+That question might later require information about:
+
+- sampling effort,
+- weather,
+- season,
+- human activity,
+- or other ecological covariates.
+
+That is exactly what EDA is useful for:
+
+**finding questions worth investigating.**
+
+## Step 10: Explore demographic information
+
+Our record table also contains variables such as:
+
+```text
+Sex
+Age
+```
+
+For example, we can explore age classifications for White-tailed deer:
+
+```{r}
+deer_demographics <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  ) |>
+  count(
+    Age,
+    sort = TRUE
+  )
+
+deer_demographics
+```
+
+And visualize them:
+
+```{r}
+ggplot(
+  deer_demographics,
+  aes(
+    x = Age,
+    y = n
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  labs(
+    x = "Age class",
+    y = "Number of records",
+    title = "White-tailed deer records by age class"
+  ) +
+  theme_bw()
+```
+
+But again, be careful.
+
+A graph of:
+
+```text
+records by age class
+```
+
+is not necessarily the same as:
+
+```text
+population age structure
+```
+
+Differences in behavior and detectability can influence camera-trap records.
+
+## Tables are part of EDA too
+
+EDA does not always require a graph.
+
+Sometimes a summary table communicates the pattern more clearly.
+
+For example:
+
+```{r}
+species_summary <- recordTable |>
+  group_by(Species) |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    total_individuals = sum(
+      N_individuals,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  ) |>
+  arrange(
+    desc(records)
+  )
+
+species_summary
+```
+
+Now we can quickly compare several characteristics among species.
+
+A useful exploratory workflow often combines:
+
+```text
+tables
++
+graphs
++
+knowledge of the study
+```
+
+## EDA is an iterative process
+
+Exploration rarely follows a perfectly linear sequence.
+
+You may begin with:
+
+```text
+How many species do I have?
+```
+
+Then notice:
+
+```text
+One station has very few records.
+```
+
+That may lead you to ask:
+
+```text
+Was that camera operating throughout the study?
+```
+
+Then:
+
+```text
+Do all species show the same pattern?
+```
+
+Then:
+
+```text
+Does the pattern change through time?
+```
+
+EDA often looks like:
+
+```text
+question
+   ↓
+summary
+   ↓
+visualization
+   ↓
+something interesting or strange
+   ↓
+new question
+   ↓
+check the data
+   ↓
+repeat
+```
+
+## What EDA cannot tell us
+
+Exploratory analysis is extremely useful.
+
+But it has limits.
+
+From these graphs alone, we cannot conclude that:
+
+```text
+a habitat causes more detections
+
+one station has greater abundance
+
+one species prefers a treatment
+
+a temporal change reflects population change
+```
+
+Those conclusions require appropriate study design, effort information, and statistical analyses.
+
+::: {.callout-important}
+EDA helps us **describe patterns and generate hypotheses**.
+
+It does not automatically establish causation or account for detectability.
+:::
+
+
+## Practice at home
+
+::: {.callout-tip}
+
+
+Open your `intro-r-course` project and create:
+
+```text
+practice-08.R
+```
+
+inside the `scripts` folder.
+
+Use:
+
+```text
+recordTable.csv
+```
+
+to conduct a small exploratory analysis.
+
+### Part 1: Describe the dataset
+
+Find:
+
+1. The number of records.
+2. The number of camera stations.
+3. The number of species/categories.
+4. The first and last dates in the dataset.
+
+### Part 2: Data quality
+
+Explore:
+
+```text
+Sex
+Age
+N_individuals
+```
+
+Look for:
+
+- missing values,
+- unknown categories,
+- unusual values,
+- possible inconsistencies.
+
+Do not automatically modify anything.
+
+Simply identify observations that may deserve further review.
+
+### Part 3: Choose one species
+
+Choose any species in the dataset.
+
+Determine:
+
+1. How many records it has.
+2. At how many stations it was recorded.
+3. Which station contains the most records.
+4. How its records are distributed through time.
+
+### Part 4: Create two figures
+
+Create at least two different exploratory figures.
+
+For example:
+
+```text
+records among stations
+records through time
+age or sex categories
+number of individuals
+station × species
+```
+
+Add appropriate:
+
+```text
+titles
+axis labels
+theme
+```
+
+### Part 5: Interpret carefully
+
+Write **three observations** about the patterns you found.
+
+Then, for each observation, write at least one alternative explanation or limitation.
+
+For example:
+
+```text
+Observation:
+Station X had more deer records than Station Y.
+
+Possible explanation:
+Deer may use the area around Station X more frequently.
+
+Important limitation:
+We have not yet accounted for differences in camera effort between stations.
+```
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Example workflow
+
+There is no single correct solution because exploratory analysis depends on the questions you ask.
+
+One possible workflow could be:
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+
+recordTable <- read_csv(
+  "data/recordTable.csv"
+)
+
+
+# ---------------------------
+# Dataset overview
+# ---------------------------
+
+recordTable |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station),
+    species = n_distinct(Species),
+    first_record = min(Date),
+    last_record = max(Date)
+  )
+
+
+# ---------------------------
+# Inspect data quality
+# ---------------------------
+
+recordTable |>
+  count(
+    Sex,
+    sort = TRUE
+  )
+
+recordTable |>
+  count(
+    Age,
+    sort = TRUE
+  )
+
+summary(
+  recordTable$N_individuals
+)
+
+
+# ---------------------------
+# Explore one species
+# ---------------------------
+
+deer_records <- recordTable |>
+  filter(
+    Species == "White-tailed deer"
+  )
+
+deer_records |>
+  summarise(
+    records = n(),
+    stations = n_distinct(Station)
+  )
+
+
+# Records by station
+
+deer_station <- deer_records |>
+  count(
+    Station,
+    sort = TRUE
+  )
+
+ggplot(
+  deer_station,
+  aes(
+    x = reorder(Station, n),
+    y = n
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  labs(
+    x = "Camera station",
+    y = "Number of records"
+  ) +
+  theme_bw()
+
+
+# Records through time
+
+deer_daily <- deer_records |>
+  count(Date)
+
+ggplot(
+  deer_daily,
+  aes(
+    x = Date,
+    y = n
+  )
+) +
+  geom_line() +
+  labs(
+    x = "Date",
+    y = "Number of records"
+  ) +
+  theme_bw()
+```
+
+The purpose is not to produce a specific answer.
+
+The purpose is to practice asking:
+
+```text
+What do I see?
+
+Does it make sense?
+
+What could explain it?
+
+What information am I missing?
+
+What should I investigate next?
+```
+
+:::
